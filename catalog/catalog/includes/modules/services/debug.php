@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: debug.php,v 1.3 2004/11/28 18:39:09 hpdl Exp $
+  $Id: debug.php,v 1.4 2004/11/28 20:04:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
     var $title = 'Debug',
         $description = 'Display collected debug information.',
         $uninstallable = true,
-        $depends,
+        $depends = 'language',
         $preceeds;
 
     function start() {
@@ -101,6 +101,7 @@
       $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Page Execution Time Log File', 'SERVICE_DEBUG_EXECUTION_TIME_LOG', '', 'Location of the page execution time log file (eg, /www/log/page_parse.log).', '6', '0', now())");
       $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Show The Page Execution Time', 'SERVICE_DEBUG_EXECUTION_DISPLAY', 'True', 'Show the page execution time.', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Log Database Queries', 'SERVICE_DEBUG_LOG_DB_QUERIES', 'False', 'Log all database queries in the page execution time log file.', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
+      $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Show Database Queries', 'SERVICE_DEBUG_OUTPUT_DB_QUERIES', 'False', 'Show all database queries made.', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Show Development Version Warning', 'SERVICE_DEBUG_SHOW_DEVELOPMENT_WARNING', 'True', 'Show an osCommerce development version warning message.', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Check Language Locale', 'SERVICE_DEBUG_CHECK_LOCALE', 'True', 'Show a warning message if the set language locale does not exist on the server.', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
       $osC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Check Installation Module', 'SERVICE_DEBUG_CHECK_INSTALLATION_MODULE', 'True', 'Show a warning message if the installation module exists.', '6', '0', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
@@ -117,7 +118,7 @@
     }
 
     function keys() {
-      return array('SERVICE_DEBUG_EXECUTION_TIME_LOG', 'SERVICE_DEBUG_EXECUTION_DISPLAY', 'SERVICE_DEBUG_LOG_DB_QUERIES', 'SERVICE_DEBUG_SHOW_DEVELOPMENT_WARNING', 'SERVICE_DEBUG_CHECK_LOCALE', 'SERVICE_DEBUG_CHECK_INSTALLATION_MODULE', 'SERVICE_DEBUG_CHECK_CONFIGURATION', 'SERVICE_DEBUG_CHECK_SESSION_DIRECTORY', 'SERVICE_DEBUG_CHECK_SESSION_AUTOSTART', 'SERVICE_DEBUG_CHECK_DOWNLOAD_DIRECTORY');
+      return array('SERVICE_DEBUG_OUTPUT_DB_QUERIES', 'SERVICE_DEBUG_LOG_DB_QUERIES', 'SERVICE_DEBUG_EXECUTION_TIME_LOG', 'SERVICE_DEBUG_EXECUTION_DISPLAY', 'SERVICE_DEBUG_SHOW_DEVELOPMENT_WARNING', 'SERVICE_DEBUG_CHECK_LOCALE', 'SERVICE_DEBUG_CHECK_INSTALLATION_MODULE', 'SERVICE_DEBUG_CHECK_CONFIGURATION', 'SERVICE_DEBUG_CHECK_SESSION_DIRECTORY', 'SERVICE_DEBUG_CHECK_SESSION_AUTOSTART', 'SERVICE_DEBUG_CHECK_DOWNLOAD_DIRECTORY');
     }
   }
 ?>

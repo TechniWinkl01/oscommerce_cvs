@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mysql.php,v 1.6 2004/11/28 19:29:24 hpdl Exp $
+  $Id: mysql.php,v 1.7 2004/11/28 20:04:06 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -92,14 +92,16 @@
           $debug = true;
         }
 
-        if ( ($debug === true) && ( (isset($osC_Services) === false) || (isset($osC_Services) && ($osC_Services->isStarted('debug') === false)) ) ) {
-          $debug = false;
-        }
-
         if (isset($osC_Services) && $osC_Services->isStarted('debug')) {
+          if ( ($debug === false) && (SERVICE_DEBUG_OUTPUT_DB_QUERIES == 'True') ) {
+            $debug = true;
+          }
+
           if (tep_not_null(SERVICE_DEBUG_EXECUTION_TIME_LOG) && (SERVICE_DEBUG_LOG_DB_QUERIES == 'True')) {
             @error_log('QUERY ' . $query . "\n", 3, SERVICE_DEBUG_EXECUTION_TIME_LOG);
           }
+        } elseif ($debug === true) {
+          $debug = false;
         }
 
         if ($debug === true) {
