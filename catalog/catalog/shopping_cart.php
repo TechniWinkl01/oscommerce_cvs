@@ -274,21 +274,16 @@
         }
         $products_name = tep_products_name($check_cart_values['manufacturers_location'], $check_cart_values['manufacturers_name'], $check_cart_values['products_name']);
 
-        $product_info_query = tep_db_query("select distinct subcategories_to_category.category_top_id, category_index.category_index_id from category_index, category_index_to_top, products_to_subcategories, subcategories_to_category where category_index.category_index_id = category_index_to_top.category_index_id and products_to_subcategories.subcategories_id = subcategories_to_category.subcategories_id and subcategories_to_category.category_top_id = category_index_to_top.category_top_id and category_index.sql_select = 'manufacturers' and products_to_subcategories.products_id = '" . $check_cart_values['products_id'] . "'");
-        $product_info_values = tep_db_fetch_array($product_info_query);
-
-        $link_parameters = 'category_id=' . $product_info_values['category_top_id'] . '&index_id=' . $product_info_values['category_index_id'] . '&subcategory_id=' . $check_cart_values['manufacturers_id'] . '&products_id=' . $check_cart_values['products_id'];
-
         echo '          <tr>' . "\n";
 
         echo '            <td '; $col_idx=0; echo $col_width[$col_idx++]; echo ' align="center"><a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $check_cart_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_small_delete.gif', '50', '14', '0', 'Remove ' . $products_name . ' from Shopping Cart.') . '</a></td>' . "\n";
         echo '            <td '; echo $col_width[$col_idx++]; echo ' align="center" nowrap><input type="text" name="new_cart_quantity[]" value="' . $check_cart_values['customers_basket_quantity'] . '" maxlength="2" size="2"><input type="hidden" name="old_cart_quantity[]" value="' . $check_cart_values['customers_basket_quantity'] . '"><input type="hidden" name="products_id[]" value="' . $check_cart_values['products_id'] . '"></td>' . "\n";
 
         if (PRODUCT_LIST_MODEL) {
-          echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, $link_parameters, 'NONSSL') . '">' . $check_cart_values['products_model'] . '</a>&nbsp;</font></td>' . "\n";
+          echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $check_cart_values['products_id'], 'NONSSL') . '">' . $check_cart_values['products_model'] . '</a>&nbsp;</font></td>' . "\n";
         }
 
-        echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, $link_parameters, 'NONSSL') . '">' . $products_name . '</a>&nbsp;</font></td>' . "\n";
+        echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $check_cart_values['products_id'], 'NONSSL') . '">' . $products_name . '</a>&nbsp;</font></td>' . "\n";
         echo '            <td ' . $col_width[$col_idx++] . ' align="right" nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;$' . number_format(($check_cart_values['customers_basket_quantity'] * $price),2) . '&nbsp;</font></td>' . "\n";
         echo '          </tr>' . "\n";
         $total_cost = $total_cost + ($check_cart_values['customers_basket_quantity'] * $price);
@@ -312,20 +307,15 @@
           }
           $products_name = tep_products_name($check_cart_values['manufacturers_location'], $check_cart_values['manufacturers_name'], $check_cart_values['products_name']);
           
-          $product_info_query = tep_db_query("select distinct subcategories_to_category.category_top_id, category_index.category_index_id from category_index, category_index_to_top, products_to_subcategories, subcategories_to_category where category_index.category_index_id = category_index_to_top.category_index_id and products_to_subcategories.subcategories_id = subcategories_to_category.subcategories_id and subcategories_to_category.category_top_id = category_index_to_top.category_top_id and category_index.sql_select = 'manufacturers' and products_to_subcategories.products_id = '" . $product_info[0] . "'");
-          $product_info_values = tep_db_fetch_array($product_info_query);
-
-          $link_parameters = 'category_id=' . $product_info_values['category_top_id'] . '&index_id=' . $product_info_values['category_index_id'] . '&subcategory_id=' . $check_cart_values['manufacturers_id'] . '&products_id=' . $product_info[0];
-          
           echo '          <tr>' . "\n";
           echo '            <td '; $col_idx=0; echo $col_width[$col_idx++]; echo ' align="center"><a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $product_info[0], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_small_delete.gif', '50', '14', '0', 'Remove ' . $products_name . ' from Shopping Cart.') . '</a></td>' . "\n";
           echo '            <td ' . $col_width[$col_idx++] . ' align="center" nowrap><input type="text" name="new_cart_quantity[]" value="' . $product_info[1] . '" maxlength="2" size="2"><input type="hidden" name="old_cart_quantity[]" value="' . $product_info[1] . '"><input type="hidden" name="products_id[]" value="' . $product_info[0] . '"></td>' . "\n";
 
           if (PRODUCT_LIST_MODEL) {
-            echo '            <td '; echo $col_width[$col_idx++]; echo ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, $link_parameters, 'NONSSL') . '">' . $check_cart_values['products_model'] . '</a>&nbsp;</font></td>' . "\n";
+            echo '            <td '; echo $col_width[$col_idx++]; echo ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info[0], 'NONSSL') . '">' . $check_cart_values['products_model'] . '</a>&nbsp;</font></td>' . "\n";
           }
 
-          echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, $link_parameters, 'NONSSL') . '">' . $products_name . '</a>&nbsp;</font></td>' . "\n";
+          echo '            <td ' . $col_width[$col_idx++] . ' nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $product_info[0], 'NONSSL') . '">' . $products_name . '</a>&nbsp;</font></td>' . "\n";
           echo '            <td ' . $col_width[$col_idx++] . ' align="right" nowrap><font face="' , TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;$' . number_format(($product_info[1] * $price),2) . '&nbsp;</font></td>' . "\n";
           echo '          </tr>' . "\n";
           $total_cost = $total_cost + ($product_info[1] * $price);

@@ -51,22 +51,21 @@ order by ordersum DESC, products.products_name limit " . MAX_DISPLAY_BESTSELLERS
 
       // assuming the product will have only one manufacturer; if else the
       // name of the first manufacturer retrieved will be displayed
-      $product_info_query = tep_db_query("select distinct subcategories_to_category.category_top_id, category_index.category_index_id, products_to_manufacturers.manufacturers_id, manufacturers.manufacturers_location, manufacturers.manufacturers_name  from category_index, category_index_to_top, products_to_subcategories, subcategories_to_category, products_to_manufacturers, manufacturers where category_index.category_index_id = category_index_to_top.category_index_id and products_to_subcategories.subcategories_id = subcategories_to_category.subcategories_id and subcategories_to_category.category_top_id = category_index_to_top.category_top_id and products_to_subcategories.products_id = products_to_manufacturers.products_id and products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and category_index.sql_select = 'manufacturers' and products_to_subcategories.products_id = '" . $best_sellers_values['products_id'] . "'");
+      $product_info_query = tep_db_query("select manufacturers.manufacturers_location, manufacturers.manufacturers_name  from products_to_manufacturers, manufacturers where products_to_manufacturers.manufacturers_id = manufacturers.manufacturers_id and products_to_manufacturers.products_id = '" . $best_sellers_values['products_id'] . "'");
       $product_info_values = tep_db_fetch_array($product_info_query);
 
       $products_name = tep_products_name($product_info_values['manufacturers_location'], $product_info_values['manufacturers_name'], $best_sellers_values['products_name']);
 
-      $jump_parameters = 'category_id=' . $product_info_values['category_top_id'] . '&index_id=' . $product_info_values['category_index_id'] . '&subcategory_id=' . $product_info_values['manufacturers_id'] . '&products_id=' . $best_sellers_values['products_id'];
       tep_db_free_result($product_info_query);
   
       if ($use_mouseover) {
-        echo '              <tr onclick="window.location.href=\'' . tep_href_link(FILENAME_PRODUCT_INFO, $jump_parameters, 'NONSSL') . '\';" onmouseout="this.style.backgroundColor=\'' . BOX_CONTENT_BACKGROUND_COLOR . '\';" onmouseover="this.style.backgroundColor=\'' . BOX_CONTENT_HIGHLIGHT_COLOR . '\';this.style.cursor=\'hand\';">' . "\n";
+        echo '              <tr onclick="window.location.href=\'' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers_values['products_id'], 'NONSSL') . '\';" onmouseout="this.style.backgroundColor=\'' . BOX_CONTENT_BACKGROUND_COLOR . '\';" onmouseover="this.style.backgroundColor=\'' . BOX_CONTENT_HIGHLIGHT_COLOR . '\';this.style.cursor=\'hand\';">' . "\n";
       } else {
         echo '              <tr>' . "\n";
       }
   
       echo '                <td width="20%" align="center" valign="top"><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">' . $row_num . '.</font></td>' . "\n";
-      echo '                <td width="80%"><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">' . '<a ' . $class . 'href="' . tep_href_link(FILENAME_PRODUCT_INFO, $jump_parameters, 'NONSSL') . '">' . $products_name . '</a></font></td>' . "\n";
+      echo '                <td width="80%"><font face="' . BOX_CONTENT_FONT_FACE . '" color="' . BOX_CONTENT_FONT_COLOR . '" size="' . BOX_CONTENT_FONT_SIZE . '">' . '<a ' . $class . 'href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers_values['products_id'], 'NONSSL') . '">' . $products_name . '</a></font></td>' . "\n";
       echo '              </tr>' . "\n";
     }
     echo "\n";
