@@ -11,12 +11,14 @@
   if ((@$HTTP_POST_VARS['action'] == 'process') || (@$HTTP_POST_VARS['action'] == 'update')) {
     $process = 1;
     $error = 0;
+   if (ACCOUNT_GENDER) {
     if ((@$HTTP_POST_VARS['gender'] == 'm') || (@$HTTP_POST_VARS['gender'] == 'f')) {
       $gender_error = 0;
     } else {
       $gender_error = 1;
       $error = 1;
     }
+   }
 
     if (@strlen(trim($HTTP_POST_VARS['firstname'])) < ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH) {
       $firstname_error = 1;
@@ -62,11 +64,37 @@
   }
 
   if ((@$process == 1) && (@$error == 0) && (@$HTTP_POST_VARS['action'] == 'update')) {
-    tep_db_query("update address_book set entry_gender = '" . $HTTP_POST_VARS['gender'] . "', entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', entry_state = '" . $HTTP_POST_VARS['state'] . "', entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id'] . "'");
+    $update_query = 'update address_book set ';
+    if (ACCOUNT_GENDER) {
+       $update_query = $update_query . "entry_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+    }
+    $update_query = $update_query . "entry_firstname = '" . $HTTP_POST_VARS['firstname'] . "', entry_lastname = '" . $HTTP_POST_VARS['lastname'] . "', entry_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
+    if (ACCOUNT_SUBURB) {
+       $update_query = $update_query . "entry_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
+    }
+    $update_query = $update_query . "entry_postcode = '" . $HTTP_POST_VARS['postcode'] . "', entry_city = '" . $HTTP_POST_VARS['city'] . "', ";
+    if (ACCOUNT_STATE) {
+       $update_query = $update_query . "entry_state = '" . $HTTP_POST_VARS['state']. "', ";
+    }
+    $update_query = $update_query . "entry_country_id = '" . $HTTP_POST_VARS['country'] . "' where address_book_id = '" . $HTTP_POST_VARS['entry_id']. "'";
+    tep_db_query($update_query);
     header('Location: ' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL'));
     tep_exit();
   } elseif ((@$process == 1) && (@$error == 0)) {
-    tep_db_query("insert into address_book values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $HTTP_POST_VARS['state'] . "', '" . $HTTP_POST_VARS['country'] . "')");
+    $gender = "";
+    $suburb = "";
+    $state = "";
+    if (ACCOUNT_GENDER) {
+       $gender = $HTTP_POST_VARS['gender'];
+    }
+    if (ACCOUNT_SUBURB) {
+       $suburb = $HTTP_POST_VARS['suburb'];
+    }
+    if (ACCOUNT_STATE) {
+       $state = $HTTP_POST_VARS['state'];
+    }
+    $update_query = "insert into address_book values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "')";
+    tep_db_query($update_query);
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into address_book_to_customers values ('', '" . $insert_id . "', '" . $customer_id . "')");
 
@@ -84,16 +112,35 @@
     }
   } else {
     if ((@$HTTP_GET_VARS['action'] == 'modify') && (@$HTTP_GET_VARS['entry_id'])) {
-      $entry = tep_db_query("select entry_gender, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id and address_book.address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'");
+      $entry_query = 'select ';
+      if (ACCOUNT_GENDER) {
+         $entry_query = $entry_query . "entry_gender, ";
+      }
+      $entry_query = $entry_query . "entry_firstname, entry_lastname, entry_street_address, ";
+      if (ACCOUNT_SUBURB) {
+         $entry_query = $entry_query . "entry_suburb, ";
+      }
+      $entry_query = $entry_query . "entry_postcode, entry_city, ";
+      if (ACCOUNT_STATE) {
+         $entry_query = $entry_query . "entry_state, ";
+      }
+      $entry_query = $entry_query . "entry_country_id from address_book, address_book_to_customers where address_book_to_customers.customers_id = '" . $customer_id . "' and address_book_to_customers.address_book_id = address_book.address_book_id and address_book.address_book_id = '" . $HTTP_GET_VARS['entry_id'] . "'";
+      $entry = tep_db_query($entry_query);
       $entry_values = tep_db_fetch_array($entry);
-      $gender = $entry_values['entry_gender'];
+      if (ACCOUNT_GENDER) {
+         $gender = $entry_values['entry_gender'];
+      }
       $firstname = $entry_values['entry_firstname'];
       $lastname = $entry_values['entry_lastname'];
       $street_address = $entry_values['entry_street_address'];
-      $suburb = $entry_values['entry_suburb'];
+      if (ACCOUNT_SUBURB) {
+         $suburb = $entry_values['entry_suburb'];
+      }
       $postcode = $entry_values['entry_postcode'];
       $city = $entry_values['entry_city'];
-      $state = $entry_values['entry_state'];
+      if (ACCOUNT_STATE) {
+         $state = $entry_values['entry_state'];
+      }
       $country = $entry_values['entry_country_id'];
     }
 ?>
@@ -121,12 +168,17 @@ function check_form() {
   var postcode = document.add_entry.postcode.value;
   var city = document.add_entry.city.value;
 
+<?
+ if (ACCOUNT_GENDER) {
+?>
   if (document.add_entry.gender[0].checked || document.add_entry.gender[1].checked) {
   } else {
     error_message = error_message + "<?=JS_GENDER;?>";
     error = 1;
   }
-
+<?
+ }
+?>
   if (firstname = "" || firstname.length < <?=ADDRESS_BOOK_FIRST_NAME_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_FIRST_NAME;?>";
     error = 1;
@@ -203,6 +255,7 @@ function check_form() {
     echo '            <td nowrap><font face="' . HEADING_FONT_FACE . '" size="' . HEADING_FONT_SIZE . '" color="' . HEADING_FONT_COLOR . '">&nbsp;' . HEADING_TITLE_ADD_ENTRY . '&nbsp;</font></td>' . "\n";
   }
   echo '            <td align="right" nowrap>&nbsp;' . tep_image(DIR_IMAGES . 'table_background_address_book.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE) . '&nbsp;</td>' . "\n";
+   $rowspan = 5+ACCOUNT_GENDER;
 ?>
           </tr>
         </table></td>
@@ -213,8 +266,11 @@ function check_form() {
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="6" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PERSONAL;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<?=$rowspan;?>" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PERSONAL;?></font></td>
           </tr>
+<?
+   if (ACCOUNT_GENDER) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_GENDER;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
@@ -240,6 +296,9 @@ function check_form() {
       echo '>&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_TEXT;
     } ?></font></td>
           </tr>
+<?
+  }
+?>
           <tr>
             <td colspan="2"><font face="Verdana, Arial" size="2">&nbsp;</font></td>
           </tr>
@@ -288,6 +347,9 @@ function check_form() {
       echo '<input type="text" name="street_address" value="' . @$street_address . '" maxlength="64">&nbsp;' . ENTRY_STREET_ADDRESS_TEXT;
     } ?></font></td>
           </tr>
+<?
+  if (ACCOUNT_SUBURB) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_SUBURB;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
@@ -296,6 +358,10 @@ function check_form() {
     } else {
       echo '<input type="text" name="suburb" value="' . @$suburb . '" maxlength="32">&nbsp;' . ENTRY_SUBURB_TEXT;
     } ?></font></td>
+          </tr>
+<?
+  }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_POST_CODE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
@@ -322,6 +388,9 @@ function check_form() {
       echo '<input type="text" name="city" value="' . @$city . '" maxlength="32">&nbsp;' . ENTRY_CITY_TEXT;
     } ?></font></td>
           </tr>
+<?
+   if (ACCOUNT_STATE) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
@@ -331,6 +400,9 @@ function check_form() {
       echo '<input type="text" name="state" value="' . @$state . '" maxlength="32">&nbsp;' . ENTRY_STATE_TEXT;
     } ?></font></td>
           </tr>
+<?
+   }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?

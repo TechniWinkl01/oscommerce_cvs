@@ -7,12 +7,14 @@
 
   $error = 0; // reset error flag
 
+ if (ACCOUNT_GENDER) {
   if (($HTTP_POST_VARS['gender'] == 'm') || ($HTTP_POST_VARS['gender'] == 'f')) {
     $gender_error = 0;
   } else {
     $gender_error = 1;
     $error = 1;
   }
+ }
 
   if (strlen(trim($HTTP_POST_VARS['firstname'])) < ENTRY_FIRST_NAME_MIN_LENGTH) {
     $firstname_error = 1;
@@ -28,12 +30,15 @@
     $lasttname_error = 0;
   }
 
+ if (ACCOUNT_DOB) {
   if (checkdate(substr($HTTP_POST_VARS['dob'], 3, 2), substr($HTTP_POST_VARS['dob'], 0, 2),substr($HTTP_POST_VARS['dob'], -4))) {
     $dob_error = 0;
   } else {
     $dob_error = 1;
     $error = 1;
   }
+ }
+
 
   if (strlen(trim($HTTP_POST_VARS['email_address'])) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
     $email_address_error = 1;
@@ -138,6 +143,7 @@
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_GENDER;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+   if (ACCOUNT_GENDER) {
     if ($gender_error == 1) {
       echo '<input type="radio" name="gender" value="m">&nbsp;' . MALE . '&nbsp;<input type="radio" name="gender" value="m">&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR;
     } else {
@@ -146,7 +152,9 @@
       } elseif ($HTTP_POST_VARS['gender'] == 'f') {
         echo FEMALE . '<input type="hidden" name="gender" value="f">';
       }
-    } ?></font></td>
+    }
+   }
+?></font></td>
           </tr>
           <tr>
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
@@ -172,11 +180,14 @@
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_DATE_OF_BIRTH;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
+  if (ACCOUNT_DOB) {
     if ($dob_error == 1) {
       echo '<input type="text" name="dob" value="' . $HTTP_POST_VARS['dob'] . '"maxlength="10">&nbsp;' . ENTRY_DATE_OF_BIRTH_ERROR;
     } else {
       echo $HTTP_POST_VARS['dob'] . '<input type="hidden" name="dob" value="' . $HTTP_POST_VARS['dob'] . '">';
-    } ?></font></td>
+    }
+  }
+?></font></td>
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_EMAIL_ADDRESS;?>&nbsp;</font></td>
@@ -204,11 +215,17 @@
       echo $HTTP_POST_VARS['street_address'] . '<input type="hidden" name="street_address" value="' . $HTTP_POST_VARS['street_address'] . '">';
     } ?></font></td>
           </tr>
+<?
+  if (ACCOUNT_SUBURB) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_SUBURB;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     echo $HTTP_POST_VARS['suburb'] . '<input type="hidden" name="suburb" value="' . $HTTP_POST_VARS['suburb'] . '">&nbsp;' . ENTRY_SUBURB_ERROR; ?></font></td>
           </tr>
+<?
+  }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_POST_CODE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
@@ -227,11 +244,17 @@
       echo $HTTP_POST_VARS['city'] . '<input type="hidden" name="city" value ="' . $HTTP_POST_VARS['city'] . '">';
     } ?></font></td>
           </tr>
+<?
+  if (ACCOUNT_STATE) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     echo $HTTP_POST_VARS['state'] . '<input type="hidden" name="state" value="' . $HTTP_POST_VARS['state'] . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
           </tr>
+<?
+  }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
@@ -314,9 +337,29 @@
 <?
   } else {
     $date_now = date('Ymd');
-    $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
+    if (ACCOUNT_DOB) {
+       $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
+    }
 
-    tep_db_query("update customers set customers_gender = '" . $HTTP_POST_VARS['gender'] . "', customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', customers_dob = '" . $dob_ordered . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', customers_state = '" . $HTTP_POST_VARS['state'] . "', customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "' where customers_id = '" . $customer_id . "'");
+    $update_query = 'update customers set ';
+    if (ACCOUNT_GENDER) {
+       $update_query = $update_query . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+    }
+    $update_query = $update_query . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
+    if (ACCOUNT_DOB) {
+       $update_query = $update_query . "customers_dob = '" . $dob_ordered . "', ";
+    }
+    $update_query = $update_query . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
+    if (ACCOUNT_SUBURB) {
+       $update_query = $update_query . "customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
+    }
+    $update_query = $update_query . "customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', ";
+    if (ACCOUNT_STATE) {
+       $update_query = $update_query . "customers_state = '" . $HTTP_POST_VARS['state'] . "', ";
+    }
+    $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "' where customers_id = '" . $customer_id . "'";
+
+    tep_db_query($update_query);
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");
 
     header('Location: ' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'));

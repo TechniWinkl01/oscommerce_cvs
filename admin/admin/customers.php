@@ -3,15 +3,49 @@
 <?
   if (($HTTP_GET_VARS['action'] == 'add_customers') && ($HTTP_POST_VARS['insert'] == '1')) {
     $date_now = date('Ymd');
-    $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
-    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $HTTP_POST_VARS['state'] . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $HTTP_POST_VARS['password'] . "', '" . $HTTP_POST_VARS['country'] . "')");
+    $dob_ordered = "00000000";
+    if (ACCOUNT_DOB) {
+       $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
+    }
+    $gender = "M";
+    if (ACCOUNT_GENDER) {
+       $gender = $HTTP_POST_VARS['gender'];
+    }
+    $suburb = "";
+    if (ACCOUNT_SUBURB) {
+       $suburb = $HTTP_POST_VARS['suburb'];
+    }
+    $state = "";
+    if (ACCOUNT_STATE) {
+       $HTTP_POST_VARS['state'];
+    }
+    tep_db_query("insert into customers values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $HTTP_POST_VARS['password'] . "', '" . $HTTP_POST_VARS['country'] . "')");
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into customers_info values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'update_customers') {
     $date_now = date('Ymd');
-    $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
-    tep_db_query("update customers set customers_gender = '" . $HTTP_POST_VARS['gender'] . "', customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', customers_dob = '" . $dob_ordered . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', customers_state = '" . $HTTP_POST_VARS['state'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "', customers_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    if (ACCOUNT_DOB) {
+       $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
+    }
+    $update_query = 'update customers set ';
+    if (ACCOUNT_GENDER) {
+       $update_query = $update_query . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
+    }
+     $update_query = $update_query . "customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', ";
+    if (ACCOUNT_DOB) {
+       $update_query = $update_query . "customers_dob = '" . $dob_ordered . "', ";
+    }
+    $update_query = $update_query . "customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', ";
+    if (ACCOUNT_SUBURB) {
+       $update_query = $update_query . "customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', ";
+    }
+    $update_query = $update_query . "customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', ";
+    if (ACCOUNT_STATE) {
+       $update_query = $update_query . "customers_state = '" . $HTTP_POST_VARS['state'] . "', ";
+    }
+    $update_query = $update_query . "customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "', customers_country_id = '" . $HTTP_POST_VARS['country'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'";
+    tep_db_query($update_query);
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
     header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
   } elseif ($HTTP_GET_VARS['action'] == 'delete_customers') {
@@ -45,7 +79,13 @@ function check_form() {
 
   var firstname = document.customers.firstname.value;
   var lastname = document.customers.lastname.value;
+<?
+   if (ACCOUNT_DOB) {
+?>
   var dob = document.customers.dob.value;
+<?
+   }
+?>
   var email_address = document.customers.email_address.value;  
   var street_address = document.customers.street_address.value;
   var postcode = document.customers.postcode.value;
@@ -55,11 +95,17 @@ function check_form() {
   var password = document.customers.password.value;
   var confirmation = document.customers.confirmation.value;
 
+<?
+   if (ACCOUNT_GENDER) {
+?>
   if (document.customers.gender[0].checked || document.customers.gender[1].checked) {
   } else {
     error_message = error_message + "<?=JS_GENDER;?>";
     error = 1;
   }
+<?
+   }
+?>
   
   if (firstname = "" || firstname.length < 3) {
     error_message = error_message + "<?=JS_FIRST_NAME;?>";
@@ -71,10 +117,16 @@ function check_form() {
     error = 1;
   }
 
+<?
+   if (ACCOUNT_DOB) {
+?>
   if (dob = "" || dob.length < 10) {
     error_message = error_message + "<?=JS_DOB;?>";
     error = 1;
   }
+<?
+   }
+?>
 
   if (email_address = "" || email_address.length < 6) {
     error_message = error_message + "<?=JS_EMAIL_ADDRESS;?>";
@@ -218,19 +270,45 @@ function go() {
     }
 
     if (($action == 'update') || ($action == 'delete')) {
-      $customers = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $HTTP_GET_VARS['customers_id'] . "'");
+      $cust_query = "select ";
+      if (ACCOUNT_GENDER) {
+         $cust_query = $cust_query . "customers_gender, ";
+      }
+      $cust_query = $cust_query . "customers_firstname, customers_lastname, ";
+      if (ACCOUNT_DOB) {
+         $cust_query = $cust_query . "customers_dob, ";
+      }
+      $cust_query = $cust_query . "customers_email_address, customers_street_address, ";
+      if (ACCOUNT_SUBURB) {
+         $cust_query = $cust_query . "customers_suburb, ";
+      }
+      $cust_query = $cust_query . "customers_postcode, customers_city, ";
+      if (ACCOUNT_STATE) {
+         $cust_query = $cust_query . "customers_state, ";
+      }
+      $cust_query = $cust_query . "customers_country_id, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $HTTP_GET_VARS['customers_id'] . "'";
+
+      $customers = tep_db_query($cust_query);
       $customers_values = tep_db_fetch_array($customers);
 
-      $gender = $customers_values['customers_gender'];
+      if (ACCOUNT_GENDER) {
+         $gender = $customers_values['customers_gender'];
+      }
       $firstname = $customers_values['customers_firstname'];
       $lastname = $customers_values['customers_lastname'];
-      $dob = substr($customers_values['customers_dob'], -2) . '/' . substr($customers_values['customers_dob'], 4, 2) . '/' . substr($customers_values['customers_dob'], 0, 4);
+      if (ACCOUNT_DOB) {
+         $dob = substr($customers_values['customers_dob'], -2) . '/' . substr($customers_values['customers_dob'], 4, 2) . '/' . substr($customers_values['customers_dob'], 0, 4);
+      }
       $email_address = $customers_values['customers_email_address'];
       $street_address = $customers_values['customers_street_address'];
-      $suburb = $customers_values['customers_suburb'];
+      if (ACCOUNT_SUBURB) {
+         $suburb = $customers_values['customers_suburb'];
+      }
       $postcode = $customers_values['customers_postcode'];
       $city = $customers_values['customers_city'];
-      $state = $customers_values['customers_state'];
+      if (ACCOUNT_STATE) {
+         $state = $customers_values['customers_state'];
+      }
       $country = $customers_values['customers_country_id'];
       $telephone = $customers_values['customers_telephone'];
       $fax = $customers_values['customers_fax'];
@@ -238,7 +316,9 @@ function go() {
     } else {
       $firstname = $HTTP_POST_VARS['customers_firstname'];
       $lastname = $HTTP_POST_VARS['customers_lastname'];
-      $dob = DOB_FORMAT_STRING;
+      if (ACCOUNT_DOB) {
+         $dob = DOB_FORMAT_STRING;
+      }
       $country = $HTTP_POST_VARS['customers_country'];
       $password = '';
     }
@@ -248,6 +328,7 @@ function go() {
             <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PERSONAL;?></font></td>
           </tr>
 <?
+   if (ACCOUNT_GENDER) {
     if ($action == 'delete') {
 ?>
           <tr>
@@ -274,6 +355,7 @@ function go() {
           </tr>
 <?
     }
+   }
 ?>
           <tr>
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
@@ -286,10 +368,16 @@ function go() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_LAST_NAME;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $lastname; } else { echo '<input type="text" name="lastname" maxlength="32" value="' . @$lastname . '">&nbsp;' . ENTRY_LAST_NAME_TEXT; } ?></font></td>
           </tr>
+<?
+   if (ACCOUNT_DOB) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_DATE_OF_BIRTH;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $dob; } else { echo '<input type="text" name="dob" maxlength="10" value="' . @$dob . '">&nbsp;' . ENTRY_DATE_OF_BIRTH_TEXT; } ?></font></td>
           </tr>
+<?
+   }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_EMAIL_ADDRESS;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $email_address; } else { echo '<input type="text" name="email_address" maxlength="96" value="' . @$email_address . '">&nbsp;' . ENTRY_EMAIL_ADDRESS_TEXT; } ?></font></td>
@@ -304,10 +392,16 @@ function go() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_STREET_ADDRESS;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $street_address; } else { echo '<input type="text" name="street_address" maxlength="64" value="' . @$street_address . '">&nbsp;' . ENTRY_STREET_ADDRESS_TEXT; }?></font></td>
           </tr>
+<?
+   if (ACCOUNT_SUBURB) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_SUBURB;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $suburb; } else { echo '<input type="text" name="suburb" maxlength="32" value="' . @$suburb . '">&nbsp;' . ENTRY_SUBURB_TEXT; } ?></font></td>
           </tr>
+<?
+   }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_POST_CODE;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $postcode; } else { echo '<input type="text" name="postcode" maxlength="8" value="' . @$postcode . '">&nbsp;' . ENTRY_POST_CODE_TEXT; } ?></font></td>
@@ -316,10 +410,16 @@ function go() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_CITY;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $city; } else { echo '<input type="text" name="city" maxlength="32" value="' . @$city . '">&nbsp;' . ENTRY_CITY_TEXT; } ?></font></td>
           </tr>
+<?
+   if (ACCOUNT_STATE) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_STATE;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $state; } else { echo '<input type="text" name="state" maxlength="32" value="' . @$state . '">&nbsp;' . ENTRY_STATE_TEXT; } ?></font></td>
           </tr>
+<?
+   }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">&nbsp;

@@ -12,7 +12,13 @@ function check_form() {
 
   var first_name = document.account_edit.firstname.value;
   var last_name = document.account_edit.lastname.value;
+<?
+   if (ACCOUNT_DOB) {
+?>
   var dob = document.account_edit.dob.value;
+<?
+  }
+?>
   var email_address = document.account_edit.email_address.value;  
   var street_address = document.account_edit.street_address.value;
   var postcode = document.account_edit.postcode.value;
@@ -21,12 +27,18 @@ function check_form() {
   var password = document.account_edit.password.value;
   var confirmation = document.account_edit.confirmation.value;
 
+<?
+   if (ACCOUNT_GENDER) {
+?>
   if (document.account_edit.gender[0].checked || document.account_edit.gender[1].checked) {
   } else {
     error_message = error_message + "<?=JS_GENDER;?>";
     error = 1;
   }
-  
+<?
+  }
+?>
+ 
   if (first_name = "" || first_name.length < <?=ENTRY_FIRST_NAME_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_FIRST_NAME;?>";
     error = 1;
@@ -37,11 +49,17 @@ function check_form() {
     error = 1;
   }
 
+<?
+   if (ACCOUNT_DOB) {
+?>
   if (dob = "" || dob.length < <?=ENTRY_DOB_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_DOB;?>";
     error = 1;
   }
-
+<?
+  }
+?>
+ 
   if (email_address = "" || email_address.length < <?=ENTRY_EMAIL_ADDRESS_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_EMAIL_ADDRESS;?>";
     error = 1;
@@ -100,8 +118,26 @@ function check_form() {
     </table></td>
 <!-- body_text //-->
 <?
-  $account = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country_id, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $customer_id . "'");
+  $account_query = 'select ';
+  if (ACCOUNT_GENDER) {
+    $account_query = $account_query . 'customers_gender, ';
+  }
+  $account_query = $account_query . 'customers_firstname, customers_lastname, ';
+  if (ACCOUNT_DOB) {
+    $account_query = $account_query . 'customers_dob, ';
+  }
+  $account_query = $account_query . 'customers_email_address, customers_street_address, ';
+  if (ACCOUNT_SUBURB) {
+    $account_query = $account_query . 'customers_suburb, ';
+  }
+  $account_query = $account_query . 'customers_postcode, customers_city, ';
+  if (ACCOUNT_STATE) {
+    $account_query = $account_query . 'customers_state, ';
+  }
+  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $customer_id . "'";
+  $account = tep_db_query($account_query);
   $account_values = tep_db_fetch_array($account);
+  $rowspan=5+ACCOUNT_GENDER+ACCOUNT_DOB;
 ?>
     <td width="100%" valign="top"><form name="account_edit" method="post" action="<?=tep_href_link(FILENAME_ACCOUNT_EDIT_PROCESS, '', 'NONSSL');?>" onSubmit="return check_form();"><input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
@@ -125,8 +161,11 @@ function check_form() {
       <tr>
         <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PERSONAL;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<?=$rowspan;?>" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PERSONAL;?></font></td>
           </tr>
+<?
+  if (ACCOUNT_GENDER) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_GENDER;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<input type="radio" name="gender" value="m"<?
@@ -137,6 +176,9 @@ function check_form() {
     echo ' CHECKED';
   } ?>>&nbsp;&nbsp;<?=FEMALE;?>&nbsp;<?=ENTRY_GENDER_TEXT;?></font></td>
           </tr>
+<?
+   }
+?>
           <tr>
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
           </tr>
@@ -148,10 +190,17 @@ function check_form() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_LAST_NAME;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="lastname" maxlength="32" value="<?=$account_values['customers_lastname'];?>">&nbsp;<?=ENTRY_LAST_NAME_TEXT;?></font></td>
           </tr>
+<?
+  if (ACCOUNT_DOB) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_DATE_OF_BIRTH;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="dob" value="<?=substr($account_values['customers_dob'], -2) . '/' . substr($account_values['customers_dob'], 4, 2) . '/' . substr($account_values['customers_dob'], 0, 4);?>" maxlength="10">&nbsp;<?=ENTRY_DATE_OF_BIRTH_TEXT;?></font></td>
           </tr>
+<?
+   }
+   $rowspan=5+ACCOUNT_SUBURB+ACCOUNT_STATE;
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_EMAIL_ADDRESS;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="email_address" maxlength="96" value="<?=$account_values['customers_email_address'];?>">&nbsp;<?=ENTRY_EMAIL_ADDRESS_TEXT;?></font></td>
@@ -160,16 +209,22 @@ function check_form() {
             <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
           </tr>
           <tr>
-            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_ADDRESS;?></font></td>
+            <td align="right" valign="middle" colspan="2" rowspan="<?=$rowspan;?>" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_ADDRESS;?></font></td>
           </tr>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STREET_ADDRESS;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="street_address" maxlength="64" value="<?=$account_values['customers_street_address'];?>">&nbsp;<?=ENTRY_STREET_ADDRESS_TEXT;?></font></td>
           </tr>
+<?
+  if (ACCOUNT_SUBURB) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_SUBURB;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="suburb" maxlength="32" value="<?=$account_values['customers_suburb'];?>">&nbsp;<?=ENTRY_SUBURB_TEXT;?></font></td>
           </tr>
+<?
+   }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_POST_CODE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="postcode" maxlength="8" value="<?=$account_values['customers_postcode'];?>">&nbsp;<?=ENTRY_POST_CODE_TEXT;?></font></td>
@@ -178,10 +233,16 @@ function check_form() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_CITY;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="city" maxlength="32" value="<?=$account_values['customers_city'];?>">&nbsp;<?=ENTRY_CITY_TEXT;?></font></td>
           </tr>
+<?
+  if (ACCOUNT_STATE) {
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<input type="text" name="state" maxlength="32" value="<?=$account_values['customers_state'];?>">&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
           </tr>
+<?
+  }
+?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<select name="country"><option value="0"><?=PLEASE_SELECT;?></option>
