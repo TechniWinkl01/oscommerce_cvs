@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.13 2002/01/11 02:20:56 hpdl Exp $
+  $Id: header.php,v 1.14 2002/01/14 14:30:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -23,6 +23,6 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr class="headerNavigation">
     <td class="headerNavigation"><b>&nbsp;&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_TOP . '</a>'; ?></b></td>
-    <td class="headerNavigation" align="right"><b><?php echo '<a href="http://theexchangeproject.org" class="whitelink">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?> &nbsp;|&nbsp; <?php echo '<a href="' . DIR_WS_CATALOG . FILENAME_DEFAULT . '" class="whitelink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>'; ?> &nbsp;|&nbsp; <?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_ADMINISTRATION . '</a>'; ?>&nbsp;&nbsp;</b></td>
+    <td class="headerNavigation" align="right"><b><?php echo '<a href="http://theexchangeproject.org" class="whitelink">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?> &nbsp;|&nbsp; <?php echo '<a href="' . DIR_WS_CATALOG . '" class="whitelink">' . HEADER_TITLE_ONLINE_CATALOG . '</a>'; ?> &nbsp;|&nbsp; <?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="whitelink">' . HEADER_TITLE_ADMINISTRATION . '</a>'; ?>&nbsp;&nbsp;</b></td>
   </tr>
 </table>
