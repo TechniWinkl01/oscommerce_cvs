@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: general.php,v 1.78 2001/12/08 22:41:51 dgw_ Exp $
+  $Id: general.php,v 1.79 2001/12/26 22:43:18 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -45,9 +45,7 @@
     $customers = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $customers_id . "'");
     $customers_values = tep_db_fetch_array($customers);
 
-    $customers_name = $customers_values['customers_firstname'] . ' ' . $customers_values['customers_lastname'];
-
-    return $customers_name;
+    return $customers_values['customers_firstname'] . ' ' . $customers_values['customers_lastname'];
   }
 
   function tep_get_path($current_category_id = '') {
@@ -92,7 +90,7 @@
 
     reset($HTTP_GET_VARS);
     while (list($key, $value) = each($HTTP_GET_VARS)) {
-      if (($key != session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
+      if (($key != tep_session_name()) && ($key != 'error') && (!tep_in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
     }
 
     return $get_url;
@@ -128,20 +126,17 @@
   }
 
   function tep_datetime_short($raw_datetime) {
-    $datetime_formated = strftime(DATE_TIME_FORMAT, mktime(substr($raw_datetime, 11, 2),substr($raw_datetime, 14, 2),substr($raw_datetime, 17, 2),substr($raw_datetime, 5, 2),substr($raw_datetime, 8, 2),substr($raw_datetime, 0, 4)));
-    return $datetime_formated;
+    return strftime(DATE_TIME_FORMAT, mktime(substr($raw_datetime, 11, 2),substr($raw_datetime, 14, 2),substr($raw_datetime, 17, 2),substr($raw_datetime, 5, 2),substr($raw_datetime, 8, 2),substr($raw_datetime, 0, 4)));
   }
 
   function tep_array_merge($array1, $array2, $array3 = '') {
-
     if ($array3 == '') $array3 = array();
-
     if (function_exists('array_merge')) {
       $array_merged = array_merge($array1, $array2, $array3);
     } else {
       while (list($key, $val) = each($array1)) $array_merged[$key] = $val;
       while (list($key, $val) = each($array2)) $array_merged[$key] = $val;
-      while (list($key, $val) = @each($array3)) $array_merged[$key] = $val;
+      if (sizeof($array3) > 0) while (list($key, $val) = each($array3)) $array_merged[$key] = $val;
     }
 
     return (array) $array_merged;
@@ -256,9 +251,7 @@
     $options = tep_db_query("select products_options_name from " . TABLE_PRODUCTS_OPTIONS . " where products_options_id = '" . $options_id . "' and language_id = '" . $languages_id . "'");
     $options_values = tep_db_fetch_array($options);
 
-    $options_name = $options_values['products_options_name'];
-
-    return $options_name;
+    return $options_values['products_options_name'];
   }
 
 ////
@@ -284,9 +277,7 @@
     $values = tep_db_query("select products_options_values_name from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . $values_id . "' and language_id = '" . $languages_id . "'");
     $values_values = tep_db_fetch_array($values);
 
-    $values_name = $values_values['products_options_values_name'];
-
-    return $values_name;
+    return $values_values['products_options_values_name'];
   }
 
   function tep_info_image($image_source, $image_alt) {
@@ -346,16 +337,11 @@
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  //   tep_browser_detect - what broser is the customer using?
-  //
-  ////////////////////////////////////////////////////////////////////////////////////////////////
+  function tep_browser_detect($component) {
+    global $HTTP_USER_AGENT;
 
-  function tep_browser_detect($component) { 
-    global $HTTP_USER_AGENT; 
-    $result = stristr($HTTP_USER_AGENT,$component); 
-    return $result; 
-  } 
+    return stristr($HTTP_USER_AGENT, $component);
+  }
 
   function tep_tax_classes_pull_down($parameters, $selected = '') {
     $select_string = '<select ' . $parameters . '>';
