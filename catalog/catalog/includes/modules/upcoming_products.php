@@ -1,4 +1,8 @@
 <!-- upcoming_products //-->
+<?
+    $expected = tep_db_query("select products_name, date_expected from products_expected order by date_expected DESC limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
+    if (tep_db_num_rows($expected) > 0) {
+?>
           <tr>
             <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
@@ -10,7 +14,6 @@
               </tr>
               <tr>
 <?
-    $expected = tep_db_query("select products_name, date_expected from products_expected order by date_expected DESC limit " . MAX_DISPLAY_UPCOMING_PRODUCTS);
     $row = 0;
     while ($expected_values = tep_db_fetch_array($expected)) {
       $row++;
@@ -29,4 +32,7 @@
               </tr>
             </table></td>
           </tr>
+<?
+    }
+?>
 <!-- upcoming_products_eof //-->
