@@ -98,6 +98,10 @@ define('BOX_INFORMATION_CONDITIONS', 'Condiciones de uso');
 define('BOX_INFORMATION_SHIPPING', 'Envios/Devoluciones');
 define('BOX_INFORMATION_CONTACT', 'Contactenos');
 
+// tell a friend box text in includes/boxes/tell_a_friend.php
+define('BOX_HEADING_TELL_A_FRIEND', 'Diselo a un Amigo');
+define('BOX_TELL_A_FRIEND_TEXT', 'Envia esta pagina a un amigo con un comentario.');
+
 // checkout procedure text
 define('CHECKOUT_BAR_CART_CONTENTS', 'cesta');
 define('CHECKOUT_BAR_DELIVERY_ADDRESS', 'entrega');
