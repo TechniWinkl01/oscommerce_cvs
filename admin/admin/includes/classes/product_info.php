@@ -1,6 +1,6 @@
 <?
   class productInfo {
-    var $id, $name, $image, $description, $quantity, $model, $url, $price, $date_added, $date_available, $date_available_caljs_year, $date_available_caljs_month, $date_available_caljs_day, $status, $tax_class, $weight, $manufacturer, $manufacturers_id, $manufacturers_image, $average_rating;
+    var $id, $name, $image, $description, $quantity, $model, $url, $price, $date_added, $date_available, $date_available_caljs_year, $date_available_caljs_month, $date_available_caljs_day, $status, $tax_class, $weight, $manufacturer, $manufacturers_id, $manufacturers_image, $average_rating, $last_modified;
 
 // class constructor
     function productInfo($pInfo_array) {
@@ -19,6 +19,7 @@
       $this->url = $pInfo_array['products_url'];
       $this->price = $pInfo_array['products_price'];
       $this->date_added = $pInfo_array['products_date_added'];
+      $this->last_modified = $pInfo_array['products_last_modified'];
 
       if (strlen($pInfo_array['products_date_available']) < 8) {
         $this->date_available = date('Ymd');
