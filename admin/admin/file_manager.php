@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.4 2001/12/11 22:02:00 dgw_ Exp $
+  $Id: file_manager.php,v 1.5 2001/12/11 22:44:01 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -116,7 +116,7 @@
         </table></td>
       </tr>
 <?php
-  if ($HTTP_GET_VARS['action'] == 'new_file') {
+  if ( ($HTTP_GET_VARS['action'] == 'new_file') || ($HTTP_GET_VARS['action'] == 'edit') ) {
 ?>
       <tr>
         <td><form action="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=save'); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -126,13 +126,30 @@
           <tr>
             <td colspan="2" class="main">&nbsp;</td>
           </tr>
+<?php
+  $file_contents = '';
+  if ($HTTP_GET_VARS['action'] == 'new_file') {
+?>
           <tr>
             <td class="main"><?php echo TEXT_FILE_NAME; ?></td>
             <td class="main"><input name="filename"></td>
           </tr>
+<?php
+  } elseif ($HTTP_GET_VARS['action'] == 'edit') {
+    if ($file_array = file($current_path . '/' . $HTTP_GET_VARS['filename'])) {
+      $file_contents = implode('', $file_array);
+    }
+?>
+          <tr>
+            <td class="main"><?php echo TEXT_FILE_NAME; ?></td>
+            <td class="main"><?php echo $HTTP_GET_VARS['filename']; ?><input type="hidden" name="filename" value="<?php echo $HTTP_GET_VARS['filename']; ?>"></td>
+          </tr>
+<?
+  }
+?>
           <tr valign="top">
             <td class="main"><?php echo TEXT_FILE_CONTENTS; ?></td>
-            <td class="main"><textarea rows="15" cols="60" name="contents"></textarea></td>
+            <td class="main"><textarea rows="15" cols="60" name="contents"><?php echo $file_contents; ?></textarea></td>
           </tr>
           <tr>
             <td colspan="2" class="main">&nbsp;</td>
@@ -254,7 +271,7 @@
       default:
         if ($fmInfo) { // category info box contents
           $info_box_contents = array();
-          if ($fmInfo->name <> '..') $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=delete&info=' . $fmInfo->key ) . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
+          if ($fmInfo->name <> '..') $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=edit&filename=' . $fmInfo->name ) . '">' . tep_image(DIR_WS_IMAGES . 'button_edit.gif', IMAGE_EDIT) . '</a>&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_FILE_MANAGER, 'action=delete&info=' . $fmInfo->key ) . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>');
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_FILE_NAME . ' <b>' . $fmInfo->name . '</b>');
           $info_box_contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . TEXT_LAST_MODIFIED . ' ' . strftime(DATE_FORMAT_SHORT, $fmInfo->last_modified));
         }
