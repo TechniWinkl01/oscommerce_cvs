@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.218 2003/05/07 15:22:33 project3000 Exp $
+  $Id: general.php,v 1.219 2003/05/14 17:04:54 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -705,14 +705,11 @@
     $temp = array();
     for($i=0; $i<(count($objects)-1); $i++) {
       $temp[sizeof($temp)] = $objects[$i];
-
       if ( ($objects[$i] != 'and') &&
            ($objects[$i] != 'or') &&
            ($objects[$i] != '(') &&
-           ($objects[$i] != ')') &&
            ($objects[$i+1] != 'and') &&
            ($objects[$i+1] != 'or') &&
-           ($objects[$i+1] != '(') &&
            ($objects[$i+1] != ')') ) {
         $temp[sizeof($temp)] = ADVANCED_SEARCH_DEFAULT_OPERATOR;
       }
