@@ -12,7 +12,7 @@
 // class constructor
     function tableBox($contents) {
       echo '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
-      if ($table_parameters != '') echo ' ' . $this->table_parameters;
+      if ($this->table_parameters != '') echo ' ' . $this->table_parameters;
       echo '>' . "\n";
 
       for ($i=0; $i<sizeof($contents); $i++) {
@@ -62,10 +62,11 @@
 
 // class constructor
     function navigationBoxHeading($contents) {
-      $this->table_data_parameters = 'bgcolor="' . BOX_HEADING_BACKGROUND_COLOR . '" class="boxborder" nowrap';
+      $this->table_parameters = 'bgcolor="' . BOX_HEADING_BACKGROUND_COLOR . '" class="boxborder"';
+      $this->table_data_parameters = 'nowrap';
       $this->font_style = FONT_STYLE_NAVIGATION_BOX_HEADING;
 
-      $contents[0]['text'] = '&nbsp;' . $contents[0]['link'] . '&nbsp;' . $contents[0]['text'];
+      $contents[0]['text'] = '&nbsp;<a class="blacklink" href="' . $contents[0]['link'] . '">' . $contents[0]['text'] . '</a>&nbsp;</font></td><td align="right">' . $this->font_style . '<a href="' . $contents[0]['link'] . '">' . $contents[0]['img'] . '</a>&nbsp;';
 
       $this->tableBox($contents);
     }

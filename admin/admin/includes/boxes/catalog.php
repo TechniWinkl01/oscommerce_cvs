@@ -5,7 +5,8 @@
   $info_box_contents = array();
   $info_box_contents[] = array('align' => 'left',
                                'text'  => BOX_HEADING_CATALOG,
-                               'link'  => ($selected_box == 'catalog') ? tep_image(DIR_WS_IMAGES . 'icon_opened_box.gif', '11', '11', '0', '') : '<a class="blacklink" href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=catalog') . '">' . tep_image(DIR_WS_IMAGES . 'icon_open_box.gif', '11', '11', '0', '') . '</a>'
+                               'link'  => tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('selected_box')) . 'selected_box=catalog'),
+                               'img'   => ($selected_box == 'catalog') ? tep_image(DIR_WS_IMAGES . 'icon_opened_box.gif', '11', '11', '0', '') : tep_image(DIR_WS_IMAGES . 'icon_open_box.gif', '11', '11', '0', '')
                               );
   new navigationBoxHeading($info_box_contents);
 
