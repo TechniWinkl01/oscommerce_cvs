@@ -350,12 +350,8 @@ function checkFormAtrib() {
   }
 ?>	  
 </table>
-</table> <!-- Change 1 //-->
-	
 <!-- options eof //-->
-</td></tr>
-<tr>
-<td valign="top" width="50%">
+</td><td valign="top" width="50%">
 <!-- value //-->
 <table width="100%" border="0" cellspacing="0" cellpadding="2">
 <?
@@ -524,14 +520,6 @@ function checkFormAtrib() {
 ?>
           </tr>
 <?
-    } elseif (($HTTP_GET_VARS['action'] == 'delete_city') && ($HTTP_GET_VARS['index_id'] == $cities_values['cities_id'])) {
-?>
-            <td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo $cities_values["cities_id"]; ?></b>&nbsp;</font></td>
-            <td></td>
-			<td><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo $cities_values["cities_name"]; ?></b>&nbsp;</font></td>
-            <td align="center" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<b><? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=delete_city_name&index_id=' . $HTTP_GET_VARS['index_id'], 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_confirm_red.gif', '50', '14', '0', IMAGE_CONFIRM); ?></a>&nbsp;&nbsp;<? echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, '', 'NONSSL') . '">'; ?><? echo tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL); ?></a>&nbsp;</b></font></td>
-          </tr>
-<?
     } else {
 ?>
             <td align="center"><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $values_values["products_options_values_to_products_options_id"]; ?>&nbsp;</font></td>
@@ -575,7 +563,7 @@ function checkFormAtrib() {
   }
   }
 ?>	  
-</table></td></tr></table></table>
+</table></td></tr></table>
 <!-- option value eof //-->
 </td></tr> 
 <!-- products_attributes //-->  
@@ -776,10 +764,10 @@ function checkFormAtrib() {
 ?>
         </table></td>
       </tr>
-    </table></td></table>
-<!-- products_attributes_eof //-->	
+    </table></td>
+<!-- products_attributes_eof //-->
+</tr></table>
 <!-- body_text_eof //-->
-
 <!-- footer //-->
 <? $include_file = DIR_INCLUDES . 'footer.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
 <!-- footer_eof //-->
