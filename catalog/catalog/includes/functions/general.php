@@ -57,18 +57,6 @@
     return $number2currency;
   }
 
-  function tep_products_name($manufacturers_location, $manufacturers_name, $products_name) {
-    global $f_products_name;
-
-    if ($manufacturers_location == '0') {
-      $f_products_name = $manufacturers_name . ' ' . $products_name;
-    } else {
-      $f_products_name = $products_name . ' (' . $manufacturers_name . ')';
-    }
-
-    return $f_products_name;
-  }
-
   function tep_break_string($string, $len) {
     $l = 0;
     $output = '';
