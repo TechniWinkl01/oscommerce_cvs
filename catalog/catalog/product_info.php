@@ -118,7 +118,11 @@ function popupImageWindow(url) {
             $selected = 1;
             echo ' SELECTED';
           }
-          echo '>' . $products_options_values['products_options_values_name'] . '&nbsp;(' . $products_options_values['price_prefix'] . tep_currency_format($products_options_values['options_values_price']) .')&nbsp</option>';
+          echo '>' . $products_options_values['products_options_values_name'];
+          if ($products_options_values['options_values_price'] != '0') {
+            echo '&nbsp;(' . $products_options_values['price_prefix'] . tep_currency_format($products_options_values['options_values_price']) .')&nbsp';
+          }
+          echo  '</option>';
         };
         echo '</select></td></tr>';
       }
