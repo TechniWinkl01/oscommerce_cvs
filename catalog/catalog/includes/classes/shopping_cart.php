@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.26 2002/04/26 20:28:07 dgw_ Exp $
+  $Id: shopping_cart.php,v 1.27 2002/05/01 14:42:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -202,16 +202,16 @@
         if ($product = tep_db_fetch_array($product_query)) {
           $prid = $product['products_id'];
           $products_tax = tep_get_tax_rate($product['products_tax_class_id']);
-          $products_price = tep_add_tax($product['products_price'], $products_tax);
+          $products_price = $product['products_price'];
           $products_weight = $product['products_weight'];
 
           $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . $prid . "' and status = '1'");
           if (tep_db_num_rows ($specials_query)) {
             $specials = tep_db_fetch_array($specials_query);
-            $products_price = tep_add_tax($specials['specials_new_products_price'], $products_tax);
+            $products_price = $specials['specials_new_products_price'];
           }
 
-          $this->total += ($qty * $products_price);
+          $this->total += tep_add_tax($products_price * $qty, $products_tax);
           $this->weight += ($qty * $products_weight);
         }
 

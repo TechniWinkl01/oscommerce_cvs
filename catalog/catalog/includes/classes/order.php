@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.9 2002/04/26 20:28:07 dgw_ Exp $
+  $Id: order.php,v 1.10 2002/05/01 14:42:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -172,9 +172,9 @@
           }
         }
 
-        $this->info['subtotal'] += tep_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
-        $this->info['tax'] += tep_calculate_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
-        $this->info['tax_groups']["{$this->products[$index]['tax']}"] += tep_calculate_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
+        $this->info['subtotal'] += tep_add_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $this->products[$index]['tax']);
+        $this->info['tax'] += tep_calculate_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $this->products[$index]['tax']);
+        $this->info['tax_groups']["{$this->products[$index]['tax']}"] += tep_calculate_tax($this->products[$index]['final_price'] * $this->products[$index]['qty'], $this->products[$index]['tax']);
 
         $index++;
       }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: currencies.php,v 1.9 2002/04/26 20:22:35 dgw_ Exp $
+  $Id: currencies.php,v 1.10 2002/05/01 14:42:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -60,8 +60,7 @@
     }
 
     function display_price($products_price, $products_tax, $quantity = 1) {
-      $products_price = tep_add_tax($products_price, $products_tax);
-      return $this->format($products_price * $quantity);
+      return $this->format(tep_add_tax($products_price * $quantity, $products_tax));
     }
 
   }
