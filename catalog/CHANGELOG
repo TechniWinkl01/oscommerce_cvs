@@ -1,3 +1,12 @@
+12/02/2001
+----------
+
+The Exchange Project Preview Release 2.1 -
+
+ * Payment methods are now modules, which makes it easier
+   to implement other payment methods.
+
+
 01/12/2000
 ----------
 
