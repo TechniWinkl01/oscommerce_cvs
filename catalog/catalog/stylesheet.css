@@ -9,12 +9,9 @@ A {
 }
 
 A:hover { 
-  color:#AABBDD; 
-  text-decoration:underline; 
+  color: #AABBDD; 
+  text-decoration: underline; 
 }
-
-.bluelink { color:#0000FF; text-decoration:none; }
-A:hover.bluelink { color:#0000FF; background-color: #FFFF33; text-decoration:underline; }
 
 TR.header {
   background-color: #aabbdd;
@@ -134,6 +131,15 @@ TD.productListing-heading {
 TD.productListing-data {
   font-family : Verdana, Arial, sans-serif;
   font-size : 10px;
+}
+
+A.pageResults { 
+  color: #0000FF; 
+}
+
+A:hover.pageResults { 
+  color: #0000FF; 
+  background-color: #FFFF33; 
 }
 
 TD.pageHeading, DIV.pageHeading {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: split_page_results.php,v 1.5 2001/09/20 19:27:14 mbs Exp $
+  $Id: split_page_results.php,v 1.6 2001/11/09 20:46:32 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -57,7 +57,7 @@ NOTE: the constructor (also) builds an sql query that counts the total records f
     function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '') {
       global $PHP_SELF;
 
-      $class = 'class="bluelink"';
+      $class = 'class="pageResults"';
 
       $parameters = ($parameters == '') ? '' : $parameters . '&';
 
