@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: newsletters.php,v 1.2 2002/03/08 18:52:40 hpdl Exp $
+  $Id: newsletters.php,v 1.3 2002/03/08 20:36:08 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -267,14 +267,7 @@
                 <td class="tableData"><?php echo $newsletters['title']; ?></td>
                 <td class="tableData" align="right"><?php echo number_format($newsletters['content_length']) . ' bytes'; ?></td>
                 <td class="tableData" align="right"><?php echo $newsletters['module']; ?></td>
-                <td class="tableData" align="right">
-<?php
-      if ($newsletters['status'] == '1') {
-        echo tep_image(DIR_WS_IMAGES . 'icon_status_green.gif', 'Active', 10, 10) . '&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red_light.gif', 'Inactive', 10, 10);
-      } else {
-        echo tep_image(DIR_WS_IMAGES . 'icon_status_green_light.gif', 'Active', 10, 10) . '&nbsp;&nbsp;' . tep_image(DIR_WS_IMAGES . 'icon_status_red.gif', 'Inactive', 10, 10);
-      }
-?></td>
+                <td class="tableData" align="right"><?php if ($newsletters['status'] == '1') { echo tep_image(DIR_WS_ICONS . 'tick.gif', 'Sent'); } else { echo tep_image(DIR_WS_ICONS . 'cross.gif', 'Pending'); } ?></td>
                 <td class="tableData" align="right"><?php if ( (is_object($nInfo)) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo tep_image(DIR_WS_IMAGES . 'icon_arrow_right.gif', ''); } else { echo '<a href="' . tep_href_link(FILENAME_NEWSLETTERS, 'page=' . $HTTP_GET_VARS['page'] . '&nID=' . $newsletters['newsletters_id']) . '">' . tep_image(DIR_WS_IMAGES . 'icon_info.gif', IMAGE_ICON_INFO) . '</a>'; } ?>&nbsp;</td>
               </tr>
 <?php
