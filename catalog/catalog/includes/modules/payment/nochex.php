@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: nochex.php,v 1.5 2002/11/01 05:03:23 hpdl Exp $
+  $Id: nochex.php,v 1.6 2002/11/04 00:25:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,7 +46,7 @@
 
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('email', MODULE_PAYMENT_NOCHEX_ID) .
-                               tep_draw_hidden_field('amount', number_format($order->info['total'] * $currencies->currencies['GBP']['value'], $currencies->currencies['GBP']['decimal_points'])) .
+                               tep_draw_hidden_field('amount', number_format($order->info['total'] * $currencies->currencies['GBP']['value'], $currencies->currencies['GBP']['decimal_places'])) .
                                tep_draw_hidden_field('ordernumber', $customer_id . '-' . date('Ymdhis')) .
                                tep_draw_hidden_field('returnurl', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
                                tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));

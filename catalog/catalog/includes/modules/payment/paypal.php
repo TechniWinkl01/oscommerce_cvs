@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.30 2002/11/01 05:03:36 hpdl Exp $
+  $Id: paypal.php,v 1.31 2002/11/04 00:25:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -47,7 +47,7 @@
       $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
                                tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
                                tep_draw_hidden_field('item_name', STORE_NAME) .
-                               tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $currencies->currencies['USD']['value'], $currencies->currencies['USD']['decimal_points'])) .
+                               tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $currencies->currencies['USD']['value'], $currencies->currencies['USD']['decimal_places'])) .
                                tep_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $currencies->get_value('USD'), 2)) .
                                tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
                                tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
