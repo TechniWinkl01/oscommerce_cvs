@@ -11,7 +11,7 @@
 <p><b><i><? echo SUB_HEADING_TITLE_1; ?></i></b><br><? echo SUB_HEADING_TEXT_1; ?></p>
 <p><b><i><? echo SUB_HEADING_TITLE_2; ?></i></b><br><? echo SUB_HEADING_TEXT_2; ?></p>
 <p><b><i><? echo SUB_HEADING_TITLE_3; ?></i></b><br><? echo SUB_HEADING_TEXT_3; ?></p>
-<p align="right"><a href="javascript:window.close();"><font color="#AABBDD"><? echo TEXT_CLOSE_WINDOW; ?></font></a></p>
+<p align="right"><a href="javascript:window.close();"><font color="<? echo CHECKOUT_BAR_TEXT_COLOR; ?>"><? echo TEXT_CLOSE_WINDOW; ?></font></a></p>
 </font>
 </body>
 </html>
