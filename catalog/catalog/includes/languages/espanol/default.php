@@ -22,11 +22,11 @@ if ($category_depth == 'products' || $HTTP_GET_VARS['manufacturers_id']) {
   define('TEXT_NO_PRODUCTS2', 'No hay productos de este fabricante.');
   define('TEXT_NUMBER_OF_PRODUCTS', 'Numero de Productos: ');
   define('TEXT_SHOW', '<b>Mostrar:</b>');
-  define('TEXT_SORT_PRODUCTS', 'Productos de la clase ');
-  define('TEXT_DESCENDINGLY', 'descendingly');
-  define('TEXT_ASCENDINGLY', 'ascendingly');
+  define('TEXT_SORT_PRODUCTS', 'Ordenar Productos ');
+  define('TEXT_DESCENDINGLY', 'Descendentemente');
+  define('TEXT_ASCENDINGLY', 'Ascendentemente');
   define('TEXT_BY', ' por ');
-  define('TEXT_BUY', 'Compran 1 \'');
+  define('TEXT_BUY', 'Compre 1 \'');
   define('TEXT_NOW', '\' ahora');
 } elseif ($category_depth == 'top') {
   define('TOP_BAR_TITLE', 'Bienvenido a \'' . STORE_NAME . '\'!');
