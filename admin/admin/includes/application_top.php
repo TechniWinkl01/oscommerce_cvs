@@ -73,12 +73,12 @@
   define('FILENAME_ZONES', 'zones.php');
 
 // define our database connection
-  define('DB_SERVER', $HTTP_ENV_VARS['HOSTNAME']);
+  define('DB_SERVER', '');
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
   define('USE_PCONNECT', 1);
-  define('STORE_SESSIONS', 'mysql');
+  define('STORE_SESSIONS', '');
 
 // customization for the design layout
   define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
