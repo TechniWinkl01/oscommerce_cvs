@@ -987,9 +987,9 @@ INSERT INTO specials VALUES (3,6,30.00,'20000115');
 INSERT INTO specials VALUES (4,16,29.99,'20000217');
 
 #
-# Table structure for table 'tax_zones'
+# Table structure for table 'zones'
 #
-CREATE TABLE tax_zones (
+CREATE TABLE zones (
   zone_id int(5) NOT NULL auto_increment,
   zone_country_id int(5) NOT NULL,
   zone_code varchar(5) NOT NULL,
@@ -998,7 +998,7 @@ CREATE TABLE tax_zones (
 );
 
 #
-# Dumping data for table 'tax_zones'
+# Dumping data for table 'zones'
 #
 
 #

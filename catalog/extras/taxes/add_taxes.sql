@@ -30,7 +30,7 @@ CREATE TABLE tax_rates (
   PRIMARY KEY (tax_zone_id,tax_class_id)
 );
 
-CREATE TABLE tax_zones (
+CREATE TABLE zones (
   zone_id int(5) DEFAULT '0' NOT NULL auto_increment,
   zone_country_id int(5) DEFAULT '0' NOT NULL,
   zone_code varchar(5) DEFAULT '' NOT NULL,

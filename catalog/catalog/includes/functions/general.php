@@ -313,7 +313,7 @@
         $result .= "&nbsp;";
     }
 
-    $state_prov_result = tep_db_query("select zone_id, zone_name from tax_zones where zone_country_id = '" . $country_code . "' order by zone_name");
+    $state_prov_result = tep_db_query("select zone_id, zone_name from zones where zone_country_id = '" . $country_code . "' order by zone_name");
       
     $populated = 0;
     while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
@@ -358,7 +358,7 @@
   //
   ////////////////////////////////////////////////////////////////////////////////////////////////
   function tep_js_zone_list($SelectedCountryVar, $FormName) {
-    $country_query = tep_db_query("select distinct zone_country_id from tax_zones order by zone_country_id");
+    $country_query = tep_db_query("select distinct zone_country_id from zones order by zone_country_id");
     $NumCountry=1;
     while ($country_values = tep_db_fetch_array($country_query)) {
       if ($NumCountry == 1)
@@ -366,7 +366,7 @@
       else 
         print ("  else if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
   
-      $state_query = tep_db_query("select tax_zones.zone_name, tax_zones.zone_id from tax_zones where tax_zones.zone_country_id = '" . $country_values['zone_country_id'] . "' order by tax_zones.zone_name");
+      $state_query = tep_db_query("select zones.zone_name, zones.zone_id from zones where zones.zone_country_id = '" . $country_values['zone_country_id'] . "' order by zones.zone_name");
       
       $NumState = 1;
       while ($state_values = tep_db_fetch_array($state_query)) {
@@ -422,7 +422,7 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////
   function tep_get_zone_name($country, $zone, $def_state) {
 
-    $state_prov_query = tep_db_query("select zone_name from tax_zones where zone_country_id = '" . $country . "' and zone_id = '" . $zone . "'");
+    $state_prov_query = tep_db_query("select zone_name from zones where zone_country_id = '" . $country . "' and zone_id = '" . $zone . "'");
 
     if (!tep_db_num_rows($state_prov_query)) {
       $state_prov_name = $def_state;
@@ -450,7 +450,7 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////
   function tep_get_zone_code($country, $zone, $def_state) {
 
-    $state_prov_query = tep_db_query("select zone_code from tax_zones where zone_country_id = '" . $country . "' and zone_id = '" . $zone . "'");
+    $state_prov_query = tep_db_query("select zone_code from zones where zone_country_id = '" . $country . "' and zone_id = '" . $zone . "'");
 
     if (!tep_db_num_rows($state_prov_query)) {
       $state_prov_code = $def_state;
