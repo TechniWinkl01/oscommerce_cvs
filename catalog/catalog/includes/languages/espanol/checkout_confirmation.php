@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.12 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.13 2002/04/05 20:32:38 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -30,5 +30,5 @@
   define('TEXT_UNIQUE_SHIPMENT', 'Envio Unico');
   define('TEXT_UNITS', ' x ');
   define('TEXT_IMEDIATE_DELIVER', 'Tenemos en existencias para entregar inmediatamente:');
-  define('TEXT_STOCK_WARNING_DESC', 'Los productos marcados con <font color=crimson>***</font> no estan disponibles en la cantidad que ha pedido. Elija Multiples Envios si quiere que la cantidad que tenemos disponible en existencias sea entregada inmediatamente y el resto mas tarde o Envio Unico para esperar hasta que la cantidad que ha pedido esten disponibles.');
+  define('TEXT_STOCK_WARNING_DESC', 'Los productos marcados con <font color=crimson>' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</font> no estan disponibles en la cantidad que ha pedido. Elija Multiples Envios si quiere que la cantidad que tenemos disponible en existencias sea entregada inmediatamente y el resto mas tarde o Envio Unico para esperar hasta que la cantidad que ha pedido esten disponibles.');
 ?>

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.13 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: shopping_cart.php,v 1.14 2002/04/05 20:32:38 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,6 +21,6 @@ define('TEXT_CART_EMPTY', 'Sie haben noch nichts in Ihrem Warenkorb.');
 define('SUB_TITLE_SUB_TOTAL', 'Zwischensumme:');
 define('SUB_TITLE_TOTAL', 'Summe:');
 
-define('OUT_OF_STOCK_CANT_CHECKOUT', 'Die markierten Produkte mit \'***\', sind leider nicht in der von Ihnen gew&uuml;nschten Menge auf Lager.<br>Bitte reduzieren Sie Ihre Bestellmenge für die gekennzeichneten Produkte, vielen Dank');
-define('OUT_OF_STOCK_CAN_CHECKOUT', 'Die markierten Produkte mit \'***\', sind leider nicht in der von Ihnen gew&uuml;nschten Menge auf Lager.<br>Die bestellte Menge wird kurzfristig von uns geliefert, wenn Sie w&uuml;nschen nehmen wir auch eine Teillieferung vor.');
+define('OUT_OF_STOCK_CANT_CHECKOUT', 'Die markierten Produkte mit ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ', sind leider nicht in der von Ihnen gew&uuml;nschten Menge auf Lager.<br>Bitte reduzieren Sie Ihre Bestellmenge für die gekennzeichneten Produkte, vielen Dank');
+define('OUT_OF_STOCK_CAN_CHECKOUT', 'Die markierten Produkte mit ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ', sind leider nicht in der von Ihnen gew&uuml;nschten Menge auf Lager.<br>Die bestellte Menge wird kurzfristig von uns geliefert, wenn Sie w&uuml;nschen nehmen wir auch eine Teillieferung vor.');
 ?>

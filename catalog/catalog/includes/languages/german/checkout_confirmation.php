@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.18 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.19 2002/04/05 20:32:38 project3000 Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -30,5 +30,5 @@
   define('TEXT_UNIQUE_SHIPMENT', 'Gesamtlieferung'); 
   define('TEXT_UNITS', 'Einheit(en) von'); 
   define('TEXT_IMEDIATE_DELIVER', 'Wir können Ihnen folgende Menge sofort liefern:'); 
-  define('TEXT_STOCK_WARNING_DESC', 'Die mit <font color=crimson>***</font> markierten Produkte sind nicht in der von Ihnen gew&uuml;nschten Bestellmenge auf Lager. W&auml;hlen Sie <b>Teillieferung</b>, wenn Sie die verf&uuml;gbaren Produkte sofort erhalten möchten, die Restmenge wird Ihnen dann nachgeliefert oder w&auml;hlen Sie <b>Gesamtlieferung</b>, die Lieferung wird erst dann ausgeliefert, wenn Ihre Bestellung bei uns komplett auf Lager ist.'); 
+  define('TEXT_STOCK_WARNING_DESC', 'Die mit <font color=crimson>' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</font> markierten Produkte sind nicht in der von Ihnen gew&uuml;nschten Bestellmenge auf Lager. W&auml;hlen Sie <b>Teillieferung</b>, wenn Sie die verf&uuml;gbaren Produkte sofort erhalten möchten, die Restmenge wird Ihnen dann nachgeliefert oder w&auml;hlen Sie <b>Gesamtlieferung</b>, die Lieferung wird erst dann ausgeliefert, wenn Ihre Bestellung bei uns komplett auf Lager ist.'); 
 ?>

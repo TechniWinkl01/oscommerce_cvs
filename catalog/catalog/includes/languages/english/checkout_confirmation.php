@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.18 2002/04/05 20:24:02 project3000 Exp $
+  $Id: checkout_confirmation.php,v 1.19 2002/04/05 20:32:38 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,5 +30,5 @@ define('TEXT_MULTIPLE_SHIPMENT', 'Multiple Shipments');
 define('TEXT_UNIQUE_SHIPMENT', 'Unique Shipment');
 define('TEXT_UNITS', 'Units of');
 define('TEXT_IMEDIATE_DELIVER', 'We have for immediate deliver:');
-define('TEXT_STOCK_WARNING_DESC', 'The products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' are not available in the quantity you requested. Choose Multiple Shipments if you want the available quantity in stock to be delivered right away and the rest later or Single Shipment to wait until the quantitys you requested are available in our stock.');
+define('TEXT_STOCK_WARNING_DESC', 'The products marked with <font color=crimson>' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</font> are not available in the quantity you requested. Choose Multiple Shipments if you want the available quantity in stock to be delivered right away and the rest later or Single Shipment to wait until the quantitys you requested are available in our stock.');
 ?>
