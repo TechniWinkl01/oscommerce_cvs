@@ -702,9 +702,10 @@ INSERT INTO countries VALUES (237,'Zaire','ZR','ZAR','1');
 INSERT INTO countries VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO countries VALUES (239,'Zimbabwe','ZW','ZWE','1');
 
-INSERT INTO currencies VALUES (1,'US Dollar','USD','$','&nbsp;USD','.',',','2');
-INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','&nbsp;DM',',','.','2');
-INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','&nbsp;Pts','.',',','0');
+INSERT INTO currencies VALUES (1,'US Dollar','USD','$','USD','.',',','2');
+INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2');
+INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0');
+INSERT INTO currencies VALUES (4,'Euro','EUR','€','','.',',','2');
 
 INSERT INTO customers VALUES (1,'m','Harald','Ponce de Leon','19790903','hpdl@theexchangeproject.org','1 Way Street','','12345','Mycity','','11111','','2fb312614a2dfcafa3cd71d13e1948f0:ca',81, 0);
 
