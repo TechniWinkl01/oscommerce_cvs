@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: _install.php,v 1.7 2001/12/13 12:13:25 dgw_ Exp $
+  $Id: _install.php,v 1.8 2001/12/29 21:13:58 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -84,7 +84,7 @@
   if ($fp = @fopen('includes/configure.php', 'w')) {
     echo '<p class="boxMe">Checking file permissions: <b>File exists, and I can write to it.</b></p>' .  "\n";
   } else {
-    echo '<div class="boxMe">Checking file permissions: <b>File does not exist, or I cannot write to it.</b><br><br>Please perform the following actions:<ul class="boxMe"><li>cd ' . dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]) . '/includes/</li><li>touch configure.php</li><li>chmod 706 configure.php</li></ul></div>' . "\n";
+    echo '<div class="boxMe">Checking file permissions: <b>File does not exist, or I cannot write to it.</b><br><br>Please perform the following actions:<ul class="boxMe"><li>cd ' . dirname($HTTP_SERVER_VARS["SCRIPT_FILENAME"]) . '/includes/</li><li>chmod 706 configure.php</li></ul></div>' . "\n";
     echo '<p>' . "\n" . 'Please <a href="' . basename($PHP_SELF) . '">reload</a> this page once the above actions have been executed.' . "\n" .
          '</body>' . "\n" .
          '</html>';
