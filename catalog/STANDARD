@@ -1,6 +1,7 @@
-$Id: STANDARD,v 1.15 2004/02/13 21:40:07 hpdl Exp $
+$Id: STANDARD,v 1.16 2004/02/13 23:13:35 hpdl Exp $
 
 osCommerce Coding Standards
+
 
 Coding standards are defined to keep the codebase in a maintainable state.
 
