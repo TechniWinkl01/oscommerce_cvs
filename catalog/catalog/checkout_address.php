@@ -63,24 +63,23 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
-                <td nowrap colspan=2 align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
+                <td nowrap align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
               </tr>
-          <tr>
-            <td colspan=3><? echo tep_black_line(); ?><br><br></td>
-          </tr>
+            </table></td>
+            <tr>
+              <td><? echo tep_black_line(); ?></td>
+            </tr>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
       $action = 'select';
       include(DIR_MODULES . 'shipping.php');
 ?>
             </table></td>
           </tr>
-          <tr>
-            <td><? echo tep_black_line(); ?></td>
-          </tr>
 <?
     }
 ?>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_MY_ADDRESS; ?></b>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_DELIVER_TO; ?></b>&nbsp;</font></td>

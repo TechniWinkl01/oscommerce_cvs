@@ -120,16 +120,21 @@ function check_form() {
 <?
   }
 ?>
-          <tr>
-            <td colspan=4><br><? echo tep_black_line(); ?></td>
+            </table></td>
           </tr>
+          <tr>          
+            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td nowrap colspan=2><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_INFO; ?></b>&nbsp;</font></td>
                 <td nowrap colspan=2 align="right"><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>">&nbsp;<b><? echo TABLE_HEADING_SHIPPING_QUOTE; ?></b>&nbsp;</font></td>
               </tr>
-          <tr>
-            <td colspan=4><? echo tep_black_line(); ?><br></td>
+            </table></td>
           </tr>
+          <tr>
+            <td><? echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?
       if ($HTTP_POST_VARS['sendto'] == '0') {
         $address = tep_db_query("select customers_postcode as postcode, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
@@ -149,7 +154,7 @@ function check_form() {
             </table></td>
           </tr>
           <tr>
-            <td><br><? echo tep_black_line(); ?></td>
+            <td><? echo tep_black_line(); ?></td>
           </tr>
             <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', '50', '24', '0', IMAGE_NEXT); ?>&nbsp;</font></td>
           </tr>
