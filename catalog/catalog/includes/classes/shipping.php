@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.20 2003/01/29 19:53:02 hpdl Exp $
+  $Id: shipping.php,v 1.21 2003/02/11 00:04:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,7 @@
     function shipping($module = '') {
       global $language, $PHP_SELF;
 
-      if (tep_not_null(MODULE_SHIPPING_INSTALLED)) {
+      if (defined('MODULE_SHIPPING_INSTALLED') && tep_not_null(MODULE_SHIPPING_INSTALLED)) {
         $this->modules = explode(';', MODULE_SHIPPING_INSTALLED);
 
         $include_modules = array();
@@ -32,8 +32,7 @@
           }
         }
 
-        $n = sizeof($include_modules);
-        for ($i=0; $i<$n; $i++) {
+        for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
           include(DIR_WS_LANGUAGES . $language . '/modules/shipping/' . $include_modules[$i]['file']);
           include(DIR_WS_MODULES . 'shipping/' . $include_modules[$i]['file']);
 

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: breadcrumb.php,v 1.2 2002/08/08 20:44:53 hpdl Exp $
+  $Id: breadcrumb.php,v 1.3 2003/02/11 00:04:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -27,16 +27,15 @@
 
     function trail($separator = ' - ') {
       $trail_string = '';
-      $trail_size = sizeof($this->_trail);
 
-      for ($i=0; $i<$trail_size; $i++) {
-        if (tep_not_null($this->_trail[$i]['link'])) {
+      for ($i=0, $n=sizeof($this->_trail); $i<$n; $i++) {
+        if (isset($this->_trail[$i]['link']) && tep_not_null($this->_trail[$i]['link'])) {
           $trail_string .= '<a href="' . $this->_trail[$i]['link'] . '" class="headerNavigation">' . $this->_trail[$i]['title'] . '</a>';
         } else {
           $trail_string .= $this->_trail[$i]['title'];
         }
 
-        if (($i+1) < $trail_size) $trail_string .= $separator;
+        if (($i+1) < $n) $trail_string .= $separator;
       }
 
       return $trail_string;

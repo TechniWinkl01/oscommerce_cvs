@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cc_validation.php,v 1.1 2002/11/01 02:13:21 hpdl Exp $
+  $Id: cc_validation.php,v 1.2 2003/02/11 00:04:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */

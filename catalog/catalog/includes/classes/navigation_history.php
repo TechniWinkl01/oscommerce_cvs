@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: navigation_history.php,v 1.3 2002/11/23 02:08:11 thomasamoulton Exp $
+  $Id: navigation_history.php,v 1.4 2003/02/11 00:04:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -26,11 +26,10 @@
       global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_SERVER_VARS, $cPath;
 
       $set = 'true';
-      $psize = sizeof($this->path);
-      for ($i=0; $i<$psize; $i++) {
+      for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
         if ( ($this->path[$i]['page'] == basename($PHP_SELF)) ) {
-          if ($cPath) {
-            if (!$this->path[$i]['get']['cPath']) {
+          if (isset($cPath)) {
+            if (!isset($this->path[$i]['get']['cPath'])) {
               continue;
             } else {
               if ($this->path[$i]['get']['cPath'] == $cPath) {
@@ -41,8 +40,7 @@
                 $old_cPath = explode('_', $this->path[$i]['get']['cPath']);
                 $new_cPath = explode('_', $cPath);
 
-                $osize = sizeof($old_cPath);
-                for ($j=0; $j<$osize; $j++) {
+                for ($j=0, $n2=sizeof($old_cPath); $j<$n2; $j++) {
                   if ($old_cPath[$j] != $new_cPath[$j]) {
                     array_splice($this->path, ($i));
                     $set = 'true';
@@ -96,8 +94,7 @@
     }
 
     function debug() {
-      $psize = sizeof($this->path);
-      for ($i=0; $i<$psize; $i++) {
+      for ($i=0, $n=sizeof($this->path); $i<$n; $i++) {
         echo $this->path[$i]['page'] . '?';
         while (list($key, $value) = each($this->path[$i]['get'])) {
           echo $key . '=' . $value . '&';

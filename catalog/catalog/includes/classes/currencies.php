@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: currencies.php,v 1.13 2002/11/22 11:10:49 dgw_ Exp $
+  $Id: currencies.php,v 1.14 2003/02/11 00:04:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -21,7 +21,7 @@
       $this->currencies = array();
       $currencies_query = tep_db_query("select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES);
       while ($currencies = tep_db_fetch_array($currencies_query)) {
-	    $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
+        $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
                                                        'symbol_left' => $currencies['symbol_left'],
                                                        'symbol_right' => $currencies['symbol_right'],
                                                        'decimal_point' => $currencies['decimal_point'],
@@ -35,12 +35,10 @@
     function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
       global $currency;
 
-      if ($currency_type == '') {
-        $currency_type = $currency;
-      }
+      if (empty($currency_type)) $currency_type = $currency;
 
-      if ($calculate_currency_value) {
-        $rate = ($currency_value) ? $currency_value : $this->currencies[$currency_type]['value'];
+      if ($calculate_currency_value == true) {
+        $rate = (tep_not_null($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
         $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number * $rate, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
 // if the selected currency is in the european euro-conversion and the default currency is euro,
 // the currency will displayed in the national currency and euro currency

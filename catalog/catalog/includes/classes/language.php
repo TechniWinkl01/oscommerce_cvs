@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: language.php,v 1.2 2002/11/23 02:08:11 thomasamoulton Exp $
+  $Id: language.php,v 1.3 2003/02/11 00:04:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 
@@ -73,7 +73,7 @@
       $this->browser_languages = '';
       $this->language = '';
 
-      if ( ($lng != '') && ($this->catalog_languages[$lng]) ) {
+      if ( (tep_not_null($lng)) && (isset($this->catalog_languages[$lng])) ) {
         $this->language = $this->catalog_languages[$lng];
       } else {
         $this->language = $this->catalog_languages[DEFAULT_LANGUAGE];
@@ -83,11 +83,10 @@
     function get_browser_language() {
       $this->browser_languages = explode(',', getenv('HTTP_ACCEPT_LANGUAGE'));
 
-      $size = sizeof($this->browser_languages);
-      for ($i=0; $i<$size; $i++) {
+      for ($i=0, $n=sizeof($this->browser_languages); $i<$n; $i++) {
         reset($this->languages);
         while (list($key, $value) = each($this->languages)) {
-          if ( (eregi('^(' . $value[0] . ')(;q=[0-9]\\.[0-9])?$', $this->browser_languages[$i])) && ($this->catalog_languages[$key]) ) {
+          if (eregi('^(' . $value[0] . ')(;q=[0-9]\\.[0-9])?$', $this->browser_languages[$i]) && isset($this->catalog_languages[$key])) {
             $this->language = $this->catalog_languages[$key];
             break 2;
           }

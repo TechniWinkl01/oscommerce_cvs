@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: payment.php,v 1.35 2003/01/29 19:57:14 hpdl Exp $
+  $Id: payment.php,v 1.36 2003/02/11 00:04:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -17,7 +17,7 @@
     function payment($module = '') {
       global $payment, $language, $PHP_SELF;
 
-      if (tep_not_null(MODULE_PAYMENT_INSTALLED)) {
+      if (defined('MODULE_PAYMENT_INSTALLED') && tep_not_null(MODULE_PAYMENT_INSTALLED)) {
         $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
 
         $include_modules = array();
@@ -34,8 +34,7 @@
           }
         }
 
-        $n = sizeof($include_modules);
-        for ($i=0; $i<$n; $i++) {
+        for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
           include(DIR_WS_LANGUAGES . $language . '/modules/payment/' . $include_modules[$i]['file']);
           include(DIR_WS_MODULES . 'payment/' . $include_modules[$i]['file']);
 

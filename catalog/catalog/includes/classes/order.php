@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.26 2003/02/09 13:15:23 thomasamoulton Exp $
+  $Id: order.php,v 1.27 2003/02/11 00:04:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -154,7 +154,7 @@
                           'shipping_cost' => $shipping['cost'],
                           'comments' => $GLOBALS['comments']);
 
-      if (is_object($GLOBALS[$payment])) {
+      if (isset($GLOBALS[$payment]) && is_object($GLOBALS[$payment])) {
         $this->info['payment_method'] = $GLOBALS[$payment]->title;
 
         if ( isset($GLOBALS[$payment]->order_status) && is_numeric($GLOBALS[$payment]->order_status) && ($GLOBALS[$payment]->order_status > 0) ) {
@@ -204,8 +204,7 @@
 
       $index = 0;
       $products = $cart->get_products();
-      $psize = sizeof($products);
-      for ($i=0; $i<$psize; $i++) {
+      for ($i=0, $n=sizeof($products); $i<$n; $i++) {
         $this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
                                         'model' => $products[$i]['model'],
