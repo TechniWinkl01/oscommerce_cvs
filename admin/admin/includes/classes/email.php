@@ -1,7 +1,7 @@
 <?php
 
 /*
-  $Id: email.php,v 1.1 2002/01/31 12:31:26 jan0815 Exp $
+  $Id: email.php,v 1.2 2002/01/31 12:37:17 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,7 +21,7 @@
 
 require('mime.php');
 
-class html_mime_mail{
+class email{
 
   var $html;
   var $text;
@@ -38,7 +38,7 @@ class html_mime_mail{
 ** if supplied.
 ***************************************/
 
-  function html_mime_mail($headers = array()){
+  function email($headers = array()){
 
   /***************************************
   ** Make sure this is defined. This should

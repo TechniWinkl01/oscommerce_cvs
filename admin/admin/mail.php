@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.26 2002/01/26 17:15:43 hpdl Exp $
+  $Id: mail.php,v 1.27 2002/01/31 12:37:17 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
     $message = tep_db_prepare_input($HTTP_POST_VARS['message']);
 
     while ($mail = tep_db_fetch_array($mail_query)) {
-      mail($mail['customers_firstname'] . ' ' . $mail['customers_lastname'] . ' <' . $mail['customers_email_address'] . '>', $subject, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\n" . 'Content-Transfer-Encoding: 8bit' . "\n" . 'From: ' . $from);
+      mail($mail['customers_email_address'], $subject, $message, 'Content-Type: text/plain; charset="iso-8859-15"' . "\r\n" . 'Content-Transfer-Encoding: 8bit' . "\r\n" . 'From: ' . $from . "\r\n" . 'To: ' . $mail['customers_firstname'] . ' ' . $mail['customers_lastname']  . ' <' . $mail['customers_email_address'] . ">\r\n");
     }
 
     tep_redirect(tep_href_link(FILENAME_MAIL, 'mail_sent_to=' . urlencode($mail_sent_to)));
