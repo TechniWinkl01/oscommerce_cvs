@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.43 2002/01/05 05:59:21 hpdl Exp $
+  $Id: banner_manager.php,v 1.44 2002/01/05 09:17:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,7 @@
         if (empty($error)) {
           if (empty($html_text)) {
             if ($banners_image != 'none') {
-              $image_location = DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . $banners_image_target . $banners_image_name;
+              $image_location = DIR_FS_CATALOG_IMAGES . $banners_image_target . $banners_image_name;
               copy($banners_image, $image_location);
             }
             $db_image_location = (!empty($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image_name;
@@ -94,6 +94,16 @@
         break;
       case 'deleteconfirm':
         $banners_id = tep_db_prepare_input($HTTP_GET_VARS['bID']);
+        $delete_image = tep_db_prepare_input($HTTP_POST_VARS['delete_image']);
+
+        if ($delete_image == 'on') {
+          $banner_query = tep_db_query("select banners_image from " . TABLE_BANNERS . " where banners_id = '" . tep_db_input($banners_id) . "'");
+          $banner = tep_db_fetch_array($banner_query);
+          if (file_exists(DIR_FS_CATALOG_IMAGES . $banner['banners_image'])) {
+            @unlink(DIR_FS_CATALOG_IMAGES . $banner['banners_image']);
+          }
+        }
+
         tep_db_query("delete from " . TABLE_BANNERS . " where banners_id = '" . tep_db_input($banners_id) . "'");
         tep_db_query("delete from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . tep_db_input($banners_id) . "'");
 
@@ -333,10 +343,11 @@ function popupImageWindow(url) {
 <?php
   switch ($HTTP_GET_VARS['action']) {
     case 'delete':
-      $info_box_contents = array();
+      $info_box_contents = array('form' => tep_draw_form('banners', FILENAME_BANNERS_MANAGER, 'bID=' . $bInfo->banners_id . '&action=deleteconfirm'));
       $info_box_contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $info_box_contents[] = array('text' => '<br><b>' . $bInfo->banners_title . '</b>');
-      $info_box_contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'action=deleteconfirm&bID=' . $bInfo->banners_id) . '">' . tep_image(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'bID=' . $HTTP_GET_VARS['bID']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
+      $info_box_contents[] = array('text' => '<br>' . tep_draw_checkbox_field('delete_image', 'on', true) . ' ' . TEXT_INFO_DELETE_IMAGE);
+      $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_delete.gif', IMAGE_DELETE) . '&nbsp;<a href="' . tep_href_link(FILENAME_BANNERS_MANAGER, tep_get_all_get_params(array('action', 'bID')) . 'bID=' . $HTTP_GET_VARS['bID']) . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
       break;
     default:
       $info_box_contents = array();
