@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: index.php,v 1.6 2002/01/14 11:59:17 hpdl Exp $
+  $Id: index.php,v 1.7 2002/01/17 10:51:39 jan0815 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -93,7 +93,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
         <td><table border="0" width="600" height="440" cellspacing="0" cellpadding="0">
           <tr bgcolor="#ffffff" height="50">
             <td height="50"><?php echo tep_image(DIR_WS_IMAGES . 'oscommerce.gif', 'osCommerce', '204', '50'); ?></td>
-            <td align="right" class="text" nowrap><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">Administration Tool</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' . DIR_WS_CATALOG . '">Catalog</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.oscommerce.com" target="_blank">Support Site</a>'; ?>&nbsp;&nbsp;</td>
+            <td align="right" class="text" nowrap><?php echo '<a href="' . tep_href_link(FILENAME_DEFAULT) . '">' . HEADER_TITLE_ADMINISTRATION . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' . DIR_WS_CATALOG . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.oscommerce.com" target="_blank">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?>&nbsp;&nbsp;</td>
           </tr>
           <tr bgcolor="#080381">
             <td colspan="2"><table border="0" width="460" height="390" cellspacing="0" cellpadding="2">
