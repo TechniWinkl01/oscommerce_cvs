@@ -7,14 +7,14 @@
 
   $error = 0; // reset error flag
 
- if (ACCOUNT_GENDER) {
-  if (($HTTP_POST_VARS['gender'] == 'm') || ($HTTP_POST_VARS['gender'] == 'f')) {
-    $gender_error = 0;
-  } else {
-    $gender_error = 1;
-    $error = 1;
+  if (ACCOUNT_GENDER) {
+    if (($HTTP_POST_VARS['gender'] == 'm') || ($HTTP_POST_VARS['gender'] == 'f')) {
+      $gender_error = 0;
+    } else {
+      $gender_error = 1;
+      $error = 1;
+    }
   }
- }
 
   if (strlen(trim($HTTP_POST_VARS['firstname'])) < ENTRY_FIRST_NAME_MIN_LENGTH) {
     $firstname_error = 1;
@@ -30,15 +30,14 @@
     $lasttname_error = 0;
   }
 
- if (ACCOUNT_DOB) {
-  if (checkdate(substr($HTTP_POST_VARS['dob'], 3, 2), substr($HTTP_POST_VARS['dob'], 0, 2),substr($HTTP_POST_VARS['dob'], -4))) {
-    $dob_error = 0;
-  } else {
-    $dob_error = 1;
-    $error = 1;
+  if (ACCOUNT_DOB) {
+    if (checkdate(substr($HTTP_POST_VARS['dob'], 3, 2), substr($HTTP_POST_VARS['dob'], 0, 2),substr($HTTP_POST_VARS['dob'], -4))) {
+      $dob_error = 0;
+    } else {
+      $dob_error = 1;
+      $error = 1;
+    }
   }
- }
-
 
   if (strlen(trim($HTTP_POST_VARS['email_address'])) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
     $email_address_error = 1;
@@ -46,7 +45,7 @@
   } else {
     $email_address_error = 0;
   }
-  
+
   if (!(tep_validate_email(trim($HTTP_POST_VARS['email_address'])))) {
     $email_address_check_error = 1;
     $error = 1;
@@ -101,6 +100,14 @@
     $error = 1;
   } else {
     $password_error = 0;
+  }
+
+  $check_email = tep_db_query("select customers_email_address from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "' and customers_id <> '" . $customer_id . "'"); 
+  if (@tep_db_num_rows($check_email)) { 
+    $email_exists = 1; 
+    $error = 1; 
+  } else { 
+    $email_exists = 0; 
   }
 
   if ($error == 1) {
@@ -343,7 +350,7 @@
         <td><br><? echo tep_black_line(); ?></td>
       </tr>
       <tr>
-        <td align="right" class="main"><br><?php echo tep_image_submit('button_update.gif', IMAGE_BUTTON_UPDATE); ?>&nbsp;&nbsp;</td>
+        <td align="right" class="main"><br><?php echo tep_image_submit('button_continue.gif', IMAGE_CONTINUE); ?>&nbsp;&nbsp;</td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->
