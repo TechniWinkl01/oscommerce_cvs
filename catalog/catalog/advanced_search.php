@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.38 2001/12/20 14:36:49 dgw_ Exp $
+  $Id: advanced_search.php,v 1.39 2002/01/01 19:08:57 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -138,27 +138,27 @@ function check_form() {
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right">&nbsp;<?php echo tep_image(DIR_WS_IMAGES . 'table_background_browse.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
+            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_browse.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="left" width="20%" class="fieldKey">&nbsp;<?php echo ENTRY_CATEGORIES; ?>&nbsp;</td>
+            <td align="left" width="20%" class="fieldKey"><?php echo ENTRY_CATEGORIES; ?></td>
             <td align="left" colspan="3" class="fieldValue">
 <?php
   $selected[0] = ($HTTP_GET_VARS['categories_id']) ? $HTTP_GET_VARS['categories_id'] : '0';
   echo tep_display_cat_select('categories_id', $selected, 1, 0, TEXT_ALL_CATEGORIES);
 ?>
-            &nbsp;&nbsp;(&nbsp;<input type="checkbox"  name="inc_subcat" value="1">&nbsp;<?php echo ENTRY_INCLUDES_SUBCATEGORIES; ?>&nbsp;)&nbsp;</td>
+            <input type="checkbox"  name="inc_subcat" value="1"> <?php echo ENTRY_INCLUDES_SUBCATEGORIES; ?></td>
           </tr>
           <tr>
-            <td align="left" width="20%" class="fieldKey">&nbsp;<?php echo ENTRY_MANUFACTURER; ?>&nbsp;</td>
+            <td align="left" width="20%" class="fieldKey"><?php echo ENTRY_MANUFACTURER; ?></td>
             <td align="left" colspan="3" class="fieldValue">
               <select name="manufacturers_id">
                 <option value="" selected><?php echo TEXT_ALL_MANUFACTURERS; ?>
@@ -168,73 +168,71 @@ function check_form() {
     echo '<option value="' . $manufacturers_values['manufacturers_id'] . '">' . $manufacturers_values['manufacturers_name'] . "\n";
   }
 ?>
-              </select>&nbsp;
+              </select>
             </td>
           </tr>
           <tr>
-            <td align="left" class="fieldKey">&nbsp;<?php echo ENTRY_KEYWORDS; ?>&nbsp;</td>
-            <td align="left" colspan="3" class="fieldValue"><input type="text" name="keywords" size="40" <?php if ($HTTP_GET_VARS['keywords']) echo 'value="' . htmlspecialchars(StripSlashes($HTTP_GET_VARS['keywords'])) . '"';?>>&nbsp;<?php echo ENTRY_KEYWORDS_TEXT; ?>&nbsp;</td>
+            <td align="left" class="fieldKey"><?php echo ENTRY_KEYWORDS; ?></td>
+            <td align="left" colspan="3" class="fieldValue"><input type="text" name="keywords" size="40" value="<?php if ($HTTP_GET_VARS['keywords']) echo htmlspecialchars(StripSlashes($HTTP_GET_VARS['keywords']));?>"><?php echo ENTRY_KEYWORDS_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="left" class="fieldKey">&nbsp;</td>
-            <td align="left" colspan="3" class="fieldValue">&nbsp;(&nbsp;<input type="checkbox" name="search_in_description" value="1">&nbsp;<?php echo TEXT_SEARCH_IN_DESCRIPTION; ?>&nbsp;)&nbsp;</td>
+            <td class="fieldValue">&nbsp;</td>
+            <td class="fieldValue"><input type="checkbox" name="search_in_description" value="1"> <?php echo TEXT_SEARCH_IN_DESCRIPTION; ?></td>
           </tr>
           <tr>
-            <td align="left" class="fieldKey">&nbsp;<?php echo ENTRY_DATE_ADDED_FROM; ?>&nbsp;</td>
-            <td align="left" class="fieldValue"><input type="text" name="dfrom" value="<?php if ($HTTP_GET_VARS['dfrom']) echo $HTTP_GET_VARS['dfrom']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?php echo DOB_FORMAT_STRING; ?>');">&nbsp;</td>
-            <td align="left" class="fieldKey">&nbsp;<?php echo ENTRY_TO; ?>&nbsp;</td>
-            <td align="left" class="fieldValue"><input type="text" name="dto" value="<?php if ($HTTP_GET_VARS['dto']) echo $HTTP_GET_VARS['dto']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?php echo DOB_FORMAT_STRING; ?>');">&nbsp;<?php echo ENTRY_DATE_ADDED_TEXT; ?></td>
+            <td align="left" class="fieldKey"><?php echo ENTRY_DATE_ADDED_FROM; ?></td>
+            <td align="left" class="fieldValue"><input type="text" name="dfrom" value="<?php if ($HTTP_GET_VARS['dfrom']) echo $HTTP_GET_VARS['dfrom']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?php echo DOB_FORMAT_STRING; ?>');"></td>
+            <td align="left" class="fieldKey"><?php echo ENTRY_TO; ?></td>
+            <td align="left" class="fieldValue"><input type="text" name="dto" value="<?php if ($HTTP_GET_VARS['dto']) echo $HTTP_GET_VARS['dto']; else echo DOB_FORMAT_STRING; ?>" size="10" maxlength="10" onFocus="RemoveFormatString(this, '<?php echo DOB_FORMAT_STRING; ?>');"><?php echo ENTRY_DATE_ADDED_TEXT; ?></td>
           </tr>
           <tr>
-            <td align="left" class="fieldKey">&nbsp;<?php echo ENTRY_PRICE_FROM; ?>&nbsp;</td>
-            <td align="left" class="fieldValue"><input type="text" name="pfrom" size="9" maxlength="9" <?php if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</td>
-            <td align="left" class="fieldKey">&nbsp;<?php echo ENTRY_TO; ?>&nbsp;</td>
-            <td align="left" class="fieldValue"><input type="text" name="pto" size="9" maxlength="9" <?php if ($HTTP_GET_VARS['pfrom']) echo 'value="' . $HTTP_GET_VARS['pfrom'] . '"';?>>&nbsp;</td>
+            <td align="left" class="fieldKey"><?php echo ENTRY_PRICE_FROM; ?></td>
+            <td align="left" class="fieldValue"><input type="text" name="pfrom" size="9" maxlength="9" value="<?php if ($HTTP_GET_VARS['pfrom']) echo $HTTP_GET_VARS['pfrom'];?>"></td>
+            <td align="left" class="fieldKey"><?php echo ENTRY_TO; ?></td>
+            <td align="left" class="fieldValue"><input type="text" name="pto" size="9" maxlength="9" value="<?php if ($HTTP_GET_VARS['pfrom']) echo $HTTP_GET_VARS['pfrom'];?>"></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?>&nbsp;&nbsp;</td>
+        <td align="right" class="main"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
       </tr>
       <tr>
-        <td><?php echo tep_black_line(); ?></td>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
         <td class="main">
 <?php
   if ($HTTP_GET_VARS['errorno']) {
     if (($HTTP_GET_VARS['errorno'] & 1) == 1) {
-      echo str_replace ('\n', '<br>', JS_AT_LEAST_ONE_INPUT);
+      echo nl2br(JS_AT_LEAST_ONE_INPUT);
     }
     if (($HTTP_GET_VARS['errorno'] & 10) == 10) {
-      echo str_replace ('\n', '<br>', JS_INVALID_FROM_DATE);
+      echo nl2br(JS_INVALID_FROM_DATE);
     }
     if (($HTTP_GET_VARS['errorno'] & 100) == 100) {
-      echo str_replace ('\n', '<br>', JS_INVALID_TO_DATE);
+      echo nl2br(JS_INVALID_TO_DATE);
     }
     if (($HTTP_GET_VARS['errorno'] & 1000) == 1000) {
-      echo str_replace ('\n', '<br>', JS_TO_DATE_LESS_THAN_FROM_DATE);
+      echo nl2br(JS_TO_DATE_LESS_THAN_FROM_DATE);
     }
     if (($HTTP_GET_VARS['errorno'] & 10000) == 10000) {
-      echo str_replace ('\n', '<br>', JS_PRICE_FROM_MUST_BE_NUM);
+      echo nl2br(JS_PRICE_FROM_MUST_BE_NUM);
     }
     if (($HTTP_GET_VARS['errorno'] & 100000) == 100000) {
-      echo str_replace ('\n', '<br>', JS_PRICE_TO_MUST_BE_NUM);
+      echo nl2br(JS_PRICE_TO_MUST_BE_NUM);
     }
     if (($HTTP_GET_VARS['errorno'] & 1000000) == 1000000) {
-      echo str_replace ('\n', '<br>', JS_PRICE_TO_LESS_THAN_PRICE_FROM);
+      echo nl2br(JS_PRICE_TO_LESS_THAN_PRICE_FROM);
     }
     if (($HTTP_GET_VARS['errorno'] & 10000000) == 10000000) {
-      echo str_replace ('\n', '<br>', JS_INVALID_KEYWORDS);
+      echo nl2br(JS_INVALID_KEYWORDS);
     }
   } else {
+    new infoBoxHeading(array(array('text' => TEXT_ADVANCED_SEARCH_TIPS_HEADING)), false, false);
     new infoBox(array(array('text' => TEXT_ADVANCED_SEARCH_TIPS)));
   }
 ?>
         </td>
-      </tr>
-      <tr>
-        <td><?php echo tep_black_line(); ?></td>
       </tr>
     </table></form></td>
 <!-- body_text_eof //-->

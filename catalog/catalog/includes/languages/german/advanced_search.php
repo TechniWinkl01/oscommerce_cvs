@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.13 2001/12/20 14:14:15 dgw_ Exp $
+  $Id: advanced_search.php,v 1.14 2002/01/01 19:08:57 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,8 @@ define('TEXT_PRODUCT_NAME', 'Produkt Name');
 define('TEXT_PRICE', 'Preis');
 define('TEXT_PERFORM_ADVANCED_SEARCH', 'Erweiterte Suche starten.');
 define('TEXT_SEARCH_IN_DESCRIPTION', 'Auch in Beschreibungen suchen');
-define('TEXT_ADVANCED_SEARCH_TIPS', '<b>Hilfe zur erweiterten Suche</b><br><br>Die Suchmaschine erm&ouml;glicht die Suche in dem Produktnamen, Produktbeschreibung, Hersteller und Modell.<br><br>Sie haben die M&ouml;glichkeit logische Operatoren wie "AND" (Und) und "OR" (oder) zu verwenden.<br>Als Beispiel also k&ouml;nnten Sie angeben: <u>Microsoft AND Maus</u>.<br>Desweiteren k&ouml;nnen Sie Klammern verwenden um die Suche zu verschachteln, also :<br><u>Microsoft AND (Maus OR Tastatur OR "Visual Basic")</u>.<br>Mit den Anf&uuml;hrungszeichen werden hier mehrere W&ouml;rter zu einem Suchbegriff zusammengefasst.');
+define('TEXT_ADVANCED_SEARCH_TIPS_HEADING', 'Hilfe zur erweiterten Suche');
+define('TEXT_ADVANCED_SEARCH_TIPS', 'Die Suchmaschine erm&ouml;glicht die Suche in dem Produktnamen, Produktbeschreibung, Hersteller und Modell.<br><br>Sie haben die M&ouml;glichkeit logische Operatoren wie "AND" (Und) und "OR" (oder) zu verwenden.<br>Als Beispiel also k&ouml;nnten Sie angeben: <u>Microsoft AND Maus</u>.<br>Desweiteren k&ouml;nnen Sie Klammern verwenden um die Suche zu verschachteln, also :<br><u>Microsoft AND (Maus OR Tastatur OR "Visual Basic")</u>.<br>Mit den Anf&uuml;hrungszeichen werden hier mehrere W&ouml;rter zu einem Suchbegriff zusammengefasst.');
 define('JS_AT_LEAST_ONE_INPUT', '* Eines der folgenden Felder muß ausgefüllt werden:\n    Schlüsselw&ouml;rter\n    Datum hinzugefügt von\n    Datum hinzugefügt bis\n    Preis ab\n    Preis bis\n');
 define('JS_INVALID_FROM_DATE', '* Unzul&auml;ssiges von Datum\n');
 define('JS_INVALID_TO_DATE', '* Unzul&auml;ssiges bis jetzt\n');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.10 2001/12/20 14:14:14 dgw_ Exp $
+  $Id: advanced_search.php,v 1.11 2002/01/01 19:08:57 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,8 @@ define('TEXT_PRODUCT_NAME', 'Product Name');
 define('TEXT_PRICE', 'Price');
 define('TEXT_PERFORM_ADVANCED_SEARCH', 'Perform Advanced Search');
 define('TEXT_SEARCH_IN_DESCRIPTION', 'Search in the description also');
-define('TEXT_ADVANCED_SEARCH_TIPS', '<b>Advanced Search Tips</b><br><br>The search engine allows you to do a keyword search on the Product Model, Name, Description and Manufacturer Name.<br><br>When doing a keyword search, you can separate words and phrases by AND or OR. For example, you can enter <u>Microsoft AND mouse</u>. This search would generate results that have both words in them. However, if you type in <u>mouse OR keyboard</u>, you will get a list of products that have both or either words in them. If words are not separated by AND or OR, search will default the logical operator to AND.<br><br>You can also search for exact matches of words by enclosing them in quotes. For example, if you search for <u>"notebook computer"</u>, you will get a list of products that have that exact string in them.<br><br>Brackets can be used to control the order of the logical operations. For example, you can enter <u>Microsoft and (keyboard or mouse or "visual basic")</u>.');
+define('TEXT_ADVANCED_SEARCH_TIPS_HEADING', 'Advanced Search Tips');
+define('TEXT_ADVANCED_SEARCH_TIPS', 'The search engine allows you to do a keyword search on the Product Model, Name, Description and Manufacturer Name.<br><br>When doing a keyword search, you can separate words and phrases by AND or OR. For example, you can enter <u>Microsoft AND mouse</u>. This search would generate results that have both words in them. However, if you type in <u>mouse OR keyboard</u>, you will get a list of products that have both or either words in them. If words are not separated by AND or OR, search will default the logical operator to AND.<br><br>You can also search for exact matches of words by enclosing them in quotes. For example, if you search for <u>"notebook computer"</u>, you will get a list of products that have that exact string in them.<br><br>Brackets can be used to control the order of the logical operations. For example, you can enter <u>Microsoft and (keyboard or mouse or "visual basic")</u>.');
 define('JS_AT_LEAST_ONE_INPUT', '* One of the following fields must be enter:\n    Keywords\n    Date Added From\n    Date Added To\n    Price From\n    Price To\n');
 define('JS_INVALID_FROM_DATE', '* Invalid From Date\n');
 define('JS_INVALID_TO_DATE', '* Invalid To Date\n');
