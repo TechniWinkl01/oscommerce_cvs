@@ -36,7 +36,7 @@
   }
   define('STORE_DB_TRANSACTIONS', 0);
 
-  define('SESSION_OBJECTS_ALLOWED', 1);
+// enable this under PHP3
   define('REPAIR_BROKEN_CART', 1);
 
 // define the filenames used in the project
@@ -225,21 +225,15 @@
   if ($cart) tep_session_register('cart');
   if ($customer_id) tep_session_register('customer_id');
 
-// Fix the object if necesary
-
-  if (REPAIR_BROKEN_CART && SESSION_OBJECTS_ALLOWED && is_object($cart) ) {
+// Fix the cart if necesary
+  if (REPAIR_BROKEN_CART && is_object($cart) ) {
     $broken_cart = $cart;
     $cart = new shoppingCart;
     $cart->unserialize($broken_cart);
   } else {
-
-    if (SESSION_OBJECTS_ALLOWED) {
-      if (!$cart) {
-        tep_session_register('cart');
-        $cart = new shoppingCart;
-      }
-    } else {
-      $cart = new shoppingCart($cart_contents);
+    if (!$cart) {
+      tep_session_register('cart');
+      $cart = new shoppingCart;
     }
   }
 

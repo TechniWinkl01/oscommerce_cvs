@@ -2,72 +2,8 @@
   class shoppingCart {
     var $contents, $total;
 
-    function shoppingCart($contents='') {
-      if (SESSION_OBJECTS_ALLOWED) {
-        $this->reset();
-      } else {
-        global $cart, $cart_contents, $cart_total;
-        if (!tep_session_is_registered('cart_contents')) {
-          tep_session_register('cart');
-          tep_session_register('cart_contents');
-          tep_session_register('cart_total');
-        }
-        $this->string_to_contents($contents);
-        $this->total = $cart_total;
-      }
-    }
-
-    function contents_to_string() {
-      $str = '';
-      if ($this->contents) {
-        reset($this->contents);
-        while (list($products_id, ) = each($this->contents)) {
-            $qty = $this->contents[$products_id]['qty'];
-            $pstr = $products_id . '#' . $qty . '#';
-            $ostr = '';
-            if ($this->contents[$products_id]['attributes']) {
-              reset($this->contents[$products_id]['attributes']);
-              while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
-                if ($ostr != '') $ostr .= '_';
-                $ostr .= $option . '.' . $value;
-              }
-            }
-            if ($str != '') $str .= '|';
-             $str .= $pstr . $ostr;
-        }
-      }
-      return $str;
-    }
-
-    function sync() {
-      global $cart_contents, $cart_total;
-      if (!SESSION_OBJECTS_ALLOWED) {
-        $cart_contents = $this->contents_to_string();
-        $cart_total = $this->total;
-      }
-    }
-
-    function string_to_contents($cont) {
-      $this->contents = array();
-      if ($cont != '') {
-        $this->total = 0;
-        $ccont = explode('|', $cont);
-        while (list( ,$prods) = each($ccont)) {
-          $prod = explode('#', $prods);
-          $product_id = $prod[0];
-          $qty = $prod[1];
-          $this->contents[$product_id]['qty'] = $qty;
-          $options = $prod[2];
-          if ($options != '') {
-            $option = explode('_', $options);
-            for ($i=0;$i<sizeof($option);$i++) {
-              $ostr = $option[$i];
-              $opt = explode('.', $ostr);
-              $this->contents[$product_id]['attributes'][$opt[0]] = $opt[1];
-            }
-          }
-        }
-      }
+    function shoppingCart() {
+      $this->reset();
     }
 
     function restore_contents() {
@@ -111,7 +47,7 @@
       $this->cleanup();
     }
 
-    function reset($reset_database = TRUE) {
+    function reset($reset_database = FALSE) {
       global $customer_id;
 
       $this->contents = array();
@@ -121,7 +57,6 @@
         tep_db_query("delete from customers_basket where customers_id = '" . $customer_id . "'");
         tep_db_query("delete from customers_basket_attributes where customers_id = '" . $customer_id . "'");
       }
-      $this->sync();
     }
 
     function add_cart($products_id, $qty, $attributes = '') {
@@ -133,6 +68,7 @@
         $this->contents[] = array($products_id);
         $this->contents[$products_id] = array('qty' => $qty);
 // insert into database
+
         if ($customer_id) tep_db_query("insert into customers_basket (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . $customer_id . "', '" . $products_id . "', '" . $qty . "', '" . date('Ymd') . "')");
 
         if (is_array($attributes)) {
@@ -164,7 +100,6 @@
           if ($customer_id) tep_db_query("update customers_basket_attributes set products_options_id = '" . $option . "' and products_options_value_id = '" . $value . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
         }
       }
-      $this->sync();
     }
 
 	function cleanup() {
@@ -181,7 +116,6 @@
           }
         }
       }
-      $this->sync();
     }
 
     function count_contents() {
@@ -217,7 +151,6 @@
         tep_db_query("delete from customers_basket where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
         tep_db_query("delete from customers_basket_attributes where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
       }
-      $this->sync();
     }
 
     function remove_all() {
