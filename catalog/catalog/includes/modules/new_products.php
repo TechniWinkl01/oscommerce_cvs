@@ -1,6 +1,6 @@
 <!-- new_products //-->
           <tr>
-            <td class="tableHeading" nowrap><br>&nbsp;<? echo sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B')); ?>&nbsp;</td>
+            <td class="tableHeading"><br>&nbsp;<? echo sprintf(TABLE_HEADING_NEW_PRODUCTS, strftime('%B')); ?>&nbsp;</td>
           </tr>
           <tr>
             <td><? echo tep_black_line(); ?></td>

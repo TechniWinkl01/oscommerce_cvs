@@ -28,15 +28,15 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="topBarTitle">
           <tr>
-            <td width="100%" class="topBarTitle" nowrap>&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
+            <td width="100%" class="topBarTitle">&nbsp;<? echo TOP_BAR_TITLE; ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading" nowrap>&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right" nowrap>&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_cart.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<? echo HEADING_TITLE; ?>&nbsp;</td>
+            <td align="right">&nbsp;<? echo tep_image(DIR_WS_IMAGES . 'table_background_cart.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -64,18 +64,18 @@
 
           <tr>
             <td <? $col_idx=0; echo $col_width[$col_idx++]; ?>></td>
-            <td <? echo $col_width[$col_idx++]; ?> align="center" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
+            <td <? echo $col_width[$col_idx++]; ?> align="center" class="tableHeading">&nbsp;<? echo TABLE_HEADING_QUANTITY; ?>&nbsp;</td>
 
 <?
     if (PRODUCT_LIST_MODEL) {
 ?>
-            <td <? echo $col_width[$col_idx++]; ?> class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_MODEL; ?>&nbsp;</td>
+            <td <? echo $col_width[$col_idx++]; ?> class="tableHeading">&nbsp;<? echo TABLE_HEADING_MODEL; ?>&nbsp;</td>
 <?
     }
 ?>
 
-            <td <? echo $col_width[$col_idx++]; ?> class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
-            <td <? echo $col_width[$col_idx++]; ?> align="right" class="tableHeading" nowrap>&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
+            <td <? echo $col_width[$col_idx++]; ?> class="tableHeading">&nbsp;<? echo TABLE_HEADING_PRODUCTS; ?>&nbsp;</td>
+            <td <? echo $col_width[$col_idx++]; ?> align="right" class="tableHeading">&nbsp;<? echo TABLE_HEADING_TOTAL; ?>&nbsp;</td>
           </tr>
           <tr>
             <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
@@ -87,9 +87,9 @@
       $products_name = $products[$i]['name'];
       echo '          <tr>' . "\n";
       echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top"><input type="checkbox" name="cart_delete[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
-      echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top" nowrap><input type="text" name="cart_quantity[]" value="' . $products[$i]['quantity'] . '" maxlength="2" size="2"><input type="hidden" name="products_id[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
-      if (PRODUCT_LIST_MODEL) echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">' . $products[$i]['model'] . '</a>&nbsp;</td>' . "\n";
-      echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main" nowrap>&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
+      echo '            <td ' . $col_width[$col_idx++] . ' align="center" valign="top"><input type="text" name="cart_quantity[]" value="' . $products[$i]['quantity'] . '" maxlength="2" size="2"><input type="hidden" name="products_id[]" value="' . $products[$i]['id'] . '"></td>' . "\n";
+      if (PRODUCT_LIST_MODEL) echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '">' . $products[$i]['model'] . '</a>&nbsp;</td>' . "\n";
+      echo '            <td ' . $col_width[$col_idx++] . ' valign="top" class="main">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products[$i]['id'], 'NONSSL') . '"><b>' . $products_name . '</b></a>' . "\n";
 
       if (STOCK_CHECK) {
       echo check_stock ($products[$i]['id'], $products[$i]['quantity']);
@@ -110,7 +110,7 @@
       }
 //------display customer choosen option eof-----
       echo '</td>' . "\n";
-      echo '            <td ' . $col_width[$col_idx++] . ' align="right" valign="top" class="main" nowrap>&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products[$i]['price']) . '</b>&nbsp;';
+      echo '            <td ' . $col_width[$col_idx++] . ' align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($products[$i]['quantity'] * $products[$i]['price']) . '</b>&nbsp;';
 //------display customer choosen option --------
       if ($attributes_exist == '1') {
         reset($cart->contents[$products[$i]['id']]['attributes']);
@@ -143,8 +143,8 @@
           <tr>
             <td colspan="<? echo $colspan; ?>" align="right"><table border="0" width="100%" cellspacing="0" cellpadding="0" align="right">
               <tr>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
-                <td align="right" width="100%" class="tableHeading" nowrap>&nbsp;<? echo tep_currency_format($cart->show_total()); ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo SUB_TITLE_SUB_TOTAL; ?>&nbsp;</td>
+                <td align="right" width="100%" class="tableHeading">&nbsp;<? echo tep_currency_format($cart->show_total()); ?>&nbsp;</td>
               </tr>
             </table></td>
           </tr>
@@ -164,13 +164,13 @@
 <?
   } else {
     echo '          <tr>' . "\n";
-    echo '            <td colspan="' . $colspan . '" class="main" nowrap>&nbsp;' . TEXT_CART_EMPTY . '&nbsp;</td>' . "\n";
+    echo '            <td colspan="' . $colspan . '" class="main">&nbsp;' . TEXT_CART_EMPTY . '&nbsp;</td>' . "\n";
     echo '          </tr>' . "\n";
     echo '          <tr>' . "\n";
     echo '            <td colspan="' . $colspan . '">' . tep_black_line() . '</td>' . "\n";
     echo '          </tr>' . "\n";
     echo '          <tr>' . "\n";
-    echo '            <td colspan="' . $colspan . '" align="right" class="tableHeading" nowrap><br>&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>&nbsp;&nbsp;</td>' . "\n";
+    echo '            <td colspan="' . $colspan . '" align="right" class="tableHeading"><br>&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>&nbsp;&nbsp;</td>' . "\n";
     echo '          </tr>' . "\n";
   }
 ?>

@@ -11,7 +11,7 @@
                 <td><? echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td class="tableHeading" nowrap>&nbsp;<? echo TEXT_ALSO_PURCHASED_PRODUCTS; ?>&nbsp;</td>
+                <td class="tableHeading">&nbsp;<? echo TEXT_ALSO_PURCHASED_PRODUCTS; ?>&nbsp;</td>
               </tr>
               <tr>
                 <td><? echo tep_black_line(); ?></td>

@@ -53,7 +53,7 @@
                           '  <td class="main">&nbsp;' . MODULE_SHIPPING_FLAT_TEXT_DESCRIPTION . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_flat_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_flat_cost) . '</td>' . "\n" .
-                          '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="flat"';
+                          '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="flat"';
         if ($shipping_cheapest == 'flat') $display_string .= ' CHECKED';
         $display_string .= '>&nbsp;</td>' . "\n" .
                            '</tr>' . "\n" .

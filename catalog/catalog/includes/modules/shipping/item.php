@@ -53,7 +53,7 @@
                           '  <td class="main">&nbsp;' . MODULE_SHIPPING_ITEM_TEXT_DESCRIPTION . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_item_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_item_cost) . '</td>' . "\n" .
-                          '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="item"';
+                          '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="item"';
         if ($shipping_cheapest == 'item') $display_string .= ' CHECKED';
         $display_string .= '>&nbsp;</td>' . "\n" .
                            '</tr>' . "\n" .

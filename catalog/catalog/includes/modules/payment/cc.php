@@ -34,16 +34,16 @@
         if ($this->enabled) {
         $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER . '&nbsp;</td>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;<input type="text" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">&nbsp;</td>' . "\n" .
+                            '    <td class="main">&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_OWNER . '&nbsp;</td>' . "\n" .
+                            '    <td class="main">&nbsp;<input type="text" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;<input type="text" name="cc_number">&nbsp;</td>' . "\n" .
+                            '    <td class="main">&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
+                            '    <td class="main">&nbsp;<input type="text" name="cc_number">&nbsp;</td>' . "\n" .
                             '  </tr>' . "\n" .
                             '  <tr>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
-                            '    <td class="main" nowrap>&nbsp;<select name="cc_expires_month">';
+                            '    <td class="main">&nbsp;' . MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
+                            '    <td class="main">&nbsp;<select name="cc_expires_month">';
         for ($i=1; $i < 13; $i++) {
           $selected = ($HTTP_POST_VARS['cc_expires_month'] == $i) ? ' selected' : '';
           $selection_string .= '<option' . $selected . ' value="' . sprintf('%02d', $i) . '">' . strftime("%B",mktime(0,0,0,$i,1,2000)) . '</option>';
@@ -71,20 +71,20 @@
         $cc_val = CCValidationSolution($cc_val);
 
         $confirmation_string = '          <tr>' . "\n" .
-                               '            <td class="main" nowrap>&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</td>' . "\n" .
+                               '            <td class="main">&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</td>' . "\n" .
                                '          </tr>' . "\n";
 
         if ($cc_val == '1') {
           $confirmation_string .= '          <tr>' . "\n" .
-                                  '            <td class="main" nowrap>&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
+                                  '            <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
                                   '          </tr>' . "\n" .
                                   '          <tr>' . "\n" .
-                                  '            <td class="main" nowrap>&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
+                                  '            <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
                                   '          </tr>' . "\n";
         }
 
         $confirmation_string .= '          <tr>' . "\n" .
-                                '            <td class="main" nowrap>&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
+                                '            <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
                                 '          </tr>' . "\n";
 
         if ($cc_val != '1') {

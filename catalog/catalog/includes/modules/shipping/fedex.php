@@ -79,14 +79,14 @@
                              '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION) . '</td>' . "\n" .
                              '  <td class="main"><font color="#ff0000">Error:</font> ' . htmlentities($quote['Error']) . '</td>' . "\n" .
                              '  <td align="right" class="main">&nbsp;</td>' . "\n" .
-                             '  <td align="right" nowrap>&nbsp;</td>' . "\n" .
+                             '  <td align="right">&nbsp;</td>' . "\n" .
                              '</tr>' . "\n";
         } else {
           $display_string .= '<tr>' . "\n" .
                              '  <td class="main">&nbsp;' . htmlentities(MODULE_SHIPPING_FEDEX_TEXT_DESCRIPTION) . '</td>' . "\n" .
                              '  <td class="main">' . $shipping_fedex_method . '</td>' . "\n" .
                              '  <td align="right" class="main">' . tep_currency_format($shipping_fedex_cost) . '</td>' . "\n" .
-                             '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="fedex"';
+                             '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="fedex"';
           if ($shipping_cheapest == 'fedex') {
             $display_string .= ' CHECKED';
           }

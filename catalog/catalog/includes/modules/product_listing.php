@@ -28,8 +28,8 @@
   <tr>
     <td colspan="<? echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td class="smallText" nowrap>&nbsp;<? echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
-        <td align="right" class="smallText" nowrap>&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
+        <td class="smallText">&nbsp;<? echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
+        <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
       </tr>
     </table></td>
   </tr>
@@ -40,7 +40,7 @@
   }
 ?>
   <tr>
-    <td nowrap>
+    <td>
 <?
   $list_box_contents = array();
   $list_box_contents[] = array('params' => 'class="productListing-heading"');
@@ -152,7 +152,7 @@
         }
 
         $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                               'params' => 'class="productListing-data" nowrap',
+                                               'params' => 'class="productListing-data"',
                                                'form' => $lc_form,
                                                'text'  => $lc_text);
 
@@ -165,7 +165,7 @@
   } else {
 ?>
   <tr class="productListing-odd">
-    <td colspan="<? echo $colspan; ?>" class="smallText" nowrap>&nbsp;<? echo ($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</td>
+    <td colspan="<? echo $colspan; ?>" class="smallText">&nbsp;<? echo ($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</td>
   </tr>
 <?
   }
@@ -179,8 +179,8 @@
   <tr>
     <td colspan="<? echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
-        <td class="smallText" nowrap>&nbsp;<? echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
-        <td align="right" class="smallText" nowrap>&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
+        <td class="smallText">&nbsp;<? echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</td>
+        <td align="right" class="smallText">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</td>
       </tr>
     </table></td>
   </tr>

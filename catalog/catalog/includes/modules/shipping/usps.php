@@ -80,7 +80,7 @@
                           '  <td class="main">&nbsp;' . MODULE_SHIPPING_USPS_TEXT_DESCRIPTION . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_usps_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_usps_cost) . '</td>' . "\n" .
-                          '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="usps"';
+                          '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="usps"';
         if ($shipping_cheapest == 'usps') $display_string .= ' CHECKED';
         $display_string .= '>&nbsp;</td>' . "\n" .
                            '</tr>' . "\n" .

@@ -84,7 +84,7 @@
                           '  <td class="main">&nbsp;' . MODULE_SHIPPING_UPS_TEXT_DESCRIPTION . '</td>' . "\n" .
                           '  <td class="main">' . $shipping_ups_method . '</td>' . "\n" .
                           '  <td align="right" class="main">' . tep_currency_format($shipping_ups_cost) . '</td>' . "\n" .
-                          '  <td align="right" nowrap>&nbsp;<input type="radio" name="shipping_selected" value="ups"';
+                          '  <td align="right">&nbsp;<input type="radio" name="shipping_selected" value="ups"';
         if ($shipping_cheapest == 'ups') $display_string .= ' CHECKED';
         $display_string .= '>&nbsp;</td>' . "\n" .
                            '</tr>' . "\n" .
