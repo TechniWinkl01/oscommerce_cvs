@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.47 2003/06/29 22:50:52 hpdl Exp $
+  $Id: modules.php,v 1.48 2004/04/16 14:02:09 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -46,6 +46,9 @@
         while (list($key, $value) = each($HTTP_POST_VARS['configuration'])) {
           tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
         }
+
+        osC_Cache::clear('configuration');
+
         tep_redirect(tep_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $HTTP_GET_VARS['module']));
         break;
       case 'install':
@@ -61,6 +64,9 @@
             $module->remove();
           }
         }
+
+        osC_Cache::clear('configuration');
+
         tep_redirect(tep_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $class));
         break;
     }
