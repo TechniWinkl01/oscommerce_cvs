@@ -1,6 +1,6 @@
 <?
 /*
-  $Id: itransact_split.php,v 1.15 2002/01/22 21:14:46 dgw_ Exp $
+  $Id: itransact_split.php,v 1.16 2002/04/03 19:01:24 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -72,14 +72,13 @@
 // setup passback variables
       $process_button_string = tep_draw_hidden_field(tep_session_name(), tep_session_id()) .
                                tep_draw_hidden_field('passback[]', 'prod') .
-                               tep_draw_hidden_field('passback[]', 'payment') .
                                tep_draw_hidden_field('passback[]', 'shipping_cost') .
                                tep_draw_hidden_field('passback[]', 'shipping_method') .
                                tep_draw_hidden_field('passback[]', 'vendor_id') .
                                tep_draw_hidden_field('passback[]', tep_session_name()) .
                                tep_draw_hidden_field('passback[]', 'sig_rand') .
                                tep_draw_hidden_field('passback[]', 'auth_id') .
-                               tep_draw_hidden_field('sig_rand', $sig_rand) .
+                               tep_draw_hidden_field('sig_rand', $sig_rand_begun) .
                                tep_draw_hidden_field('auth_id', $auth_id);
 
 // setup lookups
@@ -178,7 +177,7 @@
                                 tep_draw_hidden_field('address', $address_book['entry_street_address']) .
                                 tep_draw_hidden_field('city', $address_book['entry_city']) .
                                 tep_draw_hidden_field('zip', $address_book['entry_postcode']) .
-                                tep_draw_hidden_field('country', $customers_country) .
+                                tep_draw_hidden_field('country', $customers_country['countries_name']) .
                                 tep_draw_hidden_field('email', $customer['customers_email_address']) .
                                 tep_draw_hidden_field('phone', $customer['customers_telephone']);
 
