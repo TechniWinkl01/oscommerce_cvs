@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: configure.php,v 1.12 2002/07/19 17:02:36 project3000 Exp $
+  $Id: configure.php,v 1.13 2002/07/20 09:08:31 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,7 +16,6 @@
   define('HTTP_SERVER', ''); // eg, http://localhost or - https://localhost should not be NULL for productive servers
   define('HTTP_CATALOG_SERVER', '');
   define('HTTPS_CATALOG_SERVER', '');
-  define('ENABLE_SSL', 'false'); // secure webserver for administration tool
   define('ENABLE_SSL_CATALOG', 'false'); // secure webserver for catalog module
   define('DIR_FS_DOCUMENT_ROOT', $DOCUMENT_ROOT); // where your pages are located on the server. if $DOCUMENT_ROOT doesnt suit you, replace with your local path. (eg, /usr/local/apache/htdocs)
   define('DIR_WS_ADMIN', '/admin/');
