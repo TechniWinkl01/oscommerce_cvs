@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.20 2002/04/30 16:38:57 dgw_ Exp $
+  $Id: backup.php,v 1.21 2002/06/15 11:02:56 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,14 +36,14 @@ define('TEXT_NO_EXTENSION', 'Keine');
 define('TEXT_BACKUP_DIRECTORY', 'Sicherungsverzeichnis:');
 define('TEXT_LAST_RESTORATION', 'Letzte Wiederherstellung:');
 define('TEXT_FORGET', '(<u> vergessen</u>)');
-define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this backup?');
+define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Sicherung l&ouml;schen m&ouml;chten?');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Sicherungsverzeichnis ist nicht vorhanden.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Sicherungsverzeichnis ist schreibgesch&uuml;tzt.');
 define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Fehler: Download Link nicht akzeptabel.');
 
-define('SUCCESS_LAST_RESTORE_CLEARED', 'Erfolg: Das letzte Wiederherstellungdatum wurde gelöscht.');
+define('SUCCESS_LAST_RESTORE_CLEARED', 'Erfolg: Das letzte Wiederherstellungdatum wurde gel&ouml;scht.');
 define('SUCCESS_DATABASE_SAVED', 'Erfolg: Die Datenbank wurde gesichert.');
 define('SUCCESS_DATABASE_RESTORED', 'Erfolg: Die Datenbank wurde wiederhergestellt.');
-define('SUCCESS_BACKUP_DELETED', 'Erfolg: Die Sicherungsdatei wurde gelöscht.');
+define('SUCCESS_BACKUP_DELETED', 'Erfolg: Die Sicherungsdatei wurde gel&ouml;scht.');
 ?>
