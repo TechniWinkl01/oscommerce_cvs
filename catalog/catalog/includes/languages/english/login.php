@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.7 2001/11/05 19:39:13 dgw_ Exp $
+  $Id: login.php,v 1.8 2001/11/10 17:38:07 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-if ($HTTP_GET_VARS['origin'] == 'checkout_payment.php') {
+if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
   define('NAVBAR_TITLE', 'Order');
   define('TOP_BAR_TITLE', 'Order');
   define('HEADING_TITLE', 'Ordering online is easy.');
