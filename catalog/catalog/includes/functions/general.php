@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.196 2002/11/14 19:30:34 hpdl Exp $
+  $Id: general.php,v 1.197 2002/11/18 22:50:24 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -905,19 +905,10 @@
 ////
 // Return a customer greeting
   function tep_customer_greeting() {
-    global $HTTP_COOKIE_VARS, $customer_id, $customer_first_name;
+    global $customer_id, $customer_first_name;
 
-    if ($HTTP_COOKIE_VARS['first_name']) {
-      $first_name = stripslashes($HTTP_COOKIE_VARS['first_name']);
-    } elseif ($customer_first_name) {
-      $first_name = $customer_first_name;
-    }
-
-    if ($first_name) {
-      $greeting_string = sprintf(TEXT_GREETING_PERSONAL, $first_name, tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL'));
-      if (!$customer_id) {
-        $greeting_string .= '<br>' . sprintf(TEXT_GREETING_PERSONAL_RELOGON, $first_name, tep_href_link(FILENAME_LOGIN, '', 'SSL'));
-      }
+    if (tep_session_is_registered('customer_first_name') && tep_session_is_registered('customer_id')) {
+      $greeting_string = sprintf(TEXT_GREETING_PERSONAL, $customer_first_name, tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL'));
     } else {
       $greeting_string = sprintf(TEXT_GREETING_GUEST, tep_href_link(FILENAME_LOGIN, '', 'SSL'), tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'));
     }
