@@ -102,6 +102,9 @@
 // split-page-results
   $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
 
+// infobox
+  $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
+
 // customization for the design layout
   define('IMAGE_REQUIRED', 1); // should product images be necessary
   define('TAX_VALUE', 16); // propducts tax
@@ -187,6 +190,11 @@
   define('VALUE_FONT_FACE', 'Verdana, Arial');
   define('VALUE_FONT_SIZE', 2);
   define('VALUE_FONT_COLOR', '#000000');
+
+// font styles
+  define('FONT_STYLE_GENERAL', '<font face="Verdana, Arial" size="2">');
+  define('FONT_STYLE_INFO_BOX_HEADING', '<font face="Tahoma, Verdana, Arial" size="2">');
+  define('FONT_STYLE_INFO_BOX_BODY', '<font face="Verdana, Arial" size="1">');
 
 // minimum length of text field values accepted
   define('ENTRY_FIRST_NAME_MIN_LENGTH', 3);
