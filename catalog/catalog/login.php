@@ -3,7 +3,7 @@
   if ($HTTP_GET_VARS['action'] == 'process') {
     $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
 
-    if ($user == 'new') {
+    if ($HTTP_POST_VARS['user'] == 'new') {
       if (!tep_db_num_rows($check_customer_query)) {
         header('Location: ' . tep_href_link(FILENAME_CREATE_ACCOUNT, 'email_address=' . $HTTP_POST_VARS['email_address'] . '&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
         tep_exit();
@@ -11,13 +11,76 @@
         header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail_email', 'NONSSL'));
         tep_exit();
       }
-    }
+    } else {
 
-    if (tep_db_num_rows($check_customer_query)) {
-      $check_customer = tep_db_fetch_array($check_customer_query);
-      // Check that password is good
-      $pass_ok = validate_password($HTTP_POST_VARS['password'], $check_customer['customers_password']);
-      if ($pass_ok != true) {
+      if (tep_db_num_rows($check_customer_query)) {
+        $check_customer = tep_db_fetch_array($check_customer_query);
+        // Check that password is good
+        $pass_ok = validate_password($HTTP_POST_VARS['password'], $check_customer['customers_password']);
+        if ($pass_ok != true) {
+          if (@$HTTP_POST_VARS['origin']) {
+            if (@$HTTP_POST_VARS['products_id']) {
+              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
+              tep_exit();
+            } elseif (@$HTTP_POST_VARS['order_id']) {
+              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
+              tep_exit();
+            } else {
+              header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
+              tep_exit();
+            }
+          } else {
+            header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
+            tep_exit();
+          }
+        } else {
+
+          $customer_id = $check_customer['customers_id'];
+          $customer_first_name = $check_customer['customers_firstname'];
+          tep_session_register('customer_id');
+          tep_session_register('customer_first_name');
+
+          if ($HTTP_POST_VARS['setcookie'] == '1') {
+            setcookie('email_address', $HTTP_POST_VARS['email_address'], time()+2592000);
+            setcookie('password', $HTTP_POST_VARS['password'], time()+2592000);
+            setcookie('first_name', $customer_first_name, time()+2592000);
+          } elseif ( ($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password']) ) {
+            setcookie('email_address', '');
+            setcookie('password', '');
+            setcookie('first_name', '');
+          }
+
+          $date_now = date('Ymd');
+          tep_db_query("update customers_info set customers_info_date_of_last_logon = '" . $date_now . "', customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . $customer_id . "'");
+
+// restore cart contents
+          $cart->restore_contents();
+
+          if (@$HTTP_POST_VARS['origin']) {
+            if (@$HTTP_POST_VARS['products_id']) {
+              header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
+              tep_exit();
+            } elseif (@$HTTP_POST_VARS['order_id']) {
+              header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
+              tep_exit();
+            } elseif (@$HTTP_POST_VARS['emailproduct']) {
+              header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'action=where&products_id=' . $HTTP_POST_VARS['emailproduct'], 'NONSSL'));
+              tep_exit();
+            } else {
+              if (@$HTTP_POST_VARS['connection'] == 'SSL') {
+                $connection_type = 'SSL';
+              } else {
+                $connection_type = 'NONSSL';
+              }
+              header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
+              tep_exit();
+            }
+          } else {
+            header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
+            tep_exit();
+          }
+        }
+      } else {
         if (@$HTTP_POST_VARS['origin']) {
           if (@$HTTP_POST_VARS['products_id']) {
             header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
@@ -33,67 +96,6 @@
           header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
           tep_exit();
         }
-      }
-
-      $customer_id = $check_customer['customers_id'];
-      $customer_first_name = $check_customer['customers_firstname'];
-      tep_session_register('customer_id');
-      tep_session_register('customer_first_name');
-
-      if ($HTTP_POST_VARS['setcookie'] == '1') {
-        setcookie('email_address', $HTTP_POST_VARS['email_address'], time()+2592000);
-        setcookie('password', $HTTP_POST_VARS['password'], time()+2592000);
-        setcookie('first_name', $customer_first_name, time()+2592000);
-      } elseif ( ($HTTP_COOKIE_VARS['email_address']) && ($HTTP_COOKIE_VARS['password']) ) {
-        setcookie('email_address', '');
-        setcookie('password', '');
-        setcookie('first_name', '');
-      }
-
-      $date_now = date('Ymd');
-      tep_db_query("update customers_info set customers_info_date_of_last_logon = '" . $date_now . "', customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . $customer_id . "'");
-
-// restore cart contents
-      $cart->restore_contents();
-
-      if (@$HTTP_POST_VARS['origin']) {
-        if (@$HTTP_POST_VARS['products_id']) {
-          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
-          tep_exit();
-        } elseif (@$HTTP_POST_VARS['order_id']) {
-          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
-          tep_exit();
-        } elseif (@$HTTP_POST_VARS['emailproduct']) {
-          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], 'action=where&products_id=' . $HTTP_POST_VARS['emailproduct'], 'NONSSL'));
-          tep_exit();
-        } else {
-          if (@$HTTP_POST_VARS['connection'] == 'SSL') {
-            $connection_type = 'SSL';
-          } else {
-            $connection_type = 'NONSSL';
-          }
-          header('Location: ' . tep_href_link($HTTP_POST_VARS['origin'], '', $connection_type));
-          tep_exit();
-        }
-      } else {
-        header('Location: ' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL'));
-        tep_exit();
-      }
-    } else {
-      if (@$HTTP_POST_VARS['origin']) {
-        if (@$HTTP_POST_VARS['products_id']) {
-          header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&products_id=' . $HTTP_POST_VARS['products_id'], 'NONSSL'));
-          tep_exit();
-        } elseif (@$HTTP_POST_VARS['order_id']) {
-          header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'] . '&order_id=' . $HTTP_POST_VARS['order_id'], 'NONSSL'));
-          tep_exit();
-        } else {
-          header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail&origin=' . $HTTP_POST_VARS['origin'], 'NONSSL'));
-          tep_exit();
-        }
-      } else {
-        header('Location: ' . tep_href_link(FILENAME_LOGIN, 'login=fail', 'NONSSL'));
-        tep_exit();
       }
     }
   } else {
@@ -177,7 +179,7 @@ function session_win() {
             <td class="main">&nbsp;<? echo TEXT_NEW_CUSTOMER; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td align="right" class="main"><input type="radio" name="user" value="" checked></td>
+            <td align="right" class="main"><input type="radio" name="user" value="returning" checked></td>
             <td class="main">&nbsp;<? echo TEXT_RETURNING_CUSTOMER; ?>&nbsp;</td>
           </tr>
           <tr>
