@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.81 2002/02/24 16:08:20 thomasamoulton Exp $
+  $Id: orders.php,v 1.82 2002/03/01 22:06:44 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
 
         $customer_notified = '0';
         if ($HTTP_POST_VARS['notify'] == 'on') {
-          $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . HTTP_SERVER . tep_catalog_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . tep_date_long($check_status['date_purchased']) . "\n\n" . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
+          $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . tep_catalog_href_link(FILENAME_CATALOG_ACCOUNT_HISTORY_INFO, 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . tep_date_long($check_status['date_purchased']) . "\n\n" . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
           tep_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
           $customer_notified = '1';
         }
@@ -302,6 +302,10 @@
               </tr>
             </table></td>
             <td valign="top"><?php echo tep_image_submit('button_update.gif', IMAGE_UPDATE); ?></td>
+            <tr>
+              <td class="main"><b><?php echo '<a href="' . tep_href_link(FILENAME_ORDERS_PRINTABLE, 'orders_id=' . $HTTP_GET_VARS[
+'oID'], 'NONSSL') . '" TARGET="_blank">' . ENTRY_PRINTABLE . '</a>'; ?> </td>
+            </tr>
           </tr>
         </table></td>
       </form></tr>
