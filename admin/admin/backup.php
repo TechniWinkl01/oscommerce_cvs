@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: backup.php,v 1.21 2001/11/22 19:54:22 hpdl Exp $
+  $Id: backup.php,v 1.22 2001/11/22 21:27:42 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -12,7 +12,10 @@
 
   require('includes/application_top.php');
 
-  if ($HTTP_GET_VARS['action'] == 'backupnow') {
+  if ($HTTP_GET_VARS['action'] == 'forget') {
+    tep_db_query("delete from configuration where configuration_key = 'DB_LAST_RESTORE'");
+    tep_redirect(tep_href_link(FILENAME_BACKUP));
+  } elseif ($HTTP_GET_VARS['action'] == 'backupnow') {
     tep_set_time_limit(0);
     $schema = '# The Exchange Project - Community Made Shopping!' . "\n" .
               '# http://www.theexchangeproject.org' . "\n\n" .
@@ -90,19 +93,63 @@
       $schema .= "\n";
     }
 
-    $backup_file = DIR_FS_BACKUP . 'db_' . DB_DATABASE . '-' . date('YmdHis') . '.sql';
-    if ($fp = fopen($backup_file, 'w')) {
-      fputs($fp, $schema);
-      fclose($fp);
+    if ($HTTP_POST_VARS['download'] == 'yes') {
+      $backup_file = 'db_' . DB_DATABASE . '-' . date('YmdHis') . '.sql';
       switch ($HTTP_POST_VARS['compress']) {
-        case 'gzip': exec(LOCAL_EXE_GZIP . ' ' . $backup_file);
+        case 'no':   header('Content-type: application/x-octet-stream');
+                     header('Content-disposition: attachment; filename=' . $backup_file);
+                     echo $schema;
+                     exit;
                      break;
-        case 'zip':  exec(LOCAL_EXE_ZIP . ' -j ' . $backup_file . '.zip ' . $backup_file);
-                     unlink($backup_file);
+        case 'gzip': if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'w')) {
+                       fputs($fp, $schema);
+                       fclose($fp);
+                       exec(LOCAL_EXE_GZIP . ' ' . DIR_FS_BACKUP . $backup_file);
+                       $backup_file .= '.gz';
+                     }
+                     if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'rb')) {
+                       $buffer = fread($fp, filesize(DIR_FS_BACKUP . $backup_file));
+                       fclose($fp);
+                       unlink(DIR_FS_BACKUP . $backup_file);
+                       header('Content-type: application/x-octet-stream');
+                       header('Content-disposition: attachment; filename=' . $backup_file);
+                       echo $buffer;
+                       exit;
+                     }
+                     break;
+        case 'zip':  if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'w')) {
+                       fputs($fp, $schema);
+                       fclose($fp);
+                       exec(LOCAL_EXE_ZIP . ' -j ' . DIR_FS_BACKUP . $backup_file . '.zip ' . DIR_FS_BACKUP . $backup_file);
+                       unlink(DIR_FS_BACKUP . $backup_file);
+                       $backup_file .= '.zip';
+                     }
+                     if ($fp = fopen(DIR_FS_BACKUP . $backup_file, 'rb')) {
+                       $buffer = fread($fp, filesize(DIR_FS_BACKUP . $backup_file));
+                       fclose($fp);
+                       unlink(DIR_FS_BACKUP . $backup_file);
+                       header('Content-type: application/x-octet-stream');
+                       header('Content-disposition: attachment; filename=' . $backup_file);
+                       echo $buffer;
+                       exit;
+                     }
                      break;
       }
+    } else {
+      $backup_file = DIR_FS_BACKUP . 'db_' . DB_DATABASE . '-' . date('YmdHis') . '.sql';
+      if ($fp = fopen($backup_file, 'w')) {
+        fputs($fp, $schema);
+        fclose($fp);
+        switch ($HTTP_POST_VARS['compress']) {
+          case 'gzip': exec(LOCAL_EXE_GZIP . ' ' . $backup_file);
+                       break;
+          case 'zip':  exec(LOCAL_EXE_ZIP . ' -j ' . $backup_file . '.zip ' . $backup_file);
+                       unlink($backup_file);
+                       break;
+        }
+      }
+      tep_redirect(tep_href_link(FILENAME_BACKUP));
     }
-    tep_redirect(tep_href_link('backup.php'));
   } elseif ($HTTP_GET_VARS['action'] == 'restorenow') {
     tep_set_time_limit(0);
     if (file_exists(DIR_FS_BACKUP . $HTTP_GET_VARS['restore'])) {
@@ -177,12 +224,13 @@
         }
       }
     }
-    tep_redirect(tep_href_link('backup.php'));
+    tep_redirect(tep_href_link(FILENAME_BACKUP));
   } elseif ($HTTP_GET_VARS['action'] == 'download') {
     $extension = substr($HTTP_GET_VARS['backup'], -3);
     if ( ($extension == 'zip') || ($extension == '.gz') || ($extension == 'sql') ) {
       if ($fp = fopen(DIR_FS_BACKUP . $HTTP_GET_VARS['backup'], 'rb')) {
         $buffer = fread($fp, filesize(DIR_FS_BACKUP . $HTTP_GET_VARS['backup']));
+        fclose($fp);
         header('Content-type: application/x-octet-stream');
         header('Content-disposition: attachment; filename=' . $HTTP_GET_VARS['backup']);
         echo $buffer;
@@ -232,8 +280,10 @@
       </tr>
 <?php
 // check if the backup directory exists
+  $dir_ok = true;
   if (is_dir(DIR_FS_BACKUP)) {
     if (!is_writeable(DIR_FS_BACKUP)) {
+      $dir_ok = false;
 ?>
       <tr>
         <td><?php new errorBox(array(array('align' => 'left', 'text' => ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE))); ?></td>
@@ -241,6 +291,7 @@
 <?php
     }
   } else {
+    $dir_ok = false;
 ?>
       <tr>
         <td><?php new errorBox(array(array('align' => 'left', 'text' => ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST))); ?></td>
@@ -317,13 +368,13 @@
               </tr>
               <tr>
                 <td class="smallText" colspan="3">Backup Directory: <?php echo DIR_FS_BACKUP; ?></td>
-                <td align="right" class="smallText"><?php echo (($HTTP_GET_VARS['action'] == 'backup') ? '&nbsp;' : '<a href="' . tep_href_link('backup.php', 'action=backup') . '">' . tep_image(DIR_WS_IMAGES . 'button_backup.gif', IMAGE_BACKUP) . '</a>'); ?></td>
+                <td align="right" class="smallText"><?php if ($HTTP_GET_VARS['action'] != 'backup') echo '<a href="' . tep_href_link(FILENAME_BACKUP, 'action=backup') . '">' . tep_image(DIR_WS_IMAGES . 'button_backup.gif', IMAGE_BACKUP) . '</a>'; ?></td>
               </tr>
 <?php
   if (defined('DB_LAST_RESTORE')) {
 ?>
               <tr>
-                <td class="smallText" colspan="4">Last Restoration: <?php echo DB_LAST_RESTORE; ?></td>
+                <td class="smallText" colspan="4">Last Restoration: <?php echo DB_LAST_RESTORE . ' (<a href="' . tep_href_link(FILENAME_BACKUP, 'action=forget') . '"><u>forget</u></a>)'; ?> </td>
               </tr>
 <?php
   }
@@ -347,15 +398,21 @@
 
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_NEW_BACKUP);
-    $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_draw_radio_field('compress', 'gzip', true) . ' Use GZIP');
-    $info_box_contents[] = array('align' => 'left', 'text' => tep_draw_radio_field('compress', 'zip') . ' Use ZIP');
-    $info_box_contents[] = array('align' => 'left', 'text' => tep_draw_radio_field('compress', 'no') . ' No Compression (Pure SQL)');
+    if ($dir_ok) {
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_draw_radio_field('compress', 'gzip', true) . ' Use GZIP');
+      $info_box_contents[] = array('align' => 'left', 'text' => tep_draw_radio_field('compress', 'zip') . ' Use ZIP');
+      $info_box_contents[] = array('align' => 'left', 'text' => tep_draw_radio_field('compress', 'no') . ' No Compression (Pure SQL)');
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_draw_checkbox_field('download', 'yes') . ' Download only (do not store server side)*<br><br>*Best through a HTTPS connection');
+    } else {
+      $info_box_contents[] = array('align' => 'left', 'text' => tep_draw_radio_field('compress', 'no', true) . ' No Compression (Pure SQL)');
+      $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . tep_draw_radio_field('download', 'yes', true) . ' Download only (do not store server side)*<br><br>*Best through a HTTPS connection');
+    }
     $info_box_contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit(DIR_WS_IMAGES . 'button_backup.gif', IMAGE_BACKUP) . '&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'restore') {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'left', 'text' => tep_break_string(sprintf(TEXT_INFO_RESTORE, DIR_FS_BACKUP . (($buInfo->compression != 'None') ? substr($buInfo->file, 0, strrpos($buInfo->file, '.')) : $buInfo->file), ($buInfo->compression != 'None') ? TEXT_INFO_UNPACK : ''), 35, ' '));
     $info_box_contents[] = array('align' => 'center', 'text' => '<br><a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action', 'info')) . 'action=restorenow&restore=' . $buInfo->file, 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_RESTORE) . '</a>&nbsp;<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
-  } else {
+  } elseif ($buInfo) {
     $info_box_contents = array();
     $info_box_contents[] = array('align' => 'center', 'text' => '<a href="' . tep_href_link(FILENAME_BACKUP, tep_get_all_get_params(array('action')) . 'action=restore', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_restore.gif', IMAGE_RESTORE) . '</a>');
     $info_box_contents[] = array('align' => 'left', 'text' => '<br>' . TEXT_INFO_DATE . ' ' . $buInfo->date);
