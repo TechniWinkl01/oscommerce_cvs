@@ -21,4 +21,5 @@ define('TEXT_INFO_DATE_LAST_LOGON', 'Letzte Anmeldung:');
 define('TEXT_INFO_NUMBER_OF_LOGONS', 'Anzahl der Anmeldungen:');
 define('TEXT_INFO_COUNTRY', 'Land:');
 define('TEXT_INFO_NUMBER_OF_REVIEWS', 'Anzahl der Berichte:');
+define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this customer?');
 ?>

@@ -21,4 +21,5 @@ define('TEXT_INFO_DATE_LAST_LOGON', 'Ultima Visita:');
 define('TEXT_INFO_NUMBER_OF_LOGONS', 'Numero de visitas:');
 define('TEXT_INFO_COUNTRY', 'Pais:');
 define('TEXT_INFO_NUMBER_OF_REVIEWS', 'Numero de Comentarios:');
+define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este cliente?');
 ?>
