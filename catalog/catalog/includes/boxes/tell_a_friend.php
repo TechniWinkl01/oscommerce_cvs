@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.10 2002/01/03 00:19:55 dgw_ Exp $
+  $Id: tell_a_friend.php,v 1.11 2002/01/03 20:55:11 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
   $info_box_contents = array();
   $info_box_contents[] = array('form'  => '<form name="tell_a_friend" method="get" action="' . tep_href_link(FILENAME_TELL_A_FRIEND, '', 'NONSSL', false) . '">',
                                'align' => 'left',
-                               'text'  => '<div align="center"><input type="text" name="send_to" size="10">&nbsp;' . tep_image_submit('button_tell_a_friend.gif', BOX_HEADING_TELL_A_FRIEND) . $hide . '</div>' . BOX_TELL_A_FRIEND_TEXT
+                               'text'  => '<input type="text" name="send_to" size="10">' . tep_image_submit('button_tell_a_friend.gif', BOX_HEADING_TELL_A_FRIEND) . $hide . '<br>' . BOX_TELL_A_FRIEND_TEXT
                               );
   new infoBox($info_box_contents);
 ?>
