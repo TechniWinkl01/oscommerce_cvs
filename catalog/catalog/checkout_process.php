@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.91 2002/02/03 20:08:46 clescuyer Exp $
+  $Id: checkout_process.php,v 1.92 2002/02/09 11:02:25 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -114,7 +114,18 @@
       reset($products[$i]['attributes']);
       while (list($option, $value) = each($products[$i]['attributes'])) {
         if (DOWNLOAD_ENABLED == 'true') {
-          $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, pad.products_attributes_maxcount , pad.products_attributes_filename from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, "  . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "' and pa.products_attributes_id=pad.products_attributes_id");
+          $attributes_query = "select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, pad.products_attributes_maxcount , pad.products_attributes_filename 
+                               from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa 
+                               left join " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad
+                                on pa.products_attributes_id=pad.products_attributes_id
+                               where pa.products_id = '" . $products[$i]['id'] . "' 
+                                and pa.options_id = '" . $option . "' 
+                                and pa.options_id = popt.products_options_id 
+                                and pa.options_values_id = '" . $value . "' 
+                                and pa.options_values_id = poval.products_options_values_id 
+                                and popt.language_id = '" . $languages_id . "' 
+                                and poval.language_id = '" . $languages_id . "'";
+          $attributes = tep_db_query($attributes_query);
         } else {
           $attributes = tep_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $products[$i]['id'] . "' and pa.options_id = '" . $option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $languages_id . "' and poval.language_id = '" . $languages_id . "'");
         }
