@@ -1,5 +1,5 @@
 <?
-// advanced mode?
+// expert mode?
   define('EXPERT_MODE', '0'); // enable if you know what your doing with the database structure
 
 // define our webserver variables
@@ -29,12 +29,6 @@
     $parse_start_time = microtime();
   }
 
-// define how the session functions will be used
-  $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
-
-// lets start our session
-  tep_session_start();
-
 // define the filenames used in the project
   define('FILENAME_CATEGORIES', 'categories.php');
   define('FILENAME_CUSTOMERS', 'customers.php');
@@ -54,21 +48,6 @@
   define('DB_SERVER_USERNAME', 'mysql');
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'catalog');
-
-// include the database functions
-  $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
-
-// make a connection to the database... now
-  tep_db_connect() or die('Unable to connect to database server!');
-
-// define our general functions used application-wide
-  $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
-
-// setup our boxes
-  $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
-
-// split-page-results
-  $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
 
 // customization for the design layout
   define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
@@ -164,7 +143,18 @@
   define('ACCOUNT_DOB', 1);
   define('ACCOUNT_SUBURB', 1);
   define('ACCOUNT_STATE', 1);
-  
+
+// check to see if php implemented session management functions - if not, include php3/php4 compatible session class
+  if (!function_exists('session_start')) {
+    $include_file = DIR_CLASSES . 'sessions.php'; include(DIR_INCLUDES . 'include_once.php');
+  }
+
+// define how the session functions will be used
+  $include_file = DIR_FUNCTIONS . 'sessions.php';  include(DIR_INCLUDES . 'include_once.php');
+
+// lets start our session
+  tep_session_start();
+
 // languages - this should be removed when the proper functions are implemented!
   if (@!$language) {
     $language = 'english';
@@ -178,9 +168,26 @@
     }
   }
   tep_session_register('language');
-  
-  $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
 
+  $include_file = DIR_LANGUAGES . $language . '.php'; include(DIR_INCLUDES . 'include_once.php');
+  $include_file = DIR_LANGUAGES . $language . '/' . basename($PHP_SELF); include(DIR_INCLUDES . 'include_once.php');
+
+// include the database functions
+  $include_file = DIR_FUNCTIONS . 'database.php';  include(DIR_INCLUDES . 'include_once.php');
+
+// make a connection to the database... now
+  tep_db_connect() or die('Unable to connect to database server!');
+
+// define our general functions used application-wide
+  $include_file = DIR_FUNCTIONS . 'general.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// setup our boxes
+  $include_file = DIR_CLASSES . 'boxes.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// split-page-results
+  $include_file = DIR_CLASSES . 'split_page_results.php'; include(DIR_INCLUDES . 'include_once.php');
+
+// calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
   if (strlen($cPath) > 0) {
     $cPath_array = explode('_', $cPath);
