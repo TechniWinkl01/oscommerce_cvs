@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install.php,v 1.3 2002/01/05 06:40:40 hpdl Exp $
+  $Id: install.php,v 1.4 2002/03/31 16:47:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -45,6 +45,12 @@ The information you submit regarding the web server and database server will be 
 
 <p><b>Webserver Root Directory</b><br><?php echo osc_draw_input_field('DIR_FS_DOCUMENT_ROOT', $dir_fs_www_root); ?><br>
 The directory where your web pages are being served from, usually <i>/home/myname/public_html</i>.</p>
+
+<p><b>Webserver Catalog Directory</b><br><?php echo osc_draw_input_field('DIR_FS_CATALOG', '/catalog'); ?><br>
+The directory where your catalog pages are being served from (from the webserver root directory), usually <i>/home/myname/public_html<b>/catalog</b></i>.</p>
+
+<p><b>Webserver Administration Tool Directory</b><br><?php echo osc_draw_input_field('DIR_FS_ADMIN', '/catalog/admin'); ?><br>
+The directory where your administration tool pages are being served from (from the webserver root directory), usually <i>/home/myname/public_html<b>/catalog/admin</b></i>.</p>
 
 <p><b>WWW Catalog Directory</b><br><?php echo osc_draw_input_field('DIR_WS_CATALOG', $dir_ws_www_root . '/'); ?><br>
 The virtual directory where the osCommerce Catalog module resides, usually <i>/catalog/</i>.</p>

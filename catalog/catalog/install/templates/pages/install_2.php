@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: install_2.php,v 1.2 2002/01/04 01:38:09 hpdl Exp $
+  $Id: install_2.php,v 1.3 2002/03/31 16:47:46 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -79,7 +79,7 @@
 
 <p>It is important this procedure is not interrupted, otherwise the database may end up corrupt.</p>
 
-<p>The file to import must be located and named at: <b><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_WS_CATALOG'] . 'install/oscommerce.sql'; ?></b>.</p>
+<p>The file to import must be located and named at: <b><?php echo $HTTP_POST_VARS['DIR_FS_DOCUMENT_ROOT'] . $HTTP_POST_VARS['DIR_FS_CATALOG'] . '/install/oscommerce.sql'; ?></b>.</p>
 
 <form name="install" action="install.php?step=3" method="post">
 
