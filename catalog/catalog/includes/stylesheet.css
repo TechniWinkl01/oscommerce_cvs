@@ -14,12 +14,12 @@ TABLE.infoBoxHeading {
 }
 TD.infoBoxHeading {
 	font-family : Tahoma, Verdana, Arial, sans-serif;
-	font-size : x-small;
+	font-size : 12px;
 }
 
 TD.infoBox {
 	font-family : Verdana, Arial, sans-serif;
-	font-size : xx-small;
+	font-size : 10px;
 }
 
 TABLE.topBarTitle {
@@ -31,7 +31,7 @@ TABLE.topBarTitle {
 
 TD.topBarTitle {
 	font-family : Tahoma, Verdana, Arial, sans-serif;
-	font-size : x-small;
+	font-size : 12px;
 }
 
 TR.productListing-odd {
@@ -48,7 +48,7 @@ TR.productListing-heading {
 
 TD.productListing-heading {
 	font-family : Verdana, Arial, sans-serif;
-	font-size : xx-small;
+	font-size : 10px;
     background-color : #d2e9fb;
 	color : #000000;
 	font-weight : bolder;
@@ -57,5 +57,5 @@ TD.productListing-heading {
 
 TD.productListing-data {
 	font-family : Verdana, Arial, sans-serif;
-	font-size : xx-small;
+	font-size : 10px;
 }
