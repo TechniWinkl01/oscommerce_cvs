@@ -1,6 +1,29 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr>
 <?
+  $colspan = 2;
+  if (PRODUCT_LIST_MODEL) $colspan++;
+  if (PRODUCT_LIST_MANUFACTURER) $colspan++;
+  if (PRODUCT_LIST_BUY_NOW) $colspan++;
+
+  $listing_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $listing_sql, $listing_numrows);
+
+  if ($listing_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '1' || PREV_NEXT_BAR_LOCATION == '3')) {
+?>
+  <tr>
+    <td colspan="<? echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <tr>
+        <td nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?>&nbsp;</font></td>
+        <td align="right" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_RESULT_PAGE; ?> <? echo $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?>&nbsp;</font></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
+  </tr>
+<?
+  }
+  
   if (PRODUCT_LIST_MODEL) echo '<td nowrap><font face="' . TABLE_HEADING_FONT_FACE . '" size="' . TABLE_HEADING_FONT_SIZE .'" color="' . TABLE_HEADING_FONT_COLOR . '"><b>&nbsp;' . tep_create_sort_heading($HTTP_GET_VARS['sort'], 1, TABLE_HEADING_MODEL) . '&nbsp;</b></font></td>';
 ?>
     <td nowrap><font face="<? echo TABLE_HEADING_FONT_FACE; ?>" size="<? echo TABLE_HEADING_FONT_SIZE; ?>" color="<? echo TABLE_HEADING_FONT_COLOR; ?>"><b>&nbsp;<? echo tep_create_sort_heading($HTTP_GET_VARS['sort'], 2, TABLE_HEADING_PRODUCTS); ?>&nbsp;</b></font></td>
@@ -14,16 +37,11 @@
   </tr>
   <tr>
 <?
-  $colspan = 2;
-  if (PRODUCT_LIST_MODEL) $colspan++;
-  if (PRODUCT_LIST_MANUFACTURER) $colspan++;
-  if (PRODUCT_LIST_BUY_NOW) $colspan++;
   echo '    <td colspan="' . $colspan . '">' . tep_black_line() . '</td>';
   echo '  </tr>';
-  $listing_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $listing_sql, $listing_numrows);
-  $listing = tep_db_query($listing_sql);
-  $number_of_products = '0';
-  if (tep_db_num_rows($listing)) {
+  if ($listing_numrows > 0) {
+    $number_of_products = '0';
+    $listing = tep_db_query($listing_sql);
     while ($listing_values = tep_db_fetch_array($listing)) {
       $number_of_products++;
       if (($number_of_products / 2) == floor($number_of_products / 2)) {
@@ -63,7 +81,7 @@
     <td colspan="<? echo $colspan; ?>"><? echo tep_black_line(); ?></td>
   </tr>
 <?
-  if ($listing_numrows > 0) {
+  if ($listing_numrows > 0 && (PREV_NEXT_BAR_LOCATION == '2' || PREV_NEXT_BAR_LOCATION == '3')) {
 ?>
   <tr>
     <td colspan="<? echo $colspan; ?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
