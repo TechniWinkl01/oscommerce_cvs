@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: whos_online.php,v 1.11 2003/06/20 00:12:59 hpdl Exp $
+  $Id: whos_online.php,v 1.12 2003/11/17 18:39:22 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,21 +11,17 @@
 */
 
   function tep_update_whos_online() {
-    global $customer_id;
+    global $osC_Session, $osC_Customer;
 
-    if (tep_session_is_registered('customer_id')) {
-      $wo_customer_id = $customer_id;
-
-      $customer_query = tep_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
-      $customer = tep_db_fetch_array($customer_query);
-
-      $wo_full_name = $customer['customers_firstname'] . ' ' . $customer['customers_lastname'];
+    if ($osC_Customer->isLoggedOn()) {
+      $wo_customer_id = $osC_Customer->id;
+      $wo_full_name = $osC_Customer->full_name;
     } else {
       $wo_customer_id = '';
       $wo_full_name = 'Guest';
     }
 
-    $wo_session_id = tep_session_id();
+    $wo_session_id = $osC_Session->id;
     $wo_ip_address = getenv('REMOTE_ADDR');
     $wo_last_page_url = getenv('REQUEST_URI');
 
