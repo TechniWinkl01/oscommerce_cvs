@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.18 2003/11/17 20:34:31 hpdl Exp $
+  $Id: psigate.php,v 1.19 2003/12/05 00:08:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -87,7 +87,7 @@
         $selection = array('id' => $this->code,
                            'module' => $this->title,
                            'fields' => array(array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER,
-                                                   'field' => $order->billing['firstname'] . ' ' . $order->billing['lastname']),
+                                                   'field' => tep_draw_input_field('psigate_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
                                              array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER,
                                                    'field' => tep_draw_input_field('psigate_cc_number')),
                                              array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES,
@@ -101,6 +101,8 @@
     }
 
     function pre_confirmation_check() {
+      global $messageStack;
+
       if (PHP_VERSION < 4.1) {
         global $_POST;
       }
@@ -127,9 +129,11 @@
         }
 
         if ( ($result == false) || ($result < 1) ) {
-          $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&psigate_cc_owner=' . urlencode($_POST['psigate_cc_owner']) . '&psigate_cc_expires_month=' . $_POST['psigate_cc_expires_month'] . '&psigate_cc_expires_year=' . $_POST['psigate_cc_expires_year'];
+          $messageStack->add_session('checkout_payment', $error, 'error');
 
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL', true, false));
+          $payment_error_return = 'psigate_cc_owner=' . urlencode($_POST['psigate_cc_owner']) . '&psigate_cc_expires_month=' . urlencode($_POST['psigate_cc_expires_month']) . '&psigate_cc_expires_year=' . urlencode($_POST['psigate_cc_expires_year']);
+
+          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
         }
 
         $this->cc_card_type = $cc_validation->cc_type;
@@ -151,7 +155,7 @@
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
         $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                               'fields' => array(array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER,
-                                                      'field' => $order->billing['firstname'] . ' ' . $order->billing['lastname']),
+                                                      'field' => $_POST['psigate_cc_owner']),
                                                 array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER,
                                                       'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                                 array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES,
@@ -165,6 +169,10 @@
 
     function process_button() {
       global $order, $currencies;
+
+      if (PHP_VERSION < 4.1) {
+        global $_POST;
+      }
 
       switch (MODULE_PAYMENT_PSIGATE_TRANSACTION_MODE) {
         case 'Always Good':
@@ -195,11 +203,17 @@
           break;
       }
 
+      if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
+        $payment_error_return = '&psigate_cc_owner=' . urlencode($_POST['psigate_cc_owner']) . '&psigate_cc_expires_month=' . urlencode($_POST['psigate_cc_expires_month']) . '&psigate_cc_expires_year=' . urlencode($_POST['psigate_cc_expires_year']);
+      } else {
+        $payment_error_return = '';
+      }
+
       $process_button_string = tep_draw_hidden_field('MerchantID', MODULE_PAYMENT_PSIGATE_MERCHANT_ID) .
                                tep_draw_hidden_field('FullTotal', number_format($order->info['total'] * $currencies->get_value(MODULE_PAYMENT_PSIGATE_CURRENCY), $currencies->currencies[MODULE_PAYMENT_PSIGATE_CURRENCY]['decimal_places'])) .
                                tep_draw_hidden_field('ThanksURL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
-                               tep_draw_hidden_field('NoThanksURL', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code, 'NONSSL', true)) .
-                               tep_draw_hidden_field('Bname', $order->billing['firstname'] . ' ' . $order->billing['lastname']) .
+                               tep_draw_hidden_field('NoThanksURL', tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code . $payment_error_return, 'SSL')) .
+                               tep_draw_hidden_field('Bname', ((MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') ? $_POST['psigate_cc_owner'] : $order->billing['firstname'] . ' ' . $order->billing['lastname'])) .
                                tep_draw_hidden_field('Baddr1', $order->billing['street_address']) .
                                tep_draw_hidden_field('Bcity', $order->billing['city']);
 
