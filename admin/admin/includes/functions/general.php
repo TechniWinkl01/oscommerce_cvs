@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.115 2002/01/29 14:49:35 hpdl Exp $
+  $Id: general.php,v 1.116 2002/02/08 16:48:43 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -822,8 +822,8 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
           $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $categories['categories_id'] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
           $category = tep_db_fetch_array($category_query);
           $categories_array[$index][] = array('id' => $categories['categories_id'], 'text' => $category['categories_name']);
-          $categories_array[$index] = tep_array_reverse($categories_array[$index]);
           if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = tep_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
+          $categories_array[$index] = tep_array_reverse($categories_array[$index]);
         }
         $index++;
       }
@@ -831,7 +831,6 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       $category_query = tep_db_query("select cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.categories_id = '" . $id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "'");
       $category = tep_db_fetch_array($category_query);
       $categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
-      $categories_array[$index] = tep_array_reverse($categories_array[$index]);
       if ( (tep_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = tep_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
     }
 
