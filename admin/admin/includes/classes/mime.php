@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mime.php,v 1.2 2002/01/31 16:20:46 jan0815 Exp $
+  $Id: mime.php,v 1.3 2002/01/31 21:06:12 uid65040 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,6 +44,11 @@ class mime{
    */
   function mime($body, $params = array())
   {
+     if (EMAIL_LINEFEED == 'CRLF') {
+      $this->lf = "\r\n";
+    } else {
+      $this->lf = "\n";
+    }
     foreach ($params as $key => $value) {
       switch ($key) {
         case 'content_type':
@@ -108,7 +113,7 @@ class mime{
         if (!empty($this->_subparts)) {
             srand((double)microtime()*1000000);
             $boundary = '=_' . md5(uniqid(rand()) . microtime());
-            $this->_headers['Content-Type'] .= ';' . EMAIL_LINEFEED . chr(9) . 'boundary="' . $boundary . '"';
+            $this->_headers['Content-Type'] .= ';' . $this->lf . chr(9) . 'boundary="' . $boundary . '"';
 
             // Add body parts to $subparts
             for ($i = 0; $i < count($this->_subparts); $i++) {
@@ -117,15 +122,15 @@ class mime{
                 foreach ($tmp['headers'] as $key => $value) {
                     $headers[] = $key . ': ' . $value;
                 }
-                $subparts[] = implode(EMAIL_LINEFEED, $headers) . EMAIL_LINEFEED . EMAIL_LINEFEED . $tmp['body'];
+                $subparts[] = implode($this->lf, $headers) . $this->lf . $this->lf . $tmp['body'];
             }
 
-            $encoded['body'] = '--' . $boundary . EMAIL_LINEFEED .
-                               implode('--' . $boundary . EMAIL_LINEFEED, $subparts) .
-                               '--' . $boundary.'--' . EMAIL_LINEFEED;
+            $encoded['body'] = '--' . $boundary . $this->lf .
+                               implode('--' . $boundary . $this->lf, $subparts) .
+                               '--' . $boundary.'--' . $this->lf;
 
         } else {
-            $encoded['body'] = $this->_getEncodedData($this->_body, $this->_encoding) . EMAIL_LINEFEED;
+            $encoded['body'] = $this->_getEncodedData($this->_body, $this->_encoding) . $this->lf;
         }
 
         // Add headers to $encoded
@@ -177,7 +182,7 @@ class mime{
                 break;
 
             case 'base64':
-                return rtrim(chunk_split(base64_encode($data), 76, EMAIL_LINEFEED));
+                return rtrim(chunk_split(base64_encode($data), 76, $this->lf));
                 break;
         }
     }
@@ -196,7 +201,7 @@ class mime{
     function _quotedPrintableEncode($input , $line_max = 76)
     {
         $lines    = preg_split("/\r\n|\r|\n/", $input);
-        $eol    = EMAIL_LINEFEED;
+        $eol    = $this->lf;
         $escape    = '=';
         $output    = '';
         
@@ -218,7 +223,7 @@ class mime{
                     $char = $escape . strtoupper(sprintf('%02s', dechex($dec)));
                 }
     
-       if ((strlen($newline) + strlen($char)) >= $line_max) {        // EMAIL_LINEFEED is not counted
+       if ((strlen($newline) + strlen($char)) >= $line_max) {        // $this->lf is not counted
         $output  .= $newline . $escape . $eol;                    // soft line break; " =\r\n" is okay
         $newline  = '';
       }

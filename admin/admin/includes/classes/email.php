@@ -1,7 +1,7 @@
 <?php
 
 /*
-  $Id: email.php,v 1.3 2002/01/31 16:20:46 jan0815 Exp $
+  $Id: email.php,v 1.4 2002/01/31 21:06:12 uid65040 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -44,6 +44,12 @@ class email{
 
     $this->html_images  = array();
     $this->headers      = array();
+
+    if (EMAIL_LINEFEED == 'CRLF') {
+      $this->lf = "\r\n";
+    } else {
+      $this->lf = "\n";
+    }
 
     /***************************************
     ** If you want the auto load functionality
@@ -223,7 +229,6 @@ class email{
 ***************************************/
 
   function &add_html_part(&$obj){
-
     $params['content_type'] = 'text/html';
     $params['encoding']     = $this->build_params['html_encoding'];
     $params['charset']      = $this->build_params['html_charset'];
@@ -320,11 +325,9 @@ class email{
 ***************************************/
 
   function build_message($params = array()){
-
     if(count($params) > 0)
       while(list($key, $value) = each($params))
         $this->build_params[$key] = $value;
-
     if(!empty($this->html_images))
       foreach($this->html_images as $value)
         $this->html = str_replace($value['name'], 'cid:'.$value['cid'], $this->html);
@@ -336,6 +339,7 @@ class email{
     $text        = isset($this->text)         ? TRUE : FALSE;
 
     switch(TRUE){
+
       case $text AND !$attachments:
         $message =& $this->add_text_part($null, $this->text);
         break;
@@ -434,7 +438,7 @@ class email{
     $from  = ($from_name != '') ? '"'.$from_name.'" <'.$from_addr.'>' : $from_addr;
 
     if(is_string($headers))
-      $headers = explode(EMAIL_LINEFEED, trim($headers));
+      $headers = explode($this->lf, trim($headers));
 
     for($i=0; $i<count($headers); $i++){
       if(is_array($headers[$i]))
@@ -448,10 +452,14 @@ class email{
     if(!isset($xtra_headers))
       $xtra_headers = array();
 
-    if (EMAIL_TRANSPORT=='smtp') {
-      return mail($to_addr, $subject, $this->output, 'From: '.$from.EMAIL_LINEFEED.'To: '.$to.EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $this->headers).EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $xtra_headers));
+    if (EMAIL_TRANSPORT=="smtp") {
+      return mail(
+        $to_addr, 
+        $subject, 
+        $this->output,
+         'From: ' . $from . $this->lf . 'To: ' . $to . $this->lf . implode($this->lf, $this->headers) . $this->lf . implode($this->lf, $xtra_headers));
     } else {
-      return mail($to, $subject, $this->output, 'From: '.$from.EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $this->headers).EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $xtra_headers));
+      return mail($to, $subject, $this->output, 'From: '.$from.$this->lf.implode($this->lf, $this->headers).$this->lf.implode($this->lf, $xtra_headers));
     }
   }
 
@@ -483,7 +491,7 @@ class email{
       $subject = 'Subject: '.$subject;
 
     if(is_string($headers))
-      $headers = explode(EMAIL_LINEFEED, trim($headers));
+      $headers = explode($this->lf, trim($headers));
 
     for($i=0; $i<count($headers); $i++){
       if(is_array($headers[$i]))
@@ -500,7 +508,7 @@ class email{
 
     $headers = array_merge($this->headers, $xtra_headers);
 
-    return $date.EMAIL_LINEFEED.$from.EMAIL_LINEFEED.$to.EMAIL_LINEFEED.$subject.EMAIL_LINEFEED.implode(EMAIL_LINEFEED, $headers).EMAIL_LINEFEED.EMAIL_LINEFEED.$this->output;
+    return $date.$this->lf.$from.$this->lf.$to.$this->lf.$subject.$this->lf.implode($this->lf, $headers).$this->lf.$this->lf.$this->output;
   }
 
 

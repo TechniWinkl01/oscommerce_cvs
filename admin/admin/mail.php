@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.28 2002/01/31 16:20:46 jan0815 Exp $
+  $Id: mail.php,v 1.29 2002/01/31 21:06:12 uid65040 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -37,8 +37,7 @@
     //Let's build a message object using the email class
     $mimemessage = new email(array('X-Mailer: osCommerce bulk mailer'));
     // add the message to the object
-//   $mimemessage->add_text($message);
-    $mimemessage->add_html('<i> HTML </i>' . $message, $message);
+    $mimemessage->add_text($message);
     $mimemessage->build_message();
     while ($mail = tep_db_fetch_array($mail_query)) {
       $mimemessage->send($mail['customers_firstname'] . ' ' . $mail['customers_lastname'], $mail['customers_email_address'], '', $from, $subject);
