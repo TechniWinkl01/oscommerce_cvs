@@ -1,5 +1,18 @@
 <? include('includes/application_top.php'); ?>
 <? $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_EMAILPRODUCT; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+<?
+  if (tep_session_is_registered('customer_id')) {
+    $account_query = 'select ';
+    $account_query = $account_query . 'customers_firstname, customers_lastname, ';
+    $account_query = $account_query . 'customers_email_address, customers_street_address, ';
+    $account_query = $account_query . "customers_country_id from customers where customers_id = '" . $customer_id . "'";
+    $account = tep_db_query($account_query);
+    $account_values = tep_db_fetch_array($account);
+  } elseif (!EMAILPRODUCT_GUEST) {
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT_EDIT, 'NONSSL'));
+    tep_exit();
+  }
+?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_EMAILPRODUCT, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>
 <head>
@@ -73,15 +86,15 @@
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_EMAIL; ?>&nbsp;</td>
-                <td><input type="text" name="from"></td>
+                <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_EMAIL; ?>&nbsp;</td>
+                <td width="100%"><input type="text" name="from" value="<? echo $account_values['customers_email_address']; ?>"></td>
               </tr>
               <tr>
-                <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_NAME; ?>&nbsp;</td>
-                <td><input type="text" name="yourname"></td>
+                <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_NAME; ?>&nbsp;</td>
+                <td><input type="text" name="yourname" value="<? echo $account_values['customers_firstname']; ?> <? echo $account_values['customers_lastname']; ?>"></td>
               </tr>
               <tr>
-                <td><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
+                <td nowrap><?php echo FONT_STYLE_MAIN; ?><? echo TEXT_EMAILPRODUCT_FRIEND_EMAIL; ?>&nbsp;</td>
                 <td><input type="text" name="friendemail"></td>
               </tr>
               <tr>

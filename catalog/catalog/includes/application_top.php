@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.109 2001/04/25 16:00:46 mbs Exp $
+  $Id: application_top.php,v 1.110 2001/04/26 10:08:15 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -114,6 +114,7 @@
   define('TAX_VALUE', 16); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
+  define('EMAILPRODUCT_GUEST', false); // Can guests use the tell a friend email form?
 
   define('HEADER_NAVIGATION_BAR_FONT_ERROR_COLOR', '#FFFFFF');
   define('HEADER_NAVIGATION_BAR_FONT_INFO_COLOR', '#000000');
