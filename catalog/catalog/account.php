@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.35 2001/07/20 07:00:32 jwildeboer Exp $
+  $Id: account.php,v 1.36 2001/07/31 17:41:22 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -77,6 +77,8 @@
 
   require(DIR_WS_MODULES . 'account_details.php');
 ?>
+        </td>
+      </tr>
       <tr>
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
