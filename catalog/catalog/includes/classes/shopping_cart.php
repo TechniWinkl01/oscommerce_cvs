@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.22 2001/09/20 19:27:14 mbs Exp $
+  $Id: shopping_cart.php,v 1.23 2001/10/31 15:20:35 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -108,7 +108,7 @@
 // update database
       if ($customer_id) tep_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . $quantity . "' where customers_id = '" . $customer_id . "' and products_id = '" . $products_id . "'");
 
-      if ($attributes != '') {
+      if (is_array($attributes)) {
         reset($attributes);
         while (list($option, $value) = each($attributes)) {
           $this->contents[$products_id]['attributes'][$option] = $value;
