@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.47 2001/06/10 16:03:34 dwatkins Exp $
+  $Id: german.php,v 1.48 2001/06/11 11:55:24 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -74,8 +74,8 @@ define('BOX_SPECIALS_MORE', 'Mehr Angebote..');
 
 // reviews box text in includes/boxes/reviews.php
 define('BOX_HEADING_REVIEWS', 'Bewertungen');
-define('BOX_REVIEWS_WRITE_REVIEW', 'Write a review on this product!');
-define('BOX_REVIEWS_NO_REVIEWS', 'There are currently no product reviews');
+define('BOX_REVIEWS_WRITE_REVIEW', 'Bewerten Sie dieses Produkt!');
+define('BOX_REVIEWS_NO_REVIEWS', 'Es liegen noch keine Bewertungen vor.');
 define('BOX_REVIEWS_MORE', 'Mehr Bewertungen..');
 
 // shopping_cart box text in includes/boxes/shopping_cart.php
