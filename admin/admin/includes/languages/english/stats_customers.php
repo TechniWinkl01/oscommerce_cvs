@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.4 2001/09/19 11:11:59 mbs Exp $
+  $Id: stats_customers.php,v 1.5 2001/10/01 07:55:55 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -11,9 +11,12 @@
 */
 
 define('TOP_BAR_TITLE', 'Statistics');
-define('HEADING_TITLE', 'Best Customer Orders-Total (excl. tax)');
+define('HEADING_TITLE', 'Best Customer Orders-Total');
 
 define('TABLE_HEADING_NUMBER', 'No.');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
 define('TABLE_HEADING_TOTAL_PURCHASED', 'Total Purchased');
+
+define('TEXT_INCL_TAX', '(incl. Tax)');
+define('TEXT_EXCL_TAX', '(excl. Tax)');
 ?>

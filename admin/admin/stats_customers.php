@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_customers.php,v 1.16 2001/09/18 17:15:31 mbs Exp $
+  $Id: stats_customers.php,v 1.17 2001/10/01 07:56:02 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -46,7 +46,7 @@
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
+            <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;<?php if (TAX_INCLUDE == 1) { echo TEXT_INCL_TAX; } else { echo TEXT_EXCL_TAX; } ?>&nbsp;</td>
             <td align="right">&nbsp;<?php echo tep_image(DIR_WS_CATALOG . 'images/pixel_trans.gif', '', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>&nbsp;</td>
           </tr>
         </table></td>
