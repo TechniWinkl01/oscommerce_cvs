@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.1 2001/06/04 17:13:14 hpdl Exp $
+  $Id: html_output.php,v 1.2 2001/06/05 19:00:09 kwiltner Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -207,7 +207,7 @@
         echo '  else if (' . $selected_country_var . ' == "' . $country_values['zone_country_id'] . '") {' . "\n";
       }
 
-      $state_query = tep_db_query("select zones.zone_name, zones.zone_id from " . TABLE_ZONES . " where zones.zone_country_id = '" . $country_values['zone_country_id'] . "' order by zones.zone_name");
+      $state_query = tep_db_query("select zone_name, zone_id from " . TABLE_ZONES . " where zone_country_id = '" . $country_values['zone_country_id'] . "' order by zone_name");
 
       $num_state = 1;
       while ($state_values = tep_db_fetch_array($state_query)) {
