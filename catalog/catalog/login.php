@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.77 2003/03/22 03:11:53 hpdl Exp $
+  $Id: login.php,v 1.78 2003/04/30 09:38:51 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -106,6 +106,15 @@ function session_win() {
           </tr>
         </table></td>
       </tr>
+<?php
+  if (sizeof(TEXT_STEP_BY_STEP) > 0) {
+?>
+      <tr>
+        <td class="main"><?php echo TEXT_STEP_BY_STEP; ?></td>
+      </tr>
+<?php
+  }
+?>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.12 2002/06/17 23:10:03 harley_vb Exp $
+  $Id: login.php,v 1.13 2003/04/30 09:38:52 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
+if ($navigation->snapshot['page'] == FILENAME_CHECKOUT_SHIPPING) {
   define('NAVBAR_TITLE', 'Bestellen');
   define('HEADING_TITLE', 'Eine Online-Bestellung ist einfach.');
   define('TEXT_STEP_BY_STEP', 'Wir begleiten Sie Schritt f&uuml;r Schritt bei diesem Vorgang.');
