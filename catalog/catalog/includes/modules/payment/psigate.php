@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: psigate.php,v 1.9 2002/11/04 00:25:55 hpdl Exp $
+  $Id: psigate.php,v 1.10 2002/11/12 12:46:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -27,12 +27,7 @@
     function javascript_validation() {
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
         $js = 'if (payment_value == "' . $this->code . '") {' . "\n" .
-              '  var psigate_cc_owner = document.checkout_payment.psigate_cc_owner.value;' . "\n" .
               '  var psigate_cc_number = document.checkout_payment.psigate_cc_number.value;' . "\n" .
-              '  if (psigate_cc_owner == "" || psigate_cc_owner.length < ' . CC_OWNER_MIN_LENGTH . ') {' . "\n" .
-              '    error_message = error_message + "' . MODULE_PAYMENT_PSIGATE_TEXT_JS_CC_OWNER . '";' . "\n" .
-              '    error = 1;' . "\n" .
-              '  }' . "\n" .
               '  if (psigate_cc_number == "" || psigate_cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
               '    error_message = error_message + "' . MODULE_PAYMENT_PSIGATE_TEXT_JS_CC_NUMBER . '";' . "\n" .
               '    error = 1;' . "\n" .
@@ -61,7 +56,7 @@
         $selection = array('id' => $this->code,
                            'module' => $this->title,
                            'fields' => array(array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER,
-                                                   'field' => tep_draw_input_field('psigate_cc_owner', $order->billing['firstname'] . ' ' . $order->billing['lastname'])),
+                                                   'field' => $order->billing['firstname'] . ' ' . $order->billing['lastname']),
                                              array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER,
                                                    'field' => tep_draw_input_field('psigate_cc_number')),
                                              array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES,
@@ -119,7 +114,7 @@
       if (MODULE_PAYMENT_PSIGATE_INPUT_MODE == 'Local') {
         $confirmation = array('title' => $this->title . ': ' . $this->cc_card_type,
                               'fields' => array(array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_OWNER,
-                                                      'field' => $HTTP_POST_VARS['psigate_cc_owner'], $order->billing['firstname'] . ' ' . $order->billing['lastname']),
+                                                      'field' => $order->billing['firstname'] . ' ' . $order->billing['lastname']),
                                                 array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_NUMBER,
                                                       'field' => substr($this->cc_card_number, 0, 4) . str_repeat('X', (strlen($this->cc_card_number) - 8)) . substr($this->cc_card_number, -4)),
                                                 array('title' => MODULE_PAYMENT_PSIGATE_TEXT_CREDIT_CARD_EXPIRES,
