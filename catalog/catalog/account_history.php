@@ -61,7 +61,7 @@
             <td colspan="4"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $history_sql = "select orders_id, date_purchased, shipping_cost, orders_status, currency, currency_value from orders where customers_id = '" . $customer_id . "' order by orders_id DESC";
+  $history_sql = "select orders_id, date_purchased, shipping_cost, orders_status, currency, currency_value from " . TABLE_ORDERS . " where customers_id = '" . $customer_id . "' order by orders_id DESC";
   $history_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $history_sql, $history_numrows);
   $history = tep_db_query($history_sql);
   if (@!tep_db_num_rows($history)) {
@@ -75,7 +75,7 @@
     while ($history_values = tep_db_fetch_array($history)) {
       $row++;
       $total_cost = 0;
-      $history_total = tep_db_query("select final_price, products_tax, products_quantity from orders_products where orders_id = '" . $history_values['orders_id'] . "'");
+      $history_total = tep_db_query("select final_price, products_tax, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $history_values['orders_id'] . "'");
       while ($history_total_values = tep_db_fetch_array($history_total)) {
         $cost = ($history_total_values['final_price'] * $history_total_values['products_quantity']);
         if (TAX_INCLUDE == true) {

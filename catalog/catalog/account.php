@@ -47,7 +47,7 @@
   if (ACCOUNT_STATE) {
     $account_query = $account_query . 'customers_zone_id, customers_state, ';
   }
-  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from customers where customers_id = '" . $customer_id . "'";
+  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'";
   $account = tep_db_query($account_query);
   $account_values = tep_db_fetch_array($account);
 

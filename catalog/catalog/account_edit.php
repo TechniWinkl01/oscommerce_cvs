@@ -193,7 +193,7 @@ function check_form() {
   if (ACCOUNT_STATE) {
     $account_query = $account_query . 'customers_state, customers_zone_id, ';
   }
-  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from customers where customers_id = '" . $customer_id . "'";
+  $account_query = $account_query . "customers_country_id, customers_telephone, customers_fax, customers_newsletter from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'";
   $account = tep_db_query($account_query);
   $account_values = tep_db_fetch_array($account);
   $rowspan=5+ACCOUNT_GENDER+ACCOUNT_DOB;

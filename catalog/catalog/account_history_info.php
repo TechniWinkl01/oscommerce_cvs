@@ -1,7 +1,7 @@
 <? include('includes/application_top.php'); ?>
 <?
   if (tep_session_is_registered('customer_id')) {
-    $customer_number = tep_db_query("select customers_id from orders where orders_id = '". $HTTP_GET_VARS['order_id'] . "'");
+    $customer_number = tep_db_query("select customers_id from " . TABLE_ORDERS . " where orders_id = '". $HTTP_GET_VARS['order_id'] . "'");
     $customer_number_values = tep_db_fetch_array($customer_number);
     if ($customer_number_values['customers_id'] != $customer_id) {
       header('Location: ' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'NONSSL'));
@@ -79,10 +79,10 @@
             <td colspan="4"><? echo tep_black_line(); ?></td>
           </tr>
 <?
-  $order_currency_query = tep_db_query("select currency, currency_value from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $order_currency_query = tep_db_query("select currency, currency_value from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $order_currency = tep_db_fetch_array($order_currency_query);
 
-  $orders_products = tep_db_query("select products_id, products_name, products_price, final_price, products_tax, products_quantity, orders_products_id from orders_products where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $orders_products = tep_db_query("select products_id, products_name, products_price, final_price, products_tax, products_quantity, orders_products_id from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $total_cost = 0;
   $total_tax = 0;
   while ($orders_products_values = tep_db_fetch_array($orders_products)) {
@@ -93,7 +93,7 @@
     echo '            <td valign="top" class="main" nowrap><b>&nbsp;' . $orders_products_values['products_name'] . '&nbsp;</b>' . "\n";
 //------display customer choosen option --------
     $attributes_exist = '0';
-    $attributes_query = tep_db_query("select products_options, products_options_values from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products_values['orders_products_id'] . "'");
+    $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products_values['orders_products_id'] . "'");
     if (@tep_db_num_rows($attributes_query)) {
       $attributes_exist = '1';
       while ($attributes = tep_db_fetch_array($attributes_query)) {
@@ -106,7 +106,7 @@
     echo '            <td align="right" valign="top" class="main" nowrap>&nbsp;<b>' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {
-      $attributes = tep_db_query("select options_values_price, price_prefix from orders_products_attributes where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products_values['orders_products_id'] . "'");
+      $attributes = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "' and orders_products_id = '" . $orders_products_values['orders_products_id'] . "'");
       while ($attributes_values = tep_db_fetch_array($attributes)) {
         if ($attributes_values['options_values_price'] != '0') {
           echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($orders_products_values['products_quantity'] * $attributes_values['options_values_price'], true, $order_currency['currency'], $order_currency['currency_value']) . '</i></small>&nbsp;';
@@ -138,7 +138,7 @@
                 <td align="right" width="100%" class="main" nowrap>&nbsp;<? echo tep_currency_format($total_cost, true, $order_currency['currency'], $order_currency['currency_value']); ?>&nbsp;</td>
               </tr>
 <?
-  $order = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method, comments from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $order = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method, comments from " . TABLE_ORDERS . " where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $order_values = tep_db_fetch_array($order);
 
   if ($total_tax > 0) {

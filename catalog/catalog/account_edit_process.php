@@ -373,7 +373,7 @@
        $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
     }
 
-    $update_query = 'update customers set ';
+    $update_query = 'update ' . TABLE_CUSTOMERS . ' set ';
     if (ACCOUNT_GENDER) {
        $update_query = $update_query . "customers_gender = '" . $HTTP_POST_VARS['gender'] . "', ";
     }
@@ -402,7 +402,7 @@
     $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_newsletter = '" . $HTTP_POST_VARS['newsletter'] . "' where customers_id = '" . $customer_id . "'";
 
     tep_db_query($update_query);
-    tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");
+    tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");
 
     header('Location: ' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'));
     tep_exit();
