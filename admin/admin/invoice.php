@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: invoice.php,v 1.3 2003/01/30 09:28:30 dgw_ Exp $
+  $Id: invoice.php,v 1.4 2003/02/16 13:40:33 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -137,15 +137,6 @@
       </tr>
     </table></td>
   </tr>
-  <tr>
-    <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
-  </tr>
-  <tr>
-    <td><?php echo tep_draw_separator('pixel_trans.gif', '1', '5'); ?></td>
-  </tr>
-   <tr>
-     <td class="main"><?php echo nl2br($order->info['comments']); ?></td>
-   </tr>
 </table>
 <!-- body_text_eof //-->
 
