@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.30 2001/12/19 01:37:55 hpdl Exp $
+  $Id: product_listing.php,v 1.31 2002/01/03 00:23:07 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -119,7 +119,6 @@
       
       for ($col=0; $col<sizeof($column_list); $col++) {
         $lc_align = '';
-        $lc_form = '';
 
         switch ($column_list[$col]) {
           case 'PRODUCT_LIST_MODEL':
@@ -167,7 +166,6 @@
 
         $list_box_contents[$cur_row][] = array('align' => $lc_align,
                                                'params' => 'class="productListing-data"',
-                                               'form' => $lc_form,
                                                'text'  => $lc_text);
 
       }
