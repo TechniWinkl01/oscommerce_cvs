@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login_create.php,v 1.2 2001/05/26 16:47:35 hpdl Exp $
+  $Id: login_create.php,v 1.3 2001/06/03 18:09:00 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,6 +20,4 @@ define('TEXT_COOKIE', '¿Guardar informacion en un \'cookie\'?');
 define('TEXT_PASSWORD_FORGOTTEN', '¿Ha olvidado su contraseña? Siga este enlace y se la enviamos.');
 define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTA:</b></font> El contenido de su &quot;Cesta de Visitante&quot; será añadido a su &quot;Cesta de Asociado&quot; una vez que haya entrado. <a href="javascript:session_win();">[Mas Informacion]</a>');
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> Ese \'E-Mail\' y/o \'Contraseña\' no figuran en nuestros datos.');
-
-define('PLEASE_SELECT', 'Seleccione');
 ?>

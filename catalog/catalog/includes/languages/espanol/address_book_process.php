@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.3 2001/05/26 16:47:12 hpdl Exp $
+  $Id: address_book_process.php,v 1.4 2001/06/03 18:08:57 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,5 +18,4 @@ define('TOP_BAR_TITLE_ADD_ENTRY', 'Añadir una nueva direccion de envio');
 define('TOP_BAR_TITLE_MODIFY_ENTRY', 'Modificar Direccion');
 define('HEADING_TITLE_ADD_ENTRY', 'Nueva Direccion');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Direccion');
-define('PLEASE_SELECT', 'Seleccione');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.9 2001/05/26 16:45:26 hpdl Exp $
+  $Id: product_info.php,v 1.10 2001/06/03 18:08:51 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,5 +18,4 @@ define('TEXT_DATE_ADDED', 'This product was added to our catalog on %s.');
 define('TEXT_DATE_AVAILABLE', '<font color="#ff0000">This product will be in stock on %s.</font>');
 define('TEXT_ALSO_PURCHASED_PRODUCTS', 'Customers who bought this product also purchased');
 define('TEXT_PRODUCT_OPTIONS', 'Available Options:');
-define('PLEASE_SELECT', '-- Please Select --');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.36 2001/06/03 08:45:43 mbs Exp $
+  $Id: espanol.php,v 1.37 2001/06/03 18:08:30 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -115,7 +115,8 @@ define('CHECKOUT_BAR_CONFIRMATION', 'confirmacion');
 define('CHECKOUT_BAR_FINISHED', 'finalizado!');
 
 // pull down default text
-define('PULL_DOWN_DEFAULT', 'Seleccionar');
+define('PULL_DOWN_DEFAULT', 'Seleccione');
+define('PLEASE_SELECT', 'Seleccione');
 define('TYPE_BELOW', 'Escriba Debajo');
 
 // javascript messages

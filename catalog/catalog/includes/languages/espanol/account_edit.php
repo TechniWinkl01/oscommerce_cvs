@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.3 2001/05/26 16:47:02 hpdl Exp $
+  $Id: account_edit.php,v 1.4 2001/06/03 18:08:55 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,5 +14,4 @@ define('NAVBAR_TITLE_1', 'Mi Cuenta');
 define('NAVBAR_TITLE_2', 'Editar Cuenta');
 define('TOP_BAR_TITLE', 'Mi Cuenta');
 define('HEADING_TITLE', 'Informacion de Mi Cuenta');
-define('PLEASE_SELECT', 'Seleccione');
 ?>

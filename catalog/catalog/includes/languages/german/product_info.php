@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_info.php,v 1.10 2001/05/26 17:37:11 mbs Exp $
+  $Id: product_info.php,v 1.11 2001/06/03 18:09:08 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,5 +18,4 @@ define('TEXT_DATE_ADDED', 'Dieses Produkt wurde am %s in unserem Katalog aufgeno
 define('TEXT_DATE_AVAILABLE', '<font color="#ff0000">Dieser Artikel wird voraussichtlich ab dem %s wieder vorrätig sein.</font>');
 define('TEXT_ALSO_PURCHASED_PRODUCTS', 'Kunden, die diesen Artikel kauften, haben auch die folgende(n) Artikel gekauft:');
 define('TEXT_PRODUCT_OPTIONS', 'Optionen:');
-define('PLEASE_SELECT', 'Bitte w&auml;hlen');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit_process.php,v 1.6 2001/05/26 16:49:16 hpdl Exp $
+  $Id: account_edit_process.php,v 1.7 2001/06/03 18:09:05 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,5 +14,4 @@ define('NAVBAR_TITLE_1', 'Mein Konto');
 define('NAVBAR_TITLE_2', 'pers&ouml;nliche Daten &auml;ndern');
 define('TOP_BAR_TITLE', 'Mein Konto');
 define('HEADING_TITLE', 'pers&ouml;nliche Daten &aumlndern');
-define('PLEASE_SELECT', 'Bitte w&auml;hlen');
 ?>

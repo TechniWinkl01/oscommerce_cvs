@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.8 2001/05/26 16:49:21 hpdl Exp $
+  $Id: address_book_process.php,v 1.9 2001/06/03 18:09:06 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,5 +18,4 @@ define('TOP_BAR_TITLE_ADD_ENTRY', 'Neuer Adressbucheintag :');
 define('TOP_BAR_TITLE_MODIFY_ENTRY', '&Auml;nderung des Eintrags');
 define('HEADING_TITLE_ADD_ENTRY', 'Neuer Adressbucheintrag :');
 define('HEADING_TITLE_MODIFY_ENTRY', 'Adressbucheintrag :');
-define('PLEASE_SELECT', 'Bitte w&auml;hlen');
 ?>

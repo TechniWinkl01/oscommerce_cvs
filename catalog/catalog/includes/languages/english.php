@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.43 2001/06/03 11:02:01 dwatkins Exp $
+  $Id: english.php,v 1.44 2001/06/03 18:08:29 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -116,6 +116,7 @@ define('CHECKOUT_BAR_FINISHED', 'finished!');
 
 // pull down default text
 define('PULL_DOWN_DEFAULT', 'Please Select');
+define('PLEASE_SELECT', 'Please Select');
 define('TYPE_BELOW', 'Type Below');
 
 // javascript messages
