@@ -1,16 +1,15 @@
 <?php
 /*
-  $Id: specials.php,v 1.8 2001/12/09 20:51:17 dgw_ Exp $
+  $Id: specials.php,v 1.9 2002/01/31 01:19:19 harley_vb Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'Specials');
 define('HEADING_TITLE', 'Specials');
 
 define('TABLE_HEADING_PRODUCTS', 'Products');
@@ -28,8 +27,9 @@ define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_INFO_NEW_PRICE', 'New Price:');
 define('TEXT_INFO_ORIGINAL_PRICE', 'Original Price:');
 define('TEXT_INFO_PERCENTAGE', 'Percentage:');
-define('TEXT_INFO_EXPIRES_AT', 'Expires At: <b>%s</b>');
+define('TEXT_INFO_EXPIRES_DATE', 'Expires At: <b>%s</b>');
 define('TEXT_INFO_STATUS_CHANGE', 'Status Change: %s');
 
+define('TEXT_INFO_HEADING_DELETE_SPECIALS', 'Delete Special');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete the special products price?');
 ?>
