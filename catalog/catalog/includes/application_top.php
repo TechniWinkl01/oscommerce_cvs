@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.132 2001/06/05 15:03:59 hpdl Exp $
+  $Id: application_top.php,v 1.133 2001/06/05 15:11:08 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -208,6 +208,19 @@
   define('SHOW_COUNTS', 1); // show category count: 0=disable; 1=enable
   define('USE_RECURSIVE_COUNT', 1); // recursive count: 0=disable; 1=enable
 
+// check to see if php implemented session management functions - if not, include php3/php4 compatible session class
+  if (!function_exists('session_start')) {
+    include(DIR_WS_CLASSES . 'sessions.php');
+  }
+
+// include mysql session storage handler
+  if (STORE_SESSIONS == 'mysql') {
+    include(DIR_WS_FUNCTIONS . 'sessions_mysql.php');
+  }
+
+// define how the session functions will be used
+  require(DIR_WS_FUNCTIONS . 'sessions.php');
+
 // set up cache functionality - only for PHP4
   define('CACHE_ON', false); // Default: false - Turn caching on/off
   define('CACHE_DIR', '/tmp'); // Default: /tmp - Default cache directory
@@ -219,7 +232,7 @@
   define('CACHE_STORAGE_PERM', 0700);	/* Default: 0700 - Default permissions for storage directories. */
   define('CACHE_MAX_FILENAME_LEN', 200);	/* How long the cache storage filename can be before it will md5() the entire thing */
 
-  if (CACHE_ON == true) {
+  if (CACHE_ON) {
     include(DIR_WS_CLASSES . 'cache.php');
     $cache = new phpCache;
   }
@@ -241,19 +254,6 @@
 
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
-
-// check to see if php implemented session management functions - if not, include php3/php4 compatible session class
-  if (!function_exists('session_start')) {
-    include(DIR_WS_CLASSES . 'sessions.php');
-  }
-
-// include mysql session storage handler
-  if (STORE_SESSIONS == 'mysql') {
-    include(DIR_WS_FUNCTIONS . 'sessions_mysql.php');
-  }
-
-// define how the session functions will be used
-  require(DIR_WS_FUNCTIONS . 'sessions.php');
 
 // lets start our session
   if ($HTTP_POST_VARS[tep_session_name()]) {
