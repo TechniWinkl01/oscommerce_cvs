@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: stats_products_viewed.php,v 1.16 2001/09/18 17:15:30 mbs Exp $
+  $Id: stats_products_viewed.php,v 1.17 2001/11/20 00:03:56 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -66,7 +66,7 @@
           </tr>
 <?php
   if ($HTTP_GET_VARS['page'] > 1) $rows = $HTTP_GET_VARS['page'] * 20 - 20;
-  $products_query_raw = "select p.products_id, pd.products_name, pd.products_viewed from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = pd.products_id order by pd.products_viewed DESC";
+  $products_query_raw = "select p.products_id, pd.products_name, pd.products_viewed, l.name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_LANGUAGES . " l where p.products_id = pd.products_id and l.languages_id = pd.language_id order by pd.products_viewed DESC";
   $products_split = new splitPageResults($HTTP_GET_VARS['page'], MAX_DISPLAY_SEARCH_RESULTS, $products_query_raw, $products_query_numrows);
   $products_query = tep_db_query($products_query_raw);
   while ($products = tep_db_fetch_array($products_query)) {
@@ -78,7 +78,7 @@
 ?>
           <tr class="tableRow" onmouseover="this.className='tableRowOver';this.style.cursor='hand'" onmouseout="this.className='tableRow'" onclick="document.location.href='<?php echo tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_STATS_PRODUCTS_VIEWED . '?page=' . $HTTP_GET_VARS['page'], 'NONSSL'); ?>'">
             <td align="center" class="smallText">&nbsp;<?php echo $rows; ?>.&nbsp;</td>
-            <td class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_STATS_PRODUCTS_VIEWED . '?page=' . $HTTP_GET_VARS['page'], 'NONSSL') . '" class="blacklink">' . $products['products_name'] . '</a>'; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_STATS_PRODUCTS_VIEWED . '?page=' . $HTTP_GET_VARS['page'], 'NONSSL') . '" class="blacklink">' . $products['products_name'] . '</a> (' . $products['name'] . ')'; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $products['products_viewed']; ?>&nbsp;</td>
           </tr>
 <?php
