@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.40 2002/01/20 16:07:40 hpdl Exp $
+  $Id: ups.php,v 1.41 2002/01/31 23:02:46 thomasamoulton Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -54,10 +54,10 @@
         include(DIR_WS_CLASSES . '_ups.php');
         $rate = new _Ups;
         $rate->upsProduct($prod); // See upsProduct() function for codes
-        $rate->origin(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY); // Use ISO country codes!
+        $country_name = tep_get_countries(STORE_COUNTRY, '1');
+        $rate->origin(STORE_ORIGIN_ZIP, $country_name['countries_iso_code_2']); // Use ISO country codes!
         $country_name = tep_get_countries($address_values['country_id'], '1');
         $country_post = str_replace(' ', '', $address_values['postcode']);
-        // $rate->dest($address_values['postcode'], STORE_ORIGIN_COUNTRY);      // Use ISO country codes!
         $rate->dest($country_post, $country_name['countries_iso_code_2']);      // Use ISO country codes!
         $rate->rate(MODULE_SHIPPING_UPS_PICKUP);        // See the rate() function for codes
         $rate->container(MODULE_SHIPPING_UPS_PACKAGE);    // See the container() function for codes
