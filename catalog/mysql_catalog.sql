@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.101 2001/06/07 10:11:44 jwildeboer Exp $
+# $Id: mysql_catalog.sql,v 1.102 2001/06/09 09:29:09 mbs Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -1120,4 +1120,54 @@ INSERT INTO zones VALUES (75,38,'PE','Prince Edward Island');
 INSERT INTO zones VALUES (76,38,'QC','Quebec');
 INSERT INTO zones VALUES (77,38,'SK','Saskatchewan');
 INSERT INTO zones VALUES (78,38,'YT','Yukon Territory');
-
+INSERT INTO zones VALUES (79,81,'NDS','Niedersachsen');
+INSERT INTO zones VALUES (80,81,'BAW','Baden-Württemberg');
+INSERT INTO zones VALUES (81,81,'BAY','Bayern');
+INSERT INTO zones VALUES (82,81,'BER','Berlin');
+INSERT INTO zones VALUES (83,81,'BRG','Brandenburg');
+INSERT INTO zones VALUES (84,81,'BRE','Bremen');
+INSERT INTO zones VALUES (85,81,'HAM','Hamburg');
+INSERT INTO zones VALUES (86,81,'HES','Hessen');
+INSERT INTO zones VALUES (87,81,'MEC','Mecklenburg-Vorpommern');
+INSERT INTO zones VALUES (88,81,'NRW','Nordrhein-Westfalen');
+INSERT INTO zones VALUES (89,81,'RHE','Rheinland-Pfalz');
+INSERT INTO zones VALUES (90,81,'SAR','Saarland');
+INSERT INTO zones VALUES (91,81,'SAS','Sachsen');
+INSERT INTO zones VALUES (92,81,'SAC','Sachsen-Anhalt');
+INSERT INTO zones VALUES (93,81,'SCN','Schleswig-Holstein');
+INSERT INTO zones VALUES (94,81,'THE','Thüringen');
+INSERT INTO zones VALUES (95,14,'WI','Wien');
+INSERT INTO zones VALUES (96,14,'NO','Niederösterreich');
+INSERT INTO zones VALUES (97,14,'OO','Oberösterreich');
+INSERT INTO zones VALUES (98,14,'SB','Salzburg');
+INSERT INTO zones VALUES (99,14,'KN','Kärnten');
+INSERT INTO zones VALUES (100,14,'ST','Steiermark');
+INSERT INTO zones VALUES (101,14,'TI','Tirol');
+INSERT INTO zones VALUES (102,14,'BL','Burgenland');
+INSERT INTO zones VALUES (103,14,'VB','Voralberg');
+INSERT INTO zones VALUES (104,204,'AG','Aargau');
+INSERT INTO zones VALUES (105,204,'AI','Appenzell Innerrhoden');
+INSERT INTO zones VALUES (106,204,'AR','Appenzell Ausserrhoden');
+INSERT INTO zones VALUES (107,204,'BE','Bern');
+INSERT INTO zones VALUES (108,204,'BL','Basel-Landschaft');
+INSERT INTO zones VALUES (109,204,'BS','Basel-Stadt');
+INSERT INTO zones VALUES (110,204,'FR','Freiburg');
+INSERT INTO zones VALUES (111,204,'GE','Genf');
+INSERT INTO zones VALUES (112,204,'GL','Glarus');
+INSERT INTO zones VALUES (113,204,'JU','Graubünden');
+INSERT INTO zones VALUES (114,204,'JU','Jura');
+INSERT INTO zones VALUES (115,204,'LU','Luzern');
+INSERT INTO zones VALUES (116,204,'NE','Neuenburg');
+INSERT INTO zones VALUES (117,204,'NW','Nidwalden');
+INSERT INTO zones VALUES (118,204,'OW','Obwalden');
+INSERT INTO zones VALUES (119,204,'SG','St. Gallen');
+INSERT INTO zones VALUES (120,204,'SH','Schaffhausen');
+INSERT INTO zones VALUES (121,204,'SO','Solothurn');
+INSERT INTO zones VALUES (122,204,'SZ','Schwyz');
+INSERT INTO zones VALUES (123,204,'TG','Thurgau');
+INSERT INTO zones VALUES (124,204,'TI','Tessin');
+INSERT INTO zones VALUES (125,204,'UR','Uri');
+INSERT INTO zones VALUES (126,204,'VD','Waadt');
+INSERT INTO zones VALUES (127,204,'VS','Wallis');
+INSERT INTO zones VALUES (128,204,'ZG','Zug');
+INSERT INTO zones VALUES (129,204,'ZH','Zürich');
