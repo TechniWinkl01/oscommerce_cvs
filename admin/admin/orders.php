@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.53 2001/09/19 11:51:57 mbs Exp $
+  $Id: orders.php,v 1.54 2001/10/10 18:43:56 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -198,7 +198,7 @@ function alertBox() {
       echo '            <td class="main"><b>&nbsp;' . $products_values['products_name'] . '&nbsp;</b>' . "\n";
 //------display customer choosen option --------
       $attributes_exist = '0';
-      $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['orders_products_id'] . "'");
+      $attributes_query = tep_db_query("select products_options, products_options_values from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
       if (@tep_db_num_rows($attributes_query)) {
         $attributes_exist = '1';
         while ($attributes = tep_db_fetch_array($attributes_query)) {
@@ -211,7 +211,7 @@ function alertBox() {
       echo '            <td align="right" valign="top" class="main">&nbsp;<b>' . tep_currency_format($products_values['products_quantity'] * $products_values['products_price']) . '</b>&nbsp;';
 //------display customer choosen option --------
       if ($attributes_exist == '1') {
-        $attributes = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['orders_products_id'] . "'");
+        $attributes = tep_db_query("select options_values_price, price_prefix from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "' and orders_products_id = '" . $products_values['products_id'] . "'");
         while ($attributes_values = tep_db_fetch_array($attributes)) {
           if ($attributes_values['options_values_price'] != '0') {
             echo '<br><small><i>' . $attributes_values['price_prefix'] . tep_currency_format($products_values['products_quantity'] * $attributes_values['options_values_price']) . '</i></small>&nbsp;';
