@@ -1,6 +1,6 @@
 <? include('includes/application_top.php'); ?>
 <?
-  // $Id: login_create.php,v 1.7 2001/04/27 21:23:45 hpdl Exp $
+  // $Id: login_create.php,v 1.8 2001/04/27 21:57:20 hpdl Exp $
   if ($HTTP_GET_VARS['action'] == 'process') {
     $check_customer = tep_db_query("select customers_id, customers_password from customers where customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "'");
     if (tep_db_num_rows($check_customer)) {
@@ -320,7 +320,9 @@ function check_form() {
      }
      $origin = $origin . 'connection=' . $HTTP_GET_VARS['connection'];
    }
-  if ($nonsess_cart) {
+
+<?
+  if (sizeof($cart->contents) > 0) {
 ?>
           <tr>
             <td colspan="2" class="smallText"><br><? echo TEXT_VISITORS_CART; ?></td>

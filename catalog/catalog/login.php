@@ -183,7 +183,7 @@ function session_win() {
             <td align="right" colspan="2" class="smallText" nowrap>&nbsp;<a href="<? echo tep_href_link(FILENAME_CREATE_ACCOUNT, $origin, 'NONSSL'); ?>"><? echo TEXT_CREATE_ACCOUNT; ?></a>&nbsp;</td>
           </tr>
 <?
-  if ($nonsess_cart) {
+  if (sizeof($cart->contents) > 0) {
 ?>
           <tr>
             <td colspan="2" class="smallText"><br><? echo TEXT_VISITORS_CART; ?></td>
