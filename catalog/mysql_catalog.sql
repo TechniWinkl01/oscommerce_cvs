@@ -1105,7 +1105,6 @@ CREATE TABLE tax_class (
 #
 
 INSERT INTO tax_class VALUES (1, 'Taxable Goods', 'The following types of products are included non-food, services, etc', now(), now());
-INSERT INTO tax_rates VALUES (1, 18, 1, 7.0, 'FL TAX 7.0%', now(), now());
 
 #
 # Table structure for table 'tax_rates'
@@ -1121,3 +1120,9 @@ CREATE TABLE tax_rates (
   date_added timestamp(14) NOT NULL,
   PRIMARY KEY (tax_rates_id)
 );
+
+#
+# Dumping data for table 'tax_rates'
+#
+
+INSERT INTO tax_rates VALUES (1, 18, 1, 7.0, 'FL TAX 7.0%', now(), now());
