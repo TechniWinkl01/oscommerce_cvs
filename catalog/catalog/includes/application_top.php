@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.258 2003/01/17 14:08:12 hpdl Exp $
+  $Id: application_top.php,v 1.259 2003/01/25 11:37:30 clescuyer Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -83,6 +83,7 @@
   define('FILENAME_SHOPPING_CART', 'shopping_cart.php');
   define('FILENAME_SPECIALS', 'specials.php');
   define('FILENAME_TELL_A_FRIEND', 'tell_a_friend.php');
+  define('FILENAME_TLD', 'tld.txt');
   define('FILENAME_UPCOMING_PRODUCTS', 'upcoming_products.php'); // This is the bottom of default.php (found in modules)
 
 // define the database table names used in the project
