@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.33 2002/03/13 13:07:05 hpdl Exp $
+  $Id: checkout_success.php,v 1.34 2002/07/11 17:13:14 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -61,7 +61,7 @@
             <td valign="top" class="main"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?><div align="center" class="pageHeading"><?php echo HEADING_TITLE; ?></div><br><?php echo TEXT_SUCCESS; ?><br><br>
 <?php
   if ($global['global_product_notifications'] != '1') {
-    echo TEXT_NOTIFY_PRODUCTS . '<br><p style="background: #f2fff7">';
+    echo TEXT_NOTIFY_PRODUCTS . '<br><p class="productsNotifications">';
     for ($i=0; $i<sizeof($products_array); $i++) {
       echo tep_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br>';
     }
