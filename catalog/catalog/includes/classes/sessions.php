@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sessions.php,v 1.10 2002/08/08 00:30:52 harley_vb Exp $
+  $Id: sessions.php,v 1.11 2002/08/08 16:43:58 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -237,15 +237,15 @@
   }
 
   function session_set_save_handler($open, $close, $read, $write, $destroy, $gc) {
-    global $session, $user;
+    global $session, $php3session_user;
 
-    $user = new php3session_user;
-    $user->open_func = $open;
-    $user->close_func = $close;
-    $user->read_func = $read;
-    $user->write_func = $write;
-    $user->destroy_func = $destroy;
-    $user->gc_func = $gc;
+    $php3session_user = new php3session_user;
+    $php3session_user->open_func = $open;
+    $php3session_user->close_func = $close;
+    $php3session_user->read_func = $read;
+    $php3session_user->write_func = $write;
+    $php3session_user->destroy_func = $destroy;
+    $php3session_user->gc_func = $gc;
     $session->mod_name = 'php3session_user';
   }
 
