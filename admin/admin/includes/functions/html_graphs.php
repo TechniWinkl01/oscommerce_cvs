@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_graphs.php,v 1.5 2002/11/22 18:54:27 dgw_ Exp $
+  $Id: html_graphs.php,v 1.6 2002/11/25 10:56:23 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -163,7 +163,7 @@
       if (ereg('^#', $bars[$i])) { 
         $horizontal_graph_string .= '<table cellpadding="0" cellspacing="0" bgcolor="' . $bars[$i] . '" width="' . ($values[$i] * $vals['scale']) . '">' . "\n" .
                                     '  <tr>' . "\n" .
-                                    '    <td>&nbsp</td>' . "\n" .
+                                    '    <td>&nbsp;</td>' . "\n" .
                                     '  </tr>' . "\n" .
                                     '</table>';
       } else {
