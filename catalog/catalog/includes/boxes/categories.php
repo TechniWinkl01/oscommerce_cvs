@@ -82,8 +82,8 @@
   }
 
   //------------------------
-  if ($cPath) {
-    $id = split('_', $cPath);
+  if ($HTTP_GET_VARS['cPath']) {
+    $id = split('_', $HTTP_GET_VARS['cPath']);
     reset($id);
     while (list($key, $value) = each($id)) {
       $new_path .= $value;
@@ -132,5 +132,3 @@
             </td>
           </tr>
 <!-- categories_eof //-->
-
-
