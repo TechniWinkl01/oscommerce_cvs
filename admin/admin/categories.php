@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.75 2001/11/05 12:37:42 dgw_ Exp $
+  $Id: categories.php,v 1.76 2001/11/19 19:09:03 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -502,7 +502,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading">&nbsp;<?php echo HEADING_TITLE; ?>&nbsp;</td>
-            <td align="right"><br><form action="<?php echo tep_href_link(FILENAME_CATEGORIES); ?>" method="get"><span class="smallText">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="search" value="<?php echo $HTTP_GET_VARS['search']; ?>" size="8">&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?></form></td>
+            <td align="right"><br><form action="<?php echo tep_href_link(FILENAME_CATEGORIES); ?>" method="get"><span class="smallText">&nbsp;<?php echo HEADING_TITLE_SEARCH; ?>&nbsp;<input type="text" name="search" value="<?php echo stripslashes($HTTP_GET_VARS['search']); ?>" size="8">&nbsp;<?php echo tep_image_submit(DIR_WS_IMAGES . 'button_search.gif', IMAGE_SEARCH); ?></form></td>
           </tr>
         </table></td>
       </tr>
