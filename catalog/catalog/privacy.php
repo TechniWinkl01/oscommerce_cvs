@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: privacy.php,v 1.11 2001/11/09 19:16:45 dgw_ Exp $
+  $Id: privacy.php,v 1.12 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRIVACY);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_PRIVACY, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_PRIVACY, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <html>
 <head>

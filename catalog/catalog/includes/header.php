@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: header.php,v 1.26 2001/11/09 19:16:45 dgw_ Exp $
+  $Id: header.php,v 1.27 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -20,7 +20,7 @@
   <tr class="headerNavigation">
     <td class="headerNavigation">
 <?php
-  echo '&nbsp;&nbsp;<a href="' . HTTP_SERVER . '" class="headerNavigationLink">' . HEADER_TITLE_TOP . '</a> : <a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="headerNavigationLink">' . HEADER_TITLE_CATALOG . '</a>';
+  echo '&nbsp;&nbsp;<a href="' . HTTP_SERVER . '" class="headerNavigation">' . HEADER_TITLE_TOP . '</a> : <a href="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '" class="headerNavigation">' . HEADER_TITLE_CATALOG . '</a>';
 
   if ($cPath) {
     if (!ereg('_', $cPath)) {
@@ -35,24 +35,24 @@
       }
       $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
       $categories = tep_db_fetch_array($categories_query);
-      echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'cPath=' . $cPath_new, 'NONSSL') . '" class="headerNavigationLink">' . $categories['categories_name'] . '</a>';
+      echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'cPath=' . $cPath_new, 'NONSSL') . '" class="headerNavigation">' . $categories['categories_name'] . '</a>';
     }
   } elseif ($HTTP_GET_VARS['manufacturers_id']) {
     $manufacturers_query = tep_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS . " where manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'");
     $manufacturers = tep_db_fetch_array($manufacturers_query);
-    echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'], 'NONSSL') . '" class="headerNavigationLink">' . $manufacturers['manufacturers_name'] . '</a>';
+    echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'], 'NONSSL') . '" class="headerNavigation">' . $manufacturers['manufacturers_name'] . '</a>';
   }
   if ($HTTP_GET_VARS['products_id']) {
     $model = tep_db_query("select products_model from " . TABLE_PRODUCTS . " where products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
     $model_values = tep_db_fetch_array($model);
-    echo ' : <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="headerNavigationLink">' . $model_values['products_model'] . '</a>';
+    echo ' : <a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $HTTP_GET_VARS['cPath'] . '&products_id=' . $HTTP_GET_VARS['products_id'], 'NONSSL') . '" class="headerNavigation">' . $model_values['products_model'] . '</a>';
   }
   if ($location) {
     echo $location;
   }
 ?>
     </td>
-    <td align="right" class="headerNavigation"><?php if (tep_session_is_registered('customer_id')) { ?><a href="<?php echo tep_href_link(FILENAME_LOGOFF, '', 'NONSSL'); ?>" class="headerNavigationLink"><?php echo HEADER_TITLE_LOGOFF; ?></a> &nbsp;|&nbsp; <?php } ?><a href="<?php echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>" class="headerNavigationLink"><?php echo HEADER_TITLE_MY_ACCOUNT; ?></a> &nbsp;|&nbsp; <a href="<?php echo tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'); ?>" class="headerNavigationLink"><?php echo HEADER_TITLE_CART_CONTENTS; ?></a> &nbsp;|&nbsp; <a href="<?php echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>" class="headerNavigationLink"><?php echo HEADER_TITLE_CHECKOUT; ?></a> &nbsp;&nbsp;</td>
+    <td align="right" class="headerNavigation"><?php if (tep_session_is_registered('customer_id')) { ?><a href="<?php echo tep_href_link(FILENAME_LOGOFF, '', 'NONSSL'); ?>" class="headerNavigation"><?php echo HEADER_TITLE_LOGOFF; ?></a> &nbsp;|&nbsp; <?php } ?><a href="<?php echo tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL'); ?>" class="headerNavigation"><?php echo HEADER_TITLE_MY_ACCOUNT; ?></a> &nbsp;|&nbsp; <a href="<?php echo tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'); ?>" class="headerNavigation"><?php echo HEADER_TITLE_CART_CONTENTS; ?></a> &nbsp;|&nbsp; <a href="<?php echo tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'); ?>" class="headerNavigation"><?php echo HEADER_TITLE_CHECKOUT; ?></a> &nbsp;&nbsp;</td>
   </tr>
 </table>
 <?php

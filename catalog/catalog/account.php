@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.44 2001/11/09 19:16:44 dgw_ Exp $
+  $Id: account.php,v 1.45 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 
   if (!tep_session_is_registered('customer_id')) {
     tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_ACCOUNT, 'NONSSL'));

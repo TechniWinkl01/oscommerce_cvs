@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account_success.php,v 1.20 2001/11/09 19:16:44 dgw_ Exp $
+  $Id: create_account_success.php,v 1.21 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CREATE_ACCOUNT_SUCCESS);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
+  $location = ' : <a href="' . tep_href_link(FILENAME_CREATE_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 ?>
 <html>
 <head>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.91 2001/11/09 19:16:44 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.92 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -34,7 +34,7 @@
   }
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_CONFIRMATION);
-  $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
+  $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 
 // load shipping modules as objects
   require(DIR_WS_CLASSES . 'shipping.php');

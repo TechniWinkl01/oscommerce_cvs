@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.30 2001/11/09 19:16:45 dgw_ Exp $
+  $Id: product_reviews_info.php,v 1.31 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,7 +18,7 @@
   $get_params = tep_get_all_get_params(array('reviews_id'));
   $get_params = substr($get_params, 0, -1); //remove trailing &
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <html>
 <head>

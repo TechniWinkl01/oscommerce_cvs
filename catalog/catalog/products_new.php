@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.8 2001/11/09 19:16:45 dgw_ Exp $
+  $Id: products_new.php,v 1.9 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PRODUCTS_NEW);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <html>
 <head>

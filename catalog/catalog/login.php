@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.50 2001/11/09 19:16:44 dgw_ Exp $
+  $Id: login.php,v 1.51 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -95,7 +95,7 @@
     }
   } else {
    require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
-   $location = ' : <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
+   $location = ' : <a href="' . tep_href_link(FILENAME_LOGIN, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <html>
 <head>

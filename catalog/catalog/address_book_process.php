@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book_process.php,v 1.51 2001/11/09 19:16:44 dgw_ Exp $
+  $Id: address_book_process.php,v 1.52 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -209,11 +209,11 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK_PROCESS);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_2 . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
   if ((($HTTP_GET_VARS['action'] == 'modify') && ($HTTP_GET_VARS['entry_id'])) || (($HTTP_POST_VARS['action'] == 'update') && ($HTTP_POST_VARS['entry_id']))) {
-    $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_MODIFY_ENTRY . '</a>';
+    $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $HTTP_GET_VARS['entry_id'], 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_MODIFY_ENTRY . '</a>';
   } else {
-    $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_ADD_ENTRY . '</a>';
+    $location .= ' : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_ADD_ENTRY . '</a>';
   }
 ?>
 <html>

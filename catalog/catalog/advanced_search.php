@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.33 2001/11/09 19:16:44 dgw_ Exp $
+  $Id: advanced_search.php,v 1.34 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADVANCED_SEARCH);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <html>
 <head>

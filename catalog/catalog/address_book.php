@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: address_book.php,v 1.39 2001/11/09 19:16:44 dgw_ Exp $
+  $Id: address_book.php,v 1.40 2001/11/09 20:18:55 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADDRESS_BOOK);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '" class="headerNavigationLink">' . NAVBAR_TITLE_2 . '</a>';
+  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
 
 // send to login when there is no Customer_id
   if (!@tep_session_is_registered('customer_id')) {
