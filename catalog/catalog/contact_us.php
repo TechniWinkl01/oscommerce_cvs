@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.32 2002/01/11 22:28:51 dgw_ Exp $
+  $Id: contact_us.php,v 1.33 2002/01/12 19:19:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,7 +24,7 @@
     }
   }
 
-  $location = ' : ' . NAVBAR_TITLE; 
+  $location = ' &raquo; ' . NAVBAR_TITLE; 
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.64 2002/01/11 22:28:51 dgw_ Exp $
+  $Id: checkout_address.php,v 1.65 2002/01/12 19:19:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -18,7 +18,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_ADDRESS);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> &raquo; ' . NAVBAR_TITLE_2;
 
   include(DIR_WS_CLASSES . 'shipping.php');
   $shipping_modules = new shipping;

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: password_forgotten.php,v 1.39 2002/01/11 22:28:51 dgw_ Exp $
+  $Id: password_forgotten.php,v 1.40 2002/01/12 19:19:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -31,7 +31,7 @@
     }
   } else {
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_LOGIN, '', 'SSL') . '" class="headerNavigation"> ' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_LOGIN, '', 'SSL') . '" class="headerNavigation"> ' . NAVBAR_TITLE_1 . '</a> &raquo; <a href="' . tep_href_link(FILENAME_PASSWORD_FORGOTTEN, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a>';
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: conditions.php,v 1.16 2002/01/11 22:28:51 dgw_ Exp $
+  $Id: conditions.php,v 1.17 2002/01/12 19:19:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CONDITIONS);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_CONDITIONS, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_CONDITIONS, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

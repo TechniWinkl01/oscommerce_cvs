@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.65 2002/01/11 22:28:51 dgw_ Exp $
+  $Id: account_history_info.php,v 1.66 2002/01/12 19:19:37 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -28,7 +28,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_HISTORY_INFO);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a> : <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $HTTP_GET_VARS['order_id'], 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_3 . '</a>';
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_1 . '</a> &raquo; <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_2 . '</a> &raquo; <a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $HTTP_GET_VARS['order_id'], 'SSL') . '" class="headerNavigation">' . NAVBAR_TITLE_3 . '</a>';
 
 // load payment modules as objects
   require(DIR_WS_CLASSES . 'payment.php');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.28 2002/01/11 22:28:51 dgw_ Exp $
+  $Id: checkout_success.php,v 1.29 2002/01/12 19:19:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_SUCCESS);
 
-  $location = ' : ' . NAVBAR_TITLE_1 . ' : ' . NAVBAR_TITLE_2;
+  $location = ' &raquo; ' . NAVBAR_TITLE_1 . ' &raquo; ' . NAVBAR_TITLE_2;
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

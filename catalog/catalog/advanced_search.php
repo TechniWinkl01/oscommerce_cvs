@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.43 2002/01/11 21:05:19 dgw_ Exp $
+  $Id: advanced_search.php,v 1.44 2002/01/12 19:19:38 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ADVANCED_SEARCH);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_ADVANCED_SEARCH, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: tell_a_friend.php,v 1.22 2002/01/11 22:28:52 dgw_ Exp $
+  $Id: tell_a_friend.php,v 1.23 2002/01/12 19:19:38 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_TELL_A_FRIEND);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_TELL_A_FRIEND, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_TELL_A_FRIEND, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 
   if (tep_session_is_registered('customer_id')) {
     $account = tep_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");

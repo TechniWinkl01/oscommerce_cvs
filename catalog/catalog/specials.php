@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: specials.php,v 1.36 2002/01/11 22:28:52 dgw_ Exp $
+  $Id: specials.php,v 1.37 2002/01/12 19:19:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,7 +14,7 @@
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_SPECIALS);
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_SPECIALS, '', 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

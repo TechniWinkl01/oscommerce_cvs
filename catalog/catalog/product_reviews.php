@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews.php,v 1.41 2002/01/11 22:28:51 dgw_ Exp $
+  $Id: product_reviews.php,v 1.42 2002/01/12 19:19:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -24,7 +24,7 @@
     $get_params_back = $get_params;
   }
 
-  $location = ' : <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
+  $location = ' &raquo; <a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '" class="headerNavigation">' . NAVBAR_TITLE . '</a>';
 
   $product = tep_db_query("select products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where language_id = '" . $languages_id . "' and products_id = '" . $HTTP_GET_VARS['products_id'] . "'");
   $product_values = tep_db_fetch_array($product);
