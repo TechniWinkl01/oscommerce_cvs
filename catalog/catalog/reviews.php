@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: reviews.php,v 1.49 2003/06/05 23:30:30 hpdl Exp $
+  $Id: reviews.php,v 1.50 2003/06/09 22:35:33 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -54,7 +54,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   $reviews_query_raw = "select r.reviews_id, left(rd.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, r.customers_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and p.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' and rd.languages_id = '" . (int)$languages_id . "' order by r.reviews_id DESC";
-  $reviews_split = new splitPageResults($reviews_query_raw, $HTTP_GET_VARS['page'], MAX_DISPLAY_NEW_REVIEWS);
+  $reviews_split = new splitPageResults($reviews_query_raw, MAX_DISPLAY_NEW_REVIEWS);
 
   if ($reviews_split->number_of_rows > 0) {
     if ((PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3')) {
