@@ -153,7 +153,6 @@
       $shipping_method = "UPS " . $prod;
     }
   }
-
 ?>
           <tr>
             <td colspan="4"><? echo tep_black_line();?></td>
