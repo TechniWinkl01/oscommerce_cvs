@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.86 2002/03/08 22:10:08 hpdl Exp $
+  $Id: english.php,v 1.87 2002/03/09 17:04:11 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -210,6 +210,7 @@ define('IMAGE_NEW_ZONE', 'New Zone');
 define('IMAGE_ORDERS', 'Orders');
 define('IMAGE_PREVIEW', 'Preview');
 define('IMAGE_RESTORE', 'Restore');
+define('IMAGE_RESET', 'Reset');
 define('IMAGE_SAVE', 'Save');
 define('IMAGE_SEARCH', 'Search');
 define('IMAGE_SELECT', 'Select');

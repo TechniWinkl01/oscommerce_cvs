@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.75 2002/03/08 22:10:08 hpdl Exp $
+  $Id: german.php,v 1.76 2002/03/09 17:04:11 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -209,6 +209,7 @@ define('IMAGE_NEW_TAX_ZONE', 'neue Steuerzone erstellen');
 define('IMAGE_NEW_ZONE', 'neues Bundesland einf&uuml;gen');
 define('IMAGE_ORDERS', 'Bestellungen');
 define('IMAGE_PREVIEW', 'Vorschau');
+define('IMAGE_RESET', 'Reset');
 define('IMAGE_RESTORE', 'Zur&uuml;cksichern');
 define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.76 2002/03/08 22:10:08 hpdl Exp $
+  $Id: espanol.php,v 1.77 2002/03/09 17:04:11 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -209,6 +209,7 @@ define('IMAGE_NEW_TAX_ZONE', 'Nuevo Tax Zona');
 define('IMAGE_NEW_ZONE', 'Nueva Zona');
 define('IMAGE_ORDERS', 'Pedidos');
 define('IMAGE_PREVIEW', 'Ver');
+define('IMAGE_RESET', 'Resetear');
 define('IMAGE_RESTORE', 'Restore');
 define('IMAGE_SAVE', 'Grabar');
 define('IMAGE_SEARCH', 'Buscar');
