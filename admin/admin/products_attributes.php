@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.51 2003/07/09 10:59:28 dgw_ Exp $
+  $Id: products_attributes.php,v 1.52 2003/07/10 20:46:01 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -620,11 +620,17 @@ function go_option() {
       </tr>
       <tr>
 <?php
-    if ($action == 'update_attribute') {
-      $form_action = 'update_product_attribute';
-    } else {
-      $form_action = 'add_product_attributes';
-    }
+  if ($action == 'update_attribute') {
+    $form_action = 'update_product_attribute';
+  } else {
+    $form_action = 'add_product_attributes';
+  }
+
+  if (!isset($attribute_page)) {
+    $attribute_page = 1;
+  }
+  $prev_attribute_page = $attribute_page - 1;
+  $next_attribute_page = $attribute_page + 1;
 ?>
         <td><form name="attributes" action="<?php echo tep_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
@@ -632,12 +638,6 @@ function go_option() {
 <?php
   $per_page = MAX_ROW_LISTS_OPTIONS;
   $attributes = "select pa.* from " . TABLE_PRODUCTS_ATTRIBUTES . " pa left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on pa.products_id = pd.products_id and pd.language_id = '" . (int)$languages_id . "' order by pd.products_name";
-  if (!isset($attribute_page)) {
-    $attribute_page = 1;
-  }
-  $prev_attribute_page = $attribute_page - 1;
-  $next_attribute_page = $attribute_page + 1;
-
   $attribute_query = tep_db_query($attributes);
 
   $attribute_page_start = ($per_page * $attribute_page) - $per_page;
