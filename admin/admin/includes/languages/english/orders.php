@@ -9,6 +9,7 @@ define('TOP_BAR_TITLE', 'Orders');
 define('HEADING_TITLE', 'Orders');
 define('HEADING_TITLE_SEARCH', 'Enter Order ID');
 
+define('TABLE_HEADING_COMMENTS', 'Comments');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
 define('TABLE_HEADING_CUSTOMERS_INFO', 'Customers Info');
 define('TABLE_HEADING_DELIVERY_INFO', 'Delivery Info');

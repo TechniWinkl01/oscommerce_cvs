@@ -10,6 +10,7 @@ define('NAVBAR_TITLE_2', 'Get&auml;tigte Bestellung');
 define('NAVBAR_TITLE_3', 'Bestellinformation');
 define('TOP_BAR_TITLE', 'Get&auml;tigte Bestellung');
 define('HEADING_TITLE', 'Bestellinformation');
+define('TABLE_HEADING_COMMENTS', 'Kommentar');
 define('TABLE_HEADING_QUANTITY', 'Anzahl');
 define('TABLE_HEADING_PRODUCT', 'Artikel');
 define('TABLE_HEADING_TAX', 'MwSt.');

@@ -148,6 +148,19 @@ function check_form() {
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
+          <tr>
+            <td nowrap colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><? echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
+	   <td colspan="2"><textarea name="comments" rows=5 cols=60></textarea></td>
+          </tr>
+          <tr>
+            <td colspan="2"><? echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
             <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_next.gif', '50', '24', '0', IMAGE_NEXT); ?>&nbsp;</font></td>
           </tr>
           <tr>

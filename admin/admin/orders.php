@@ -4,6 +4,7 @@
     if ($HTTP_GET_VARS['action'] == 'update_order') {
       $order_finish = ($HTTP_GET_VARS['status'] == 'Delivered') ? ', orders_date_finished = now()' : '';
       tep_db_query("update orders set orders_status = '" . $HTTP_GET_VARS['status'] . "', last_modified = now()" . $order_finish . " where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+      tep_db_query("update orders set comments = '" . $HTTP_GET_VARS['comments'] . "' where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
       header('Location: ' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $HTTP_GET_VARS['orders_id'])); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'delete_order') {
       tep_db_query("delete from orders where orders_id = '" . $HTTP_GET_VARS['orders_id_delete'] . "'");
@@ -168,7 +169,7 @@ function alertBox() {
                 <td colspan="4"><? echo tep_black_line(); ?></td>
               </tr>
 <?
-    $info = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
+    $info = tep_db_query("select date_purchased, orders_status, last_modified, shipping_cost, shipping_method,comments from orders where orders_id = '" . $HTTP_GET_VARS['orders_id'] . "'");
     $info_values = tep_db_fetch_array($info);
     $shipping = $info_values['shipping_cost'];
     $shipping_method = $info_values['shipping_method'];
@@ -247,6 +248,19 @@ function alertBox() {
             </table></td>
           </tr>
           <tr>
+            <td nowrap colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+           </tr>
+          <tr>
+            <td colspan="2"><? echo tep_black_line(); ?></td>
+          </tr>
+          <form name="status" <? echo 'action="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '"'; ?> method="get">
+          <tr>
+	   <td colspan="2"><? echo "<textarea name=comments rows=5 cols=60>" . $info_values['comments'] . "</textarea>" ?></td>
+          </tr>
+          <tr>
+            <td colspan="2"><? echo tep_black_line(); ?></td>
+          </tr>
+          <tr>
             <td nowrap colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_STATUS; ?>&nbsp;</b></font></td>
            </tr>
           <tr>
@@ -255,7 +269,7 @@ function alertBox() {
           <tr>
             <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_DATE_PURCHASED; ?></b> <? echo $date_purchased; ?>&nbsp;</font></td>
           </tr>
-          <tr><form name="status" <? echo 'action="' . tep_href_link(FILENAME_ORDERS, '', 'NONSSL') . '"'; ?> method="get"><input type="hidden" name="action" value="update_order"><input type="hidden" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>">
+          <tr><input type="hidden" name="action" value="update_order"><input type="hidden" name="orders_id" value="<? echo $HTTP_GET_VARS['orders_id']; ?>">
             <td nowrap colspan="2"><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo ENTRY_STATUS; ?></b> <select name="status"><option value="Processing"<? if ($info_values['orders_status'] == 'Processing') { echo ' SELECTED'; } ?>>Processing</option><option value="Delivered"<? if ($info_values['orders_status'] == 'Delivered') { echo ' SELECTED'; } ?>>Delivered</option><option value="Pending"<? if ($info_values['orders_status'] == 'Pending') { echo ' SELECTED'; } ?>>Pending</option></select>&nbsp;<? echo tep_image_submit(DIR_IMAGES . 'button_update.gif', '66', '20', '0', IMAGE_UPDATE); ?>&nbsp;</font></td>
           </tr></form>
 <?

@@ -190,6 +190,18 @@
           <tr>
             <td><? echo tep_black_line(); ?></td>
           </tr>
+        <tr>
+          <td nowrap colspan="2"><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td colspan="2"><? echo tep_black_line(); ?></td>
+        </tr>
+        <tr>
+          <td colspan="2"><? echo '&nbsp;' . $HTTP_POST_VARS['comments'] ?></td>
+        </tr>
+        <tr>
+          <td colspan="2"><? echo tep_black_line(); ?></td>
+        </tr>
 <?
   if (!$checkout_form_action) {
     $checkout_form_action = tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');
@@ -199,11 +211,12 @@
                    '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">' .
                    '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
                    '<input type="hidden" name="payment" value="' . $HTTP_POST_VARS['payment'] . '">' .
+                   '<input type="hidden" name="comments" value="' . $HTTP_POST_VARS['comments'] . '">' .
                    '<input type="hidden" name="shipping_cost" value="' . $shipping_cost . '">' .
                    '<input type="hidden" name="shipping_method" value="' . $shipping_method . '">';
 // Draw the checkout process button
-  $payment_action = 'PM_PROCESS_BUTTON';
-  include(DIR_MODULES . 'payment.php');
+  $payment_action = 'PM_PROCESS_BUTTON';
+  include(DIR_MODULES . 'payment.php');
   if (!$checkout_form_submit) {
     echo tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;' . "\n";
   } else {

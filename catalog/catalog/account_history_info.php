@@ -125,7 +125,7 @@
                 <td align="right" width="100%" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo tep_currency_format($total_cost); ?>&nbsp;</font></td>
               </tr>
 <?
-  $order = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
+  $order = tep_db_query("select delivery_name as name, delivery_street_address as street_address, delivery_suburb as suburb, delivery_city as city, delivery_postcode as postcode, delivery_state as state, delivery_country as country, delivery_address_format_id as format_id, payment_method, shipping_cost, shipping_method, comments from orders where orders_id = '" . $HTTP_GET_VARS['order_id'] . "'");
   $order_values = tep_db_fetch_array($order);
 
   if ($total_tax > 0) {
@@ -183,9 +183,18 @@
 ?>
         </table></font></td>
       </tr>
-      <tr>
-        <td><? echo tep_black_line(); ?></td>
-      </tr>
+        <tr>
+          <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><br><b>&nbsp;<? echo TABLE_HEADING_COMMENTS; ?>&nbsp;</b></font></td>
+        </tr>
+        <tr>
+          <td><? echo tep_black_line(); ?></td>
+        </tr>
+        <tr>
+          <td><? echo '&nbsp;' . $order_values['comments'] ?></td>
+        </tr>
+        <tr>
+          <td><? echo tep_black_line(); ?></td>
+        </tr>
       <tr>
         <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><br>&nbsp;<a href="<? echo tep_href_link(FILENAME_ACCOUNT_HISTORY, tep_get_all_get_params(array('order_id')), 'NONSSL'); ?>"><? echo tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK); ?></a>&nbsp;&nbsp;</font></td>
       </tr>

@@ -9,6 +9,7 @@ define('NAVBAR_TITLE_1', 'Realizar Pedido');
 define('NAVBAR_TITLE_2', 'Confirmacion');
 define('TOP_BAR_TITLE', 'Realizar Pedido');
 define('HEADING_TITLE', 'Estoy preparado para Comprar!');
+define('TABLE_HEADING_COMMENTS', 'Comentarios Sobre Su Orden');
 define('TABLE_HEADING_QUANTITY', 'Cantidad');
 define('TABLE_HEADING_PRODUCTS', 'Producto(s)');
 define('TABLE_HEADING_TAX', 'Impuestos');

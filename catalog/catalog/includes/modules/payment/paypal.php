@@ -4,7 +4,7 @@
   $payment_enabled = PAYMENT_SUPPORT_PAYPAL;
 
   if ($payment_action == 'PM_CONFIRMATION' && $payment_enabled) {
-    $paypal_return = urlencode($HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . urlencode($shipping_method) . '&' . SID);
+    $paypal_return = urlencode($HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . urlencode($shipping_method) . '|' . urlencode($comments) . '&' . SID);
     $checkout_form_action = 'https://secure.paypal.com/xclick/business=' . rawurlencode(PAYPAL_ID) . '&item_name=' . rawurlencode(STORE_NAME) . '&amount=' . number_format(($total_cost + $total_tax),2) . '&shipping=' . number_format($shipping_cost, 2) . '&return=' . urlencode(HTTP_SERVER . DIR_CATALOG . FILENAME_CHECKOUT_PROCESS . '?paypal_return=' . $paypal_return);
   } elseif ($payment_action == 'PM_BEFORE_PROCESS' && $payment_enabled) {
     if ($HTTP_GET_VARS['paypal_return']) {
@@ -14,6 +14,7 @@
       $sendto = $args[1];
       $shipping_cost = $args[2];
       $shipping_method = $args[3];
+      $comments = $args[4];
     }
   } elseif ($payment_action == 'PM_AFTER_PROCESS' && $payment_enabled) {
     header('Location: ' . tep_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL')); 

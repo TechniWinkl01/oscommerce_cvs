@@ -10,6 +10,7 @@ define('NAVBAR_TITLE_2', 'Historial');
 define('NAVBAR_TITLE_3', 'Detalle del Pedido');
 define('TOP_BAR_TITLE', 'Historial de Pedidos');
 define('HEADING_TITLE', 'Detalle del Pedido');
+define('TABLE_HEADING_COMMENTS', 'Comentarios');
 define('TABLE_HEADING_QUANTITY', 'Cantidad');
 define('TABLE_HEADING_PRODUCT', 'Producto');
 define('TABLE_HEADING_TAX', 'Impuestos');

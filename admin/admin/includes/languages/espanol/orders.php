@@ -9,6 +9,7 @@ define('TOP_BAR_TITLE', 'Pedidos');
 define('HEADING_TITLE', 'Pedidos');
 define('HEADING_TITLE_SEARCH', 'incorpore la identificación de la pedido');
 
+define('TABLE_HEADING_COMMENTS', 'Comentarios');
 define('TABLE_HEADING_CUSTOMERS', 'Clientes');
 define('TABLE_HEADING_CUSTOMERS_INFO', 'Informacion Cliente');
 define('TABLE_HEADING_DELIVERY_INFO', 'Informacion Entrega');

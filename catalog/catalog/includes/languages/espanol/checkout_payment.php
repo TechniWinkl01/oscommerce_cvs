@@ -9,6 +9,7 @@ define('NAVBAR_TITLE_1', 'Realizar Pedido');
 define('NAVBAR_TITLE_2', 'Forma de Pago');
 define('TOP_BAR_TITLE', 'Realizar Pedido');
 define('HEADING_TITLE', 'Forma de Pago');
+define('TABLE_HEADING_COMMENTS', 'Agregue Los Comentarios Sobre Su Orden');
 define('TABLE_HEADING_METHODS', 'Formas');
 define('TABLE_HEADING_SELECTION', 'Seleccion');
 define('TABLE_HEADING_SHIPPING_INFO', 'Portador Del Envío');
