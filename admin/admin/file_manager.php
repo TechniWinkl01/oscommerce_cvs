@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.9 2001/12/14 14:36:07 dgw_ Exp $
+  $Id: file_manager.php,v 1.10 2002/01/04 11:28:48 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -174,7 +174,8 @@
         $directory_array[$file_count] = array('name' => $file, 
                                               'is_dir' => is_dir($current_path . '/' . $file),
                                               'last_modified' => filemtime($current_path . '/' . $file),
-                                              'size' => $file_size
+                                              'size' => $file_size,
+                                              'permissions' => tep_get_file_permissions(fileperms($current_path . '/' . $file))
                                              );
       }
     }
@@ -195,10 +196,11 @@
                 <td class="tableHeading">&nbsp;</td>
                 <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_FILENAME; ?>&nbsp;</td>
                 <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_SIZE; ?>&nbsp;</td>
+                <td align="right" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_PERMISSIONS; ?>&nbsp;</td>
                 <td align="center" class="tableHeading">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="5"><?php echo tep_black_line(); ?></td>
               </tr>
 <?
   reset($directory_array);
@@ -228,6 +230,7 @@
     }
 ?>
                 <td class="main" align="right"><?php echo ($file['is_dir'] ? '&nbsp;' : $file['size']); ?></td>
+                <td class="smallText" align="right"><tt><?php echo $file['permissions']; ?></tt></td>
 <?php
     if (is_object($fmInfo) && ($fmInfo->key == $key)) {
 ?>
@@ -244,10 +247,10 @@
   }
 ?>          
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="5"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr valign="top">
                     <td class="smallText"><form action="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=upload'); ?>" method="post" enctype="multipart/form-data"><input type="file" size="10" name="filename"><?php echo tep_image_submit(DIR_WS_IMAGES . 'button_upload.gif', IMAGE_UPLOAD); ?></form></td>
                     <td align="right" class="smallText"><a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_file'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_file.gif', IMAGE_NEW_FILE); ?></a>&nbsp;&nbsp;<a href="<?php echo tep_href_link(FILENAME_FILE_MANAGER, 'action=new_folder'); ?>"><?php echo tep_image(DIR_WS_IMAGES . 'button_new_folder.gif', IMAGE_NEW_FOLDER); ?></a>&nbsp;&nbsp;</td>

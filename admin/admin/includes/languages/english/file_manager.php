@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.3 2001/12/12 22:57:05 dgw_ Exp $
+  $Id: file_manager.php,v 1.4 2002/01/04 11:28:48 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -15,6 +15,7 @@ define('HEADING_TITLE', 'File Manager');
 
 define('TABLE_HEADING_FILENAME', 'Name');
 define('TABLE_HEADING_SIZE', 'Size');
+define('TABLE_HEADING_SIZE', 'Permissions');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('TEXT_FILE_NAME', 'Filename:');
