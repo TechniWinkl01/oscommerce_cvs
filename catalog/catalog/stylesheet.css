@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.48 2002/07/11 17:13:14 dgw_ Exp $
+  $Id: stylesheet.css,v 1.49 2002/11/01 01:58:48 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -102,6 +102,16 @@ TD.footer {
 
 .infoBoxContents {
   background: #f8f8f9;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+}
+
+.infoBoxNotice {
+  background: #FF8E90;
+}
+
+.infoBoxNoticeContents {
+  background: #FFE6E6;
   font-family: Verdana, Arial, sans-serif;
   font-size: 10px;
 }
@@ -265,3 +275,7 @@ SPAN.checkoutBarHighlighted {
   font-size: 10px;
   color: #000000;
 }
+
+.moduleRow { }
+.moduleRowOver { background-color: #D7E9F7; cursor: hand; }
+.moduleRowSelected { background-color: #E9F4FC; }
