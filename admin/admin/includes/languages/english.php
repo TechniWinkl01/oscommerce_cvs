@@ -180,6 +180,7 @@ define('IMAGE_MOVE', 'Move');
 define('IMAGE_NEW_CATEGORY', 'New Category');
 define('IMAGE_NEW_COUNTRY', 'New Country');
 define('IMAGE_NEW_CURRENCY', 'New Currency');
+define('IMAGE_UPDATE_CURRENCY', 'Update Exchange Rate');
 define('IMAGE_NEW_LANGUAGE', 'New Language');
 define('IMAGE_NEW_PRODUCT', 'New Product');
 define('IMAGE_NEW_TAX_CLASS', 'New Tax Class');
