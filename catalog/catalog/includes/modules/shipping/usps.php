@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.26 2001/09/12 21:33:18 dwatkins Exp $
+  $Id: usps.php,v 1.27 2001/10/30 19:05:56 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -52,7 +52,9 @@
         $rate->setMachinable("False");
         $rate->SetOrigZip(STORE_ORIGIN_ZIP);
         $rate->SetDestZip($address_values['postcode']);
-        $rate->setWeight($shipping_weight);
+        $shipping_pounds = floor ($shipping_weight);
+        $shipping_ounces = 16 * ($shipping_weight - floor($shipping_weight));
+        $rate->SetWeight($shipping_pounds, $shipping_ounces);
         $quote = $rate->getPrice();
         $shipping_usps_cost = SHIPPING_HANDLING + $quote;
         if ($prod != 'Parcel') {
