@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.157 2001/12/04 14:42:35 dgw_ Exp $
+# $Id: mysql_catalog.sql,v 1.158 2001/12/05 09:51:34 jan0815 Exp $
 #
 # The Exchange Project - Community Made Shopping!
 # http://www.theexchangeproject.org
@@ -220,6 +220,8 @@ CREATE TABLE manufacturers (
   manufacturers_id int(5) NOT NULL auto_increment,
   manufacturers_name varchar(32) NOT NULL,
   manufacturers_image varchar(64),
+  date_added datetime NULL,
+  last_modified datetime NULL,
   PRIMARY KEY (manufacturers_id),
   KEY IDX_MANUFACTURERS_NAME (manufacturers_name)
 );
@@ -231,7 +233,6 @@ CREATE TABLE manufacturers_info (
   manufacturers_url varchar(255) NOT NULL,
   url_clicked int(5) NULL,
   date_last_click datetime NULL,
-  date_added datetime NULL,
   PRIMARY KEY (manufacturers_id, languages_id)
 );
 
@@ -948,43 +949,43 @@ INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
 INSERT INTO languages VALUES (3,'Español','es','flag_es.gif','espanol',3);
 
-INSERT INTO manufacturers VALUES (1,'Matrox','manufacturer_matrox.gif');
-INSERT INTO manufacturers VALUES (2,'Microsoft','manufacturer_microsoft.gif');
-INSERT INTO manufacturers VALUES (3,'Warner','manufacturer_warner.gif');
-INSERT INTO manufacturers VALUES (4,'Fox','manufacturer_fox.gif');
-INSERT INTO manufacturers VALUES (5,'Logitech','manufacturer_logitech.gif');
-INSERT INTO manufacturers VALUES (6,'Canon','manufacturer_canon.gif');
-INSERT INTO manufacturers VALUES (7,'Sierra','manufacturer_sierra.gif');
-INSERT INTO manufacturers VALUES (8,'GT Interactive','manufacturer_gt_interactive.gif');
-INSERT INTO manufacturers VALUES (9,'Hewlett Packard','manufacturer_hewlett_packard.gif');
+INSERT INTO manufacturers VALUES (1,'Matrox','manufacturer_matrox.gif', now(), '');
+INSERT INTO manufacturers VALUES (2,'Microsoft','manufacturer_microsoft.gif', now(), '');
+INSERT INTO manufacturers VALUES (3,'Warner','manufacturer_warner.gif', now(), '');
+INSERT INTO manufacturers VALUES (4,'Fox','manufacturer_fox.gif', now(), '');
+INSERT INTO manufacturers VALUES (5,'Logitech','manufacturer_logitech.gif', now(), '');
+INSERT INTO manufacturers VALUES (6,'Canon','manufacturer_canon.gif', now(), '');
+INSERT INTO manufacturers VALUES (7,'Sierra','manufacturer_sierra.gif', now(), '');
+INSERT INTO manufacturers VALUES (8,'GT Interactive','manufacturer_gt_interactive.gif', now(), '');
+INSERT INTO manufacturers VALUES (9,'Hewlett Packard','manufacturer_hewlett_packard.gif', now(), '');
 
-INSERT INTO manufacturers_info VALUES (1, 1, 'http://www.matrox.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (1, 2, 'http://www.matrox.de', 0, '', now());
-INSERT INTO manufacturers_info VALUES (1, 3, 'http://www.matrox.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (2, 1, 'http://www.microsoft.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (2, 2, 'http://www.microsoft.de', 0, '', now());
-INSERT INTO manufacturers_info VALUES (2, 3, 'http://www.microsoft.es', 0, '', now());
-INSERT INTO manufacturers_info VALUES (3, 1, 'http://www.warner.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (3, 2, 'http://www.warner.de', 0, '', now());
-INSERT INTO manufacturers_info VALUES (3, 3, 'http://www.warner.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (4, 1, 'http://www.fox.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (4, 2, 'http://www.fox.de', 0, '', now());
-INSERT INTO manufacturers_info VALUES (4, 3, 'http://www.fox.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (5, 1, 'http://www.logitech.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (5, 2, 'http://www.logitech.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (5, 3, 'http://www.logitech.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (6, 1, 'http://www.canon.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (6, 2, 'http://www.canon.de', 0, '', now());
-INSERT INTO manufacturers_info VALUES (6, 3, 'http://www.canon.es', 0, '', now());
-INSERT INTO manufacturers_info VALUES (7, 1, 'http://www.sierra.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (7, 2, 'http://www.sierra.de', 0, '', now());
-INSERT INTO manufacturers_info VALUES (7, 3, 'http://www.sierra.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (8, 1, 'http://www.infogrames.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (8, 2, 'http://www.infogrames.de', 0, '', now());
-INSERT INTO manufacturers_info VALUES (8, 3, 'http://www.infogrames.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (9, 1, 'http://www.hewlettpackard.com', 0, '', now());
-INSERT INTO manufacturers_info VALUES (9, 2, 'http://www.hewlettpackard.de', 0, '', now());
-INSERT INTO manufacturers_info VALUES (9, 3, 'http://welcome.hp.com/country/es/spa/welcome.htm', 0, '', now());
+INSERT INTO manufacturers_info VALUES (1, 1, 'http://www.matrox.com', 0, '');
+INSERT INTO manufacturers_info VALUES (1, 2, 'http://www.matrox.de', 0, '');
+INSERT INTO manufacturers_info VALUES (1, 3, 'http://www.matrox.com', 0, '');
+INSERT INTO manufacturers_info VALUES (2, 1, 'http://www.microsoft.com', 0, '');
+INSERT INTO manufacturers_info VALUES (2, 2, 'http://www.microsoft.de', 0, '');
+INSERT INTO manufacturers_info VALUES (2, 3, 'http://www.microsoft.es', 0, '');
+INSERT INTO manufacturers_info VALUES (3, 1, 'http://www.warner.com', 0, '');
+INSERT INTO manufacturers_info VALUES (3, 2, 'http://www.warner.de', 0, '');
+INSERT INTO manufacturers_info VALUES (3, 3, 'http://www.warner.com', 0, '');
+INSERT INTO manufacturers_info VALUES (4, 1, 'http://www.fox.com', 0, '');
+INSERT INTO manufacturers_info VALUES (4, 2, 'http://www.fox.de', 0, '');
+INSERT INTO manufacturers_info VALUES (4, 3, 'http://www.fox.com', 0, '');
+INSERT INTO manufacturers_info VALUES (5, 1, 'http://www.logitech.com', 0, '');
+INSERT INTO manufacturers_info VALUES (5, 2, 'http://www.logitech.com', 0, '');
+INSERT INTO manufacturers_info VALUES (5, 3, 'http://www.logitech.com', 0, '');
+INSERT INTO manufacturers_info VALUES (6, 1, 'http://www.canon.com', 0, '');
+INSERT INTO manufacturers_info VALUES (6, 2, 'http://www.canon.de', 0, '');
+INSERT INTO manufacturers_info VALUES (6, 3, 'http://www.canon.es', 0, '');
+INSERT INTO manufacturers_info VALUES (7, 1, 'http://www.sierra.com', 0, '');
+INSERT INTO manufacturers_info VALUES (7, 2, 'http://www.sierra.de', 0, '');
+INSERT INTO manufacturers_info VALUES (7, 3, 'http://www.sierra.com', 0, '');
+INSERT INTO manufacturers_info VALUES (8, 1, 'http://www.infogrames.com', 0, '');
+INSERT INTO manufacturers_info VALUES (8, 2, 'http://www.infogrames.de', 0, '');
+INSERT INTO manufacturers_info VALUES (8, 3, 'http://www.infogrames.com', 0, '');
+INSERT INTO manufacturers_info VALUES (9, 1, 'http://www.hewlettpackard.com', 0, '');
+INSERT INTO manufacturers_info VALUES (9, 2, 'http://www.hewlettpackard.de', 0, '');
+INSERT INTO manufacturers_info VALUES (9, 3, 'http://welcome.hp.com/country/es/spa/welcome.htm', 0, '');
 
 INSERT INTO orders_status VALUES ( '1', '1', 'Pending');
 INSERT INTO orders_status VALUES ( '1', '2', 'Offen');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.20 2001/12/01 20:17:18 hpdl Exp $
+  $Id: update.php,v 1.21 2001/12/05 09:51:35 jan0815 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -446,7 +446,9 @@ changeText('statusText', 'Updating Manufacturers');
 <?php
   flush();
 
-  tep_db_query("create table manufacturers_info (manufacturers_id int(5) not null, languages_id int(5) not null, manufacturers_url varchar(255) not null, url_clicked int(5), date_last_click datetime, date_added datetime, primary key (manufacturers_id, languages_id))");
+  tep_db_query("alter table manufacturers add date_added datetime null after manufacturers_image, add last_modified datetime null after date_added");
+  tep_db_query("create table manufacturers_info (manufacturers_id int(5) not null, languages_id int(5) not null, manufacturers_url varchar(255) not null, url_clicked int(5), date_last_click datetime, primary key (manufacturers_id, languages_id))");
+
 ?>
 
 <script language="javascript"><!--
