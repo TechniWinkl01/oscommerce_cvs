@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.206 2003/02/07 22:01:56 dgw_ Exp $
+  $Id: general.php,v 1.207 2003/02/09 01:33:16 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -20,6 +20,11 @@
 ////
 // Redirect to another page or site
   function tep_redirect($url) {
+    if ( (ENABLE_SSL == true) && (getenv('HTTPS') == 'on') ) { // We are loading an SSL page
+      if (substr($url, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { // NONSSL url
+        $url = HTTPS_SERVER . substr($url, strlen(HTTP_SERVER)); // Change it to SSL
+      }
+    }
     header('Location: ' . $url);
     tep_exit();
   }
