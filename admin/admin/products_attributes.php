@@ -256,7 +256,7 @@ function checkFormAtrib() {
    $num_pages = (int) $num_pages; 
     
    if (($option_page > $num_pages) || ($option_page < 0)) { 
-      error("You have specified an invalid page number"); 
+      die("You have specified an invalid page number"); 
    } 
     
    $options = $options . " LIMIT $option_page_start, $per_page"; 
@@ -454,7 +454,7 @@ function checkFormAtrib() {
    $num_pages = (int) $num_pages; 
     
    if (($value_page > $num_pages) || ($value_page < 0)) { 
-      error("You have specified an invalid page number"); 
+      die("You have specified an invalid page number"); 
    } 
     
    $values = $values . " LIMIT $value_page_start, $per_page"; 
@@ -588,7 +588,7 @@ function checkFormAtrib() {
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 		<tr><td colspan=7><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">
 <? 
-   $per_page = MAX_ROW_LISTS; 
+   $per_page = MAX_ROW_LISTS_OPTIONS; 
    $attributes = ("select * from products_attributes order by products_attributes_id"); 
 //   $attributes = ("select products_attributes_id, products_name, products_id, products_options_name, products_options_id, products_options_values_name, products_options_values_id, products_options_values_price from products, products_options, products_options_values, products_attributes where products_attributes.products_id = products.products_id and products_attributes.products_options_id = products_options.products_options_id and products_attributes.products_options_values_id = products_options_values.products_options_values_id order by products_attributes_id");
    if (!$attribute_page) 
@@ -613,7 +613,7 @@ function checkFormAtrib() {
    $num_pages = (int) $num_pages; 
     
    if (($attribute_page > $num_pages) || ($attribute_page < 0)) { 
-      error("You have specified an invalid page number");
+      die("You have specified an invalid page number");
    } 
     
    $attributes = $attributes . " LIMIT $attribute_page_start, $per_page"; 
