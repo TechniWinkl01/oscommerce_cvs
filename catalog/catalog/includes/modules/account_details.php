@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_details.php,v 1.16 2002/05/30 22:03:49 dgw_ Exp $
+  $Id: account_details.php,v 1.17 2002/06/01 18:57:15 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,7 +133,8 @@
   </tr>
 <?php
   if (ACCOUNT_COMPANY == 'true') {
-?>  <tr>
+?>  
+  <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_COMPANY; ?></td>
   </tr>
   <tr>
@@ -157,7 +158,6 @@
     }
 ?></td>
           </tr>
-        </tr>
         </table></td>
       </tr>
     </table></td>
@@ -165,7 +165,6 @@
 <?php
   }
 ?>
-  <tr>
   <tr>
     <td class="formAreaTitle"><br><?php echo CATEGORY_ADDRESS; ?></td>
   </tr>
@@ -255,14 +254,12 @@
     echo tep_get_country_name($account['entry_country_id']);
   } elseif ($error) {
     if ($entry_country_error) {
-      tep_get_country_list('country', $country);
-      echo '&nbsp;' . ENTRY_COUNTRY_ERROR;
+      echo tep_get_country_list('country') . '&nbsp;' . ENTRY_COUNTRY_ERROR;
     } else {
       echo tep_get_country_name($country) . tep_draw_hidden_field('country');
     }
   } else {
-    tep_get_country_list('country', $account['entry_country_id']);
-    echo '&nbsp;' . ENTRY_COUNTRY_TEXT;
+    echo tep_get_country_list('country', $account['entry_country_id']) . '&nbsp;' . ENTRY_COUNTRY_TEXT;
   }
 ?></td>
           </tr>
