@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.9 2001/12/24 00:34:31 hpdl Exp $
+  $Id: html_output.php,v 1.10 2001/12/28 23:03:32 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -302,8 +302,10 @@
 
 ////
 // Output a form pull down menu
-  function tep_draw_pull_down_menu($name, $values, $default = '', $required = false) {
-    $field = '<select name="' . $name . '">';
+  function tep_draw_pull_down_menu($name, $values, $default = '', $params = '', $required = false) {
+    $field = '<select name="' . $name . '"';
+    if ($params) $field .= ' ' . $params;
+    $field .= '>';
     for ($i=0; $i<sizeof($values); $i++) {
       $field .= '<option value="' . $values[$i]['id'] . '"';
       if ( ($GLOBALS[$name] == $values[$i]['id']) || ($default == $values[$i]['id']) ) {
