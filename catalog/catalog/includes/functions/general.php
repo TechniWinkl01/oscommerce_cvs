@@ -864,7 +864,7 @@ function tep_address_summary($customers_id, $address_id) {
   ////////////////////////////////////////////////////////////////////////////////////////////////
   function tep_build_cat_options(&$output, $preselected, $parent_id=0, $indent="") {
 
-    $sql = tep_db_query("SELECT categories_id, categories_name FROM categories WHERE parent_id = $parent_id order by sort_order, categories_name");
+    $sql = tep_db_query("SELECT c.categories_id, cd.categories_name FROM categories c, categories_description cd WHERE parent_id = $parent_id and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
     while ($cat =  tep_db_fetch_array($sql)) {
       $selected = tep_in_array($cat[categories_id], $preselected) ? " selected"  :  "";
       $output .= "<option value=\"" . $cat['categories_id'] . "\"$selected>$indent" .  $cat['categories_name'] . "</option>\n";

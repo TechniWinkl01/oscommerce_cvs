@@ -21,7 +21,7 @@
       } else {
         $cPath_new .= '_' . $cPath_array[$i];
       }
-      $categories_query = tep_db_query("select categories_name from categories where categories_id = '" . $cPath_array[$i] . "'");
+      $categories_query = tep_db_query("select categories_name from categories_description where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
       $categories = tep_db_fetch_array($categories_query);
       echo ' : <a href="' . tep_href_link(FILENAME_DEFAULT, 'cPath=' . $cPath_new, 'NONSSL') . '" class="whitelink">' . $categories['categories_name'] . '</a>';
     }
@@ -64,3 +64,4 @@
 <?php
   }
 ?>
+

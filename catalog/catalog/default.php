@@ -55,7 +55,7 @@
         </table></td>
       </tr>
 <?
-    $category_query = tep_db_query("select categories_name, categories_image from categories where categories_id = '" . $current_category_id . "'");
+    $category_query = tep_db_query("select cd.categories_name, c.categories_image from categories c, categories_description cd where c.categories_id = '" . $current_category_id . "' and cd.categories_id = '" . $current_category_id . "' and cd.language_id = '" . $languages_id . "'");
     $category = tep_db_fetch_array($category_query);
 ?>
       <tr>
@@ -85,7 +85,7 @@
 // check to see if there are deeper categories within the current category
       $category_links = tep_array_reverse($cPath_array);
       for($i=0;$i<sizeof($category_links);$i++) {
-        $categories = tep_db_query("select categories_id, categories_name, categories_image, parent_id from categories where parent_id = '" . $category_links[$i] . "' order by sort_order, categories_name");
+        $categories = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id from categories c, categories_description cd where c.parent_id = '" . $category_links[$i] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
         if (tep_db_num_rows($categories) < 1) {
           // do nothing, go through the loop
         } else {
@@ -93,7 +93,7 @@
         }
       }
     } else {
-      $categories = tep_db_query("select categories_id, categories_name, categories_image, parent_id from categories where parent_id = '" . $current_category_id . "' order by sort_order, categories_name");
+      $categories = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id from categories c, categories_description cd where c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
     }
 
     $rows = 0;
@@ -187,7 +187,7 @@
       } else {
         $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "'";
       }
-      $filterlist_sql = "select distinct c.categories_id as id, c.categories_name as name from products p, products_to_categories p2c, categories c where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by c.categories_name";
+      $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from products p, products_to_categories p2c, categories c, categories_description cd where p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id - cd.categories_id and cd.language_id = '" . $languages_id . "' and p.manufacturers_id = '" . $HTTP_GET_VARS['manufacturers_id'] . "' order by cd.categories_name";
     } else {
       if ($HTTP_GET_VARS['filter_id']) {
         $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, s.specials_new_products_price, IFNULL(s.specials_new_products_price,p.products_price) as final_price from products p, manufacturers m, products_to_categories p2c left join specials s on p.products_id = s.products_id where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and m.manufacturers_id = '" . $HTTP_GET_VARS['filter_id'] . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "'";
@@ -382,3 +382,6 @@
 </body>
 </html>
 <? $include_file = DIR_WS_INCLUDES . 'application_bottom.php'; include(DIR_WS_INCLUDES . 'include_once.php'); ?>
+
+
+
