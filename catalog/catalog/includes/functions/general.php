@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.180 2002/06/07 10:49:30 dgw_ Exp $
+  $Id: general.php,v 1.181 2002/07/09 18:15:09 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -503,13 +503,14 @@
 // Output a raw date string in the selected locale date format
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
   function tep_date_long($raw_date) {
-// remove the first digit if it is 0 - as php treats these as Octals
-    $year = substr($raw_date, 0, 4);
-    $month = substr($raw_date, 5, 2); if (substr($month, 0, 1) == '0') $month = substr($month, 1);
-    $day = substr($raw_date, 8, 2); if (substr($day, 0, 1) == '0') $day =  substr($day, 1);
-    $hour = substr($raw_date, 11, 2); if (substr($hour, 0, 1) == '0') $hour = substr($hour, 1);
-    $minute = substr($raw_date, 14, 2); if (substr($minute, 0, 1) == '0') $minute = substr($minute, 1);
-    $second = substr($raw_date, 17, 2); if (substr($second, 0, 1) == '0') $second = substr($second, 1);
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+
+    $year = (int)substr($raw_date, 0, 4);
+    $month = (int)substr($raw_date, 5, 2);
+    $day = (int)substr($raw_date, 8, 2);
+    $hour = (int)substr($raw_date, 11, 2);
+    $minute = (int)substr($raw_date, 14, 2);
+    $second = (int)substr($raw_date, 17, 2);
 
     return strftime(DATE_FORMAT_LONG, mktime($hour,$minute,$second,$month,$day,$year));
   }
@@ -520,13 +521,12 @@
   function tep_date_short($raw_date) {
     if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
-// remove the first digit if it is 0 - as php treats these as Octals
-    $year = substr($raw_date, 0, 4);
-    $month = substr($raw_date, 5, 2); if (substr($month, 0, 1) == '0') $month = substr($month, 1);
-    $day = substr($raw_date, 8, 2); if (substr($day, 0, 1) == '0') $day =  substr($day, 1);
-    $hour = substr($raw_date, 11, 2); if (substr($hour, 0, 1) == '0') $hour = substr($hour, 1);
-    $minute = substr($raw_date, 14, 2); if (substr($minute, 0, 1) == '0') $minute = substr($minute, 1);
-    $second = substr($raw_date, 17, 2); if (substr($second, 0, 1) == '0') $second = substr($second, 1);
+    $year = (int)substr($raw_date, 0, 4);
+    $month = (int)substr($raw_date, 5, 2);
+    $day = (int)substr($raw_date, 8, 2);
+    $hour = (int)substr($raw_date, 11, 2);
+    $minute = (int)substr($raw_date, 14, 2);
+    $second = (int)substr($raw_date, 17, 2);
 
     return date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
   }
