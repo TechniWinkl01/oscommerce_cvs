@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.101 2001/06/11 16:23:10 dwatkins Exp $
+  $Id: general.php,v 1.102 2001/06/12 08:48:19 mbs Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -1120,13 +1120,36 @@ function tep_address_summary($customers_id, $address_id) {
   }
 
 ////
-// Send email
-  function tep_mail($to, $subject, $message, $additional_headers = '') {
-    if (mail($to, $subject, $message, $additional_headers)) {
-      return true;
+// Send email (text/html)
+  function tep_mail($to_firstname, $to_lastname, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address, $email_background) {
+    global $DOCUMENT_ROOT;
+    $mail = new html_mime_mail('X-Mailer: The Exchange Project Mailer');
+    if (EMAIL_USE_HTML) {
+      if (!$email_background) { $email_background="background.gif"; }
+      $filename = $DOCUMENT_ROOT . DIR_WS_CATALOG . DIR_WS_IMAGES . 'mail/' . $email_background;
+      $backgrnd = fread($fp = fopen($filename, 'r'), filesize($filename));
+      fclose($fp);
+
+      $html = '<html>' . "\r\n" . '<body background="background.gif">' . "\r\n" .
+              '<font face="Verdana, Arial" color="#0000000"><pre>' . "\r\n" .
+              $email_text . "\r\n" .
+              '</pre></font>' . "\r\n" .
+              '</body></html>';
+
+      $mail->add_html_image($backgrnd, $email_background, 'image/gif');
+      $mail->add_html($html, strip_tags($email_text));
     } else {
-      return tep_error_message(ERROR_TEP_MAIL);
+      $mail->set_body(strip_tags($email_text));
     }
+
+    $mail->set_charset('iso-8859-15', TRUE);
+    $mail->build_message();
+    $mail->send($to_firstname . ' ' . $to_lastname,
+                $to_email_address,
+                $from_email_name,
+                $from_email_address,
+                $email_subject
+               );
   }
 
 ////
