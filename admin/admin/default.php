@@ -72,7 +72,7 @@
                 <td colspan="2"><?=tep_black_line();?></td>
               </tr>
 <?
-  $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from customers c, customers_info i where c.customers_id = i.customers_info_id order by i.customers_info_date_account_created DESC limit 5");
+  $customers_query = tep_db_query("select c.customers_id, c.customers_firstname, c.customers_lastname, i.customers_info_date_account_created from customers c, customers_info i where c.customers_id = i.customers_info_id order by c.customers_id DESC limit 5");
   while ($customers = tep_db_fetch_array($customers_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'"">' . "\n";
     echo '                <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '&nbsp;</font></td>' . "\n";
@@ -95,7 +95,7 @@
                 <td colspan="3"><?=tep_black_line();?></td>
               </tr>
 <?
-  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status from orders order by date_purchased DESC limit 5");
+  $orders_query = tep_db_query("select orders_id, customers_name, date_purchased, orders_status from orders order by orders_id DESC limit 5");
   while ($orders = tep_db_fetch_array($orders_query)) {
     $total_cost = 0;
     $orders_products_query = tep_db_query("select products_price, products_quantity from orders_products where orders_id = '" . $orders['orders_id'] . "'");
@@ -127,7 +127,7 @@
                 <td colspan="2"><?=tep_black_line();?></td>
               </tr>
 <?
-  $products_query = tep_db_query("select products_id, products_date_added from products order by products_date_added DESC limit 5");
+  $products_query = tep_db_query("select products_id, products_date_added from products order by products_id DESC limit 5");
   while ($products = tep_db_fetch_array($products_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'], 'NONSSL') . '\'">' . "\n";
     echo '                <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'], 'NONSSL') . '" class="blacklink">' . tep_products_name($products['products_id']) . '</a>&nbsp;</font></td>' . "\n";
@@ -150,7 +150,7 @@
                 <td colspan="2"><?=tep_black_line();?></td>
               </tr>
 <?
-  $reviews_query = tep_db_query("select reviews_id, products_id, date_added from reviews_extra order by date_added DESC limit 5");
+  $reviews_query = tep_db_query("select reviews_id, products_id, date_added from reviews_extra order by reviews_id DESC limit 5");
   while ($reviews = tep_db_fetch_array($reviews_query)) {
     echo '              <tr bgcolor="#d8e1eb" onmouseover="this.style.background=\'#cc9999\';this.style.cursor=\'hand\'" onmouseout="this.style.background=\'#d8e1eb\'">' . "\n";
     echo '                <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_products_name($reviews['products_id']) . '&nbsp;</font></td>' . "\n";
