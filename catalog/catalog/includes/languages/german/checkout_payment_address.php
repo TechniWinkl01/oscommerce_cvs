@@ -1,19 +1,19 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.2 2002/11/01 19:21:25 harley_vb Exp $
+  $Id: checkout_payment_address.php,v 1.3 2003/02/16 00:42:03 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Kasse');
-define('NAVBAR_TITLE_2', '&Auml;nderung Rechnungsadresse');
+define('NAVBAR_TITLE_2', 'Rechnungsadresse &auml;ndern');
 
-define('HEADING_TITLE', 'Rechnungsinformationen');
+define('HEADING_TITLE', 'Informationen zur Rechnungsadresse');
 
 define('TABLE_HEADING_PAYMENT_ADDRESS', 'Rechnungsadresse');
 define('TEXT_SELECTED_PAYMENT_DESTINATION', 'Dies ist die aktuell ausgew&auml;hlte Rechnungsadresse, auf die die Rechnung ausgestellt wird.');

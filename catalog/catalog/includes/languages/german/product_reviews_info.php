@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_reviews_info.php,v 1.7 2002/04/17 15:57:07 harley_vb Exp $
+  $Id: product_reviews_info.php,v 1.8 2003/02/16 00:42:03 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,5 +18,5 @@ define('SUB_TITLE_DATE', 'Datum:');
 define('SUB_TITLE_REVIEW', 'Meinung:');
 define('SUB_TITLE_RATING', 'Bewertung:');
 define('TEXT_OF_5_STARS', '%s von 5 Sternen!');
-define('TEXT_CLICK_TO_ENLARGE', 'Klicken Sie auf das Bild<br>f&uuml;r eine gr&ouml;ssere Abbildung');
+define('TEXT_CLICK_TO_ENLARGE', 'F&uuml;r eine gr&ouml;ssere Darstellung<br>klicken Sie auf das Bild.');
 ?>

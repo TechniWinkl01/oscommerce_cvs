@@ -1,19 +1,19 @@
 <?php
 /*
-  $Id: checkout_shipping_address.php,v 1.2 2002/11/01 19:02:45 harley_vb Exp $
+  $Id: checkout_shipping_address.php,v 1.3 2003/02/16 00:42:03 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE_1', 'Kasse');
-define('NAVBAR_TITLE_2', '&Auml;nderung Versandadresse');
+define('NAVBAR_TITLE_2', 'Versandadresse &auml;ndern');
 
-define('HEADING_TITLE', 'Versandinformationen');
+define('HEADING_TITLE', 'Informationen zur Versandadresse');
 
 define('TABLE_HEADING_SHIPPING_ADDRESS', 'Versandadresse');
 define('TEXT_SELECTED_SHIPPING_DESTINATION', 'Dies ist die aktuell ausgew&auml;hlte Versandadresse, an die Ihre Bestellung geliefert wird.');

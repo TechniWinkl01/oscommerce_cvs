@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: german.php,v 1.113 2003/02/13 13:54:42 project3000 Exp $
+  $Id: german.php,v 1.114 2003/02/16 00:41:18 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2002 - 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -46,7 +46,7 @@ define('TITLE', 'osCommerce');
 
 // header text in includes/header.php
 define('HEADER_TITLE_CREATE_ACCOUNT', 'Neues Konto');
-define('HEADER_TITLE_MY_ACCOUNT', 'Mein Konto');
+define('HEADER_TITLE_MY_ACCOUNT', 'Ihr Konto');
 define('HEADER_TITLE_CART_CONTENTS', 'Warenkorb');
 define('HEADER_TITLE_CHECKOUT', 'Kasse');
 define('HEADER_TITLE_TOP', 'Startseite');
@@ -164,7 +164,7 @@ define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Bitte wählen Sie eine Zahlungsweise 
 define('CATEGORY_COMPANY', 'Firmendaten');
 define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nlichen Daten');
 define('CATEGORY_ADDRESS', 'Ihre Adresse');
-define('CATEGORY_CONTACT', 'Ihre Kontaktinformation');
+define('CATEGORY_CONTACT', 'Ihre Kontaktinformationen');
 define('CATEGORY_OPTIONS', 'Optionen');
 define('CATEGORY_PASSWORD', 'Ihr Passwort');
 define('ENTRY_COMPANY', 'Firmenname:');
@@ -208,7 +208,7 @@ define('ENTRY_COUNTRY_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eing
 define('ENTRY_TELEPHONE_NUMBER', 'Telefonnummer:');
 define('ENTRY_TELEPHONE_NUMBER_ERROR', '&nbsp;<small><font color="#FF0000">mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen</font></small>');
 define('ENTRY_TELEPHONE_NUMBER_TEXT', '&nbsp;<small><font color="#AABBDD">notwendige Eingabe</font></small>');
-define('ENTRY_FAX_NUMBER', 'Faxnummer:');
+define('ENTRY_FAX_NUMBER', 'Telefaxnummer:');
 define('ENTRY_FAX_NUMBER_ERROR', '');
 define('ENTRY_FAX_NUMBER_TEXT', '');
 define('ENTRY_NEWSLETTER', 'Newsletter:');
@@ -292,13 +292,13 @@ define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 
 define('TEXT_REQUIRED', 'erforderlich');
 
-define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>Fehler:</small> Die eMail kann nicht &uuml;ber den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und f&uuml;hren Sie notwendige Korrekturen durch.</b></font>');
+define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>Fehler:</small> Die eMail kann nicht &uuml;ber den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und f&uuml;hren Sie notwendige Korrekturen durch!</b></font>');
 define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Bitte l&ouml;schen Sie das Verzeichnis aus Gr&uuml;nden der Sicherheit!');
 define('WARNING_CONFIG_FILE_WRITEABLE', 'Warnung: osC kann in die Konfigurationsdatei schreiben: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. Das stellt ein m&ouml;gliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!');
-define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warnung: Das Verzeichnis f&uuml;r die Sessions existiert nicht: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis das Verzeichnis erstellt wurde.');
-define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warnung: osC kann nicht in das Sessions Verzeichnis schreiben: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis die richtigen Benutzerberechtigungen gesetzt wurden.');
-define('WARNING_SESSION_AUTO_START', 'Warnung: session.auto_start ist enabled - Bitte disablen Sie diese PHP Feature in der php.ini und starten Sie den WEB-Server neu.');
-define('WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT', 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht: ' . DIR_FS_DOWNLOAD . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde.');
+define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warnung: Das Verzeichnis f&uuml;r die Sessions existiert nicht: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis das Verzeichnis erstellt wurde!');
+define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warnung: osC kann nicht in das Sessions Verzeichnis schreiben: ' . tep_session_save_path() . '. Die Sessions werden nicht funktionieren bis die richtigen Benutzerberechtigungen gesetzt wurden!');
+define('WARNING_SESSION_AUTO_START', 'Warnung: session.auto_start ist enabled - Bitte disablen Sie dieses PHP Feature in der php.ini und starten Sie den WEB-Server neu!');
+define('WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT', 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht: ' . DIR_FS_DOWNLOAD . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde!');
 
 define('TEXT_CCVAL_ERROR_INVALID_DATE', 'Das "G&uuml;ltig bis" Datum ist ung&uuml;ltig.<br>Bitte korrigieren Sie Ihre Angaben.');
 define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'Die "KreditkarteNummer", die Sie angegeben haben, ist ung&uuml;ltig.<br>Bitte korrigieren Sie Ihre Angaben.');
@@ -320,5 +320,5 @@ define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'Die ersten 4 Ziffern Ihrer Kreditkarte 
   Please leave this comment intact together with the
   following copyright announcement.
 */
-define('FOOTER_TEXT_BODY', 'Copyright &copy; 2002 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
+define('FOOTER_TEXT_BODY', 'Copyright &copy; 2002 - 2003 <a href="http://www.oscommerce.com" target="_blank">osCommerce</a><br>Powered by <a href="http://www.oscommerce.com" target="_blank">osCommerce</a>');
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.21 2003/01/31 01:01:08 hpdl Exp $
+  $Id: default.php,v 1.22 2003/02/16 00:42:03 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-define('TEXT_MAIN', 'This is a default setup of the osCommerce project, products shown are for demonstrational purposes, <b>any products purchased will not be delivered nor will the customer be billed</b>. Any information seen on these products are to be treated fictional.<br><br>If you wish to download the solution powering this shop, or if you wish to contribute to the osCommerce project, please visit the <a href="http://oscommerce.com"><u>support site of osCommerce</u></a>. This shop is running on osCommerce version <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.<br><br>The text shown here can be modified in the following file, on each language basis: [path&nbsp;to&nbsp;catalog]/includes/languages/[language]/default.php.<br><br>That can be edited manually, or via the Administration Tool with the Languages->[language]->Define option, or by using the Tools->File Manager feature.');
+define('TEXT_MAIN', 'Dies ist die Standardinstallation des osCommerce Projektes. Alle dargestellten Produkte dienen zur Demonstration der Funktionsweise. <b>Wenn Sie Produkte bestellen, so werden diese weder ausgeliefert, noch in Rechnung gestellt.</b> Alle Informationen zu den verschiedenen Produkten sind erfunden und daher kann kein Anspruch daraus abgeleitet werden.<br><br>Sollten Sie daran interessiert sein das Programm, welches die Grundlage f&uuml;r diesen Shop bildet, einzusetzen, so besuchen Sie bitte die <a href="http://www.oscommerce.de"><u>Supportseite von osCommerce</u></a>. Dieser Shop basiert auf der osCommerce Version <font color="#f0000"><b>' . PROJECT_VERSION . '</b></font>.<br><br>Der hier dargestellte Text kann in der folgenden Datei einer jeden Sprache ge&auml;ndert werden: [Pfad&nbsp;zu&nbsp;catalog]/includes/languages/[language]/default.php.<br><br>Das kann manuell geschehen, oder &uuml;ber das Administration Tool mit Sprache->[language]->Sprache definieren, oder durch Verwendung des Hilfsprogrammes->Datei Manager.');
 define('TABLE_HEADING_NEW_PRODUCTS', 'Neue Produkte im %s');
 define('TABLE_HEADING_UPCOMING_PRODUCTS', 'Wann ist was verf&uuml;gbar');
 define('TABLE_HEADING_DATE_EXPECTED', 'Datum');

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.17 2002/06/17 22:15:33 harley_vb Exp $
+  $Id: advanced_search.php,v 1.18 2003/02/16 00:42:02 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -30,7 +30,7 @@ define('TEXT_ALL_CATEGORIES', 'Alle Kategorien');
 define('TEXT_ALL_MANUFACTURERS', 'Alle Hersteller');
 
 define('HEADING_SEARCH_HELP', 'Hilfe zur erweiterten Suche');
-define('TEXT_SEARCH_HELP', 'Die Suchmaschine erm&ouml;glicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Modellen.<br><br>Sie haben die M&ouml;glichkeit logische Operatoren wie "AND" (Und) und "OR" (oder) zu verwenden.<br><br>Als Beispiel k&ouml;nnten Sie also angeben: <u>Microsoft AND Maus</u>.<br><br>Desweiteren k&ouml;nnen Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br><br><u>Microsoft AND (Maus OR Tastatur OR "Visual Basic")</u>.<br><br>Mit Anf&uuml;hrungszeichen können Sie mehrere Worte zu einem Suchbegriff zusammenfassen.');
+define('TEXT_SEARCH_HELP', 'Die Suchfunktion erm&ouml;glicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Artikelnummern.<br><br>Sie haben die M&ouml;glichkeit logische Operatoren wie "AND" (Und) und "OR" (oder) zu verwenden.<br><br>Als Beispiel k&ouml;nnten Sie also angeben: <u>Microsoft AND Maus</u>.<br><br>Desweiteren k&ouml;nnen Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br><br><u>Microsoft AND (Maus OR Tastatur OR "Visual Basic")</u>.<br><br>Mit Anf&uuml;hrungszeichen k&ouml;nnen Sie mehrere Worte zu einem Suchbegriff zusammenfassen.');
 define('TEXT_CLOSE_WINDOW', '<u>Fenster schliessen</u> [x]');
 
 define('JS_AT_LEAST_ONE_INPUT', '* Eines der folgenden Felder muss ausgefüllt werden:\n    Stichworte\n    Datum hinzugefügt von\n    Datum hinzugefügt bis\n    Preis ab\n    Preis bis\n');

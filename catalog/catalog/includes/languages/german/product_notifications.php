@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notifications.php,v 1.2 2002/03/16 01:30:26 harley_vb Exp $
+  $Id: product_notifications.php,v 1.3 2003/02/16 00:42:03 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -10,11 +10,11 @@
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Mein Konto');
+define('NAVBAR_TITLE_1', 'Ihr Konto');
 define('NAVBAR_TITLE_2', 'Benachrichtigungen');
-define('HEADING_TITLE', 'Meine Benachrichtigungen');
+define('HEADING_TITLE', 'Ihre Benachrichtigungen');
 
-define('TEXT_PRODUCT_NOTIFICATIONS_INTRODUCTION', 'Mit der Benachrichtigungsfunktion erm&ouml;glichen wir es Ihnen, über alle unsere Produkte informiert zu sein. Sie erhalten zeitnah die aktuellsten Informationen über unsere Produkte und Sonderangebote.');
+define('TEXT_PRODUCT_NOTIFICATIONS_INTRODUCTION', 'Mit der Benachrichtigungsfunktion erm&ouml;glichen wir es Ihnen, &uuml;ber alle unsere Produkte informiert zu sein. Sie erhalten zeitnah die aktuellsten Informationen &uuml;ber unsere Produkte und Sonderangebote.');
 
 define('HEADING_GLOBAL_PRODUCT_NOTIFICATIONS', 'Globale Benachrichtigung (&uuml;ber alle Produkte)');
 define('HEADING_PRODUCT_NOTIFICATIONS', 'Benachrichtigungen (&uuml;ber einzelne Produkte)');

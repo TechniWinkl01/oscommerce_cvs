@@ -1,23 +1,23 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.17 2003/02/06 17:38:17 thomasamoulton Exp $
+  $Id: account_history_info.php,v 1.18 2003/02/16 00:42:02 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Mein Konto');
+define('NAVBAR_TITLE_1', 'Ihr Konto');
 define('NAVBAR_TITLE_2', 'Get&auml;tigte Bestellung');
 define('NAVBAR_TITLE_3', 'Bestellinformationen');
 
 define('HEADING_TITLE', 'Bestellinformationen');
 
-define('HEADING_ORDER_NUMBER', 'Bestellungnummer #%s');
-define('HEADING_ORDER_DATE', 'Bestellungdatum:');
+define('HEADING_ORDER_NUMBER', 'Bestellnummer #%s');
+define('HEADING_ORDER_DATE', 'Bestelldatum:');
 define('HEADING_ORDER_TOTAL', 'Summe:');
 
 define('HEADING_DELIVERY_ADDRESS', 'Lieferanschrift');
@@ -31,7 +31,7 @@ define('HEADING_BILLING_INFORMATION', 'Rechnungsinformationen');
 define('HEADING_BILLING_ADDRESS', 'Rechnungsadresse');
 define('HEADING_PAYMENT_METHOD', 'Zahlungsweise');
 
-define('HEADING_ORDER_HISTORY', 'Order History');
+define('HEADING_ORDER_HISTORY', 'Bestellhistorie');
 define('HEADING_COMMENT', 'Kommentar');
 define('TEXT_NO_COMMENTS_AVAILABLE', 'Kein Kommentar vorhanden.');
 

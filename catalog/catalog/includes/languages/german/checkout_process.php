@@ -1,18 +1,18 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.27 2002/11/01 19:33:04 harley_vb Exp $
+  $Id: checkout_process.php,v 1.28 2003/02/16 00:42:03 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('EMAIL_TEXT_SUBJECT', 'Bestellung');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Bestellnummer:');
-define('EMAIL_TEXT_INVOICE_URL', 'Detailierte Bestell&uuml;bersicht:');
+define('EMAIL_TEXT_INVOICE_URL', 'Detailierte Bestellübersicht:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
 define('EMAIL_TEXT_PRODUCTS', 'Artikel');
 define('EMAIL_TEXT_SUBTOTAL', 'Zwischensumme:');

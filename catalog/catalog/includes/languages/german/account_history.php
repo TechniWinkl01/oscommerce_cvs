@@ -1,23 +1,23 @@
 <?php
 /*
-  $Id: account_history.php,v 1.13 2002/06/17 18:41:09 harley_vb Exp $
+  $Id: account_history.php,v 1.14 2003/02/16 00:42:02 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Mein Konto');
-define('NAVBAR_TITLE_2', 'get&auml;tigte Bestellungen');
+define('NAVBAR_TITLE_1', 'Ihr Konto');
+define('NAVBAR_TITLE_2', 'Ihre get&auml;tigten Bestellungen');
 
-define('HEADING_TITLE', 'get&auml;tigte Bestellungen');
+define('HEADING_TITLE', 'Ihre get&auml;tigten Bestellungen');
 
-define('TEXT_ORDER_NUMBER', 'Bestellungnummer:');
-define('TEXT_ORDER_STATUS', 'Bestellungstatus:');
-define('TEXT_ORDER_DATE', 'Bestellungdatum:');
+define('TEXT_ORDER_NUMBER', 'Bestellnummer:');
+define('TEXT_ORDER_STATUS', 'Bestellstatus:');
+define('TEXT_ORDER_DATE', 'Bestelldatum:');
 define('TEXT_ORDER_SHIPPED_TO', 'Versenden an:');
 define('TEXT_ORDER_PRODUCTS', 'Artikel:');
 define('TEXT_ORDER_COST', 'Summe:');
