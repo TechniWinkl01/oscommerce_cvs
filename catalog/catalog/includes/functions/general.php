@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.242 2004/10/31 09:46:16 mevans Exp $
+  $Id: general.php,v 1.243 2004/11/24 15:51:39 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -1127,8 +1127,18 @@
     }
   }
 
-  function tep_setcookie($name, $value = '', $expire = 0, $path = '/', $domain = '', $secure = 0) {
-    setcookie($name, $value, $expire, $path, (tep_not_null($domain) ? $domain : ''), $secure);
+  function tep_setcookie($name, $value = '', $expire = 0, $path = false, $domain = false, $secure = false) {
+    global $request_type;
+
+    if ($path === false) {
+      $path = ($request_type == 'NONSSL') ? HTTP_COOKIE_PATH : HTTPS_COOKIE_PATH;
+    }
+
+    if ($domain === false) {
+      $domain = ($request_type == 'NONSSL') ? HTTP_COOKIE_DOMAIN : HTTPS_COOKIE_DOMAIN;
+    }
+
+    return setcookie($name, $value, $expire, $path, $domain, $secure);
   }
 
   function tep_get_ip_address() {

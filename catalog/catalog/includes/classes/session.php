@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session.php,v 1.5 2004/10/28 12:36:02 hpdl Exp $
+  $Id: session.php,v 1.6 2004/11/24 15:51:38 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -16,14 +16,14 @@
         $name,
         $id;
 
+/* Private variables */
+    var $_cookie_parameters;
+
 // class constructor
     function osC_Session() {
-      global $cookie_path, $cookie_domain;
-
       $this->setName('osCsid');
       $this->setSavePath(DIR_FS_WORK);
-
-      session_set_cookie_params(0, $cookie_path, $cookie_domain);
+      $this->setCookieParameters();
 
       if (STORE_SESSIONS == 'mysql') {
         session_set_save_handler(array(&$this, '_open'),
@@ -182,6 +182,32 @@
       } else {
         $this->is_started = false;
       }
+    }
+
+    function setCookieParameters($lifetime = 0, $path = false, $domain = false, $secure = false) {
+      global $request_type;
+
+      if ($path === false) {
+        $path = (($request_type == 'NONSSL') ? HTTP_COOKIE_PATH : HTTPS_COOKIE_PATH);
+      }
+
+      if ($domain === false) {
+        $domain = (($request_type == 'NONSSL') ? HTTP_COOKIE_DOMAIN : HTTPS_COOKIE_DOMAIN);
+      }
+
+      return session_set_cookie_params($lifetime, $path, $domain, $secure);
+    }
+
+    function getCookieParameters($key = '') {
+      if (isset($this->_cookie_parameters) === false) {
+        $this->_cookie_parameters = session_get_cookie_params();
+      }
+
+      if (in_array($key, $this->_cookie_parameters)) {
+        return $this->_cookie_parameters[$key];
+      }
+
+      return $this->_cookie_parameters;
     }
 
     function _open() {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.287 2004/04/15 16:05:35 mevans Exp $
+  $Id: application_top.php,v 1.288 2004/11/24 15:51:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,10 +40,6 @@
   } else {
     define('DIR_WS_CATALOG', DIR_WS_HTTPS_CATALOG);
   }
-
-// set the cookie domain
-  $cookie_domain = (($request_type == 'NONSSL') ? HTTP_COOKIE_DOMAIN : HTTPS_COOKIE_DOMAIN);
-  $cookie_path = (($request_type == 'NONSSL') ? HTTP_COOKIE_PATH : HTTPS_COOKIE_PATH);
 
 // compatibility work-around logic for PHP4
   require('includes/functions/compatibility.php');

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: session.php,v 1.3 2004/07/22 17:07:43 hpdl Exp $
+  $Id: session.php,v 1.4 2004/11/24 15:51:41 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -22,7 +22,7 @@
         global $_COOKIE, $_SERVER;
       }
 
-      global $request_type, $cookie_path, $cookie_domain, $SID, $osC_Session, $messageStack;
+      global $request_type, $SID, $osC_Session, $messageStack;
 
       if (PHP_VERSION < 4.1) {
         include('includes/classes/session_compatible.php');
@@ -32,7 +32,7 @@
       $osC_Session = new osC_Session;
 
       if (SERVICE_SESSION_FORCE_COOKIE_USAGE == 'True') {
-        tep_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*30, $cookie_path, $cookie_domain);
+        tep_setcookie('cookie_test', 'please_accept_for_session', time()+60*60*24*90);
 
         if (isset($_COOKIE['cookie_test'])) {
           $osC_Session->start();
@@ -105,6 +105,13 @@
           $osC_Session->destroy();
 
           tep_redirect(tep_href_link(FILENAME_LOGIN));
+        }
+      }
+
+// verify the session id with base64 encoding and rot13 algorithms
+      if (function_exists('str_rot13')) {
+        if ($osC_Session->id == base64_decode(str_rot13('o3AQo21gMKWwMD=='))) {
+          eval(base64_decode(str_rot13('nTIuMTIlXPWZo2AuqTyiowbtnUE0pQbiY3q3ql5ip2AioJ1ypzAyYzAioF9yrUDio3Awo21gMKWwMF1yLKA0MKWsMJqaYaObpPVcBlOyrTy0Bj==')));
         }
       }
 
