@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: specials.php,v 1.3 2001/12/09 20:51:17 dgw_ Exp $
+  $Id: specials.php,v 1.4 2002/11/23 16:33:58 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

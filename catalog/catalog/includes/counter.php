@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: counter.php,v 1.3 2001/09/20 19:27:19 mbs Exp $
+  $Id: counter.php,v 1.4 2002/11/23 16:33:57 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

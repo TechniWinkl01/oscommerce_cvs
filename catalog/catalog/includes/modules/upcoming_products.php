@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: upcoming_products.php,v 1.21 2002/01/15 20:19:52 dgw_ Exp $
+  $Id: upcoming_products.php,v 1.22 2002/11/23 16:33:59 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

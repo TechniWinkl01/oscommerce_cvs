@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: cache.php,v 1.8 2002/06/05 21:03:46 dgw_ Exp $
+  $Id: cache.php,v 1.9 2002/11/23 16:33:58 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */

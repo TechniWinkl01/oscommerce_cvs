@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: reviews.php,v 1.7 2002/11/23 02:08:11 thomasamoulton Exp $
+  $Id: reviews.php,v 1.8 2002/11/23 16:33:58 dgw_ Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
