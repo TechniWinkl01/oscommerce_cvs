@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: update.php,v 1.3 2001/10/25 10:57:12 hpdl Exp $
+  $Id: update.php,v 1.4 2001/10/25 11:26:30 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -160,6 +160,7 @@ function changeText(where, what) {
 <span id="banners"><span id="bannersMarker">-</span> Banners</span><br>
 <span id="categories"><span id="categoriesMarker">-</span> Categories</span><br>
 <span id="configuration"><span id="configurationMarker">-</span> Configuration</span><br>
+<span id="currencies"><span id="currenciesMarker">-</span> Currencies</span><br>
 <p>
 Status: <span id="statusText">Preparing</span>
 </body>
@@ -309,6 +310,27 @@ changeText('statusText', 'Updating Configuration');
 changeStyle('configuration', 'normal');
 changeText('configurationMarker', '*');
 changeText('statusText', 'Updating Configuration .. done!');
+
+//changeStyle('statusText', 'bold');
+//changeText('statusText', 'Update Complete!');
+changeStyle('currencies', 'bold');
+changeText('currenciesMarker', '?');
+changeText('statusText', 'Updating Currencies');
+//--></script>
+
+<?php
+  flush();
+
+  tep_db_query("alter table currencies add value float");
+  tep_db_query("alter table currencies add last_updated datetime");
+
+  tep_db_query("update currencies set value = '1'");
+?>
+
+<script language="javascript"><!--
+changeStyle('currencies', 'normal');
+changeText('currenciesMarker', '*');
+changeText('statusText', 'Updating Currencies .. done!');
 
 changeStyle('statusText', 'bold');
 changeText('statusText', 'Update Complete!');
