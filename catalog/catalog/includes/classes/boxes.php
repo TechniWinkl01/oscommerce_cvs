@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: boxes.php,v 1.29 2002/11/14 17:07:25 dgw_ Exp $
+  $Id: boxes.php,v 1.30 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,7 +25,8 @@
       if ($this->table_parameters != '') $tableBox_string .= ' ' . $this->table_parameters;
       $tableBox_string .= '>' . "\n";
 
-      for ($i=0; $i<sizeof($contents); $i++) {
+      $csize = sizeof($contents);
+      for ($i=0; $i<$csize; $i++) {
         if ($contents[$i]['form']) $tableBox_string .= $contents[$i]['form'] . "\n";
         $tableBox_string .= '  <tr';
         if ($this->table_row_parameters != '') $tableBox_string .= ' ' . $this->table_row_parameters;
@@ -33,7 +34,8 @@
         $tableBox_string .= '>' . "\n";
 
         if (is_array($contents[$i][0])) {
-          for ($x=0; $x<sizeof($contents[$i]); $x++) {
+          $size = sizeof($contents[$i]);
+          for ($x=0; $x<$size; $x++) {
             if ($contents[$i][$x]['text']) {
               $tableBox_string .= '    <td';
               if ($contents[$i][$x]['align'] != '') $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
@@ -86,7 +88,8 @@
       $this->table_parameters = 'class="infoBoxContents"';
       $info_box_contents = array();
       $info_box_contents[] = array(array('text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));
-      for ($i=0; $i<sizeof($contents); $i++) {
+      $size = sizeof($contents);
+      for ($i=0; $i<$size; $i++) {
         $info_box_contents[] = array(array('align' => $contents[$i]['align'], 'form' => $contents[$i]['form'], 'params' => 'class="boxText"', 'text' => $contents[$i]['text']));
       }
       $info_box_contents[] = array(array('text' => tep_draw_separator('pixel_trans.gif', '100%', '1')));

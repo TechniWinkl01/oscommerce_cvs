@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.66 2002/07/21 23:38:58 hpdl Exp $
+  $Id: shopping_cart.php,v 1.67 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -59,7 +59,8 @@
 <?php
     $any_out_of_stock = 0;
     $products = $cart->get_products();
-    for ($i=0; $i<sizeof($products); $i++) {
+    $size = sizeof($products);
+    for ($i=0; $i<$size; $i++) {
 
 // Push all attributes information in an array
       if ($products[$i]['attributes']) {
@@ -116,9 +117,10 @@
           <tr>
             <td class="main"><?php echo tep_image_submit('button_update_cart.gif', IMAGE_BUTTON_UPDATE_CART); ?></td>
 <?php
-    if ($navigation->path[sizeof($navigation->path)-2]) {
+    $back = sizeof($navigation->path)-2;
+    if ($navigation->path[$back]) {
 ?>
-            <td class="main"><?php echo '<a href="' . tep_href_link($navigation->path[sizeof($navigation->path)-2]['page'], tep_array_to_string($navigation->path[sizeof($navigation->path)-2]['get'], array('action')), $navigation->path[sizeof($navigation->path)-2]['mode']) . '">' . tep_image_button('button_continue_shopping.gif', IMAGE_BUTTON_CONTINUE_SHOPPING) . '</a>'; ?></td>
+            <td class="main"><?php echo '<a href="' . tep_href_link($navigation->path[$back]['page'], tep_array_to_string($navigation->path[$back]['get'], array('action')), $navigation->path[$back]['mode']) . '">' . tep_image_button('button_continue_shopping.gif', IMAGE_BUTTON_CONTINUE_SHOPPING) . '</a>'; ?></td>
 <?php
     }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_listing.php,v 1.39 2002/10/26 22:43:14 dgw_ Exp $
+  $Id: product_listing.php,v 1.40 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -41,7 +41,8 @@
   $list_box_contents[] = array('params' => 'class="productListing-heading"');
   $cur_row = sizeof($list_box_contents) - 1;
 
-  for ($col=0; $col<sizeof($column_list); $col++) {
+  $cl_size = sizeof($column_list);
+  for ($col=0; $col<$cl_size; $col++) {
     switch ($column_list[$col]) {
       case 'PRODUCT_LIST_MODEL':
         $lc_text = TABLE_HEADING_MODEL;
@@ -99,8 +100,9 @@
       }
 
       $cur_row = sizeof($list_box_contents) - 1;
-      
-      for ($col=0; $col<sizeof($column_list); $col++) {
+
+      $cl_size = sizeof($column_list);
+      for ($col=0; $col<$cl_size; $col++) {
         $lc_align = '';
 
         switch ($column_list[$col]) {

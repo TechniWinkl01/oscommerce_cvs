@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.16 2002/11/01 04:43:39 hpdl Exp $
+  $Id: shipping.php,v 1.17 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,7 +32,8 @@
           }
         }
 
-        for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
+        $size = sizeof($include_modules);
+        for ($i=0, $n=$size; $i<$n; $i++) {
           include(DIR_WS_LANGUAGES . $language . '/modules/shipping/' . $include_modules[$i]['file']);
           include(DIR_WS_MODULES . 'shipping/' . $include_modules[$i]['file']);
 
@@ -77,7 +78,8 @@
           }
         }
 
-        for ($i=0; $i<sizeof($include_quotes); $i++) {
+        $size = sizeof($include_quotes);
+        for ($i=0; $i<$size; $i++) {
           $quotes = $GLOBALS[$include_quotes[$i]]->quote($method);
           if (is_array($quotes)) $quotes_array[] = $quotes;
         }
@@ -95,7 +97,8 @@
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $quotes = $GLOBALS[$class]->quotes;
-            for ($i=0; $i<sizeof($quotes['methods']); $i++) {
+            $size = sizeof($quotes['methods']);
+            for ($i=0; $i<$size; $i++) {
               if ($quotes['methods'][$i]['cost']) {
                 $rates[] = array('id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],
                                  'title' => $quotes['module'] . ' (' . $quotes['methods'][$i]['title'] . ')',
@@ -106,7 +109,8 @@
         }
 
         $cheapest = false;
-        for ($i=0; $i<sizeof($rates); $i++) {
+        $size = sizeof($rates);
+        for ($i=0; $i<$size; $i++) {
           if (is_array($cheapest)) {
             if ($rates[$i]['cost'] < $cheapest['cost']) {
               $cheapest = $rates[$i];

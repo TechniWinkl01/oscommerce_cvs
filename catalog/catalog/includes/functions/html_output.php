@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.47 2002/11/18 21:15:13 dgw_ Exp $
+  $Id: html_output.php,v 1.48 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -264,7 +264,8 @@
 
     if ($default == '') $default = $GLOBALS[$name];
 
-    for ($i=0; $i<sizeof($values); $i++) {
+    $size = sizeof($values);
+    for ($i=0; $i<$size; $i++) {
       $field .= '<option value="' . tep_parse_input_field_data($values[$i]['id'], array('"' => '&quot;')) . '"';
       if ($default == $values[$i]['id']) {
         $field .= ' SELECTED';
@@ -284,7 +285,8 @@
   function tep_get_country_list($name, $selected = '', $parameters = '') {
     $countries_array = array(array('id' => '', 'text' => PULL_DOWN_DEFAULT));
     $countries = tep_get_countries();
-    for ($i=0; $i<sizeof($countries); $i++) {
+    $size = sizeof($countries);
+    for ($i=0; $i<$size; $i++) {
       $countries_array[] = array('id' => $countries[$i]['countries_id'], 'text' => $countries[$i]['countries_name']);
     }
 

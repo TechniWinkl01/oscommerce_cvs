@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.36 2002/11/11 19:57:49 hpdl Exp $
+  $Id: usps.php,v 1.37 2002/11/23 02:08:12 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,7 +58,8 @@
                                 'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . 'lbs)');
 
           $methods = array();
-          for ($i=0; $i<sizeof($uspsQuote); $i++) {
+          $size = sizeof($uspsQuote);
+          for ($i=0; $i<$size; $i++) {
             list($type, $cost) = each($uspsQuote[$i]);
 
             $methods[] = array('id' => $type,
@@ -96,7 +97,8 @@
     function remove() {
       $keys = '';
       $keys_array = $this->keys();
-      for ($i=0; $i<sizeof($keys_array); $i++) {
+      $keys_size = sizeof($keys_array);
+      for ($i=0; $i<$keys_size; $i++) {
         $keys .= "'" . $keys_array[$i] . "',";
       }
       $keys = substr($keys, 0, -1);
@@ -220,7 +222,8 @@
           }
         }
 
-        for ($i=0, $n=sizeof($response); $i<$n; $i++) {
+        $size = sizeof($response);
+        for ($i=0, $n=$size; $i<$n; $i++) {
           if (strpos($response[$i], '<Postage>')) {
             $service = ereg('<Service>(.*)</Service>', $response[$i], $regs);
             $service = $regs[1];
@@ -252,7 +255,8 @@
             }
           }
 
-          for ($i=0, $n=sizeof($services); $i<$n; $i++) {
+          $size = sizeof($services);
+          for ($i=0, $n=$size; $i<$n; $i++) {
             if (strpos($services[$i], '<Postage>')) {
               $service = ereg('<SvcDescription>(.*)</SvcDescription>', $services[$i], $regs);
               $service = $regs[1];

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order.php,v 1.19 2002/11/03 23:34:48 hpdl Exp $
+  $Id: order.php,v 1.20 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -191,7 +191,8 @@
 
       $index = 0;
       $products = $cart->get_products();
-      for ($i=0; $i<sizeof($products); $i++) {
+      $psize = sizeof($products);
+      for ($i=0; $i<$psize; $i++) {
         $this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
                                         'model' => $products[$i]['model'],

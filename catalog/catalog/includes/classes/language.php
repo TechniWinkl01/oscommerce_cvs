@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: language.php,v 1.1 2002/04/24 16:48:13 hpdl Exp $
+  $Id: language.php,v 1.2 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -83,7 +83,8 @@
     function get_browser_language() {
       $this->browser_languages = explode(',', getenv('HTTP_ACCEPT_LANGUAGE'));
 
-      for ($i=0; $i<sizeof($this->browser_languages); $i++) {
+      $size = sizeof($this->browser_languages);
+      for ($i=0; $i<$size; $i++) {
         reset($this->languages);
         while (list($key, $value) = each($this->languages)) {
           if ( (eregi('^(' . $value[0] . ')(;q=[0-9]\\.[0-9])?$', $this->browser_languages[$i])) && ($this->catalog_languages[$key]) ) {

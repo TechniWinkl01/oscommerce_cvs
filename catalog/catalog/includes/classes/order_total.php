@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_total.php,v 1.2 2002/04/08 01:13:43 hpdl Exp $
+  $Id: order_total.php,v 1.3 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -40,7 +40,8 @@
           if ($GLOBALS[$class]->enabled) {
             $GLOBALS[$class]->process();
 
-            for ($i=0; $i<sizeof($GLOBALS[$class]->output); $i++) {
+            $size = sizeof($GLOBALS[$class]->output);
+            for ($i=0; $i<$size; $i++) {
               if (tep_not_null($GLOBALS[$class]->output[$i]['title']) && tep_not_null($GLOBALS[$class]->output[$i]['text'])) {
                 $order_total_array[] = array('code' => $GLOBALS[$class]->code,
                                              'title' => $GLOBALS[$class]->output[$i]['title'],
@@ -63,7 +64,8 @@
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
-            for ($i=0; $i<sizeof($GLOBALS[$class]->output); $i++) {
+            $size = sizeof($GLOBALS[$class]->output);
+            for ($i=0; $i<$size; $i++) {
               $output_string .= '              <tr>' . "\n" .
                                 '                <td align="right" class="main">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
                                 '                <td align="right" class="main">' . $GLOBALS[$class]->output[$i]['text'] . '</td>' . "\n" .

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_new.php,v 1.8 2002/04/26 20:28:07 dgw_ Exp $
+  $Id: products_new.php,v 1.9 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,14 +12,15 @@
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  if (sizeof($products_new_array) == '0') {
+  $psize = sizeof($products_new_array);
+  if ($psize == '0') {
 ?>
   <tr>
     <td class="main"><?php echo TEXT_NO_NEW_PRODUCTS; ?></td>
   </tr>
 <?php
   } else {
-    for($i=0; $i<sizeof($products_new_array); $i++) {
+    for($i=0; $i<$psize; $i++) {
       if ($products_new_array[$i]['specials_price']) {
         $products_price = '<s>' .  $currencies->display_price($products_new_array[$i]['price'], tep_get_tax_rate($products_new_array[$i]['tax_class_id'])) . '</s>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($products_new_array[$i]['specials_price'], tep_get_tax_rate($products_new_array[$i]['tax_class_id'])) . '</span>';
       } else {
@@ -32,7 +33,7 @@
     <td align="right" valign="middle" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $products_new_array[$i]['id'], 'NONSSL') . '">' . tep_image_button('button_in_cart.gif', IMAGE_BUTTON_IN_CART) . '</a>'; ?></td>
   </tr>
 <?php
-      if (($i+1) != sizeof($products_new_array)) {
+      if (($i+1) != $psize)) {
 ?>
   <tr>
     <td colspan="3" class="main">&nbsp;</td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ups.php,v 1.44 2002/11/01 04:50:10 hpdl Exp $
+  $Id: ups.php,v 1.45 2002/11/23 02:08:12 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -71,7 +71,8 @@
                               'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . 'lbs)');
 
         $methods = array();
-        for ($i=0; $i<sizeof($upsQuote); $i++) {
+        $qsize = sizeof($upsQuote);
+        for ($i=0; $i<$qsize; $i++) {
           list($type, $cost) = each($upsQuote[$i]);
 
           $methods[] = array('id' => $type,
@@ -108,7 +109,8 @@
     function remove() {
       $keys = '';
       $keys_array = $this->keys();
-      for ($i=0; $i<sizeof($keys_array); $i++) {
+      $keys_size = sizeof($keys_array);
+      for ($i=0; $i<$keys_size; $i++) {
         $keys .= "'" . $keys_array[$i] . "',";
       }
       $keys = substr($keys, 0, -1);
@@ -238,7 +240,8 @@
 
       $returnval = array();
 
-      for ($i=0, $n=sizeof($body_array); $i<$n; $i++) {
+      $size = sizeof($body_array);
+      for ($i=0, $n=$size; $i<$n; $i++) {
         $result = explode('%', $body_array[$i]);
         $errcode = substr($result[0], -1);
         switch ($errcode) {

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: compatibility.php,v 1.15 2002/11/12 14:08:38 dgw_ Exp $
+  $Id: compatibility.php,v 1.16 2002/11/23 02:08:11 thomasamoulton Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -66,7 +66,8 @@
 
   if (!function_exists('array_reverse')) {
     function array_reverse($array) {
-      for ($i=0; $i<sizeof($array); $i++) $array_reversed[$i] = $array[(sizeof($array)-$i-1)];
+      $size = sizeof($array);
+      for ($i=0; $i<$size; $i++) $array_reversed[$i] = $array[($size-$i-1)];
 
       return $array_reversed;
     }

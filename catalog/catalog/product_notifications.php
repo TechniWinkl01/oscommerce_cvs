@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: product_notifications.php,v 1.4 2002/07/21 23:38:57 hpdl Exp $
+  $Id: product_notifications.php,v 1.5 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -25,7 +25,8 @@
   if ($HTTP_GET_VARS['action'] == 'update_notifications') {
     $products = $HTTP_POST_VARS['products'];
     $remove = '';
-    for ($i=0; $i<sizeof($products); $i++) {
+    $size = sizeof($products);
+    for ($i=0; $i<$size; $i++) {
       $remove .= '\'' . $products[$i] . '\',';
     }
     $remove = substr($remove, 0, -1);

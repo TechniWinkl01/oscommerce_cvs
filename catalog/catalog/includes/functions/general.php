@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.200 2002/11/19 19:32:32 dgw_ Exp $
+  $Id: general.php,v 1.201 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -175,20 +175,21 @@
     global $cPath_array;
 
     if ($current_category_id) {
-      if (sizeof($cPath_array) == 0) {
+      $cp_size = sizeof($cPath_array);
+      if ($cp_size == 0) {
         $cPath_new = $current_category_id;
       } else {
         $cPath_new = '';
-        $last_category_query = tep_db_query("select parent_id from " . TABLE_CATEGORIES . " where categories_id = '" . $cPath_array[(sizeof($cPath_array)-1)] . "'");
+        $last_category_query = tep_db_query("select parent_id from " . TABLE_CATEGORIES . " where categories_id = '" . $cPath_array[($cp_size-1)] . "'");
         $last_category = tep_db_fetch_array($last_category_query);
         $current_category_query = tep_db_query("select parent_id from " . TABLE_CATEGORIES . " where categories_id = '" . $current_category_id . "'");
         $current_category = tep_db_fetch_array($current_category_query);
         if ($last_category['parent_id'] == $current_category['parent_id']) {
-          for ($i=0; $i<(sizeof($cPath_array)-1); $i++) {
+          for ($i=0; $i<($cp_size-1); $i++) {
             $cPath_new .= '_' . $cPath_array[$i];
           }
         } else {
-          for ($i=0; $i<sizeof($cPath_array); $i++) {
+          for ($i=0; $i<$cp_size; $i++) {
             $cPath_new .= '_' . $cPath_array[$i];
           }
         }
@@ -724,7 +725,8 @@
       return false;
     }
 
-    for ($i=0; $i<sizeof($separators); $i++) {
+    $size = sizeof($separators);
+    for ($i=0; $i<$size; $i++) {
       $pos_separator = strpos($date_to_check, $separators[$i]);
       if ($pos_separator != false) {
         $date_separator_idx = $i;
@@ -732,7 +734,7 @@
       }
     }
 
-    for ($i=0; $i<sizeof($separators); $i++) {
+    for ($i=0; $i<$size; $i++) {
       $pos_separator = strpos($format_string, $separators[$i]);
       if ($pos_separator != false) {
         $format_separator_idx = $i;
@@ -755,7 +757,8 @@
         return false;
       }
 
-      for ($i=0; $i<sizeof($format_string_array); $i++) {
+      $size = sizeof($format_string_array);
+      for ($i=0; $i<$size; $i++) {
         if ($format_string_array[$i] == 'mm' || $format_string_array[$i] == 'mmm') $month = $date_to_check_array[$i];
         if ($format_string_array[$i] == 'dd') $day = $date_to_check_array[$i];
         if ( ($format_string_array[$i] == 'yyyy') || ($format_string_array[$i] == 'aaaa') ) $year = $date_to_check_array[$i];
@@ -765,7 +768,8 @@
         $pos_month = strpos($format_string, 'mmm');
         if ($pos_month != false) {
           $month = substr( $date_to_check, $pos_month, 3 );
-          for ($i=0; $i<sizeof($month_abbr); $i++) {
+          $size = sizeof($month_abbr);
+          for ($i=0; $i<$size; $i++) {
             if ($month == $month_abbr[$i]) {
               $month = $i;
               break;
@@ -869,7 +873,8 @@
       $cat_id_data = tep_db_fetch_array($cat_id_sql);
       tep_get_parent_categories($categories, $cat_id_data['categories_id']);
 
-      for ($i=sizeof($categories)-1; $i>=0; $i--) {
+      $size = sizeof($categories)-1;
+      for ($i = $size; $i >= 0; $i--) {
         if ($cPath != '') $cPath .= '_';
         $cPath .= $categories[$i];
       }
@@ -975,7 +980,8 @@
 
     $modules_array = split(';', $modules);
 
-    for ($i=0, $n=sizeof($modules_array); $i<$n; $i++) {
+    $size = sizeof($modules_array);
+    for ($i=0, $n=$size; $i<$n; $i++) {
       $class = substr($modules_array[$i], 0, strrpos($modules_array[$i], '.'));
 
       if (is_object($GLOBALS[$class])) {
@@ -1113,7 +1119,8 @@
 
 // make sure no duplicate category IDs exist which could lock the server in a loop
     $tmp_array = array();
-    for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) {
+    $size = sizeof($cPath_array);
+    for ($i=0, $n=$size; $i<$n; $i++) {
       if (!in_array($cPath_array[$i], $tmp_array)) {
         $tmp_array[] = $cPath_array[$i];
       }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: navigation_history.php,v 1.2 2002/08/01 10:55:27 hpdl Exp $
+  $Id: navigation_history.php,v 1.3 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,8 @@
       global $PHP_SELF, $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_SERVER_VARS, $cPath;
 
       $set = 'true';
-      for ($i=0; $i<sizeof($this->path); $i++) {
+      $psize = sizeof($this->path);
+      for ($i=0; $i<$psize; $i++) {
         if ( ($this->path[$i]['page'] == basename($PHP_SELF)) ) {
           if ($cPath) {
             if (!$this->path[$i]['get']['cPath']) {
@@ -40,7 +41,8 @@
                 $old_cPath = explode('_', $this->path[$i]['get']['cPath']);
                 $new_cPath = explode('_', $cPath);
 
-                for ($j=0; $j<sizeof($old_cPath); $j++) {
+                $osize = sizeof($old_cPath);
+                for ($j=0; $j<$osize; $j++) {
                   if ($old_cPath[$j] != $new_cPath[$j]) {
                     array_splice($this->path, ($i));
                     $set = 'true';
@@ -86,14 +88,16 @@
     }
 
     function set_path_as_snapshot($history = 0) {
-      $this->snapshot = array('page' => $this->path[(sizeof($this->path)-1-$history)]['page'],
-                              'mode' => $this->path[(sizeof($this->path)-1-$history)]['mode'],
-                              'get' => $this->path[(sizeof($this->path)-1-$history)]['get'],
-                              'post' => $this->path[(sizeof($this->path)-1-$history)]['post']);
+      $pos = (sizeof($this->path)-1-$history);
+      $this->snapshot = array('page' => $this->path[$pos]['page'],
+                              'mode' => $this->path[$pos]['mode'],
+                              'get' => $this->path[$pos]['get'],
+                              'post' => $this->path[$pos]['post']);
     }
 
     function debug() {
-      for ($i=0; $i<sizeof($this->path); $i++) {
+      $psize = sizeof($this->path);
+      for ($i=0; $i<$psize; $i++) {
         echo $this->path[$i]['page'] . '?';
         while (list($key, $value) = each($this->path[$i]['get'])) {
           echo $key . '=' . $value . '&';

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.102 2002/11/11 22:39:17 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.103 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -39,7 +39,8 @@
   if ( (STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true') ) {
     $products = $cart->get_products();
     $any_out_of_stock = 0;
-    for ($i=0; $i<sizeof($products); $i++) {
+    $size = sizeof($products);
+    for ($i=0; $i<$size; $i++) {
       if (tep_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
         $any_out_of_stock = 1;
       }
@@ -219,7 +220,8 @@ function rowOutEffect(object) {
 <?php
   $selection = $payment_modules->selection();
 
-  if (sizeof($selection) > 1) {
+  $sel_size = sizeof($selection);
+  if ($sel_size > 1) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -239,7 +241,7 @@ function rowOutEffect(object) {
   }
 
   $radio_buttons = 0;
-  for ($i=0, $n=sizeof($selection); $i<$n; $i++) {
+  for ($i=0, $n=$sel_size; $i<$n; $i++) {
 ?>
               <tr>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
@@ -255,7 +257,7 @@ function rowOutEffect(object) {
                     <td class="main" colspan="3"><b><?php echo $selection[$i]['module']; ?></b></td>
                     <td class="main" align="right">
 <?php
-    if (sizeof($selection) > 1) {
+    if ($sel_size > 1) {
       echo tep_draw_radio_field('payment', $selection[$i]['id']);
     } else {
       echo tep_draw_hidden_field('payment', $selection[$i]['id']);
@@ -279,7 +281,8 @@ function rowOutEffect(object) {
                     <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                     <td colspan="4"><table border="0" cellspacing="0" cellpadding="2">
 <?php
-      for ($j=0, $n2=sizeof($selection[$i]['fields']); $j<$n2; $j++) {
+      $size = sizeof($selection[$i]['fields']);
+      for ($j=0, $n2=$size; $j<$n2; $j++) {
 ?>
                       <tr>
                         <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>

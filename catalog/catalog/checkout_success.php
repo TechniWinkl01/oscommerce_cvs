@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_success.php,v 1.41 2002/11/13 12:54:52 hpdl Exp $
+  $Id: checkout_success.php,v 1.42 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -30,7 +30,8 @@
       $notify_string .= 'action=notify&';
       $notify = $HTTP_POST_VARS['notify'];
       if (!is_array($notify)) $notify = array($notify);
-      for ($i=0, $n=sizeof($notify); $i<$n; $i++) {
+      $size = sizeof($notify);
+      for ($i=0, $n=$size; $i<$n; $i++) {
         $notify_string .= 'notify[]=' . $notify[$i] . '&';
       }
       if (strlen($notify_string) > 0) $notify_string = substr($notify_string, 0, -1);
@@ -95,7 +96,8 @@
       echo TEXT_NOTIFY_PRODUCTS . '<br><p class="productsNotifications">';
 
       $products_displayed = array();
-      for ($i=0, $n=sizeof($products_array); $i<$n; $i++) {
+      $size = sizeof($products_array);
+      for ($i=0, $n=$size; $i<$n; $i++) {
         if (!in_array($products_array[$i]['id'], $products_displayed)) {
           echo tep_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br>';
           $products_displayed[] = $products_array[$i]['id'];

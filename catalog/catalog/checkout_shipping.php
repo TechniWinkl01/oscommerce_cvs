@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_shipping.php,v 1.6 2002/11/11 22:39:17 dgw_ Exp $
+  $Id: checkout_shipping.php,v 1.7 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -237,7 +237,8 @@ function rowOutEffect(object) {
                   </tr>
 <?php
     } else {
-      for ($j=0, $n2=sizeof($quotes[$i]['methods']); $j<$n2; $j++) {
+      $size = sizeof($quotes[$i]['methods']);
+      for ($j=0, $n2=$size; $j<$n2; $j++) {
 // set the radio button to be checked if it is the method chosen
         $checked = (($quotes[$i]['id'] . '_' . $quotes[$i]['methods'][$j]['id'] == $shipping['id']) ? true : false);
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: order_details.php,v 1.4 2002/05/01 14:37:06 hpdl Exp $
+  $Id: order_details.php,v 1.5 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,8 @@
   echo '<td colspan="' . $colspan . '">' . tep_draw_separator() . '</td>';
   echo '</tr>';
 
-for ($i=0; $i<sizeof($products); $i++) {
+$psize = sizeof($products);
+for ($i=0; $i<$psize; $i++) {
   echo '  <tr>' . "\n";
 
 // Delete box only for shopping cart

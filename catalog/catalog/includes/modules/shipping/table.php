@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: table.php,v 1.22 2002/11/01 04:47:03 hpdl Exp $
+  $Id: table.php,v 1.23 2002/11/23 02:08:12 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -33,7 +33,8 @@
       }
 
       $table_cost = split("[:,]" , MODULE_SHIPPING_TABLE_COST);
-      for ($i=0, $n=sizeof($table_cost); $i<$n; $i+=2) {
+      $size = sizeof($table_cost);
+      for ($i=0, $n=$size; $i<$n; $i+=2) {
         if ($order_total <= $table_cost[$i]) {
           $shipping = $table_cost[$i+1];
           break;
@@ -73,7 +74,8 @@
     function remove() {
       $keys = '';
       $keys_array = $this->keys();
-      for ($i=0; $i<sizeof($keys_array); $i++) {
+      $keys_size = sizeof($keys_array);
+      for ($i=0; $i<$keys_size; $i++) {
         $keys .= "'" . $keys_array[$i] . "',";
       }
       $keys = substr($keys, 0, -1);

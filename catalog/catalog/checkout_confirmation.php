@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.125 2002/11/11 22:39:17 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.126 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,7 +62,8 @@
 // Stock Check
   $any_out_of_stock = false;
   if (STOCK_CHECK == 'true') {
-    for ($i=0; $i<sizeof($order->products); $i++) {
+    $size = sizeof($order->products);
+    for ($i=0; $i<$size; $i++) {
       if (tep_check_stock($order->products[$i]['id'], $order->products[$i]['qty'])) {
         $any_out_of_stock = true;
       }
@@ -155,7 +156,8 @@
 <?php
   }
 
-  for ($i=0; $i<sizeof($order->products); $i++) {
+  $osize = sizeof($order->products);
+  for ($i=0; $i<$osize; $i++) {
     echo '          <tr>' . "\n" .
          '            <td class="main" align="right" valign="top" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
          '            <td class="main" valign="top">' . $order->products[$i]['name'];
@@ -164,8 +166,9 @@
       echo tep_check_stock($order->products[$i]['id'], $order->products[$i]['qty']);
     }
 
-    if ( (isset($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0) ) {
-      for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
+    $size = sizeof($order->products[$i]['attributes']);
+    if ( (isset($order->products[$i]['attributes'])) && ($size > 0) ) {
+      for ($j=0; $j<$size; $j++) {
         echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</i></small></nobr>';
       }
     }
@@ -242,7 +245,8 @@
                 <td class="main" colspan="4"><?php echo $confirmation['title']; ?></td>
               </tr>
 <?php
-      for ($i=0, $n=sizeof($confirmation['fields']); $i<$n; $i++) {
+      $size = sizeof($confirmation['fields']);
+      for ($i=0, $n=$size; $i<$n; $i++) {
 ?>
               <tr>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>

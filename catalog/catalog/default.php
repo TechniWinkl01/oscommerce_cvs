@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: default.php,v 1.78 2002/10/27 20:36:21 dgw_ Exp $
+  $Id: default.php,v 1.79 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -80,7 +80,8 @@
     if ($cPath && ereg('_', $cPath)) {
 // check to see if there are deeper categories within the current category
       $category_links = array_reverse($cPath_array);
-      for($i=0; $i<sizeof($category_links); $i++) {
+      $size = sizeof($category_links);
+      for($i=0; $i<$size; $i++) {
         $categories_query = tep_db_query("select c.categories_id, cd.categories_name, c.categories_image, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where c.parent_id = '" . $category_links[$i] . "' and c.categories_id = cd.categories_id and cd.language_id = '" . $languages_id . "' order by sort_order, cd.categories_name");
         if (tep_db_num_rows($categories_query) < 1) {
           // do nothing, go through the loop
@@ -134,7 +135,8 @@
 
     $select_column_list = '';
 
-    for ($col=0; $col<sizeof($column_list); $col++) {
+    $size = sizeof($column_list);
+    for ($col=0; $col<$size; $col++) {
       if ( ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW') || ($column_list[$col] == 'PRODUCT_LIST_PRICE') ) {
         continue;
       }
@@ -187,8 +189,9 @@
       $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_MANUFACTURERS . " m where p.products_status = '1' and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' order by m.manufacturers_name";
     }
 
-    if ( (!$HTTP_GET_VARS['sort']) || (!ereg('[1-8][ad]', $HTTP_GET_VARS['sort'])) || (substr($HTTP_GET_VARS['sort'],0,1) > sizeof($column_list)) ) {
-      for ($col=0; $col<sizeof($column_list); $col++) {
+    $cl_size = sizeof($column_list);
+    if ( (!$HTTP_GET_VARS['sort']) || (!ereg('[1-8][ad]', $HTTP_GET_VARS['sort'])) || (substr($HTTP_GET_VARS['sort'],0,1) > $cl_size) ) {
+      for ($col=0; $col<$cl_size; $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $HTTP_GET_VARS['sort'] = $col+1 . 'a';
           $listing_sql .= " order by pd.products_name";

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.89 2002/11/01 03:21:56 hpdl Exp $
+  $Id: account_history_info.php,v 1.90 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -120,13 +120,15 @@
 <?php
   }
 
-  for ($i=0; $i<sizeof($order->products); $i++) {
+  $size = sizeof($order->products);
+  for ($i=0; $i<$size; $i++) {
     echo '          <tr>' . "\n" .
          '            <td class="main" align="right" valign="top" width="30">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
          '            <td class="main" valign="top">' . $order->products[$i]['name'];
 
     if ( (isset($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0) ) {
-      for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
+      $sizea = sizeof($order->products[$i]['attributes']);
+      for ($j=0; $j<$sizea; $j++) {
         echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'] . '</i></small></nobr>';
       }
     }
@@ -173,7 +175,8 @@
             </table></td>
             <td width="70%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  for ($i=0; $i<sizeof($order->totals); $i++) {
+  $size = sizeof($order->totals);
+  for ($i=0; $i<$size; $i++) {
     echo '              <tr>' . "\n" .
          '                <td class="main" align="right" width="100%">' . $order->totals[$i]['title'] . '</td>' . "\n" .
          '                <td class="main" align="right">' . $order->totals[$i]['text'] . '</td>' . "\n" .

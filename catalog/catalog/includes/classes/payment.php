@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.31 2002/11/04 00:50:46 hpdl Exp $
+  $Id: payment.php,v 1.32 2002/11/23 02:08:11 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,7 +34,8 @@
           }
         }
 
-        for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
+        $size = sizeof($include_modules);
+        for ($i=0, $n=$size; $i<$n; $i++) {
           include(DIR_WS_LANGUAGES . $language . '/modules/payment/' . $include_modules[$i]['file']);
           include(DIR_WS_MODULES . 'payment/' . $include_modules[$i]['file']);
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.254 2002/11/18 21:48:38 dgw_ Exp $
+  $Id: application_top.php,v 1.255 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -293,7 +293,8 @@
     }
     switch ($HTTP_GET_VARS['action']) {
       // customer wants to update the product quantity in their shopping cart
-      case 'update_product' : for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
+      case 'update_product' : $size = sizeof($HTTP_POST_VARS['products_id']);
+                              for ($i=0; $i<$size;$i++) {
                                 if (in_array($HTTP_POST_VARS['products_id'][$i], (is_array($HTTP_POST_VARS['cart_delete']) ? $HTTP_POST_VARS['cart_delete'] : array()))) {
                                   $cart->remove($HTTP_POST_VARS['products_id'][$i]);
                                 } else {
@@ -343,7 +344,8 @@
                                   tep_redirect(tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action', 'notify')), 'NONSSL'));
                                 }
                                 if (!is_array($notify)) $notify = array($notify);
-                                for ($i=0; $i<sizeof($notify); $i++) {
+                                $size = sizeof($notify);
+                                for ($i=0; $i<$size; $i++) {
                                   $check_query = tep_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $notify[$i] . "' and customers_id = '" . $customer_id . "'");
                                   $check = tep_db_fetch_array($check_query);
                                   if ($check['count'] < 1) {
@@ -428,7 +430,8 @@
   $breadcrumb->add(HEADER_TITLE_CATALOG, tep_href_link(FILENAME_DEFAULT));
 
   if (isset($cPath_array)) {
-    for ($i = 0, $n = sizeof($cPath_array); $i < $n; $i++) {
+    $size = sizeof($cPath_array);
+    for ($i = 0, $n = $size; $i < $n; $i++) {
       $categories_query = tep_db_query("select categories_name from " . TABLE_CATEGORIES_DESCRIPTION . " where categories_id = '" . $cPath_array[$i] . "' and language_id='" . $languages_id . "'");
       if (tep_db_num_rows($categories_query) > 0) {
         $categories = tep_db_fetch_array($categories_query);

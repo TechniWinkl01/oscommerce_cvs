@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shopping_cart.php,v 1.16 2002/06/11 19:49:52 hpdl Exp $
+  $Id: shopping_cart.php,v 1.17 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -24,7 +24,8 @@
   if ($cart->count_contents() > 0) {
     $cart_contents_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">';
     $products = $cart->get_products(); // $products[$i]['id'] .. $products[$i]['name'] .. $products[$i]['quantity']
-    for ($i=0; $i<sizeof($products); $i++) {
+    $size = sizeof($products);
+    for ($i=0; $i<$size; $i++) {
       $cart_contents_string .= '<tr><td align="right" valign="top" class="infoBoxContents">';
 
       if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {

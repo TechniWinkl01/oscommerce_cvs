@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.115 2002/11/17 14:09:24 project3000 Exp $
+  $Id: checkout_process.php,v 1.116 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -92,7 +92,8 @@
                           'currency_value' => $order->info['currency_value']);
   tep_db_perform(TABLE_ORDERS, $sql_data_array);
   $insert_id = tep_db_insert_id();
-  for ($i=0; $i<sizeof($order_totals); $i++) {
+  $size = sizeof($order_totals);
+  for ($i=0; $i<$size; $i++) {
     $sql_data_array = array('orders_id' => $insert_id,
                             'title' => $order_totals[$i]['title'],
                             'text' => $order_totals[$i]['text'],
@@ -114,7 +115,8 @@
   $subtotal = 0;
   $total_tax = 0;
 
-  for ($i=0; $i<sizeof($order->products); $i++) {
+  $order_size = sizeof($order->products);
+  for ($i=0; $i<$order_size; $i++) {
 // Stock Update - Joao Correia
     if (STOCK_LIMITED == 'true') {
       if (DOWNLOAD_ENABLED == 'true') {
@@ -167,7 +169,8 @@
     $products_ordered_attributes = '';
     if ($order->products[$i]['attributes']) {
       $attributes_exist = '1';
-      for ($j=0; $j<sizeof($order->products[$i]['attributes']); $j++) {
+      $size = sizeof($order->products[$i]['attributes']);
+      for ($j=0; $j<$size; $j++) {
         if (DOWNLOAD_ENABLED == 'true') {
           $attributes_query = "select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, pad.products_attributes_maxcount , pad.products_attributes_filename 
                                from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa 
@@ -227,7 +230,8 @@
                   $products_ordered . 
                   EMAIL_SEPARATOR . "\n";
 
-  for ($i=0; $i<sizeof($order_totals); $i++) {
+  $size = sizeof($order_totals);
+  for ($i=0; $i<$size; $i++) {
     $email_order .= strip_tags($order_totals[$i]['title']) . ' ' . strip_tags($order_totals[$i]['text']) . "\n";
   }
 

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: advanced_search_result.php,v 1.63 2002/11/19 18:38:43 dgw_ Exp $
+  $Id: advanced_search_result.php,v 1.64 2002/11/23 02:08:10 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -152,7 +152,8 @@
 
   $select_column_list = '';
 
-  for ($col=0; $col<sizeof($column_list); $col++) {
+  $size = sizeof($column_list);
+  for ($col=0; $col<$size; $col++) {
     if ( ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW') || ($column_list[$col] == 'PRODUCT_LIST_NAME') || ($column_list[$col] == 'PRODUCT_LIST_PRICE') ) {
       continue;
     }
@@ -199,7 +200,8 @@
       $subcategories_array = array();
       tep_get_subcategories($subcategories_array, $HTTP_GET_VARS['categories_id']);
       $where_str .= " and p2c.products_id = p.products_id and p2c.products_id = pd.products_id and (p2c.categories_id = '" . $HTTP_GET_VARS['categories_id'] . "'";
-      for ($i=0; $i<sizeof($subcategories_array); $i++ ) {
+      $size = sizeof($subcategories_array);
+      for ($i=0; $i<$size; $i++ ) {
         $where_str .= " or p2c.categories_id = '" . $subcategories_array[$i] . "'";
       }
       $where_str .= ")";
@@ -214,7 +216,8 @@
   if ($HTTP_GET_VARS['keywords']) {
     if (tep_parse_search_string( StripSlashes($HTTP_GET_VARS['keywords']), $search_keywords)) {
       $where_str .= " and (";
-      for ($i=0; $i<sizeof($search_keywords); $i++ ) {
+      $size = sizeof($search_keywords);
+      for ($i=0; $i<$size; $i++ ) {
         switch ($search_keywords[$i]) {
           case '(':
           case ')':
@@ -256,7 +259,8 @@
   }
 
   if ( (!$HTTP_GET_VARS['sort']) || (!ereg('[1-8][ad]', $HTTP_GET_VARS['sort'])) || (substr($HTTP_GET_VARS['sort'], 0 , 1) > sizeof($column_list)) ) {
-    for ($col=0; $col<sizeof($column_list); $col++) {
+    $size = sizeof($column_list);
+    for ($col=0; $col<$size; $col++) {
       if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
         $HTTP_GET_VARS['sort'] = $col+1 . 'a';
         $order_str = ' order by pd.products_name';

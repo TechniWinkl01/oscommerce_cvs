@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.46 2002/11/20 23:35:15 hpdl Exp $
+  $Id: cc.php,v 1.47 2002/11/23 02:08:12 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -167,7 +167,8 @@
     function remove() {
       $keys = '';
       $keys_array = $this->keys();
-      for ($i=0; $i<sizeof($keys_array); $i++) {
+      $keys_size = sizeof($keys_array);
+      for ($i=0; $i<$keys_size; $i++) {
         $keys .= "'" . $keys_array[$i] . "',";
       }
       $keys = substr($keys, 0, -1);

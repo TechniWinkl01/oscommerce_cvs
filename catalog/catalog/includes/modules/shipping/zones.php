@@ -1,7 +1,7 @@
 <?php
 /*
 
-  $Id: zones.php,v 1.14 2002/11/01 04:54:23 hpdl Exp $
+  $Id: zones.php,v 1.15 2002/11/23 02:08:12 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,7 +133,8 @@
         $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $i);
 
         $zones_table = split("[:,]" , $zones_cost);
-        for ($i=0; $i<sizeof($zones_table); $i+=2) {
+        $size = sizeof($zones_table);
+        for ($i=0; $i<$size; $i+=2) {
           if ($shipping_weight <= $zones_table[$i]) {
             $shipping = $zones_table[$i+1];
             $shipping_method = MODULE_SHIPPING_ZONES_TEXT_WAY . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . MODULE_SHIPPING_ZONES_TEXT_UNITS;
@@ -186,7 +187,8 @@
     function remove() {
       $keys = '';
       $keys_array = $this->keys();
-      for ($i=0; $i<sizeof($keys_array); $i++) {
+      $keys_size = sizeof($keys_array);
+      for ($i=0; $i<$keys_size; $i++) {
         $keys .= "'" . $keys_array[$i] . "',";
       }
       $keys = substr($keys, 0, -1);
