@@ -1,38 +1,38 @@
 <?php
 /*
-  $Id: advanced_search.php,v 1.12 2002/01/11 20:59:41 dgw_ Exp $
+  $Id: advanced_search.php,v 1.13 2002/05/27 13:57:38 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
 define('NAVBAR_TITLE', 'Advanced Search');
-define('HEADING_TITLE', 'Enter Search Criteria');
+define('HEADING_TITLE', 'Advanced Search');
 
+define('HEADING_SEARCH_CRITERIA', 'Search Criteria');
+
+define('TEXT_SEARCH_IN_DESCRIPTION', 'Search In Product Descriptions');
 define('ENTRY_CATEGORIES', 'Categories:');
-define('ENTRY_INCLUDES_SUBCATEGORIES', 'includes subcategories');
-define('ENTRY_MANUFACTURER', 'Manufacturer:');
-define('ENTRY_KEYWORDS', 'Keywords/Phrases:');
-define('ENTRY_PRICE_FROM', 'Price from:');
-define('ENTRY_DATE_ADDED_FROM', 'Date Added from:');
-define('ENTRY_TO', 'To:');
-define('ENTRY_SORT_BY' , 'Sort Result By:');
-define('ENTRY_KEYWORDS_TEXT', '&nbsp;<small><font color="#AABBDD">(one or more keywords/phrases)</font></small>');
-define('ENTRY_DATE_ADDED_TEXT', '&nbsp;<small><font color="#AABBDD">(eg. 21/05/1970)</font></small>');
+define('ENTRY_INCLUDE_SUBCATEGORIES', 'Include Subcategories');
+define('ENTRY_MANUFACTURERS', 'Manufacturers:');
+define('ENTRY_PRICE_FROM', 'Price From:');
+define('ENTRY_PRICE_TO', 'Price To:');
+define('ENTRY_DATE_FROM', 'Date From:');
+define('ENTRY_DATE_TO', 'Date To:');
+
+define('TEXT_SEARCH_HELP_LINK', '<u>Search Help</u> [?]');
+
 define('TEXT_ALL_CATEGORIES', 'All Categories');
 define('TEXT_ALL_MANUFACTURERS', 'All Manufacturers');
-define('TEXT_CATEGORY_NAME', 'Category Name');
-define('TEXT_MANUFACTURER_NAME', 'Manufacturer Name');
-define('TEXT_PRODUCT_NAME', 'Product Name');
-define('TEXT_PRICE', 'Price');
-define('TEXT_PERFORM_ADVANCED_SEARCH', 'Perform Advanced Search');
-define('TEXT_SEARCH_IN_DESCRIPTION', 'Search in the description also');
-define('TEXT_ADVANCED_SEARCH_TIPS_HEADING', 'Advanced Search Tips');
-define('TEXT_ADVANCED_SEARCH_TIPS', 'The search engine allows you to do a keyword search on the Product Model, Name, Description and Manufacturer Name.<br><br>When doing a keyword search, you can separate words and phrases by AND or OR. For example, you can enter <u>Microsoft AND mouse</u>. This search would generate results that have both words in them. However, if you type in <u>mouse OR keyboard</u>, you will get a list of products that have both or either words in them. If words are not separated by AND or OR, search will default the logical operator to AND.<br><br>You can also search for exact matches of words by enclosing them in quotes. For example, if you search for <u>"notebook computer"</u>, you will get a list of products that have that exact string in them.<br><br>Brackets can be used to control the order of the logical operations. For example, you can enter <u>Microsoft and (keyboard or mouse or "visual basic")</u>.');
+
+define('HEADING_SEARCH_HELP', 'Search Help');
+define('TEXT_SEARCH_HELP', 'Keywords may be separated by AND and/or OR statements for greater control of the search results.<br><br>For example, <u>Microsoft AND mouse</u> would generate a result set that contain both words. However, for <u>mouse OR keyboard</u>, the result set returned would contain both or either words.<br><br>Exact matches can be searched for by enclosing keywords in double-quotes.<br><br>For example, <u>"notebook computer"</u> would generate a result set which match the exact string.<br><br>Brackets can be used for further control on the result set.<br><br>For example, <u>Microsoft and (keyboard or mouse or "visual basic")</u>.');
+define('TEXT_CLOSE_WINDOW', '<u>Close Window</u> [x]');
+
 define('JS_AT_LEAST_ONE_INPUT', '* One of the following fields must be entered:\n    Keywords\n    Date Added From\n    Date Added To\n    Price From\n    Price To\n');
 define('JS_INVALID_FROM_DATE', '* Invalid From Date\n');
 define('JS_INVALID_TO_DATE', '* Invalid To Date\n');
