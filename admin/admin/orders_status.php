@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders_status.php,v 1.12 2002/01/29 14:45:18 hpdl Exp $
+  $Id: orders_status.php,v 1.13 2002/03/11 17:11:33 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -26,7 +26,7 @@
 
         if ($HTTP_GET_VARS['action'] == 'insert') {
           if (!tep_not_null($orders_status_id)) {
-            $next_id_query = tep_db_query("select max(orders_status_id) as orders_status_id from orders_status");
+            $next_id_query = tep_db_query("select max(orders_status_id) as orders_status_id from " . TABLE_ORDERS_STATUS . "");
             $next_id = tep_db_fetch_array($next_id_query);
             $orders_status_id = $next_id['orders_status_id'] + 1;
           }
@@ -49,10 +49,10 @@
     case 'deleteconfirm':
       $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
 
-      $orders_status_query = tep_db_query("select configuration_value from configuration where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
+      $orders_status_query = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
       $orders_status = tep_db_fetch_array($orders_status_query);
       if ($orders_status['configuration_value'] == $oID) {
-        tep_db_query("update configuration set configuration_value = '' where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
+        tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '' where configuration_key = 'DEFAULT_ORDERS_STATUS_ID'");
       }
 
       tep_db_query("delete from " . TABLE_ORDERS_STATUS . " where orders_status_id = '" . tep_db_input($oID) . "'");
