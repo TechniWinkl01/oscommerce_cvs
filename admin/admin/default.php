@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: default.php,v 1.34 2002/01/05 10:06:08 hpdl Exp $
+  $Id: default.php,v 1.35 2002/01/05 10:39:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -68,17 +68,17 @@
   $rows = 0;
   while ($customers = tep_db_fetch_array($customers_query)) {
     $rows++;
-    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . addslashes($customers['customers_lastname']) . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n";
-    echo '                <td class="smallText"><a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">'. $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a></td>' . "\n";
-    echo '                <td align="right" class="smallText">' . tep_datetime_short($customers['customers_info_date_account_created']) . '</td>' . "\n";
-    echo '              </tr>' . "\n";
+    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . addslashes($customers['customers_lastname']) . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n" .
+         '                <td class="smallText"><a href="' . tep_href_link(FILENAME_CUSTOMERS, 'search=' . $customers['customers_lastname'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">'. $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a></td>' . "\n" .
+         '                <td align="right" class="smallText">' . tep_datetime_short($customers['customers_info_date_account_created']) . '</td>' . "\n" .
+         '              </tr>' . "\n";
   }
 
   if ($rows < $limit) {
     for ($i=$rows; $i<$limit; $i++) {
-      echo '              <tr class="tableRow">' . "\n";
-      echo '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n";
-      echo '              </tr>' . "\n";
+      echo '              <tr class="tableRow">' . "\n" .
+           '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n" .
+           '              </tr>' . "\n";
     }
   }
 ?>
@@ -118,18 +118,18 @@
     }
     $total_cost += $orders['shipping_cost'];
 
-    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id']) . '\'">' . "\n";
-    echo '                <td class="smallText"><a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id']) . '" class="blacklink">' . $orders['customers_name'] . '</a></td>' . "\n";
-    echo '                <td class="smallText">' . tep_currency_format($total_cost) . '</td>' . "\n";
-    echo '                <td align="right" class="smallText">' . tep_datetime_short($orders['date_purchased']) . '</td>' . "\n";
-    echo '              </tr>' . "\n";
+    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id']) . '\'">' . "\n" .
+         '                <td class="smallText"><a href="' . tep_href_link(FILENAME_ORDERS, 'orders_id=' . $orders['orders_id']) . '" class="blacklink">' . $orders['customers_name'] . '</a></td>' . "\n" .
+         '                <td class="smallText">' . tep_currency_format($total_cost) . '</td>' . "\n" .
+         '                <td align="right" class="smallText">' . tep_datetime_short($orders['date_purchased']) . '</td>' . "\n" .
+         '              </tr>' . "\n";
   }
 
   if ($rows < $limit) {
     for ($i=$rows; $i<$limit; $i++) {
-      echo '              <tr class="tableRow">' . "\n";
-      echo '                <td class="smallText" colspan="3">&nbsp;</td>' . "\n";
-      echo '              </tr>' . "\n";
+      echo '              <tr class="tableRow">' . "\n" .
+           '                <td class="smallText" colspan="3">&nbsp;</td>' . "\n" .
+           '              </tr>' . "\n";
     }
   }
 ?>
@@ -154,17 +154,17 @@
   $rows = 0;
   while ($products = tep_db_fetch_array($products_query)) {
     $rows++;
-    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n";
-    echo '                <td class="smallText"><a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">' . $products['products_name'] . '</a></td>' . "\n";
-    echo '                <td align="right" class="smallText">' . tep_datetime_short($products['products_date_added']) . '</td>' . "\n";
-    echo '              </tr>' . "\n";
+    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n" .
+         '                <td class="smallText"><a href="' . tep_href_link(FILENAME_CATEGORIES, 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">' . $products['products_name'] . '</a></td>' . "\n" .
+         '                <td align="right" class="smallText">' . tep_datetime_short($products['products_date_added']) . '</td>' . "\n" .
+         '              </tr>' . "\n";
   }
 
   if ($rows < $limit) {
     for ($i=$rows; $i<$limit; $i++) {
-      echo '              <tr class="tableRow">' . "\n";
-      echo '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n";
-      echo '              </tr>' . "\n";
+      echo '              <tr class="tableRow">' . "\n" .
+           '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n" .
+           '              </tr>' . "\n";
     }
   }
 ?>
@@ -187,17 +187,17 @@
   $rows = 0;
   while ($reviews = tep_db_fetch_array($reviews_query)) {
     $rows++;
-    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n";
-    echo '                <td class="smallText"><a href="' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">' . $reviews['products_name'] . '</a></td>' . "\n";
-    echo '                <td align="right" class="smallText">' . tep_datetime_short($reviews['date_added']) . '</td>' . "\n";
-    echo '              </tr>' . "\n";
+    echo '              <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT) . '\'">' . "\n" .
+         '                <td class="smallText"><a href="' . tep_href_link(FILENAME_REVIEWS, 'action=preview&rID=' . $reviews['reviews_id'] . '&origin=' . FILENAME_DEFAULT) . '" class="blacklink">' . $reviews['products_name'] . '</a></td>' . "\n" .
+         '                <td align="right" class="smallText">' . tep_datetime_short($reviews['date_added']) . '</td>' . "\n" .
+         '              </tr>' . "\n";
   }
 
   if ($rows < $limit) {
     for ($i=$rows; $i<$limit; $i++) {
-      echo '              <tr class="tableRow">' . "\n";
-      echo '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n";
-      echo '              </tr>' . "\n";
+      echo '              <tr class="tableRow">' . "\n" .
+           '                <td class="smallText" colspan="2">&nbsp;</td>' . "\n" .
+           '              </tr>' . "\n";
     }
   }
 ?>
