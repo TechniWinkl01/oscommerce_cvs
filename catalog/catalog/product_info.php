@@ -93,7 +93,7 @@
       $product_exists_in_cart = '0';
     }
 ?>	  
-    <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL'); ?>">
+    <form name="cart_quantity" method="post" action="<? echo tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=add_update_product', 'NONSSL'); ?>">
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%"><tr><td><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>"><? echo tep_image($product_info_values['products_image'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '0' . '" align="right" hspace="5" vspace="5', $product_info_values['products_name']); ?><p><? echo stripslashes($product_info_values['products_description']); ?></p>
@@ -154,16 +154,17 @@
       echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_REVIEWS, $get_params, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_reviews.gif', '78', '24', '0', IMAGE_REVIEWS) . '</a>&nbsp;</font></td>' . "\n";
     }
 
+    echo '<td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">';
     if ($product_exists_in_cart == '1') {
-      echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '116', '24', '0', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id=' . $product_info_values['products_id'], 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+      echo '            <input type="text" name="cart_quantity" value="' . $product_quantity_in_cart . '" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_update_cart.gif', '116', '24', '0', IMAGE_UPDATE_CART) . '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, tep_get_all_get_params(array('action')) . 'action=remove_product', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_remove_all.gif', '113', '24', '0', IMAGE_REMOVE_ALL) . '</a>';
     } else {
-      echo '            <td align="right" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;<input type="hidden" name="products_id" value="' . $product_info_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '116', '24', '0', IMAGE_ADD_TO_CART);
-      $get_params_back = substr(tep_get_all_get_params(array('products_id')), 0, -1);
-      if ($get_params_back != '') {
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '</a>';
-      }
-      echo '&nbsp;</font></td>' . "\n";
+      echo '            <input type="text" name="cart_quantity" value="1" maxlength="2" size="2">&nbsp;&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_add_to_cart.gif', '116', '24', '0', IMAGE_ADD_TO_CART);
     }
+    $get_params_back = substr(tep_get_all_get_params(array('products_id')), 0, -1);
+    if ($get_params_back != '') {
+      echo '&nbsp;&nbsp;&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, $get_params_back, 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '</a>';
+    }
+    echo '&nbsp;&nbsp;</font></td>' . "\n";
 ?>
           </tr>
         </table></td>

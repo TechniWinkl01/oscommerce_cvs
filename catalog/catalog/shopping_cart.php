@@ -1,44 +1,4 @@
 <? include("includes/application_top.php"); ?>
-<?
-  if ($HTTP_GET_VARS['action']) {
-    if ($HTTP_GET_VARS['action'] == 'remove_product') {
-// customer wants to remove a product from their shopping cart
-      $cart->remove($HTTP_GET_VARS['products_id']);
-      header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
-    } elseif ($HTTP_GET_VARS['action'] == 'add_update_product') {
-// customer wants to update the product quantity in their shopping cart
-      if ((is_array($HTTP_POST_VARS['cart_quantity'])) && (is_array($HTTP_POST_VARS['products_id']))) {
-        for ($i=0; $i<sizeof($HTTP_POST_VARS['products_id']);$i++) {
-          $attributes = ($HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]]) ? $HTTP_POST_VARS['id'][$HTTP_POST_VARS['products_id'][$i]] : '';
-          $cart->add_cart($HTTP_POST_VARS['products_id'][$i], $HTTP_POST_VARS['cart_quantity'][$i], $attributes);
-        }
-      } else {
-        if (ereg('^[0-9]+$', $HTTP_POST_VARS['products_id'])) {
-          $cart->add_cart($HTTP_POST_VARS['products_id'], $HTTP_POST_VARS['cart_quantity'], $HTTP_POST_VARS['id']);
-        }
-      }
-      header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
-    } elseif ($HTTP_GET_VARS['action'] == 'remove_all') {
-// customer wants to remove all products from their shopping cart
-      $cart->reset(TRUE);
-      header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); tep_exit();
-    } elseif ($HTTP_GET_VARS['action'] == 'add_a_quickie') {
-// customer wants to add a quickie to the cart (called from a box)
-      $quickie_query = tep_db_query("select products_id from products where products_model = '" . $HTTP_POST_VARS['quickie'] . "'");
-      if (tep_db_num_rows($quickie_query) == 0) {
-        $quickie_query = tep_db_query("select products_id from products where products_model LIKE '" . $HTTP_POST_VARS['quickie'] . "%'");
-      }
-      if (tep_db_num_rows($quickie_query) == 0 ||tep_db_num_rows($quickie_query) > 1) {
-        Header( 'Location: ' . tep_href_link(FILENAME_ADVANCED_SEARCH_RESULT, 'keywords=' . $HTTP_POST_VARS['quickie'], 'NONSSL'));
-        tep_exit();
-      }
-      $quickie_values = tep_db_fetch_array($quickie_query);
-      $cart->add_cart($quickie_values['products_id'], 1, '');
-      header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL')); 
-      tep_exit();
-    }
-  }
-?>
 <? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_SHOPPING_CART; include(DIR_INCLUDES . 'include_once.php'); ?>
 <? $location = ' : <a href="' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') . '" class="whitelink">' . NAVBAR_TITLE . '</a>'; ?>
 <html>

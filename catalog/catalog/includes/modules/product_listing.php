@@ -131,7 +131,7 @@
             break;
           case 'PRODUCT_LIST_BUY_NOW':
             $lc_align = 'center';
-            $lc_form = '<form method="post" action="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=add_update_product', 'NONSSL') . '">';
+            $lc_form = '<form method="post" action="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=add_update_product', 'NONSSL') . '">';
             $lc_text = '&nbsp;<input type="hidden" name="cart_quantity" value="1"><input type="hidden" name="products_id" value="' . $listing_values['products_id'] . '">' . tep_image_submit(DIR_IMAGES . 'button_buy_now.gif', '0', '0', '0', TEXT_BUY . $listing_values['products_name'] . TEXT_NOW) . '&nbsp;';
 
             break;
