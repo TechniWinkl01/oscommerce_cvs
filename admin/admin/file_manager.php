@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.38 2002/11/22 14:45:47 dgw_ Exp $
+  $Id: file_manager.php,v 1.39 2003/03/22 02:44:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -53,21 +53,9 @@
         }
         break;
       case 'processuploads':
-        $_current_path = tep_get_local_path($current_path);
-
-        if (!is_writeable($_current_path)) {
-          if (is_dir($_current_path)) {
-            $messageStack->add_session(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $_current_path), 'error');
-          } else {
-            $messageStack->add_session(sprintf(ERROR_DIRECTORY_DOES_NOT_EXIST, $_current_path), 'error');
-          }
-        } else {
-          for ($i=1; $i<6; $i++) {
-            $file = tep_get_uploaded_file('file_' . $i);
-
-            if (is_uploaded_file($file['tmp_name'])) {
-              tep_copy_uploaded_file($file, $_current_path);
-            }
+        for ($i=1; $i<6; $i++) {
+          if (isset($GLOBALS['file_' . $i]) && tep_not_null($GLOBALS['file_' . $i])) {
+            new upload('file_' . $i, $current_path);
           }
         }
 

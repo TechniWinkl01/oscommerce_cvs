@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.69 2002/10/26 22:32:36 dgw_ Exp $
+  $Id: banner_manager.php,v 1.70 2003/03/22 02:44:54 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -34,41 +34,29 @@
         $new_banners_group = tep_db_prepare_input($HTTP_POST_VARS['new_banners_group']);
         $banners_group = (empty($new_banners_group)) ? tep_db_prepare_input($HTTP_POST_VARS['banners_group']) : $new_banners_group;
         $html_text = tep_db_prepare_input($HTTP_POST_VARS['html_text']);
-        $banners_image = tep_get_uploaded_file('banners_image');
         $banners_image_local = tep_db_prepare_input($HTTP_POST_VARS['banners_image_local']);
         $banners_image_target = tep_db_prepare_input($HTTP_POST_VARS['banners_image_target']);
         $db_image_location = '';
-
-        $image_directory = tep_get_local_path(DIR_FS_CATALOG_IMAGES . $banners_image_target);
 
         $banner_error = false;
         if (empty($banners_title)) {
           $messageStack->add(ERROR_BANNER_TITLE_REQUIRED, 'error');
           $banner_error = true;
         }
+
         if (empty($banners_group)) {
           $messageStack->add(ERROR_BANNER_GROUP_REQUIRED, 'error');
           $banner_error = true;
         }
-        if ( (isset($banners_image)) && ($banners_image['name'] != 'none') && (is_uploaded_file($banners_image['tmp_name'])) ) {
-          $store_image = false;
-          if (!is_writeable($image_directory)) {
-            if (is_dir($image_directory)) {
-              $messageStack->add(sprintf(ERROR_IMAGE_DIRECTORY_NOT_WRITEABLE, $image_directory), 'error');
-            } else {
-              $messageStack->add(sprintf(ERROR_IMAGE_DIRECTORY_DOES_NOT_EXIST, $image_directory), 'error');
-            }
+
+        if (empty($html_text)) {
+          if (!$banners_image = new upload('banners_image', DIR_FS_CATALOG_IMAGES . $banners_image_target)) {
             $banner_error = true;
-          } else {
-            $store_image = true;
           }
         }
 
         if (!$banner_error) {
-          if ( (empty($html_text)) && ($store_image == true) ) {
-            tep_copy_uploaded_file($banners_image, $image_directory);
-          }
-          $db_image_location = (tep_not_null($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image['name'];
+          $db_image_location = (tep_not_null($banners_image_local)) ? $banners_image_local : $banners_image_target . $banners_image->filename;
           $sql_data_array = array('banners_title' => $banners_title,
                                   'banners_url' => $banners_url,
                                   'banners_image' => $db_image_location,

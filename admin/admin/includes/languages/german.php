@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.96 2003/03/15 14:38:39 project3000 Exp $
+  $Id: german.php,v 1.97 2003/03/22 02:44:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -283,4 +283,11 @@ define('TEXT_CACHE_ALSO_PURCHASED', 'Modul f&uuml;r ebenfalls gekaufte Artikel')
 
 define('TEXT_NONE', '--keine--');
 define('TEXT_TOP', 'Top');
+
+define('ERROR_DESTINATION_DOES_NOT_EXIST', 'Error: Destination does not exist.');
+define('ERROR_DESTINATION_NOT_WRITEABLE', 'Error: Destination not writeable.');
+define('ERROR_FILE_NOT_SAVED', 'Error: File upload not saved.');
+define('ERROR_FILETYPE_NOT_ALLOWED', 'Error: File upload type not allowed.');
+define('SUCCESS_FILE_SAVED_SUCCESSFULLY', 'Success: File upload saved successfully.');
+define('WARNING_NO_FILE_UPLOADED', 'Warning: No file uploaded.');
 ?>

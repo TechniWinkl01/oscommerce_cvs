@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: espanol.php,v 1.94 2003/03/15 14:38:39 project3000 Exp $
+  $Id: espanol.php,v 1.95 2003/03/22 02:44:58 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -283,4 +283,11 @@ define('TEXT_CACHE_ALSO_PURCHASED', 'Tambien Han Comprado');
 
 define('TEXT_NONE', '--ninguno--');
 define('TEXT_TOP', 'Top');
+
+define('ERROR_DESTINATION_DOES_NOT_EXIST', 'Error: Destination does not exist.');
+define('ERROR_DESTINATION_NOT_WRITEABLE', 'Error: Destination not writeable.');
+define('ERROR_FILE_NOT_SAVED', 'Error: File upload not saved.');
+define('ERROR_FILETYPE_NOT_ALLOWED', 'Error: File upload type not allowed.');
+define('SUCCESS_FILE_SAVED_SUCCESSFULLY', 'Success: File upload saved successfully.');
+define('WARNING_NO_FILE_UPLOADED', 'Warning: No file uploaded.');
 ?>

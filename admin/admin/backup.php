@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: backup.php,v 1.56 2002/11/22 14:45:43 dgw_ Exp $
+  $Id: backup.php,v 1.57 2003/03/22 02:44:53 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -190,11 +190,11 @@
             }
           }
         } elseif ($HTTP_GET_VARS['action'] == 'restorelocalnow') {
-          $sql_file = tep_get_uploaded_file('sql_file');
+          $sql_file = new upload('sql_file');
 
-          if (is_uploaded_file($sql_file['tmp_name'])) {
-            $restore_query = fread(fopen($sql_file['tmp_name'], 'r'), filesize($sql_file['tmp_name']));
-            $read_from = $sql_file['name'];
+          if ($sql_file->parse() == true) {
+            $restore_query = fread(fopen($sql_file->tmp_filename, 'r'), filesize($sql_file->tmp_filename));
+            $read_from = $sql_file->filename;
           }
         }
 
@@ -287,9 +287,9 @@
 
 // check if the backup directory exists
   $dir_ok = false;
-  if (is_dir(tep_get_local_path(DIR_FS_BACKUP))) {
+  if (is_dir(DIR_FS_BACKUP)) {
     $dir_ok = true;
-    if (!is_writeable(tep_get_local_path(DIR_FS_BACKUP))) $messageStack->add(ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
+    if (!is_writeable(DIR_FS_BACKUP)) $messageStack->add(ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE, 'error');
   } else {
     $messageStack->add(ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST, 'error');
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: manufacturers.php,v 1.51 2003/01/29 23:21:48 hpdl Exp $
+  $Id: manufacturers.php,v 1.52 2003/03/22 02:44:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,20 +31,8 @@
         tep_db_perform(TABLE_MANUFACTURERS, $sql_data_array, 'update', "manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
       }
 
-      $manufacturers_image = tep_get_uploaded_file('manufacturers_image');
-      $image_directory = tep_get_local_path(DIR_FS_CATALOG_IMAGES);
-
-      if (is_uploaded_file($manufacturers_image['tmp_name'])) {
-        if (!is_writeable($image_directory)) {
-          if (is_dir($image_directory)) {
-            $messageStack->add_session(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $image_directory), 'error');
-          } else {
-            $messageStack->add_session(sprintf(ERROR_DIRECTORY_DOES_NOT_EXIST, $image_directory), 'error');
-          }
-        } else {
-          tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image['name'] . "' where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
-          tep_copy_uploaded_file($manufacturers_image, $image_directory);
-        }
+      if ($manufacturers_image = new upload('manufacturers_image', DIR_FS_CATALOG_IMAGES)) {
+        tep_db_query("update " . TABLE_MANUFACTURERS . " set manufacturers_image = '" . $manufacturers_image->filename . "' where manufacturers_id = '" . tep_db_input($manufacturers_id) . "'");
       }
 
       $languages = tep_get_languages();

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.157 2003/03/15 14:38:38 project3000 Exp $
+  $Id: application_top.php,v 1.158 2003/03/22 02:44:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -220,6 +220,9 @@
 // email classes
   require(DIR_WS_CLASSES . 'mime.php');
   require(DIR_WS_CLASSES . 'email.php');
+
+// file uploading class
+  require(DIR_WS_CLASSES . 'upload.php');
 
 // calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];

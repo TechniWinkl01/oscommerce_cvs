@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: categories.php,v 1.138 2002/11/18 21:38:22 dgw_ Exp $
+  $Id: categories.php,v 1.139 2003/03/22 02:44:55 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -65,12 +65,8 @@
           }
         }
 
-        $categories_image = tep_get_uploaded_file('categories_image');
-        $image_directory = tep_get_local_path(DIR_FS_CATALOG_IMAGES);
-
-        if (is_uploaded_file($categories_image['tmp_name'])) {
-          tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image['name'] . "' where categories_id = '" . tep_db_input($categories_id) . "'");
-          tep_copy_uploaded_file($categories_image, $image_directory);
+        if ($categories_image = new upload('categories_image', DIR_FS_CATALOG_IMAGES)) {
+          tep_db_query("update " . TABLE_CATEGORIES . " set categories_image = '" . $categories_image->filename . "' where categories_id = '" . tep_db_input($categories_id) . "'");
         }
 
         if (USE_CACHE == 'true') {
@@ -194,13 +190,16 @@
 
           $sql_data_array = array('products_quantity' => tep_db_prepare_input($HTTP_POST_VARS['products_quantity']),
                                   'products_model' => tep_db_prepare_input($HTTP_POST_VARS['products_model']),
-                                  'products_image' => (($HTTP_POST_VARS['products_image'] == 'none') ? '' : tep_db_prepare_input($HTTP_POST_VARS['products_image'])),
                                   'products_price' => tep_db_prepare_input($HTTP_POST_VARS['products_price']),
                                   'products_date_available' => $products_date_available,
                                   'products_weight' => tep_db_prepare_input($HTTP_POST_VARS['products_weight']),
                                   'products_status' => tep_db_prepare_input($HTTP_POST_VARS['products_status']),
                                   'products_tax_class_id' => tep_db_prepare_input($HTTP_POST_VARS['products_tax_class_id']),
                                   'manufacturers_id' => tep_db_prepare_input($HTTP_POST_VARS['manufacturers_id']));
+
+          if (isset($HTTP_POST_VARS['products_image']) && tep_not_null($HTTP_POST_VARS['products_image']) && ($HTTP_POST_VARS['products_image'] != 'none')) {
+            $sql_data_attay['products_image'] = tep_db_prepare_input($HTTP_POST_VARS['products_image']);
+          }
 
           if ($HTTP_GET_VARS['action'] == 'insert_product') {
             $insert_sql_data = array('products_date_added' => 'now()');
@@ -490,12 +489,8 @@
       $products_url = $HTTP_POST_VARS['products_url'];
 
 // copy image only if modified
-      $products_image = tep_get_uploaded_file('products_image');
-      $image_directory = tep_get_local_path(DIR_FS_CATALOG_IMAGES);
-
-      if (is_uploaded_file($products_image['tmp_name'])) {
-        tep_copy_uploaded_file($products_image, $image_directory);
-        $products_image_name = $products_image['name'];
+      if ($products_image = new upload('products_image', DIR_FS_CATALOG_IMAGES)) {
+        $products_image_name = $products_image->filename;
       } else {
         $products_image_name = $HTTP_POST_VARS['products_previous_image'];
       }
