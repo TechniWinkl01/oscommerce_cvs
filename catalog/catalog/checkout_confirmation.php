@@ -296,7 +296,7 @@
       break;
     case 'paypal' : // PayPal
       $paypal_return = urlencode($HTTP_POST_VARS['payment'] . '|' . $HTTP_POST_VARS['sendto'] . '|' . $shipping_cost . '|' . $shipping_method);
-      echo '      <form name="checkout_confirmation" method="post" action="https://secure.paypal.com/xclick/business=' . rawurlencode(PAYPAL_ID) . '&item_name=' . rawurlencode(STORE_NAME . ' ' . TEXT_PAYMENT) . '&amount=' . ($total_cost + $total_tax) . '&shipping=' . $shipping_cost . '&return=' . urlencode(tep_href_link(FILENAME_CHECKOUT_PROCESS, 'paypal_return=' . $paypal_return, 'SSL')) . '"><tr>' . "\n";
+      echo '      <form name="checkout_confirmation" method="post" action="https://secure.paypal.com/xclick/business=' . rawurlencode(PAYPAL_ID) . '&item_name=' . rawurlencode(STORE_NAME . ' ' . TEXT_PAYMENT) . '&amount=' . number_format(($total_cost + $total_tax),2) . '&shipping=' . number_format($shipping_cost, 2) . '&return=' . urlencode(tep_href_link(FILENAME_CHECKOUT_PROCESS, 'paypal_return=' . $paypal_return, 'SSL')) . '"><tr>' . "\n";
       echo '        <td align="right" nowrap><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;</font></td>' . "\n";
       echo '      </tr></form>' . "\n";
       break;
