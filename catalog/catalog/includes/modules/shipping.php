@@ -35,9 +35,11 @@
     else $total_weight = $total_weight + ($total_weight*100/SHIPPING_BOX_PADDING);
   }
 
-  $modules = explode(' ', SHIPPING_MODULES);
-  while (list(,$value) = each($modules)) {
-    include(DIR_SHIPPING_MODULES . $value); 
+  if (SHIPPING_MODULES) {
+    $modules = explode(' ', SHIPPING_MODULES);
+    while (list(,$value) = each($modules)) {
+      include(DIR_SHIPPING_MODULES . $value); 
+    }
   }
 
   if ($action == 'confirm') {
