@@ -6,6 +6,20 @@
 <title><?=TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
+function resetStateText(theForm) {
+  theForm.state.value = '';
+  if (theForm.zone_id.options.length > 0) {
+    theForm.state.value = '<?=JS_STATE_SELECT;?>';
+  }
+}
+
+function resetZoneSelected(theForm) {
+  theForm.zone_id.selectedIndex = '0';
+  if (theForm.zone_id.options.length > 0) {
+    theForm.state.value = '<?=JS_STATE_SELECT;?>';
+  }
+}
+
 function update_zone(theForm) {
    
    var NumState = theForm.zone_id.options.length;
@@ -20,6 +34,7 @@ function update_zone(theForm) {
    SelectedCountry = theForm.country.options[theForm.country.selectedIndex].value;
             
 <? tep_js_zone_list("SelectedCountry", "theForm"); ?>
+   resetStateText(theForm);
 
 }   
 
@@ -87,10 +102,24 @@ function check_form() {
     error = 1;
   }
 
-  // if ((country == "US" || country == "CA" || country == "") && (state == "" || state.length < <?=ENTRY_STATE_MIN_LENGTH;?>)) {
-  //   error_message = error_message + "<?=JS_STATE;?>";
-  //   error = 1;
-  // }
+<?
+  if (ACCOUNT_STATE) {
+?>
+  if (document.create_account.zone_id.options.length == 0) {
+    if (document.create_account.state.value == "" || document.create_account.state.length < <?=ENTRY_STATE_MIN_LENGTH;?> ) {
+       error_message = error_message + "<?=JS_STATE;?>";
+       error = 1;
+    }
+  } else {
+    document.create_acount.state.value = '';
+    if (document.create_account.zone_id.selectedIndex == 0) {
+       error_message = error_message + "<?=JS_ZONE;?>";
+       error = 1;
+    }
+  }
+<?
+  }
+?>
 
   if (postcode == "" || postcode.length < <?=ENTRY_POSTCODE_MIN_LENGTH;?>) {
     error_message = error_message + "<?=JS_POST_CODE;?>";
@@ -203,7 +232,7 @@ function check_form() {
           </tr>
 <?
    }
-   $rowspan = 5+ACCOUNT_SUBURB+ACCOUNT_STATE;
+   $rowspan = 5+ACCOUNT_SUBURB+ACCOUNT_STATE+ACCOUNT_STATE;
 ?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_EMAIL_ADDRESS;?>&nbsp;</font></td>
@@ -248,7 +277,12 @@ function check_form() {
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_SIZE;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
-            &nbsp;<?tep_get_zone_list("zone_id", STORE_COUNTRY);?></select>&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
+            &nbsp;<?tep_get_zone_list("zone_id", STORE_COUNTRY, "", "onChange=\"resetStateText(this.form)\";");?></select>&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
+            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
           </tr>
 <?
    }

@@ -68,6 +68,12 @@
     $city_error = 0;
   }
 
+  if(ACCOUNT_STATE) {
+    $zone_id = $HTTP_POST_VARS['zone_id'];
+    if ($zone_id > 0) $state = "";
+    else $state = trim($HTTP_POST_VARS['state']);
+  }
+
   if ($HTTP_POST_VARS['country'] == '0') {
     $country_error = 1;
     $error = 1;
@@ -264,7 +270,7 @@
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
-    echo $HTTP_POST_VARS['state'] . '<input type="hidden" name="state" value="' . $HTTP_POST_VARS['state'] . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
+    echo $state . '<input type="hidden" name="state" value="' . $state . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
           </tr>
 <?
    } else {
@@ -358,7 +364,7 @@
     $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
 // Crypted passwords mods
     $crypted_password = crypt_password($HTTP_POST_VARS['password']);
-    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $HTTP_POST_VARS['state'] . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" . $HTTP_POST_VARS['country'] . "', '" . $HTTP_POST_VARS['zone_id'] . "')");
+    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $crypted_password . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "')");
     $insert_id = tep_db_insert_id();
     tep_db_query("insert into customers_info values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
 

@@ -105,6 +105,10 @@ define('JS_EMAIL_ADDRESS', '* Die Eingabe der \'E-Mail Adresse\' muﬂ mindestens 
 define('JS_ADDRESS', '* Die \'Strasse/Nr.\' muﬂ mindestens aus ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_POST_CODE', '* Die \'Postleitzahl\' muﬂ mindestens aus ' . ENTRY_POSTCODE_MIN_LENGTH . ' Buchstaben bestehen.\n');
 define('JS_CITY', '* Der \'Stadtname\' muﬂ mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_STATE', '* Der \'Bundesland\' muﬂ mindestens aus ' . ENTRY_STATE_LENGTH . ' Buchstaben bestehen.\n');
+define('JS_STATE_SELECT', '-- W‰hlen Sie ‹ber Aus --');
+define('JS_ZONE', ' * Der Eintrag Bundesland muﬂ von der Liste f¸r dieses Land ausgew‰hlt werden.');
+define('JS_COUNTRY', '* Der \'Land\' Eintrag muﬂ ausgew‰hlt werden.');
 define('JS_TELEPHONE', '* Die \'Telefonnummer\' muﬂ mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen enthalten.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' und die \'Best‰tigung\' muﬂ ¸bereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n');
 

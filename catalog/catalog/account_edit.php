@@ -12,13 +12,27 @@
 <title><?=TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
+function resetStateText(theForm) {
+  theForm.state.value = '';
+  if (theForm.zone_id.options.length > 0) {
+    theForm.state.value = '<?=JS_STATE_SELECT;?>';
+  }
+}
+
+function resetZoneSelected(theForm) {
+  theForm.zone_id.selectedIndex = '0';
+  if (theForm.zone_id.options.length > 0) {
+    theForm.state.value = '<?=JS_STATE_SELECT;?>';
+  }
+}
+
 function update_zone(theForm) {
    
-  var NumState = theForm.state.options.length;
+  var NumState = theForm.zone_id.options.length;
   
   while(NumState > 0) {
     NumState--;
-    theForm.state.options[NumState] = null;
+    theForm.zone_id.options[NumState] = null;
   }         
 
   var SelectedCountry = "";
@@ -26,7 +40,7 @@ function update_zone(theForm) {
   SelectedCountry = theForm.country.options[theForm.country.selectedIndex].value;
             
 <? tep_js_zone_list("SelectedCountry", "theForm"); ?>
-            
+  resetStateText(theForm);
 }
 function check_form() {
   var error = 0;
@@ -34,8 +48,6 @@ function check_form() {
 
   var first_name = document.account_edit.firstname.value;
   var last_name = document.account_edit.lastname.value;
-  var state = document.account_edit.state.options[document.account_edit.state.selectedIndex].value;
-  var country = document.account_edit.country.options[document.account_edit.country.selectedIndex].value;
 <?
    if (ACCOUNT_DOB) {
 ?>
@@ -104,12 +116,26 @@ function check_form() {
     error = 1;
   }
 
-  if ((country == "US" || country == "CA" || country == "") && (state == "" || state.length < <?=ENTRY_STATE_MIN_LENGTH;?>)) {
-    error_message = error_message + "<?=JS_STATE;?>";
-    error = 1;
+<?
+  if (ACCOUNT_STATE) {
+?>
+  if (document.account_edit.zone_id.options.length == 0) {
+    if (document.account_edit.state.value == "" || document.account_edit.state.length < <?=ENTRY_STATE_MIN_LENGTH;?> ) {
+       error_message = error_message + "<?=JS_STATE;?>";
+       error = 1;
+    }
+  } else {
+    document.create_acount.state.value = '';
+    if (document.account_edit.zone_id.selectedIndex == 0) {
+       error_message = error_message + "<?=JS_ZONE;?>";
+       error = 1;
+    }
   }
+<?
+  }
+?>
 
-  if (country == "" || country.length < <?=ENTRY_COUNTRY_MIN_LENGTH;?>) {
+  if (document.account_edit.country.value == 0) {
     error_message = error_message + "<?=JS_COUNTRY;?>";
     error = 1;
   }
@@ -233,7 +259,7 @@ function check_form() {
           </tr>
 <?
    }
-   $rowspan=5+ACCOUNT_SUBURB+ACCOUNT_STATE;
+   $rowspan=5+ACCOUNT_SUBURB+ACCOUNT_STATE+ACCOUNT_STATE;
 ?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_EMAIL_ADDRESS;?>&nbsp;</font></td>
@@ -276,7 +302,12 @@ function check_form() {
 ?>
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
-            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?tep_get_zone_list("zone_id", $account_values['customers_country_id'], $account_values['customers_zone_id']);?>&nbsp;<?=ENTRY_STATE_TEXT;?>NEED OTHER</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?tep_get_zone_list("zone_id", $account_values['customers_country_id'], $account_values['customers_zone_id'], "onChange=\"resetStateText(this.form)\";");?>&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
+            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
           </tr>
 <?
   }

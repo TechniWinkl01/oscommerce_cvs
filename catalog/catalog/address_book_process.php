@@ -98,6 +98,7 @@
     if (ACCOUNT_STATE) {
        $state = $HTTP_POST_VARS['state'];
        $zone_id = $HTTP_POST_VARS['zone_id'];
+       if ($zone_id != 0) $state = '';
     }
     $update_query = "insert into address_book values ('', '" . $gender . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $suburb . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $state . "', '" . $HTTP_POST_VARS['country'] . "', '" . $zone_id . "')";
     tep_db_query($update_query);
@@ -167,13 +168,26 @@
 <title><?=TITLE;?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
 <script language="javascript"><!--
+function resetStateText(theForm) {
+  theForm.state.value = '';
+  if (theForm.zone_id.options.length > 0) {
+    theForm.state.value = '<?=JS_STATE_SELECT;?>';
+  }
+}
+
+function resetZoneSelected(theForm) {
+  theForm.zone_id.selectedIndex = '0';
+  if (theForm.zone_id.options.length > 0) {
+    theForm.state.value = '<?=JS_STATE_SELECT;?>';
+  }
+}
 function update_zone(theForm) {
 
-  var NumState = theForm.state.options.length;
+  var NumState = theForm.zone_id.options.length;
 
   while(NumState > 0) {
     NumState--;
-    theForm.state.options[NumState] = null;
+    theForm.zone_id.options[NumState] = null;
   }
 
   var SelectedCountry = "";
@@ -181,7 +195,7 @@ function update_zone(theForm) {
   SelectedCountry = theForm.country.options[theForm.country.selectedIndex].value;
 
 <? tep_js_zone_list("SelectedCountry", "theForm"); ?>
-
+  resetStateText(theForm);
 }
 
 function check_form() {
@@ -193,8 +207,6 @@ function check_form() {
   var street_address = document.add_entry.street_address.value;
   var postcode = document.add_entry.postcode.value;
   var city = document.add_entry.city.value;
-  var state = document.account_edit.state.options[document.account_edit.state.selectedIndex].value;
-  var country = document.account_edit.country.options[document.account_edit.country.selectedIndex].value;
 
 <?
  if (ACCOUNT_GENDER) {
@@ -231,13 +243,26 @@ function check_form() {
     error_message = error_message + "<?=JS_CITY;?>";
     error = 1;
   }
-
-  if ((country == "US" || country == "CA" || country == "") && (state == "" || state.length < <?=ENTRY_STATE_MIN_LENGTH;?>)) {
-    error_message = error_message + "<?=JS_STATE;?>";
-    error = 1;
+<?
+  if (ACCOUNT_STATE) {
+?>
+  if (document.address_book_process.zone_id.options.length == 0) {
+    if (document.address_book_process.state.value == "" || document.address_book_process.state.length < <?=ENTRY_STATE_MIN_LENGTH;?> ) {
+       error_message = error_message + "<?=JS_STATE;?>";
+       error = 1;
+    }
+  } else {
+    document.create_acount.state.value = '';
+    if (document.address_book_process.zone_id.selectedIndex == 0) {
+       error_message = error_message + "<?=JS_ZONE;?>";
+       error = 1;
+    }
   }
-
-  if (country == "" || country.length < <?=ENTRY_COUNTRY_MIN_LENGTH;?>) {
+<?
+  }
+?>
+  
+  if (document.address_book_process.country.value == 0) {
     error_message = error_message + "<?=JS_COUNTRY;?>";
     error = 1;
   }
@@ -450,11 +475,16 @@ function check_form() {
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
     if (@$process == 1) {
-      echo $HTTP_POST_VARS['zone_id'] . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">';
+      echo tep_get_zone_name($country, $zone_id, $state) . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">';
     } else {
-      tep_get_zone_list("zone_id", $country, $zone_id);
+      tep_get_zone_list("zone_id", $country, $zone_id, "onChange=\"resetStateText(this.form)\";");
       echo '&nbsp;' . ENTRY_STATE_TEXT;
     } ?></font></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_SIZE;?>">
+            &nbsp;<input type="text" name="state" onChange="resetZoneSelected(this.form);" maxlength="32">&nbsp;<?=ENTRY_STATE_TEXT;?></font></td>
           </tr>
 <?
    }

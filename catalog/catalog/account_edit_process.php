@@ -68,6 +68,12 @@
     $city_error = 0;
   }
 
+  if(ACCOUNT_STATE) {
+    $zone_id = $HTTP_POST_VARS['zone_id'];
+    if ($zone_id > 0) $state = "";
+    else $state = trim($HTTP_POST_VARS['state']);
+  }
+
   if ($HTTP_POST_VARS['country'] == '0') {
     $country_error = 1;
     $error = 1;
@@ -82,7 +88,8 @@
     $telephone_error = 0;
   }
 
-  if (strlen(trim($HTTP_POST_VARS['password'])) < ENTRY_PASSWORD_MIN_LENGTH) {
+  $passlen = strlen(trim($HTTP_POST_VARS['password']));
+  if ($passlen != 0 && $passlen < ENTRY_PASSWORD_MIN_LENGTH) {
     $password_error = 1;
     $error = 1;
   } else {
@@ -250,7 +257,7 @@
           <tr>
             <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;<?=ENTRY_STATE;?>&nbsp;</font></td>
             <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;<?
-    echo $HTTP_POST_VARS['zone_id'] . '<input type="hidden" name="zone_id" value="' . $HTTP_POST_VARS['zone_id'] . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
+    echo tep_get_zone_name($HTTP_POST_VARS['country'], $zone_id, $state) . '<input type="hidden" name="zone_id" value="' . $zone_id . '"><input type="hidden" name="state" value="' . $state . '">&nbsp;' . ENTRY_STATE_ERROR; ?></font></td>
           </tr>
 <?
   }
@@ -360,13 +367,16 @@
        if ($HTTP_POST_VARS['zone_id'] > 0) {
            $update_query = $update_query . "customers_zone_id = '" . $HTTP_POST_VARS['zone_id'] . "', customers_state = '', ";
        } else {
-           $update_query = $update_query . "customers_zone_id = '0', customers_state = '" . $HTTP_POST_VARS['state'] . "', ";
+           $update_query = $update_query . "customers_zone_id = '0', customers_state = '" . $state . "', ";
        }
     }
     // Encrypted password mods
     // Encrypt the plaintext password
-    $cryptpass = crypt_password($HTTP_POST_VARS['password']);
-    $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $cryptpass . "' where customers_id = '" . $customer_id . "'";
+    if ($passlen > 0) {
+       $cryptpass = crypt_password($HTTP_POST_VARS['password']);
+       $update_query = $update_query . "customers_password = '" . $cryptpass . "', ";
+    }
+    $update_query = $update_query . "customers_country_id = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "' where customers_id = '" . $customer_id . "'";
 
     tep_db_query($update_query);
     tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $customer_id . "'");
