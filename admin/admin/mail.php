@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: mail.php,v 1.15 2001/11/10 17:55:56 dgw_ Exp $
+  $Id: mail.php,v 1.16 2001/11/10 17:58:38 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
