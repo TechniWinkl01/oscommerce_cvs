@@ -40,18 +40,13 @@
 
 
 
+  $sendto = ($HTTP_POST_VARS['sendto']) ? $HTTP_POST_VARS['sendto'] : '1';
 
-  $sendto = $HTTP_POST_VARS['sendto'];
-  if ($sendto == '') {
-    $sendto = '1';
-  }
-  if (strlen(@$HTTP_POST_VARS['shipping_quote_all']) > 0) {
-    $shipping_quote_all = $HTTP_POST_VARS['shipping_quote_all'];
-  } else {
-    $shipping_quote_all = '1';
-  }
-    $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
+  $shipping_quote_all = ($HTTP_POST_VARS['shipping_quote_all']) ? $HTTP_POST_VARS['shipping_quote_all'] : '1';
+
+  $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
   $address_values = tep_db_fetch_array($address);
+
   $total_weight = $cart->show_weight();
   $total_count = $cart->count_contents();
 
@@ -64,7 +59,7 @@
     header('Location: ' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '' , $connection)); tep_exit();
   }
 
-  $include_file = DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT; include(DIR_WS_INCLUDES . 'include_once.php');
+  include(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CHECKOUT_PAYMENT);
   $location = ' : <a href="' . tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL') . '" class="whitelink">' . NAVBAR_TITLE_1 . '</a> : ' . NAVBAR_TITLE_2;
 
 // load payment modules as objects

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: authorizenet.php,v 1.18 2001/08/25 15:02:49 hpdl Exp $
+  $Id: authorizenet.php,v 1.19 2001/08/29 23:34:22 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -23,79 +23,71 @@
 
 // class methods
     function javascript_validation() {
-      if ($this->enabled) {
-        $validation_string = 'if (payment_value == "' . $this->code . '") {' . "\n" .
-                             '  var cc_number = document.payment.cc_number.value;' . "\n" .
-                             '  if (cc_number == "" || cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
-                             '    error_message = error_message + "' . MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_NUMBER . '";' . "\n" .
-                             '    error = 1;' . "\n" .
-                             '  }' . "\n" .
-                             '}' . "\n";
-        return $validation_string;
-      }
+      $validation_string = 'if (payment_value == "' . $this->code . '") {' . "\n" .
+                           '  var cc_number = document.payment.cc_number.value;' . "\n" .
+                           '  if (cc_number == "" || cc_number.length < ' . CC_NUMBER_MIN_LENGTH . ') {' . "\n" .
+                           '    error_message = error_message + "' . MODULE_PAYMENT_AUTHORIZENET_TEXT_JS_CC_NUMBER . '";' . "\n" .
+                           '    error = 1;' . "\n" .
+                           '  }' . "\n" .
+                           '}' . "\n";
+      return $validation_string;
     }
 
     function selection() {
-      global $HTTP_POST_VARS;
-
-      if ($this->enabled) {
-        for ($i=1; $i < 13; $i++) {
-          $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
-        }
-
-        $today = getdate(); 
-        for ($i=$today['year']; $i < $today['year']+10; $i++) {
-          $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
-        }
-
-        $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                            '  <tr>' . "\n" .
-                            '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
-                            '    <td class="main">&nbsp;' . tep_draw_input_field('cc_number') . '&nbsp;</td>' . "\n" .
-                            '  </tr>' . "\n" .
-                            '  <tr>' . "\n" .
-                            '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
-                            '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('cc_expires_month', $expires_month) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('cc_expires_year', $expires_year) . '</td>' . "\n" .
-                            '  </tr>' . "\n" .
-                            '</table>' . "\n";
-        return $selection_string;
+      for ($i=1; $i < 13; $i++) {
+        $expires_month[] = array('id' => sprintf('%02d', $i), 'text' => strftime('%B',mktime(0,0,0,$i,1,2000)));
       }
+
+      $today = getdate(); 
+      for ($i=$today['year']; $i < $today['year']+10; $i++) {
+        $expires_year[] = array('id' => strftime('%y',mktime(0,0,0,1,1,$i)), 'text' => strftime('%Y',mktime(0,0,0,1,1,$i)));
+      }
+
+      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_NUMBER . '&nbsp;</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_input_field('cc_number') . '&nbsp;</td>' . "\n" .
+                          '  </tr>' . "\n" .
+                          '  <tr>' . "\n" .
+                          '    <td class="main">&nbsp;' . MODULE_PAYMENT_AUTHORIZENET_TEXT_CREDIT_CARD_EXPIRES . '&nbsp;</td>' . "\n" .
+                          '    <td class="main">&nbsp;' . tep_draw_pull_down_menu('cc_expires_month', $expires_month) . '&nbsp;/&nbsp;' . tep_draw_pull_down_menu('cc_expires_year', $expires_year) . '</td>' . "\n" .
+                          '  </tr>' . "\n" .
+                          '</table>' . "\n";
+
+      return $selection_string;
     }
 
     function pre_confirmation_check() {
       global $HTTP_POST_VARS;
 
-      if ($this->enabled) {
-        include(DIR_WS_FUNCTIONS . 'ccval.php');
+      include(DIR_WS_FUNCTIONS . 'ccval.php');
 
-        $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
-        $cc_val = CCValidationSolution($cc_val);
+      $cc_val = OnlyNumericSolution($HTTP_POST_VARS['cc_number']);
+      $cc_val = CCValidationSolution($cc_val);
 
-        if ($cc_val != '1') {
-          $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val) . '&comments=' . urlencode($HTTP_POST_VARS['comments']);
-          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
-        }
+      if ($cc_val != '1') {
+        $payment_error_return = 'payment_error=' . $HTTP_POST_VARS['payment'] . '&cc_expires_month=' . $HTTP_POST_VARS['cc_expires_month'] . '&cc_expires_year=' . $HTTP_POST_VARS['cc_expires_year'] . '&shipping_selected=' . $HTTP_POST_VARS['shipping_selected'] . '&cc_val=' . urlencode($cc_val) . '&comments=' . urlencode($HTTP_POST_VARS['comments']);
+        header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, $payment_error_return, 'SSL'));
+        tep_exit();
       }
     }
 
     function confirmation() {
-      global $HTTP_POST_VARS, $CardName, $CardNumber, $checkout_form_action, $checkout_form_submit;
+      global $HTTP_POST_VARS, $CardName, $CardNumber, $checkout_form_action;
 
-      if ($this->enabled) {
-        $confirmation_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                               '  <tr>' . "\n" .
-                               '    <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
-                               '  </tr>' . "\n" .
-                               '  <tr>' . "\n" .
-                               '    <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
-                               '  </tr>' . "\n" .
-                               '  <tr>' . "\n" .
-                               '    <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
-                               '  </tr>' . "\n" .
-                               '</table>' . "\n";
+      $confirmation_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">&nbsp;' . TEXT_TYPE . '&nbsp;' . $CardName . '&nbsp;</td>' . "\n" .
+                             '  </tr>' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</td>' . "\n" .
+                             '  </tr>' . "\n" .
+                             '  <tr>' . "\n" .
+                             '    <td class="main">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B/%Y', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'], 1, '20' . $HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</td>' . "\n" .
+                             '  </tr>' . "\n" .
+                             '</table>' . "\n";
 
-        $checkout_form_action = 'https://www.authorize.net/gateway/transact.dll';
-      }
+      $checkout_form_action = 'https://www.authorize.net/gateway/transact.dll';
 
       return $confirmation_string;
     }
@@ -103,31 +95,28 @@
     function process_button() {
       global $HTTP_POST_VARS, $CardNumber, $total_cost, $total_tax, $shipping_cost, $customer_id;
 
-      if ($this->enabled) {
-        $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
-                                 tep_draw_hidden_field('x_Card_Num', $CardNumber) .
-                                 tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
-                                 tep_draw_hidden_field('x_Amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
-                                 tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
-                                 tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL')) .
-                                 tep_draw_hidden_field('x_Version', '3.0') .
-                                 tep_draw_hidden_field('x_Cust_ID', $customer_id);
+      $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
+                               tep_draw_hidden_field('x_Card_Num', $CardNumber) .
+                               tep_draw_hidden_field('x_Exp_Date', $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year']) .
+                               tep_draw_hidden_field('x_Amount', number_format($total_cost + $total_tax + $shipping_cost, 2)) .
+                               tep_draw_hidden_field('x_ADC_Relay_Response', 'TRUE') .
+                               tep_draw_hidden_field('x_ADC_URL', tep_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', true)) .
+                               tep_draw_hidden_field('x_Version', '3.0') .
+                               tep_draw_hidden_field('x_Cust_ID', $customer_id);
 
-        if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == '1') {
-          $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
-        }
-      }
+      if (MODULE_PAYMENT_AUTHORIZENET_TESTMODE == '1') $process_button_string .= tep_draw_hidden_field('x_Test_Request', 'TRUE');
+
+//      if (!SID) $process_button_string .= tep_draw_hidden_field(tep_session_name(), tep_session_id());
 
       return $process_button_string;
     }
 
     function before_process() {
-      global $payment, $HTTP_POST_VARS;
+      global $HTTP_POST_VARS;
 
-      if ($payment == $this->code) {
-        if ($HTTP_POST_VARS['x_response_code'] != '1') {
-          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL'));
-        }
+      if ($HTTP_POST_VARS['x_response_code'] != '1') {
+        header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_AUTHORIZENET_TEXT_ERROR_MESSAGE), 'SSL'));
+        tep_exit();
       }
     }
 

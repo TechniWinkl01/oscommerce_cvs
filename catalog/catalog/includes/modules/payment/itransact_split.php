@@ -1,6 +1,6 @@
 <?
 /*
-  $Id: itransact_split.php,v 1.5 2001/08/25 19:52:48 hpdl Exp $
+  $Id: itransact_split.php,v 1.6 2001/08/29 23:34:23 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -39,153 +39,150 @@
     }
 
     function confirmation() {
- 	global $checkout_form_action;
-      if ($this->enabled) {
-          $checkout_form_action = MODULE_PAYMENT_ITRANSACT_SPLIT_CHECKOUT_FORM_ACTION;
-        }
+     global $checkout_form_action;
+
+        $checkout_form_action = MODULE_PAYMENT_ITRANSACT_SPLIT_CHECKOUT_FORM_ACTION;
     }
 
     function process_button() {
       global $HTTP_POST_VARS, $total_tax, $shipping_cost, $comments, $total_cost, $db_link, $customer_id, $products, $attributes_for_itransact;
 
-      if ($this->enabled) {
-        $customer_query = tep_db_query("select customers_firstname, customers_lastname, customers_telephone, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
-        $customer = tep_db_fetch_array($customer_query);
+      $customer_query = tep_db_query("select customers_firstname, customers_lastname, customers_telephone, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . $customer_id . "'");
+      $customer = tep_db_fetch_array($customer_query);
 
-        $address_book_query = tep_db_query("select entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_city, entry_postcode, entry_state, entry_zone_id, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "'");
-        $address_book = tep_db_fetch_array($address_book_query);
-        $customers_country = tep_get_countries($address_book['entry_country_id']);
+      $address_book_query = tep_db_query("select entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_city, entry_postcode, entry_state, entry_zone_id, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "'");
+      $address_book = tep_db_fetch_array($address_book_query);
+      $customers_country = tep_get_countries($address_book['entry_country_id']);
 
-        $sig_rand_query = tep_db_query("select sig_rand_begun, auth_id, status from orders_itransact_auth where sesskey_begun = '" . tep_session_id() . "' and orders_id is NULL and status = 'begun' order by auth_id DESC limit 1");
-        $sig_rand = tep_db_fetch_array($sig_rand_query);
-        $sig_rand_begun = $sig_rand['sig_rand_begun'];
+      $sig_rand_query = tep_db_query("select sig_rand_begun, auth_id, status from orders_itransact_auth where sesskey_begun = '" . tep_session_id() . "' and orders_id is NULL and status = 'begun' order by auth_id DESC limit 1");
+      $sig_rand = tep_db_fetch_array($sig_rand_query);
+      $sig_rand_begun = $sig_rand['sig_rand_begun'];
 
-        if (!$sig_rand_begun || $status == 'begun') {
-          $sig_rand_begun = tep_create_random_value(16, 'digits');
-          tep_db_query("insert into orders_itransact_auth (customer_id, sig_rand_begun, gateway_id_begun, total_begun, sesskey_begun, status, datetime_begun) values ('" . $customer_id . "','" . $sig_rand_begun . "', '" . MODULE_PAYMENT_ITRANSACT_SPLIT_GATEWAY_ID . "', '" . (number_format($total_cost + $total_tax + $shipping_cost, 2)) . "', '" . tep_session_id() . "', 'begun', now())");
-          $auth_id_query = tep_db_query("select auth_id from orders_itransact_auth where sesskey_begun = '" . tep_session_id() . "' and orders_id is NULL and status = 'begun' order by auth_id DESC limit 1");
-          $auth_id = tep_db_fetch_array($auth_id_query);
-          $auth_id = $auth_id['auth_id'];
-        } else {
-          tep_db_query("update orders_itransact_auth set customer_id = '" . $customer_id . "', total_begun = '" . (number_format($total_cost + $total_tax + $shipping_cost, 2)) . "', datetime_begun = now(), status = 'begun', gateway_id_begun = '" . MODULE_PAYMENT_ITRANSACT_SPLIT_GATEWAY_ID . "' where sig_rand_begun = '" . $sig_rand_begun . "'");
-          $auth_id = $sig_rand['auth_id'];
-        }
+      if (!$sig_rand_begun || $status == 'begun') {
+        $sig_rand_begun = tep_create_random_value(16, 'digits');
+        tep_db_query("insert into orders_itransact_auth (customer_id, sig_rand_begun, gateway_id_begun, total_begun, sesskey_begun, status, datetime_begun) values ('" . $customer_id . "','" . $sig_rand_begun . "', '" . MODULE_PAYMENT_ITRANSACT_SPLIT_GATEWAY_ID . "', '" . (number_format($total_cost + $total_tax + $shipping_cost, 2)) . "', '" . tep_session_id() . "', 'begun', now())");
+        $auth_id_query = tep_db_query("select auth_id from orders_itransact_auth where sesskey_begun = '" . tep_session_id() . "' and orders_id is NULL and status = 'begun' order by auth_id DESC limit 1");
+        $auth_id = tep_db_fetch_array($auth_id_query);
+        $auth_id = $auth_id['auth_id'];
+      } else {
+        tep_db_query("update orders_itransact_auth set customer_id = '" . $customer_id . "', total_begun = '" . (number_format($total_cost + $total_tax + $shipping_cost, 2)) . "', datetime_begun = now(), status = 'begun', gateway_id_begun = '" . MODULE_PAYMENT_ITRANSACT_SPLIT_GATEWAY_ID . "' where sig_rand_begun = '" . $sig_rand_begun . "'");
+        $auth_id = $sig_rand['auth_id'];
+      }
 
 // setup passback variables
-        $process_button_string = tep_draw_hidden_field(tep_session_name(), tep_session_id()) .
-                                 tep_draw_hidden_field('passback[]', 'prod') .
-                                 tep_draw_hidden_field('passback[]', 'sendto') .
-                                 tep_draw_hidden_field('passback[]', 'payment') .
-                                 tep_draw_hidden_field('passback[]', 'comments') .
-                                 tep_draw_hidden_field('passback[]', 'shipping_cost') .
-                                 tep_draw_hidden_field('passback[]', 'shipping_method') .
-                                 tep_draw_hidden_field('passback[]', 'vendor_id') .
-                                 tep_draw_hidden_field('passback[]', tep_session_name()) .
-                                 tep_draw_hidden_field('passback[]', 'sig_rand') .
-                                 tep_draw_hidden_field('passback[]', 'auth_id') .
-                                 tep_draw_hidden_field('sig_rand', $sig_rand) .
-                                 tep_draw_hidden_field('auth_id', $auth_id);
+      $process_button_string = tep_draw_hidden_field(tep_session_name(), tep_session_id()) .
+                               tep_draw_hidden_field('passback[]', 'prod') .
+                               tep_draw_hidden_field('passback[]', 'sendto') .
+                               tep_draw_hidden_field('passback[]', 'payment') .
+                               tep_draw_hidden_field('passback[]', 'comments') .
+                               tep_draw_hidden_field('passback[]', 'shipping_cost') .
+                               tep_draw_hidden_field('passback[]', 'shipping_method') .
+                               tep_draw_hidden_field('passback[]', 'vendor_id') .
+                               tep_draw_hidden_field('passback[]', tep_session_name()) .
+                               tep_draw_hidden_field('passback[]', 'sig_rand') .
+                               tep_draw_hidden_field('passback[]', 'auth_id') .
+                               tep_draw_hidden_field('sig_rand', $sig_rand) .
+                               tep_draw_hidden_field('auth_id', $auth_id);
 
 // setup lookups
-        $process_button_string .= tep_draw_hidden_field('lookup[]', 'xid') .
-                                  tep_draw_hidden_field('lookup[]', 'authcode') .
-                                  tep_draw_hidden_field('lookup[]', 'avs_response') .
-                                  tep_draw_hidden_field('lookup[]', 'when') .
-                                  tep_draw_hidden_field('lookup[]', 'total') .
-                                  tep_draw_hidden_field('lookup[]', 'cc_last_four') .
-                                  tep_draw_hidden_field('lookup[]', 'test_mode');
+      $process_button_string .= tep_draw_hidden_field('lookup[]', 'xid') .
+                                tep_draw_hidden_field('lookup[]', 'authcode') .
+                                tep_draw_hidden_field('lookup[]', 'avs_response') .
+                                tep_draw_hidden_field('lookup[]', 'when') .
+                                tep_draw_hidden_field('lookup[]', 'total') .
+                                tep_draw_hidden_field('lookup[]', 'cc_last_four') .
+                                tep_draw_hidden_field('lookup[]', 'test_mode');
 
 // setup tep variables for split form layout
-        $process_button_string .= tep_draw_hidden_field('header_title', TITLE) .
-                                  tep_draw_hidden_field('header_title_my_account', HEADER_TITLE_MY_ACCOUNT) .
-                                  tep_draw_hidden_field('header_title_cart_contents', HEADER_TITLE_CART_CONTENTS) .
-                                  tep_draw_hidden_field('header_title_checkout', HEADER_TITLE_CHECKOUT) .
-                                  tep_draw_hidden_field('header_title_top', HEADER_TITLE_TOP) .
-                                  tep_draw_hidden_field('header_title_catalog', HEADER_TITLE_CATALOG) .
-                                  tep_draw_hidden_field('header_title_login', HEADER_TITLE_LOGIN) .
-                                  tep_draw_hidden_field('header_accept_cards', MODULE_PAYMENT_ITRANSACT_SPLIT_CARDS) .
-                                  tep_draw_hidden_field('header_accept_eft', MODULE_PAYMENT_ITRANSACT_SPLIT_EFT);
+      $process_button_string .= tep_draw_hidden_field('header_title', TITLE) .
+                                tep_draw_hidden_field('header_title_my_account', HEADER_TITLE_MY_ACCOUNT) .
+                                tep_draw_hidden_field('header_title_cart_contents', HEADER_TITLE_CART_CONTENTS) .
+                                tep_draw_hidden_field('header_title_checkout', HEADER_TITLE_CHECKOUT) .
+                                tep_draw_hidden_field('header_title_top', HEADER_TITLE_TOP) .
+                                tep_draw_hidden_field('header_title_catalog', HEADER_TITLE_CATALOG) .
+                                tep_draw_hidden_field('header_title_login', HEADER_TITLE_LOGIN) .
+                                tep_draw_hidden_field('header_accept_cards', MODULE_PAYMENT_ITRANSACT_SPLIT_CARDS) .
+                                tep_draw_hidden_field('header_accept_eft', MODULE_PAYMENT_ITRANSACT_SPLIT_EFT);
 
 /*
   Format description, cost, and quantity for each item.  These are used in the email
   sent by iTransact, and are required to determine the transaction total.
   This uses global $products.
 */
-        for ($i=0; $i<sizeof($products); $i++) {
-          $item_num = $i;
-          $item_num++;
-          $products_name = $products[$i]['name'];
-          $products_price = $products[$i]['price'];
-          $products_quantity = $products[$i]['quantity'];
-          $products_options_name = $attributes_values[$i]['products_options_name'];
+      for ($i=0; $i<sizeof($products); $i++) {
+        $item_num = $i;
+        $item_num++;
+        $products_name = $products[$i]['name'];
+        $products_price = $products[$i]['price'];
+        $products_quantity = $products[$i]['quantity'];
+        $products_options_name = $attributes_values[$i]['products_options_name'];
 
-          $process_button_string .= tep_draw_hidden_field('item_' . $item_num . '_desc', $products_name) .
-                                    tep_draw_hidden_field('item_' . $item_num . '_cost', $products_price) .
-                                    tep_draw_hidden_field('item_' . $item_num . '_qty', $products_quantity);
+        $process_button_string .= tep_draw_hidden_field('item_' . $item_num . '_desc', $products_name) .
+                                  tep_draw_hidden_field('item_' . $item_num . '_cost', $products_price) .
+                                  tep_draw_hidden_field('item_' . $item_num . '_qty', $products_quantity);
 
 // Check for product attributes.  If they exist, format them for each item. as above.
-          if ($attributes_for_itransact) {
-            for ($num=0; $num<sizeof($attributes_for_itransact); $num++) {
-              $item_num = $i;
-              $item_num++;
-              $attrib_name = $attributes_for_itransact['name'];
-              $attrib_value = $attributes_for_itransact['value'];
+        if ($attributes_for_itransact) {
+          for ($num=0; $num<sizeof($attributes_for_itransact); $num++) {
+            $item_num = $i;
+            $item_num++;
+            $attrib_name = $attributes_for_itransact['name'];
+            $attrib_value = $attributes_for_itransact['value'];
 
-              if ($attrib_value[$i . $num]) {
-		   	    $process_button_string .= tep_draw_hidden_field('item_' . $item_num . '_' . $attrib_name[$i . $num], $attrib_value[$i . $num]);
-              }
+            if ($attrib_value[$i . $num]) {
+              $process_button_string .= tep_draw_hidden_field('item_' . $item_num . '_' . $attrib_name[$i . $num], $attrib_value[$i . $num]);
             }
           }
         }
+      }
 
-        if ($shipping_cost) {
-          $process_button_string .= tep_draw_hidden_field('98_desc', 'Shipping') .
-                                    tep_draw_hidden_field('98_cost', number_format($shipping_cost,2)) .
-                                    tep_draw_hidden_field('98_qty', '1');
-        }
+      if ($shipping_cost) {
+        $process_button_string .= tep_draw_hidden_field('98_desc', 'Shipping') .
+                                  tep_draw_hidden_field('98_cost', number_format($shipping_cost,2)) .
+                                  tep_draw_hidden_field('98_qty', '1');
+      }
 
-        if ($total_tax) {
-          $process_button_string .= tep_draw_hidden_field('99_desc', 'Tax') .
-                                    tep_draw_hidden_field('99_cost', number_format($total_tax,2)) .
-                                    tep_draw_hidden_field('99_qty', '1');
-        }
+      if ($total_tax) {
+        $process_button_string .= tep_draw_hidden_field('99_desc', 'Tax') .
+                                  tep_draw_hidden_field('99_cost', number_format($total_tax,2)) .
+                                  tep_draw_hidden_field('99_qty', '1');
+      }
 
 // setup merchant and customer variables
-        $process_button_string .= tep_draw_hidden_field('vendor_id', MODULE_PAYMENT_ITRANSACT_SPLIT_GATEWAY_ID) .
-                                  tep_draw_hidden_field('home_page', HTTP_SERVER) .
-                                  tep_draw_hidden_field('ret_addr', MODULE_PAYMENT_ITRANSACT_RETURN_ADDRESS);
+      $process_button_string .= tep_draw_hidden_field('vendor_id', MODULE_PAYMENT_ITRANSACT_SPLIT_GATEWAY_ID) .
+                                tep_draw_hidden_field('home_page', HTTP_SERVER) .
+                                tep_draw_hidden_field('ret_addr', MODULE_PAYMENT_ITRANSACT_RETURN_ADDRESS);
 
-        if ( (MODULE_PAYMENT_ITRANSACT_RETURN_MODE == 'post') || (MODULE_PAYMENT_ITRANSACT_RETURN_MODE == 'redirect') ) {
-          $process_button_string .= tep_draw_hidden_field('ret_mode', MODULE_PAYMENT_ITRANSACT_RETURN_MODE);
-        }
+      if ( (MODULE_PAYMENT_ITRANSACT_RETURN_MODE == 'post') || (MODULE_PAYMENT_ITRANSACT_RETURN_MODE == 'redirect') ) {
+        $process_button_string .= tep_draw_hidden_field('ret_mode', MODULE_PAYMENT_ITRANSACT_RETURN_MODE);
+      }
 
 // This will be used for future versions.
-        if (MODULE_PAYMENT_ITRANSACT_ON_ERROR == '1') {
-          $process_button_string .= tep_draw_hidden_field('post_back_on_error', '1');
-        }
+      if (MODULE_PAYMENT_ITRANSACT_ON_ERROR == '1') {
+        $process_button_string .= tep_draw_hidden_field('post_back_on_error', '1');
+      }
 
-        $process_button_string .= tep_draw_hidden_field('email_text', $comments) .
-                                  tep_draw_hidden_field('first_name', $address_book['entry_firstname']) .
-                                  tep_draw_hidden_field('last_name', $address_book['entry_lastname']) .
-                                  tep_draw_hidden_field('address', $address_book['entry_street_address']) .
-                                  tep_draw_hidden_field('city', $address_book['entry_city']) .
-                                  tep_draw_hidden_field('zip', $address_book['entry_postcode']) .
-                                  tep_draw_hidden_field('country', $customers_country) .
-                                  tep_draw_hidden_field('email', $customer['customers_email_address']) .
-                                  tep_draw_hidden_field('phone', $customer['customers_telephone']);
+      $process_button_string .= tep_draw_hidden_field('email_text', $comments) .
+                                tep_draw_hidden_field('first_name', $address_book['entry_firstname']) .
+                                tep_draw_hidden_field('last_name', $address_book['entry_lastname']) .
+                                tep_draw_hidden_field('address', $address_book['entry_street_address']) .
+                                tep_draw_hidden_field('city', $address_book['entry_city']) .
+                                tep_draw_hidden_field('zip', $address_book['entry_postcode']) .
+                                tep_draw_hidden_field('country', $customers_country) .
+                                tep_draw_hidden_field('email', $customer['customers_email_address']) .
+                                tep_draw_hidden_field('phone', $customer['customers_telephone']);
 
 // Include the state.
-        $state = tep_get_zone_code($address_book['entry_country_id'], $address_book['entry_zone_id'], '');
-        if (!$state) $state = $address_book['entry_state'];
-        $process_button_string .= tep_draw_hidden_field('state', $state);
+      $state = tep_get_zone_code($address_book['entry_country_id'], $address_book['entry_zone_id'], '');
+      if (!$state) $state = $address_book['entry_state'];
+      $process_button_string .= tep_draw_hidden_field('state', $state);
 
 // Create hidden inputs for card images on Split Form
-        $process_button_string .= tep_draw_hidden_field('header_visa_image', MODULE_PAYMENT_ITRANSACT_SPLIT_VISAMC) .
-                                  tep_draw_hidden_field('header_mc_image', MODULE_PAYMENT_ITRANSACT_SPLIT_VISAMC) .
-                                  tep_draw_hidden_field('header_amex_image', MODULE_PAYMENT_ITRANSACT_SPLIT_AMEX) .
-                                  tep_draw_hidden_field('header_disc_image', MODULE_PAYMENT_ITRANSACT_SPLIT_DISC) .
-                                  tep_draw_hidden_field('header_diner_image', MODULE_PAYMENT_ITRANSACT_SPLIT_DINER);
-      }
+      $process_button_string .= tep_draw_hidden_field('header_visa_image', MODULE_PAYMENT_ITRANSACT_SPLIT_VISAMC) .
+                                tep_draw_hidden_field('header_mc_image', MODULE_PAYMENT_ITRANSACT_SPLIT_VISAMC) .
+                                tep_draw_hidden_field('header_amex_image', MODULE_PAYMENT_ITRANSACT_SPLIT_AMEX) .
+                                tep_draw_hidden_field('header_disc_image', MODULE_PAYMENT_ITRANSACT_SPLIT_DISC) .
+                                tep_draw_hidden_field('header_diner_image', MODULE_PAYMENT_ITRANSACT_SPLIT_DINER);
 
       return $process_button_string;
     }
@@ -202,15 +199,15 @@
   3.  Die - Something bad happened.  (internal error)
 */
     function before_process() {
-      global $payment, $authcode, $err, $die;
+      global $HTTP_POST_VARS;
 
-      if ( ($payment == $this->code) && (($die == '1') || ($err)) ) {
-        if ($die == '1') {
+      if ( ($HTTP_POST_VARS['payment'] == $this->code) && (($HTTP_POST_VARS['die'] == '1') || ($HTTP_POST_VARS['err'])) ) {
+        if ($HTTP_POST_VARS['die'] == '1') {
           header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_ITRANSACT_SPLIT_TEXT_DIE_MESSAGE), 'SSL'));
           tep_exit();
         }
-        if ($err) {
-          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode($err), 'SSL'));
+        if ($HTTP_POST_VARS['err']) {
+          header('Location: ' . tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode($HTTP_POST_VARS['err']), 'SSL'));
           tep_exit();
         }
       }

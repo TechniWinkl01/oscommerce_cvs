@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: sample.php,v 1.14 2001/08/23 21:35:25 hpdl Exp $
+  $Id: sample.php,v 1.15 2001/08/29 23:34:24 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -28,9 +28,7 @@
 // Check the user input submited on checkout_payment.php with javascript (client-side).
 // Examples: validate credit card number, make sure required fields are filled in
     function javascript_validation() {
-      if ($this->enabled) {
 // insert code here
-      }
     }
 
 ////
@@ -38,9 +36,7 @@
 // Output any required information in form fields
 // Examples: ask for extra fields (credit card number), display extra information
     function selection() {
-      if ($this->enabled) {
 // insert code here
-      }
     }
 
 ////
@@ -55,36 +51,28 @@
 // Note: Set the variable $checkout_form_action to set the form action value
 // Examples: validate (server-side with PHP) extra fields, redirect to online payment services (eg, PayPal)
     function confirmation() {
-      if ($this->enabled) {
 // insert code here
-      }
     }
 
 ////
 // !Functions to execute before finishing the form
 // Examples: add extra hidden fields to the form
     function process_button() {
-      if ($this->enabled) {
 // insert code here
-      }
     }
 
 ////
 // !Functions to execute before processing the order
 // Examples: retreive result from online payment services
     function before_process() {
-      if ($this->enabled) {
 // insert code here
-      }
     }
 
 ////
 // !Functions to execute after processing the order
 // Examples: email part of the credit card number
     function after_process() {
-      if ($this->enabled) {
 // insert code here
-      }
     }
 
 ////

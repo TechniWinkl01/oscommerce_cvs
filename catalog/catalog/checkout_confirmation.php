@@ -243,7 +243,7 @@
 
   echo '<form name="checkout_confirmation" method="post" action="' . $checkout_form_action . '">';
 
-  if ($comments) {
+  if ($HTTP_POST_VARS['comments']) {
 ?>
           <tr>
             <td class="main">&nbsp;</td>
@@ -255,7 +255,7 @@
             <td><? echo tep_black_line(); ?></td>
           </tr>
           <tr>
-            <td class="main"><? echo '&nbsp;' . nl2br(stripslashes($comments)); ?></td>
+            <td class="main"><? echo '&nbsp;' . nl2br(stripslashes($HTTP_POST_VARS['comments'])); ?></td>
           </tr>
 <?
   }
@@ -308,7 +308,7 @@
   echo tep_draw_hidden_field('prod', $HTTP_POST_VARS['prod']) .
        tep_draw_hidden_field('sendto', $HTTP_POST_VARS['sendto']) .
        tep_draw_hidden_field('payment', $HTTP_POST_VARS['payment']) .
-       tep_draw_hidden_field('comments', urlencode(stripslashes($comments))) .
+       tep_draw_hidden_field('comments', $HTTP_POST_VARS['comments']) .
        tep_draw_hidden_field('shipping_cost', $shipping_cost) .
        tep_draw_hidden_field('shipping_method', $shipping_method) .
        $payment_modules->process_button();

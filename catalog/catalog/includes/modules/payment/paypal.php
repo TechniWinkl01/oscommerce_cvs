@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: paypal.php,v 1.20 2001/08/25 16:35:21 hpdl Exp $
+  $Id: paypal.php,v 1.21 2001/08/29 23:34:23 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -37,40 +37,28 @@
     function confirmation() {
 	  global $checkout_form_action;
 
-      if ($this->enabled) {
-        $checkout_form_action = 'https://secure.paypal.com/cgi-bin/webscr';
-      }
+      $checkout_form_action = 'https://secure.paypal.com/cgi-bin/webscr';
     }
 
     function process_button() {
       global $HTTP_POST_VARS, $shipping_selected, $shipping_cost, $shipping_method, $comments, $total_cost, $total_tax, $currency_rates;
 
-	  if ($this->enabled) {
-        $paypal_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method) . '&comments=' . urlencode($comments);
-        $paypal_cancel_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&comments=' . urlencode($comments);
+      $paypal_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&shipping_cost=' . $shipping_cost . '&shipping_method=' . urlencode($shipping_method) . '&comments=' . urlencode($comments);
+      $paypal_cancel_return = 'payment=' . $HTTP_POST_VARS['payment'] . '&sendto=' . $HTTP_POST_VARS['sendto'] . '&shipping_selected=' . $shipping_selected . '&comments=' . urlencode($comments);
 
-        $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
-                                 tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
-                                 tep_draw_hidden_field('item_name', STORE_NAME) .
-                                 tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2)) .
-                                 tep_draw_hidden_field('shipping', number_format($shipping_cost * $currency_rates['USD'], 2)) .
-                                 tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, $paypal_return, 'SSL')) .
-                                 tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, $paypal_cancel_return, 'SSL'));
-      }
+      $process_button_string = tep_draw_hidden_field('cmd', '_xclick') .
+                               tep_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
+                               tep_draw_hidden_field('item_name', STORE_NAME) .
+                               tep_draw_hidden_field('amount', number_format(($total_cost + $total_tax) * $currency_rates['USD'], 2)) .
+                               tep_draw_hidden_field('shipping', number_format($shipping_cost * $currency_rates['USD'], 2)) .
+                               tep_draw_hidden_field('return', tep_href_link(FILENAME_CHECKOUT_PROCESS, $paypal_return, 'SSL')) .
+                               tep_draw_hidden_field('cancel_return', tep_href_link(FILENAME_CHECKOUT_PAYMENT, $paypal_cancel_return, 'SSL'));
 
       return $process_button_string;
     }
 
     function before_process() {
-      global $HTTP_GET_VARS, $payment, $sendto, $shipping_cost, $shipping_method, $comments;
-
-      if ($this->enabled) {
-        $payment = $HTTP_GET_VARS['payment'];
-        $sendto = $HTTP_GET_VARS['sendto'];
-        $shipping_cost = $HTTP_GET_VARS['shipping_cost'];
-        $shipping_method = urldecode($HTTP_GET_VARS['shipping_method']);
-        $comments = urldecode($HTTP_GET_VARS['comments']);
-      }
+      return false;
     }
 
     function after_process() {
