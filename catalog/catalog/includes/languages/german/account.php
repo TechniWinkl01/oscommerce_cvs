@@ -9,7 +9,7 @@ define('NAVBAR_TITLE', 'Mein Konto');
 define('TOP_BAR_TITLE', 'Mein Konto');
 define('HEADING_TITLE', 'Information &uuml;ber mein Konto');
 
-define('IMAGE_EDIT_ACCOUNT', 'Konto &Auml;nderung');
+define('IMAGE_EDIT_ACCOUNT', 'Konto &auml;ndern');
 define('IMAGE_ADDRESS_BOOK', 'Adre&szlig;buch');
-define('IMAGE_HISTORY', 'Vorherige Bestellung');
+define('IMAGE_HISTORY', 'Vorherige Bestellung(en)');
 ?>

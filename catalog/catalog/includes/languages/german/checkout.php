@@ -6,19 +6,19 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
 define('NAVBAR_TITLE_1', 'Kasse');
-define('NAVBAR_TITLE_2', 'Einkaufswagen Inhalt');
-define('TOP_BAR_TITLE', 'Bestellungswegweiser');
-define('HEADING_TITLE', 'Ich bin zum Einkauf bereit!');
-define('TABLE_HEADING_QUANTITY', 'Menge');
-define('TABLE_HEADING_PRODUCTS', 'Produkte');
+define('NAVBAR_TITLE_2', 'Ihr Warenkorb');
+define('TOP_BAR_TITLE', 'Bestellungsassistent');
+define('HEADING_TITLE', 'Ich m&ouml;chte bestellen !');
+define('TABLE_HEADING_QUANTITY', 'Anzahl');
+define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_TOTAL', 'Summe');
-define('TEXT_CART_EMPTY', 'Ihr Einkaufswagen ist leer!');
+define('TEXT_CART_EMPTY', 'Ihr Warenkorb ist leer!');
 define('SUB_TITLE_SUB_TOTAL', 'Zwischensumme:');
-define('SUB_TITLE_TAX', 'Mwst. ('. TAX_VALUE . '%):');
-define('SUB_TITLE_TOTAL', 'Summe:');
+define('SUB_TITLE_TAX', 'MwSt. ('. TAX_VALUE . '%):');
+define('SUB_TITLE_TOTAL', 'Endsumme:');
 define('TEXT_CURRENT_CONNECT_STATUS_NONSSL', 'Aktueller Status (klick zu &auml;ndern)');
 define('TEXT_CURRENT_CONNECT_STATUS_SSL', 'Aktueller Status (klick zu &auml;ndern)');
-define('NO_SHIPPING_OR_TAX_TEXT', 'Anmerkung: Verschiffen und Steuer können zusätzliche Ladungen sein und werden angezeigt werden, bevor Ordnung verarbeitet wird.');
+define('NO_SHIPPING_OR_TAX_TEXT', 'Anmerkung: Versand und Steuer sind separate Summen und werden am Ende angezeigt.');
 
 define('IMAGE_SECURE_SERVER', 'Sicherheits-Server');
 define('IMAGE_UNSECURE_SERVER', 'Standard-Server');

@@ -7,13 +7,13 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
 define('NAVBAR_TITLE_2', 'Adre&szlig;buch');
-define('NAVBAR_TITLE_ADD_ENTRY', 'Neue Eintr&auml;ge');
-define('NAVBAR_TITLE_MODIFY_ENTRY', 'Eingabe &Auml;nderung');
-define('TOP_BAR_TITLE_ADD_ENTRY', 'Neue Adre&szlig;bucheintr&auml;ge');
-define('TOP_BAR_TITLE_MODIFY_ENTRY', 'Eingabe &Auml;nderung');
-define('HEADING_TITLE_ADD_ENTRY', 'Neue Adre&szlig;bucheintr&auml;ge');
-define('HEADING_TITLE_MODIFY_ENTRY', 'Adre&szlig;bucheintr&auml;ge');
-define('PLEASE_SELECT', '-- Bitte W&auml;hlen --');
+define('NAVBAR_TITLE_ADD_ENTRY', 'Neuer Eintrag');
+define('NAVBAR_TITLE_MODIFY_ENTRY', '&Auml;nderung Ihres Eintrags');
+define('TOP_BAR_TITLE_ADD_ENTRY', 'Neuer Adre&szlig;bucheintag');
+define('TOP_BAR_TITLE_MODIFY_ENTRY', '&Auml;nderung Ihres Eintrags');
+define('HEADING_TITLE_ADD_ENTRY', 'Neuer Adre&szlig;bucheintrag');
+define('HEADING_TITLE_MODIFY_ENTRY', 'Adre&szlig;bucheintrag');
+define('PLEASE_SELECT', '-- Bitte w&auml;hlen --');
 
 define('IMAGE_INSERT', 'Einf&uuml;gen');
 define('IMAGE_CANCEL', 'Abbrechen');

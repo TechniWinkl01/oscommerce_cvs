@@ -6,22 +6,22 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
-define('NAVBAR_TITLE_2', 'Vorherige Bestellung');
-define('NAVBAR_TITLE_3', 'Bestellunginformation');
-define('TOP_BAR_TITLE', 'Vorherige Bestellung');
+define('NAVBAR_TITLE_2', 'Get&auml;tigte Bestellung');
+define('NAVBAR_TITLE_3', 'Bestellinformation');
+define('TOP_BAR_TITLE', 'Get&auml;tigte Bestellung');
 define('HEADING_TITLE', 'Bestellinformation');
-define('TABLE_HEADING_QUANTITY', 'Menge');
-define('TABLE_HEADING_PRODUCT', 'Produkte');
-define('TABLE_HEADING_TAX', 'Mwst.');
+define('TABLE_HEADING_QUANTITY', 'Anzahl');
+define('TABLE_HEADING_PRODUCT', 'Artikel');
+define('TABLE_HEADING_TAX', 'MwSt.');
 define('TABLE_HEADING_TOTAL', 'Summe');
-define('TABLE_HEADING_DELIVERY_ADDRESS', 'Lieferadresse');
-define('TABLE_HEADING_PAYMENT_METHOD', 'Zahlungs Methode');
+define('TABLE_HEADING_DELIVERY_ADDRESS', 'Lieferanschrift');
+define('TABLE_HEADING_PAYMENT_METHOD', 'Zahlungsweise');
 define('TABLE_SUBHEADING_SUBTOTAL', 'Zwischensumme:');
-define('TABLE_SUBHEADING_TAX', 'Mwst.');
+define('TABLE_SUBHEADING_TAX', 'MwSt.');
 define('TABLE_SUBHEADING_SHIPPING', 'Versandkosten:');
 define('TABLE_SUBHEADING_TOTAL', 'Summe:');
 define('TEXT_COD', 'Nachnahme');
-define('TEXT_CC', 'Kredit Karte');
+define('TEXT_CC', 'Kreditkarte');
 
 define('IMAGE_BACK', 'Zur&uuml;ck');
 ?>

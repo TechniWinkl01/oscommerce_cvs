@@ -6,15 +6,15 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
-define('NAVBAR_TITLE_2', 'Vorherige Bestellung');
-define('TOP_BAR_TITLE', 'Vorherige Bestellung');
-define('HEADING_TITLE', 'Meine vorherige Bestellung');
-define('TABLE_HEADING_ORDER_NUMBER', 'Bestell-Nr.');
-define('TABLE_HEADING_ORDER_DATE', 'Bestell-Datum');
-define('TABLE_HEADING_ORDER_QUANTITY', 'Bestell-Menge');
-define('TABLE_HEADING_ORDER_COST', 'Bestell-Preis');
+define('NAVBAR_TITLE_2', 'get&auml;tigte Bestellungen');
+define('TOP_BAR_TITLE', 'get&auml;tigte Bestellungen');
+define('HEADING_TITLE', 'Meine get&auml;tigten Bestellungen');
+define('TABLE_HEADING_ORDER_NUMBER', 'Bestellnr.');
+define('TABLE_HEADING_ORDER_DATE', 'Bestelldatum');
+define('TABLE_HEADING_ORDER_QUANTITY', 'Anzahl');
+define('TABLE_HEADING_ORDER_COST', 'Preis');
 define('TEXT_NO_PURCHASES', 'Sie haben noch keine Bestellung get&auml;tigt..');
-define('TABLE_TEXT', 'Um ihre Bestellinformation zuabfragen, klicken Sie auf den \'Bestell-Datum\' link');
+define('TABLE_TEXT', 'Um ihre Bestellinformation abzufragen, klicken Sie auf das \'Bestell-Datum\'');
 
 define('IMAGE_BACK', 'Zur&uuml;ck');
 ?>

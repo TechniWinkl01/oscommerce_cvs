@@ -6,10 +6,10 @@ Author(s): Harald Ponce de Leon (hpdl@theexchangeproject.org)
 */
 
 define('NAVBAR_TITLE_1', 'Mein Konto');
-define('NAVBAR_TITLE_2', 'Konto &Auml;nderung');
+define('NAVBAR_TITLE_2', 'Konto &auml;ndern');
 define('TOP_BAR_TITLE', 'Mein Konto');
 define('HEADING_TITLE', 'Information &uuml;ber mein Konto');
-define('PLEASE_SELECT', '-- Bitte W&auml;hlen --');
+define('PLEASE_SELECT', '-- Bitte w&auml;hlen --');
 
 define('IMAGE_UPDATE', 'Aktualisieren');
 define('IMAGE_CANCEL', 'Abbrechen');
