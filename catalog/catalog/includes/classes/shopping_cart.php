@@ -107,7 +107,7 @@
       }
     }
 
-	function cleanup() {
+    function cleanup() {
       global $customer_id;
 
       reset($this->contents);
@@ -123,8 +123,15 @@
       }
     }
 
-    function count_contents() {
-      return sizeof($this->contents);
+    function count_contents() {  // get total number of items in cart 
+        $total_items = 0;
+        if (is_array($this->contents)) {
+            reset($this->contents);
+            while (list($products_id, ) = each($this->contents)) {
+                $total_items += $this->get_quantity($products_id);
+            }
+        }
+        return $total_items;
     }
 
     function get_quantity($products_id) {
@@ -273,11 +280,11 @@
       return $this->weight;
     }
 
-    function unserialize($broken) { 
-      for(reset($broken);$kv=each($broken);) { 
-        $key=$kv['key']; 
-        if (gettype($this->$key)!="user function") 
-        $this->$key=$kv['value']; 
+    function unserialize($broken) {
+      for(reset($broken);$kv=each($broken);) {
+        $key=$kv['key'];
+        if (gettype($this->$key)!="user function")
+        $this->$key=$kv['value'];
       }
     }
 
