@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.19 2002/01/08 18:26:42 hpdl Exp $
+  $Id: file_manager.php,v 1.20 2002/01/08 20:04:46 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -62,7 +62,7 @@
         if ($fp = fopen($current_path . '/' . $HTTP_POST_VARS['filename'], 'w+')) {
           fputs($fp, stripslashes($HTTP_POST_VARS['contents']));
           fclose($fp);
-          tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
+          tep_redirect(tep_href_link(FILENAME_FILE_MANAGER, 'info=' . $HTTP_POST_VARS['filename']));
         }
         break;
       case 'processuploads':
@@ -144,13 +144,13 @@
           </tr>
 <?php
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
-    if ($file_array = file($current_path . '/' . $HTTP_GET_VARS['filename'])) {
+    if ($file_array = file($current_path . '/' . $HTTP_GET_VARS['info'])) {
       $file_contents = implode('', $file_array);
     }
 ?>
           <tr>
             <td class="main"><?php echo TEXT_FILE_NAME; ?></td>
-            <td class="main"><?php echo $HTTP_GET_VARS['filename']; ?><input type="hidden" name="filename" value="<?php echo $HTTP_GET_VARS['filename']; ?>"></td>
+            <td class="main"><?php echo $HTTP_GET_VARS['filename']; ?><input type="hidden" name="filename" value="<?php echo $HTTP_GET_VARS['info']; ?>"></td>
           </tr>
 <?php
   }
