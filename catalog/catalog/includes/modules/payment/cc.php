@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: cc.php,v 1.45 2002/11/01 22:36:21 harley_vb Exp $
+  $Id: cc.php,v 1.46 2002/11/20 23:35:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -122,13 +122,13 @@
     }
 
     function before_process() {
-      global $HTTP_POST_VARS;
+      global $HTTP_POST_VARS, $order;
 
       if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (tep_validate_email(MODULE_PAYMENT_CC_EMAIL)) ) {
         $len = strlen($HTTP_POST_VARS['cc_number']);
 
-        $GLOBALS['cc_middle'] = substr($HTTP_POST_VARS['cc_number'], 4, ($len-8));
-        $GLOBALS['cc_number'] = substr($HTTP_POST_VARS['cc_number'], 0, 4) . str_repeat('X', (strlen($HTTP_POST_VARS['cc_number']) - 8)) . substr($HTTP_POST_VARS['cc_number'], -4);
+        $this->cc_middle = substr($HTTP_POST_VARS['cc_number'], 4, ($len-8));
+        $order->info['cc_number'] = substr($HTTP_POST_VARS['cc_number'], 0, 4) . str_repeat('X', (strlen($HTTP_POST_VARS['cc_number']) - 8)) . substr($HTTP_POST_VARS['cc_number'], -4);
       }
     }
 
@@ -136,7 +136,7 @@
       global $insert_id;
 
       if ( (defined('MODULE_PAYMENT_CC_EMAIL')) && (tep_validate_email(MODULE_PAYMENT_CC_EMAIL)) ) {
-        $message = 'Order #' . $insert_id . "\n\n" . 'Middle: ' . $GLOBALS['cc_middle'] . "\n\n";
+        $message = 'Order #' . $insert_id . "\n\n" . 'Middle: ' . $this->cc_middle . "\n\n";
         
         tep_mail('', MODULE_PAYMENT_CC_EMAIL, 'Extra Order Info: #' . $insert_id, $message, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
       }
