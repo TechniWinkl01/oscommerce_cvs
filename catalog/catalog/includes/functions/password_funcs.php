@@ -23,6 +23,9 @@
 *    USA
 *   
 *   $Log: password_funcs.php,v $
+*   Revision 1.5  2000/10/19 12:12:14  tmoulton
+*   Change 1 to true and 0 to false (note lower case)
+*
 *   Revision 1.4  2000/10/19 11:38:38  tmoulton
 *   My PHP did not like TRUE/FALSE, changed to 1 or 0
 *
@@ -37,7 +40,7 @@
 *
 *    
 *
-*   $Id: password_funcs.php,v 1.4 2000/10/19 11:38:38 tmoulton Exp $ 
+*   $Id: password_funcs.php,v 1.5 2000/10/19 12:12:14 tmoulton Exp $ 
 *********************************************************************/
 
 /*  This funstion validates a candidate password.
@@ -53,12 +56,12 @@ function validate_password($plain_pass, $db_pass){
      /*Quick test to let this work on unencrypted passwords and NULL
      Passwords*/
      if($plain_pass == $db_pass){
-     	return(1);
+     	return(true);
      }
      
      /* split apart the hash / salt*/
      if(!($subbits = split(":", $db_pass, 2))){
-     	return(0);
+     	return(false);
     }
     
     $dbpassword = $subbits[0];
@@ -69,9 +72,9 @@ function validate_password($plain_pass, $db_pass){
     $encrypted = md5($passtring);
     if(strcmp($dbpassword, $encrypted) == 0)
     {
-	return(1);
+	return(true);
     }else{
-	return(0);
+	return(false);
     }
 } // function validate_password($plain_pass, $db_pass)
 
