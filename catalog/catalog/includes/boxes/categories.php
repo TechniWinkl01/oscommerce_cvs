@@ -6,7 +6,7 @@
 <?
   if (($HTTP_GET_VARS['cPath']) && (ereg('_', $HTTP_GET_VARS['cPath']))) {
 // check to see if there are deeper categories within the current category
-    $category_links = array_reverse($cPath_array);
+    $category_links = tep_array_reverse($cPath_array);
     for($i=0;$i<sizeof($category_links);$i++) {
       $categories = tep_db_query("select categories_id, categories_name, parent_id from categories where parent_id = '" . $category_links[$i] . "' order by sort_order");
       if (tep_db_num_rows($categories) < 1) {
