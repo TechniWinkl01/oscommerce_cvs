@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: products_attributes.php,v 1.52 2003/07/10 20:46:01 dgw_ Exp $
+  $Id: products_attributes.php,v 1.53 2004/02/14 19:32:58 mevans Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -133,7 +133,6 @@
       case 'delete_value':
         $value_id = tep_db_prepare_input($HTTP_GET_VARS['value_id']);
 
-        tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . (int)$value_id . "'");
         tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES . " where products_options_values_id = '" . (int)$value_id . "'");
         tep_db_query("delete from " . TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS . " where products_options_values_id = '" . (int)$value_id . "'");
 
