@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.61 2003/05/27 17:49:53 hpdl Exp $
+  $Id: create_account.php,v 1.62 2003/05/27 18:03:01 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -201,7 +201,7 @@
       }
 
       $customer_first_name = $firstname;
-      $customer_default_address_id = 1;
+      $customer_default_address_id = $address_id;
       $customer_country_id = $country;
       $customer_zone_id = $zone_id;
       tep_session_register('customer_id');
