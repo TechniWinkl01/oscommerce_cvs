@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_process.php,v 1.105 2002/04/26 20:28:06 dgw_ Exp $
+  $Id: checkout_process.php,v 1.106 2002/04/26 20:57:33 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -125,7 +125,7 @@
     $total_tax += tep_calculate_tax($total_products_price, $products_tax) * $order->products[$i]['qty'];
     $total_cost += $total_products_price;
 
-    $products_ordered .= $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . ' (' . $order->products[$i]['model'] . ') = ' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty']) . $products_ordered_attributes . "\n";
+    $products_ordered .= $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . ' (' . $order->products[$i]['model'] . ') = ' . $currencies->display_price($order->products[$i]['final_price'], $order->products[$i]['tax'], $order->products[$i]['qty']) . $products_ordered_attributes . "\n";
   }
 
 // lets start with the email confirmation
