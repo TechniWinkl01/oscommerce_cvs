@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ot_shipping.php,v 1.5 2002/05/02 13:12:02 hpdl Exp $
+  $Id: ot_shipping.php,v 1.6 2002/05/10 18:43:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,11 +48,13 @@
       if (tep_not_null($order->info['shipping_method'])) {
         $shipping_tax = tep_get_tax_rate(MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS);
 
-        $order->info['tax'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
-        $order->info['tax_groups']["{$shipping_tax}"] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
-        $order->info['total'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+        if (MODULE_ORDER_TOTAL_SHIPPING_TAX_CLASS > 0) {
+          $order->info['tax'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+          $order->info['tax_groups']["{$shipping_tax}"] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+          $order->info['total'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
 
-        if (DISPLAY_PRICE_WITH_TAX == true) $order->info['shipping_cost'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+          if (DISPLAY_PRICE_WITH_TAX == true) $order->info['shipping_cost'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+        }
 
         $this->output[] = array('title' => $order->info['shipping_method'] . ':',
                                 'text' => $currencies->format($order->info['shipping_cost'], true, $order->info['currency'], $order->info['currency_value']),
