@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.77 2002/01/14 06:40:18 jan0815 Exp $
+  $Id: english.php,v 1.78 2002/01/15 11:37:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -199,6 +199,7 @@ define('IMAGE_DEFINE', 'Define');
 define('IMAGE_DELETE', 'Delete');
 define('IMAGE_EDIT', 'Edit');
 define('IMAGE_EMAIL', 'Email');
+define('IMAGE_FILE_MANAGER', 'File Manager');
 define('IMAGE_ICON_STATUS_GREEN', 'Active');
 define('IMAGE_ICON_STATUS_GREEN_LIGHT', 'Set Active');
 define('IMAGE_ICON_STATUS_RED', 'Inactive');
