@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: modules.php,v 1.30 2001/12/20 16:16:11 hpdl Exp $
+  $Id: modules.php,v 1.31 2001/12/28 13:51:57 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -173,8 +173,8 @@
 
   $check = tep_db_query("select configuration_value from " . TABLE_CONFIGURATION . " where configuration_key = '" . $module_key . "'");
   if (tep_db_num_rows($check)) {
-    list($check) = tep_db_fetch_array($check);
-    if ($check <> $installed_modules) {
+    $check_values = tep_db_fetch_array($check);
+    if ($check_values['configuration_value'] <> $installed_modules) {
       tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $installed_modules . "' where configuration_key = '" . $module_key . "'");
     }
   } else {
