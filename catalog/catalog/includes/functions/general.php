@@ -1310,4 +1310,13 @@ function tep_address_summary($customers_id, $address_id) {
     
     return $cPath;
   }
+
+  function tep_hide_fields($fields_array) {
+    $result = '';
+    reset($fields_array);
+    while (list($key, $value) = each($fields_array)) {
+      $result .= '<input type="hidden" name="' . $value . '" value="' . $GLOBALS[$value] . '">';
+    }
+    return $result;
+  }
 ?>
