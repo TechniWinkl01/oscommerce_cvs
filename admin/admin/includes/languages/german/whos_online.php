@@ -15,4 +15,7 @@ define('TABLE_HEADING_IP_ADDRESS', 'IP Adresse');
 define('TABLE_HEADING_ENTRY_TIME', 'Startzeit');
 define('TABLE_HEADING_LAST_CLICK', 'Letzter Klick');
 define('TABLE_HEADING_LAST_PAGE_URL', 'Letzte URL');
+define('TABLE_HEADING_ACTION', 'Accion');
+define('TABLE_HEADING_SHOPPING_CART', 'Cesta del Usuario');
+define('TEXT_SHOPPING_CART_SUBTOTAL', 'Subtotal');
 ?>
