@@ -227,7 +227,7 @@
         echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_NUMBER . '&nbsp;' . $CardNumber . '&nbsp;</font></td>' . "\n";
         echo '          </tr>' . "\n";
         echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . $HTTP_POST_VARS['cc_expires'] . '&nbsp;</font></td>' . "\n";
+        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'],1,2000)) . ' / ' . strftime('%Y',mktime(0,0,0,1,1,$HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n";
         echo '          </tr>' . "\n";
       } else {
         echo '          <tr>' . "\n";
@@ -237,7 +237,7 @@
         echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_OWNER . '&nbsp;' . $HTTP_POST_VARS['cc_owner'] . '&nbsp;</font></td>' . "\n";
         echo '          </tr>' . "\n";
         echo '          <tr>' . "\n";
-        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . $HTTP_POST_VARS['cc_expires'] . '&nbsp;</font></td>' . "\n";
+        echo '            <td nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . TEXT_EXPIRES . '&nbsp;' . strftime('%B', mktime(0,0,0,$HTTP_POST_VARS['cc_expires_month'],1,2000)) . ' / ' . strftime('%Y',mktime(0,0,0,1,1,$HTTP_POST_VARS['cc_expires_year'])) . '&nbsp;</font></td>' . "\n";
         echo '          </tr>' . "\n";
         echo '          <tr>' . "\n";
         echo '            <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<font color="#FF0000"><b>' . TEXT_VAL . '</b></font><br>&nbsp;' . $cc_val . '&nbsp;</font></td>' . "\n";
@@ -269,7 +269,7 @@
                         '<input type="hidden" name="cc_type" value="' . $CardName . '">' .
                         '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
                         '<input type="hidden" name="cc_number" value="' . $CardNumber . '">' .
-                        '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires'] . '">' .
+                        '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires_month'] . $HTTP_POST_VARS['cc_expires_year'] . '">' .
                         '<br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_process.gif', '78', '24', '0', IMAGE_PROCESS) . '&nbsp;</font></td>' . "\n";
         echo '      </tr></form>' . "\n";
       } else {
@@ -278,7 +278,8 @@
                         '<input type="hidden" name="sendto" value="' . $HTTP_POST_VARS['sendto'] . '">' .
                         '<input type="hidden" name="prod" value="' . $HTTP_POST_VARS['prod'] . '">' .
                         '<input type="hidden" name="cc_owner" value="' . $HTTP_POST_VARS['cc_owner'] . '">' .
-                        '<input type="hidden" name="cc_expires" value="' . $HTTP_POST_VARS['cc_expires'] . '">' .
+                        '<input type="hidden" name="cc_expires_month" value="' . $HTTP_POST_VARS['cc_expires_month'] . '">' .
+                        '<input type="hidden" name="cc_expires_year" value="' . $HTTP_POST_VARS['cc_expires_year'] . '">' .
                         '<br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . tep_image_submit(DIR_IMAGES . 'button_back.gif', '58', '24', '0', IMAGE_BACK) . '&nbsp;&nbsp;</font></td>' . "\n";
         echo '      </tr></form>' . "\n";
       }

@@ -111,7 +111,7 @@ function check_form() {
               <tr>
                 <td nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_CREDIT_CARD; ?>&nbsp;</font></td>
                 <td align="right" nowrap><br><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="payment" value="cc"
-<? if (@$HTTP_POST_VARS['cc_owner'] != '' || @$HTTP_POST_VARS['cc_expires'] != '') { echo 'CHECKED';} ?>>&nbsp;</font></td>
+<? if (@$HTTP_POST_VARS['cc_owner'] != '' || @$HTTP_POST_VARS['cc_expires_month'] != '' || @$HTTP_POST_VARS['cc_expires_year'] != '') { echo 'CHECKED';} ?>>&nbsp;</font></td>
               </tr>
               <tr>
                 <td colspan="2"><br><table border="0" cellspacing="0" cellpadding="0">
@@ -125,7 +125,22 @@ function check_form() {
                   </tr>
                   <tr>
                     <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo SUB_TITLE_CREDIT_CARD_EXPIRES; ?>&nbsp;</font></td>
-                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="cc_expires" value="<? echo $HTTP_POST_VARS['cc_expires']; ?>">&nbsp;</font></td>
+                    <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<select name="cc_expires_month">
+                      <? 
+                      for ($i=1; $i <= 12; $i++) {
+                        $selected = ($HTTP_POST_VARS['cc_expires_month']==$i) ? ' selected' : '';
+                        echo '<option' . $selected . ' value="' . sprintf('%02d', $i) . '">' . strftime("%B",mktime(0,0,0,$i,1,2000)) . '</option>'; 
+                      }
+                      ?>
+                    </select>&nbsp;/&nbsp;<select name="cc_expires_year">
+                      <? 
+                      $today=getdate(); 
+                      for ($i=$today['year']; $i < $today['year']+10; $i++) {
+                        $selected = ($HTTP_POST_VARS['cc_expires_year']==strftime("%y",mktime(0,0,0,1,1,$i))) ? ' selected' : '';
+                        echo '<option' . $selected . ' value="' . strftime("%y",mktime(0,0,0,1,1,$i)) . '">' . strftime("%Y",mktime(0,0,0,1,1,$i)) . '</option>';
+                      }
+                      ?>
+                    </select></font></td>
                   </tr>
                 </table></td>
               </tr>
