@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_output.php,v 1.9 2001/08/22 11:29:24 dwatkins Exp $
+  $Id: html_output.php,v 1.10 2001/08/22 12:12:44 dwatkins Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -253,11 +253,10 @@
 
 ////
 // Hide form elements
-  function tep_hide_fields($fields_array) {
+  function tep_hide_session_id() {
     $result = '';
-    reset($fields_array);
-    while (list($key, $value) = each($fields_array)) {
-      $result .= '<input type="hidden" name="' . $value . '" value="' . $GLOBALS[$value] . '">';
+    if (SID) {
+      $result = '<input type="hidden" name="' . tep_session_name() . '" value="' . tep_session_id() . '">';
     }
 
     return $result;

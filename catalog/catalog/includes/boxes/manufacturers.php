@@ -31,10 +31,10 @@
       $select_box .= '>' . substr($manufacturers_values['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '</option>';
     }
     $select_box .= "</select>";
-    if (SID) $select_box .= tep_hide_fields(array(tep_session_name()));
+    $select_box .= tep_hide_session_id();
 
     $info_box_contents = array();
-    $info_box_contents[] = array('form' => '<form name="manufacturers" method="get" action="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL') . '">',
+    $info_box_contents[] = array('form' => '<form name="manufacturers" method="get" action="' . tep_href_link(FILENAME_DEFAULT, '', 'NONSSL', false) . '">',
                                  'align' => 'left',
                                  'text'  => $select_box);
   }

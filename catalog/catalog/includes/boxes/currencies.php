@@ -20,7 +20,7 @@
     $select_box .= '>' . $currencies['title'] . '</option>';
   }
   $select_box .= "</select>";
-  if (SID) $select_box .= tep_hide_fields(array(tep_session_name()));
+  $select_box .= tep_hide_session_id();
 
   $hidden_get_variables = '';
   reset($HTTP_GET_VARS);
@@ -31,7 +31,7 @@
   }
 
   $info_box_contents = array();
-  $info_box_contents[] = array('form' => '<form name="currencies" method="get" action="' . tep_href_link(basename($PHP_SELF), '', 'NONSSL') . '">' . $hidden_get_variables,
+  $info_box_contents[] = array('form' => '<form name="currencies" method="get" action="' . tep_href_link(basename($PHP_SELF), '', 'NONSSL', false) . '">' . $hidden_get_variables,
                                'align' => 'left',
                                'text'  => $select_box
                               );
