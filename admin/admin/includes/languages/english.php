@@ -46,7 +46,6 @@ define('BOX_CATALOG_MANUFACTURERS', 'Manufacturers');
 define('BOX_CATALOG_REVIEWS', 'Reviews');
 define('BOX_CATALOG_SPECIALS', 'Specials');
 define('BOX_CATALOG_PRODUCTS_EXPECTED', 'Products Expected');
-define('BOX_CATALOG_ORDERS_STATUS', 'Orders Status');
 
 // customers box text in includes/boxes/customers.php
 define('BOX_HEADING_CUSTOMERS', 'Customers');
@@ -77,6 +76,7 @@ define('BOX_TOOLS_CACHE', 'Cache Control');
 define('BOX_HEADING_LOCALIZATION', 'Localization');
 define('BOX_LOCALIZATION_CURRENCIES', 'Currencies');
 define('BOX_LOCALIZATION_LANGUAGES', 'Languages');
+define('BOX_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
 
 // mail box text in includes/boxes/mail.php
 define('BOX_HEADING_MAIL', 'Mail');
