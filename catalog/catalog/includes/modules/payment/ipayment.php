@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: ipayment.php,v 1.34 2003/11/17 20:34:31 hpdl Exp $
+  $Id: ipayment.php,v 1.35 2003/11/23 11:53:29 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -193,7 +193,7 @@
                                tep_draw_hidden_field('item_name', STORE_NAME) .
                                tep_draw_hidden_field('trx_currency', $trx_currency) .
                                tep_draw_hidden_field('trx_amount', number_format($order->info['total'] * 100 * $currencies->get_value($trx_currency), 0, '','')) .
-                               tep_draw_hidden_field('cc_expdate_month', $_POST'ipayment_cc_expires_month']) .
+                               tep_draw_hidden_field('cc_expdate_month', $_POST['ipayment_cc_expires_month']) .
                                tep_draw_hidden_field('cc_expdate_year', $_POST['ipayment_cc_expires_year']) .
                                tep_draw_hidden_field('cc_number', $_POST['ipayment_cc_number']) .
                                tep_draw_hidden_field('cc_checkcode', $_POST['ipayment_cc_checkcode']) .
