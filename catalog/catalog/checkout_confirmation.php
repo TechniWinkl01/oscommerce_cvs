@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.98 2001/12/13 13:56:47 dgw_ Exp $
+  $Id: checkout_confirmation.php,v 1.99 2001/12/13 14:52:41 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -14,6 +14,11 @@
 
   if (!tep_session_is_registered('customer_id')) {
     tep_redirect(tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_SHOPPING_CART, 'NONSSL'));
+  }
+
+// Check if there is something in the cart
+  if ($cart->count_contents() == 0) {
+    tep_redirect(tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
   }
 
 // Stock Check
