@@ -164,4 +164,20 @@ define('IMAGE_SAVE', 'Save');
 define('IMAGE_UPDATE', 'Update');
 
 define('IMAGE_ICON_INFO', 'Info');
+
+// constants for use in tep_prev_next_display function
+define('TEXT_RESULT_PAGE', 'Result Pages:');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b>) products');
+
+define('PREVNEXT_TITLE_FIRST_PAGE', 'First Page');
+define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Previous Page');
+define('PREVNEXT_TITLE_NEXT_PAGE', 'Next Page');
+define('PREVNEXT_TITLE_LAST_PAGE', 'Last Page');
+define('PREVNEXT_TITLE_PAGE_NO', 'Page %d');
+define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Previous Set of %d Pages');
+define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Next Set of %d Pages');
+define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;FIRST');
+define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; Prev]');
+define('PREVNEXT_BUTTON_NEXT', '[Next &gt;&gt;]');
+define('PREVNEXT_BUTTON_LAST', 'LAST&gt;&gt;');
 ?>
