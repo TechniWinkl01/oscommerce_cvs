@@ -1,4 +1,15 @@
-<?
+<?php
+/*
+  $Id: general.php,v 1.96 2001/06/04 17:13:14 hpdl Exp $
+
+  The Exchange Project - Community Made Shopping!
+  http://www.theexchangeproject.org
+
+  Copyright (c) 2000,2001 The Exchange Project
+
+  Released under the GNU General Public License
+*/
+
   function tep_exit() {
     if (EXIT_AFTER_REDIRECT == true) {
      tep_session_close();
@@ -29,40 +40,6 @@
       $random_product = tep_db_fetch_array($select_products);
     }
     return $random_product;
-  }
-
-  function tep_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
-    global $link;
-
-    if ($page == '') {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine the page link!<br><br>');
-    }
-    if ($connection == 'NONSSL') {
-      $link = HTTP_SERVER . DIR_WS_CATALOG;
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL) {
-        $link = HTTPS_SERVER . DIR_WS_CATALOG;
-      } else {
-        $link = HTTP_SERVER . DIR_WS_CATALOG;
-      }
-    } else {
-      die('</td></tr></table></td></tr></table><br><br><font color="#ff0000"><b>Error!</b></font><br><br><b>Unable to determine connection method on a link!<br><br>Known methods: NONSSL SSL</b><br><br>');
-    }
-    // Put the session in the URL if we are we are using cookies and changing to SSL
-    // Otherwise, we loose the cookie and our session
-    if (!SID && !getenv(HTTPS) && $connection=='SSL')
-      $sess = tep_session_name() . '=' . tep_session_id();
-    else
-      $sess = SID;
-    if ($parameters == '') {
-      $link = $link . $page . '?' . $sess;
-    } else {
-      $link = $link . $page . '?' . $parameters . '&' . $sess;
-    }
-
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
-
-    return $link;
   }
 
 // Check  & Update Stock
@@ -114,64 +91,6 @@ return $any_out_of_stock;
     }
 
     return $output;
-  }
-
-  function tep_image($src, $alt = '', $width = '', $height = '', $params = '') {
-    if ( (($src == '') || ($src == 'images/')) && (!IMAGE_REQUIRED) ) {
-      return;
-    }
-    $image = '<img src="' . $src . '" border="0" alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
-
-    if ( (CONFIG_CALCULATE_IMAGE_SIZE) && ((!$width) || (!$height)) ) {
-      if ($image_size = @getimagesize($src)) {
-        if ( (!$width) && ($height) ) {
-          $ratio = $height / $image_size[1];
-          $width = $image_size[0] * $ratio;
-        } elseif ( ($width) && (!$height) ) {
-          $ratio = $width / $image_size[0];
-          $height = $image_size[1] * $ratio;
-        } elseif ( (!$width) && (!$height) ) {
-          $width = $image_size[0];
-          $height = $image_size[1];
-        }
-      } elseif (!IMAGE_REQUIRED) {
-        return '';
-      }
-    }
-
-    if ( ($width) && ($height) ) {
-      $image .= ' width="' . $width . '" height="' . $height . '"';
-    }
-
-    if ($params != '') {
-      $image .= ' ' . $params;
-    }
-
-    $image .= '>';
-
-    return $image;
-  }
-
-  function tep_image_submit($image, $alt) {
-    global $language;
-
-    $image_submit = '<input type="image" src="' . DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image . '" border="0" alt="' . $alt . '">';
-
-    return $image_submit;
-  }
-
-  function tep_image_button($image, $alt = '', $params = '') {
-    global $language;
-
-    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $params);
-  }
-
-  function tep_black_line() {
-    global $black_line;
-
-    $black_line = tep_image(DIR_WS_IMAGES . 'pixel_black.gif', '', '100%', '1');
-
-    return $black_line;
   }
 
   function tep_in_array($lookup_value, $lookup_array) {
@@ -277,182 +196,6 @@ return $any_out_of_stock;
     global $HTTP_USER_AGENT;
     $result = stristr($HTTP_USER_AGENT,$component);
     return $result;
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  //   tep_get_country_list
-  //
-  //   - make a popup list of countries
-  //   - ISO standard abbreviations are used (ISO 3166)
-  //   - Country Codes and Names are stored in table 'countries'
-  //
-  //   Written By: Kenneth Cheng
-  //
-  //   parameters
-  //   ----------
-  //
-  //   popup_name: the name attribute you want for the <SELECT> tag
-  //
-  //   selected:   the default selected value [optional]
-  //
-  //   javascript: javascript for the <SELECT> tag, i.e.
-  //               onChange="this.form.submit()" [optional]
-  //
-  //   size:       size [optional]
-  //
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  function tep_get_country_list ($popup_name, $selected="", $javascript="", $size=1) {
-
-    // start building the popup menu
-    $result = "<select name=\"$popup_name\"";
-
-    if ($size != 1)
-      $result .= " size=\"$size\"";
-
-    if ($javascript)
-      $result .= " " . $javascript;
-
-    $result .= ">\n";
-
-    $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
-
-      // need to convert this to use tep_get_countries()
-      $country_result = tep_db_query("select countries_name, countries_id from " . TABLE_COUNTRIES . " order by countries_name");
-
-      while ($country_values = tep_db_fetch_array($country_result)) {
-
-      // printed SELECTED if an item was previously selected
-      // so we maintain the state
-      if ($selected == $country_values[countries_id]) {
-        $result .= "<option value=\"$country_values[countries_id]\" SELECTED>$country_values[countries_name]</option>\n";
-      } else {
-        $result .= "<option value=\"$country_values[countries_id]\">$country_values[countries_name]</option>\n";
-      }
-     }
-    // finish the popup menu
-    $result .= "</select>\n";
-
-    echo $result;
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  //   tep_get_zone_list
-  //
-  //   - make a popup list of states and provinces
-  //
-  //   Written By: Kenneth Cheng
-  //
-  //   parameters
-  //   ----------
-  //
-  //   popup_name:     the name attribute you want for the <SELECT> tag
-  //
-  //   country_code:   the default selected value [optional]
-  //
-  //   selected:       the default selected value [optional]
-  //
-  //   javascript:     javascript for the <SELECT> tag, i.e.
-  //                   onChange="this.form.submit()" [optional]
-  //
-  //   size:           size [optional]
-  //
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  function tep_get_zone_list ($popup_name, $country_code="", $selected="", $javascript="", $size=1) {
-
-    // start building the popup menu
-    $result = "<select name=\"$popup_name\"";
-
-    if ($size != 1)
-      $result .= " size=\"$size\"";
-
-    if ($javascript)
-      $result .= " " . $javascript;
-
-    $result .= ">\n";
-
-    // Preset the width of the drop-down for Netscape
-    //
-    // 53 "&nbsp;" would provide the width for my longer state/province name
-    // this number should be customized for your need
-    //
-    if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) {
-      for ($i=0; $i<53; $i++)
-        $result .= "&nbsp;";
-    }
-
-    $state_prov_result = tep_db_query("select zone_id, zone_name from " . TABLE_ZONES . " where zone_country_id = '" . $country_code . "' order by zone_name");
-
-    if (tep_db_num_rows($state_prov_result)>0)
-      $result .= "<option value=\"\">" . PLEASE_SELECT . "</option>\n";
-    else
-      $result .= "<option value=\"\">" . TYPE_BELOW . "</option>\n";
-
-    $populated = 0;
-    while ($state_prov_values = tep_db_fetch_array($state_prov_result)) {
-      $populated++;
-      // printed SELECTED if an item was previously selected
-      // so we maintain the state
-      if ($selected == $state_prov_values[zone_id]) {
-        $result .= "<option value=\"$state_prov_values[zone_id]\" SELECTED>$state_prov_values[zone_name]</option>\n";
-      } else {
-        $result .= "<option value=\"$state_prov_values[zone_id]\">$state_prov_values[zone_name]</option>\n";
-      }
-    }
-
-    // Create dummy options for Netscape to preset the height of the drop-down
-    if ($populated == 0) {
-      if ( !tep_browser_detect('MSIE') && tep_browser_detect('Mozilla/4') ) {
-        for ($i=0; $i<9; $i++) {
-          $result .= "\n<option value=\"\"></option>";
-        }
-      }
-    }
-
-    // finish the popup menu
-    $result .= "\n</select>\n";
-
-    echo $result;
-
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  //
-  // Function    : tep_js_zone_list
-  //
-  // Arguments   : SelectedCountryVar        string that contains the SelectedCountry variable
-  //                                         name
-  //               FormName                  string that contains the form object name
-  //
-  // Return      : none
-  //
-  // Description : Function used to construct part of the JavaScript code for dynamically
-  //               updating the State/Province Drop-Down list
-  //
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  function tep_js_zone_list($SelectedCountryVar, $FormName) {
-    $country_query = tep_db_query("select distinct zone_country_id from " . TABLE_ZONES . " order by zone_country_id");
-    $NumCountry=1;
-    while ($country_values = tep_db_fetch_array($country_query)) {
-      if ($NumCountry == 1)
-        print ("  if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
-      else
-        print ("  else if (" . $SelectedCountryVar . " == \"" . $country_values['zone_country_id'] . "\") {\n");
-
-      $state_query = tep_db_query("select zones.zone_name, zones.zone_id from " . TABLE_ZONES . " where zones.zone_country_id = '" . $country_values['zone_country_id'] . "' order by zones.zone_name");
-
-      $NumState = 1;
-      while ($state_values = tep_db_fetch_array($state_query)) {
-        if ($NumState == 1)
-          print ("    " . $FormName . ".zone_id.options[0] = new Option(\"" . PLEASE_SELECT . "\", \"\");\n");
-        print ("    " . $FormName . ".zone_id.options[$NumState] = new Option(\"" . $state_values['zone_name'] . "\", \"" . $state_values['zone_id'] . "\");\n");
-        $NumState++;
-      }
-      $NumCountry++;
-      print ("  }\n");
-    }
-    print ("  else {\n");
-    print ("    " . $FormName . ".zone_id.options[0] = new Option(\"" . TYPE_BELOW . "\", \"\");\n");
-    print ("  }\n");
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1337,15 +1080,6 @@ function tep_address_summary($customers_id, $address_id) {
     }
 
     return $cPath;
-  }
-
-  function tep_hide_fields($fields_array) {
-    $result = '';
-    reset($fields_array);
-    while (list($key, $value) = each($fields_array)) {
-      $result .= '<input type="hidden" name="' . $value . '" value="' . $GLOBALS[$value] . '">';
-    }
-    return $result;
   }
 
   function tep_get_uprid($prid, $params) {

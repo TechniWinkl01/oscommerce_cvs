@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.130 2001/06/04 16:29:34 hpdl Exp $
+  $Id: application_top.php,v 1.131 2001/06/04 17:13:10 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -297,6 +297,7 @@
 
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
+  require(DIR_WS_FUNCTIONS . 'html_output.php');
 
 // currency
   if ( (!$currency) || ($HTTP_GET_VARS['currency']) ) {
