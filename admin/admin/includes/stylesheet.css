@@ -1,0 +1,6 @@
+A { color:#000000; text-decoration:none; }
+.whitelink { color:#FFFFFF; text-decoration:none; }
+.blacklink { color:#000000; text-decoration:none; }
+A:hover { color:#AABBDD; text-decoration:underline; }
+A:hover.blacklink { color:#000000; text-decoration:underline; }
+.boxborder { border-color:#000000; border-style:solid; border-width:1; }

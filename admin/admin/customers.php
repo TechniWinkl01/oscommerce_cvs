@@ -1,0 +1,475 @@
+<? include('includes/application_top.php'); ?>
+<? $include_file = DIR_LANGUAGES . $language . '/' . FILENAME_CUSTOMERS; include(DIR_INCLUDES . 'include_once.php'); ?>
+<?
+  if (($HTTP_GET_VARS['action'] == 'add_customers') && ($HTTP_POST_VARS['insert'] == '1')) {
+    $date_now = date('Ymd');
+    $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
+    tep_db_query("insert into customers values ('', '" . $HTTP_POST_VARS['gender'] . "', '" . $HTTP_POST_VARS['firstname'] . "', '" . $HTTP_POST_VARS['lastname'] . "', '" . $dob_ordered . "', '" . $HTTP_POST_VARS['email_address'] . "', '" . $HTTP_POST_VARS['street_address'] . "', '" . $HTTP_POST_VARS['suburb'] . "', '" . $HTTP_POST_VARS['postcode'] . "', '" . $HTTP_POST_VARS['city'] . "', '" . $HTTP_POST_VARS['state'] . "', '" . $HTTP_POST_VARS['country'] . "', '" . $HTTP_POST_VARS['telephone'] . "', '" . $HTTP_POST_VARS['fax'] . "', '" . $HTTP_POST_VARS['password'] . "')");
+    $insert_id = tep_db_insert_id();
+    tep_db_query("insert into customers_info values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
+    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
+  } elseif ($HTTP_GET_VARS['action'] == 'update_customers') {
+    $date_now = date('Ymd');
+    $dob_ordered = substr($HTTP_POST_VARS['dob'], -4) . substr($HTTP_POST_VARS['dob'], 3, 2) . substr($HTTP_POST_VARS['dob'], 0, 2);
+    tep_db_query("update customers set customers_gender = '" . $HTTP_POST_VARS['gender'] . "', customers_firstname = '" . $HTTP_POST_VARS['firstname'] . "', customers_lastname = '" . $HTTP_POST_VARS['lastname'] . "', customers_dob = '" . $dob_ordered . "', customers_email_address = '" . $HTTP_POST_VARS['email_address'] . "', customers_street_address = '" . $HTTP_POST_VARS['street_address'] . "', customers_suburb = '" . $HTTP_POST_VARS['suburb'] . "', customers_postcode = '" . $HTTP_POST_VARS['postcode'] . "', customers_city = '" . $HTTP_POST_VARS['city'] . "', customers_state = '" . $HTTP_POST_VARS['state'] . "', customers_country = '" . $HTTP_POST_VARS['country'] . "', customers_telephone = '" . $HTTP_POST_VARS['telephone'] . "', customers_fax = '" . $HTTP_POST_VARS['fax'] . "', customers_password = '" . $HTTP_POST_VARS['password'] . "' where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    tep_db_query("update customers_info set customers_info_date_account_last_modified = '" . $date_now . "' where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
+  } elseif ($HTTP_GET_VARS['action'] == 'delete_customers') {
+    tep_db_query("delete from customers where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    tep_db_query("delete from customers_info where customers_info_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    tep_db_query("delete from customers_basket where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    $reviews = tep_db_query("select reviews_id from reviews_extra where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    while ($reviews_values = tep_db_fetch_array($reviews)) {
+      tep_db_query("delete from reviews where reviews_id = '" . $reviews_values['reviews_id'] . "'");
+    }
+    tep_db_query("delete from reviews_extra where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    $address_book = tep_db_query("select address_book_id from address_book_to_customers where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    while ($address_book_values = tep_db_fetch_array($address_book)) {
+      tep_db_query("delete from address_book where address_book_id = '" . $address_book_values['address_book_id'] . "'");
+    }
+    tep_db_query("delete from address_book_to_customers where customers_id = '" . $HTTP_POST_VARS['customers_id'] . "'");
+    header('Location: ' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL')); tep_exit();
+  }
+?>
+<html>
+<head>
+<title><?=TITLE;?></title>
+<link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<script language="javascript"><!--
+<?
+  if ((($HTTP_GET_VARS['action'] == 'add_customers') && (!$HTTP_POST_VARS['insert'])) || ($HTTP_GET_VARS['action'] == 'update')) {
+?>
+function check_form() {
+  var error = 0;
+  var error_message = "<?=JS_ERROR;?>";
+
+  var firstname = document.customers.firstname.value;
+  var lastname = document.customers.lastname.value;
+  var dob = document.customers.dob.value;
+  var email_address = document.customers.email_address.value;  
+  var street_address = document.customers.street_address.value;
+  var postcode = document.customers.postcode.value;
+  var city = document.customers.city.value;
+  var country = document.customers.country.value;
+  var telephone = document.customers.telephone.value;
+  var password = document.customers.password.value;
+  var confirmation = document.customers.confirmation.value;
+
+  if (document.customers.gender[0].checked || document.customers.gender[1].checked) {
+  } else {
+    error_message = error_message + "<?=JS_GENDER;?>";
+    error = 1;
+  }
+  
+  if (firstname = "" || firstname.length < 3) {
+    error_message = error_message + "<?=JS_FIRST_NAME;?>";
+    error = 1;
+  }
+
+  if (lastname = "" || lastname.length < 3) {
+    error_message = error_message + "<?=JS_LAST_NAME;?>";
+    error = 1;
+  }
+
+  if (dob = "" || dob.length < 10) {
+    error_message = error_message + "<?=JS_DOB;?>";
+    error = 1;
+  }
+
+  if (email_address = "" || email_address.length < 6) {
+    error_message = error_message + "<?=JS_EMAIL_ADDRESS;?>";
+    error = 1;
+  }
+
+  if (street_address = "" || street_address.length < 5) {
+    error_message = error_message + "<?=JS_ADDRESS;?>";
+    error = 1;
+  }
+
+  if (postcode = "" || postcode.length < 4) {
+    error_message = error_message + "<?=JS_POST_CODE;?>";
+    error = 1;
+  }
+
+  if (city = "" || city.length < 4) {
+    error_message = error_message + "<?=JS_CITY;?>";
+    error = 1;
+  }
+
+  if (country = "" || country.length < 3) {
+    error_message = error_message + "<?=JS_COUNTRY;?>";
+    error = 1;
+  }
+
+  if (telephone = "" || telephone.length < 5) {
+    error_message = error_message + "<?=JS_TELEPHONE;?>";
+    error = 1;
+  }
+
+  if ((password != confirmation) || (password = "" || password.length < 5)) {
+    error_message = error_message + "<?=JS_PASSWORD;?>";
+    error = 1;
+  }
+
+  if (error == 1) {
+    alert(error_message);
+    return false;
+  } else {
+    return true;
+  }
+}
+<?
+  } else {
+?>
+function checkForm() {
+  var error_message = "<?=JS_ERROR;?>";
+  var error = 0;
+  var customers_firstname = document.customers.customers_firstname.value;
+  var customers_lastname = document.customers.customers_lastname.value;
+  var customers_country = document.customers.customers_country.value;
+  
+  if (customers_firstname.length < 1) {
+    error_message = error_message + "<?=JS_FIRST_NAME;?>";
+    error = 1;
+  }
+  
+  if (customers_lastname.length < 1) {
+    error_message = error_message + "<?=JS_LAST_NAME;?>";
+    error = 1;
+  }
+  
+  if (customers_country.length < 1) {
+    error_message = error_message + "<?=JS_COUNTRY;?>";
+    error = 1;
+  }
+
+  if (error == 1) {
+    alert(error_message);
+    return false;
+  } else {
+    return true;
+  }
+}
+<?
+  }
+?>
+
+function go() {
+  if (document.order_by.selected.options[document.order_by.selected.selectedIndex].value != "none") {
+    location = "<?=FILENAME_CUSTOMERS;?>?order_by="+document.order_by.selected.options[document.order_by.selected.selectedIndex].value;
+  }
+}
+//--></script>
+</head>
+<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<!-- header //-->
+<? $include_file = DIR_INCLUDES . 'header.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<!-- header_eof //-->
+
+<!-- body //-->
+<table border="0" width="100%" cellspacing="5" cellpadding="5">
+  <tr>
+    <td width="<?=BOX_WIDTH;?>" valign="top"><table border="0" width="<?=BOX_WIDTH;?>" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<!-- left_navigation //-->
+<? $include_file = DIR_INCLUDES . 'column_left.php'; include(DIR_INCLUDES . 'include_once.php'); ?>
+<!-- left_navigation_eof //-->
+        </table></td>
+      </tr>
+    </table></td>
+<!-- body_text //-->
+    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="boxborder">
+          <tr>
+            <td bgcolor="<?=TOP_BAR_BACKGROUND_COLOR;?>" width="100%" nowrap><font face="<?=TOP_BAR_FONT_FACE;?>" size="<?=TOP_BAR_FONT_SIZE;?>" color="<?=TOP_BAR_FONT_COLOR;?>">&nbsp;<?=TOP_BAR_TITLE;?>&nbsp;</font></td>
+          </tr>
+        </table></td>
+      </tr>
+<?
+  if ((($HTTP_GET_VARS['action'] == 'add_customers') && (!$HTTP_POST_VARS['insert'])) || ($HTTP_GET_VARS['action'] == 'update') || ($HTTP_GET_VARS['action'] == 'delete')) {
+    if ($HTTP_GET_VARS['action'] == 'add_customers') {
+      $action = 'add';
+    } elseif ($HTTP_GET_VARS['action'] == 'update') {
+      $action = 'update';
+    } elseif ($HTTP_GET_VARS['action'] == 'delete') {
+      $action = 'delete';
+    }
+?>
+      <tr>
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
+            <td align="right" nowrap>&nbsp;<?=tep_image(DIR_IMAGES . 'table_background_account.gif', HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT, '0', HEADING_TITLE);?>&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?=tep_black_line();?></td>
+      </tr>
+<?
+    if ($action == 'add') {
+      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=add_customers', 'NONSSL') . '" onSubmit="return check_form();"><input type="hidden" name="insert" value="1">' . "\n";
+    } elseif ($action == 'update') {
+      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=update_customers', 'NONSSL') . '" onSubmit="return check_form();"><input type="hidden" name="customers_id" value="' . $HTTP_GET_VARS['customers_id'] . '">' . "\n";
+    } else {
+      echo '      <tr><form name="customers" method="post" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=delete_customers', 'NONSSL') . '"><input type="hidden" name="customers_id" value="' . $HTTP_GET_VARS['customers_id'] . '">' . "\n";
+    }
+
+    if (($action == 'update') || ($action == 'delete')) {
+      $customers = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_street_address, customers_suburb, customers_postcode, customers_city, customers_state, customers_country, customers_telephone, customers_fax, customers_password from customers where customers_id = '" . $HTTP_GET_VARS['customers_id'] . "'");
+      $customers_values = tep_db_fetch_array($customers);
+
+      $gender = $customers_values['customers_gender'];
+      $firstname = $customers_values['customers_firstname'];
+      $lastname = $customers_values['customers_lastname'];
+      $dob = substr($customers_values['customers_dob'], -2) . '/' . substr($customers_values['customers_dob'], 4, 2) . '/' . substr($customers_values['customers_dob'], 0, 4);
+      $email_address = $customers_values['customers_email_address'];
+      $street_address = $customers_values['customers_street_address'];
+      $suburb = $customers_values['customers_suburb'];
+      $postcode = $customers_values['customers_postcode'];
+      $city = $customers_values['customers_city'];
+      $state = $customers_values['customers_state'];
+      $country = $customers_values['customers_country'];
+      $telephone = $customers_values['customers_telephone'];
+      $fax = $customers_values['customers_fax'];
+      $password = $customers_values['customers_password'];
+    } else {
+      $firstname = $HTTP_POST_VARS['customers_firstname'];
+      $lastname = $HTTP_POST_VARS['customers_lastname'];
+      $dob = DOB_FORMAT_STRING;
+      $country = $HTTP_POST_VARS['customers_country'];
+      $password = '';
+    }
+?>
+        <td width="100%"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PERSONAL;?></font></td>
+          </tr>
+<?
+    if ($action == 'delete') {
+?>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_GENDER;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<?
+      if (@$gender == 'm') {
+        echo MALE;
+      } else {
+        echo FEMALE;
+      } ?></font></td>
+          </tr>
+<?
+    } else {
+?>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_GENDER;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<input type="radio" name="gender" value="m"<?
+      if (@$gender == 'm') {
+        echo ' CHECKED';
+      } ?>>&nbsp;&nbsp;<?=MALE;?>&nbsp;&nbsp;<input type="radio" name="gender" value="f"<?
+      if (@$gender == 'f') {
+        echo ' CHECKED';
+      } ?>>&nbsp;&nbsp;<?=FEMALE;?>&nbsp;<?=ENTRY_GENDER_TEXT;?></font></td>
+          </tr>
+<?
+    }
+?>
+          <tr>
+            <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_FIRST_NAME;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $firstname; } else { echo '<input type="text" name="firstname" maxlength="32" value="' . @$firstname . '">&nbsp;' . ENTRY_FIRST_NAME_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_LAST_NAME;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $lastname; } else { echo '<input type="text" name="lastname" maxlength="32" value="' . @$lastname . '">&nbsp;' . ENTRY_LAST_NAME_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_DATE_OF_BIRTH;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $dob; } else { echo '<input type="text" name="dob" maxlength="10" value="' . @$dob . '">&nbsp;' . ENTRY_DATE_OF_BIRTH_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_EMAIL_ADDRESS;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $email_address; } else { echo '<input type="text" name="email_address" maxlength="96" value="' . @$email_address . '">&nbsp;' . ENTRY_EMAIL_ADDRESS_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="7" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_ADDRESS;?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_STREET_ADDRESS;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $street_address; } else { echo '<input type="text" name="street_address" maxlength="64" value="' . @$street_address . '">&nbsp;' . ENTRY_STREET_ADDRESS_TEXT; }?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_SUBURB;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $suburb; } else { echo '<input type="text" name="suburb" maxlength="32" value="' . @$suburb . '">&nbsp;' . ENTRY_SUBURB_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_POST_CODE;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $postcode; } else { echo '<input type="text" name="postcode" maxlength="8" value="' . @$postcode . '">&nbsp;' . ENTRY_POST_CODE_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_CITY;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $city; } else { echo '<input type="text" name="city" maxlength="32" value="' . @$city . '">&nbsp;' . ENTRY_CITY_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_STATE;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $state; } else { echo '<input type="text" name="state" maxlength="32" value="' . @$state . '">&nbsp;' . ENTRY_STATE_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_COUNTRY;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $country; } else { echo '<input type="text" name="country" maxlength="32" value="' . @$country . '">&nbsp;' . ENTRY_COUNTRY_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="3" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_CONTACT;?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_TELEPHONE_NUMBER;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $telephone; } else { echo '<input type="text" name="telephone" maxlength="32" value="' . @$telephone . '">&nbsp;' . ENTRY_TELEPHONE_NUMBER_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_FAX_NUMBER;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<? if ($action == 'delete') { echo $fax; } else { echo '<input type="text" name="fax" maxlength="32" value="' . @$fax . '">&nbsp;' . ENTRY_FAX_NUMBER_TEXT; } ?></font></td>
+          </tr>
+          <tr>
+            <td colspan="2"><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;</font></td>
+          </tr>
+          <tr>
+            <td align="right" valign="middle" colspan="2" rowspan="3" nowrap><font face="<?=CATEGORY_FONT_FACE;?>" size="<?=CATEGORY_FONT_SIZE;?>" color="<?=CATEGORY_FONT_COLOR;?>"><?=CATEGORY_PASSWORD;?></font></td>
+          </tr>
+<?
+    if ($action == 'delete') {
+?>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_PASSWORD;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<?=PASSWORD_HIDDEN;?></font></td>
+          </tr>
+<?
+    } else {
+?>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_PASSWORD;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<input type="password" name="password" maxlength="12" value="<?=@$password;?>">&nbsp;<?=ENTRY_PASSWORD_TEXT;?></font></td>
+          </tr>
+          <tr>
+            <td align="right" nowrap><font face="<?=ENTRY_FONT_FACE;?>" size="<?=ENTRY_FONT_SIZE;?>" color="<?=ENTRY_FONT_COLOR;?>">&nbsp;&nbsp;<?=ENTRY_PASSWORD_CONFIRMATION;?>&nbsp;&nbsp;</font></td>
+            <td nowrap><font face="<?=VALUE_FONT_FACE;?>" size="<?=VALUE_FONT_SIZE;?>" color="<?=VALUE_FONT_COLOR;?>">&nbsp;&nbsp;<input type="password" name="confirmation" maxlength="12" value="<?=@$password;?>">&nbsp;<?=ENTRY_PASSWORD_CONFIRMATION_TEXT;?></font></td>
+          </tr>
+<?
+    }
+?>
+        </table></td>
+      </tr>
+      <tr>
+        <td><br><?=tep_black_line();?></td>
+      </tr>
+      <tr>
+<?
+    if ($action == 'add') {
+      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_insert.gif', '50', '14', '0', IMAGE_INSERT) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+    } elseif ($action == 'update') {
+      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_update.gif', '50', '14', '0', IMAGE_UPDATE) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+    } elseif ($action == 'delete') {
+      echo '        <td align="right"><br><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . tep_image_submit(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE) . '&nbsp;&nbsp;<a href="' . tep_href_link(FILENAME_CUSTOMERS, '', 'NONSSL') . '">' . tep_image(DIR_IMAGES . 'button_cancel.gif', '50', '14', '0', IMAGE_CANCEL) . '</a>&nbsp;&nbsp;</font></td>' . "\n";
+    }
+?>
+      </tr></form>
+<?
+  } else {
+    if ($HTTP_GET_VARS['order_by']) {
+      $order_by = $HTTP_GET_VARS['order_by'];
+    } else {
+      $order_by = 'customers_id';
+    }
+?>
+      <tr>
+        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+          <tr>
+            <td nowrap><font face="<?=HEADING_FONT_FACE;?>" size="<?=HEADING_FONT_SIZE;?>" color="<?=HEADING_FONT_COLOR;?>">&nbsp;<?=HEADING_TITLE;?>&nbsp;</font></td>
+            <td align="right" nowrap><br><form name="order_by"><select name="selected" onChange="go()"><option value="customers_lastname"<? if ($order_by == 'customers_lastname') { echo ' SELECTED'; } ?>>Customers Lastname</option><option value="customers_id"<? if ($order_by == 'customers_id') { echo ' SELECTED'; } ?>>Customers ID</option><option value="customers_country"<? if ($order_by == 'customers_country') { echo ' SELECTED'; } ?>>Customers Country</option></select>&nbsp;&nbsp;</form></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td colspan="5"><?=tep_black_line();?></td>
+          </tr>
+          <tr>
+            <td align="center" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_ID;?>&nbsp;</b></font></td>
+            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_FIRSTNAME;?>&nbsp;</b></font></td>
+            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_LASTNAME;?>&nbsp;</b></font></td>
+            <td nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_COUNTRY;?>&nbsp;</b></font></td>
+            <td align="center" nowrap><font face="<?=TABLE_HEADING_FONT_FACE;?>" size="<?=TABLE_HEADING_FONT_SIZE;?>" color="<?=TABLE_HEADING_FONT_COLOR;?>"><b>&nbsp;<?=TABLE_HEADING_ACTION;?>&nbsp;</b></font></td>
+          </tr>
+          <tr>
+            <td colspan="5"><?=tep_black_line();?></td>
+          </tr>
+<?
+    $customers = tep_db_query("select customers_id, customers_firstname, customers_lastname, customers_city, customers_country from customers order by '" . $order_by . "'");
+    while ($customers_values = tep_db_fetch_array($customers)) {
+      $rows++;
+      if (floor($rows/2) == ($rows/2)) {
+        echo '          <tr bgcolor="#ffffff">' . "\n";
+      } else {
+        echo '          <tr bgcolor="#f4f7fd">' . "\n";
+      }
+?>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_id'];?>&nbsp;</font></td>
+            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_firstname'];?>&nbsp;</font></td>
+            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_lastname'];?>&nbsp;</font></td>
+            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$customers_values['customers_country'];?>&nbsp;</font></td>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'action=update&customers_id=' . $customers_values['customers_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_modify.gif', '50', '14', '0', IMAGE_MODIFY);?></a>&nbsp;&nbsp;<?='<a href="' . tep_href_link(FILENAME_CUSTOMERS, 'action=delete&customers_id=' . $customers_values['customers_id'], 'NONSSL') . '">';?><?=tep_image(DIR_IMAGES . 'button_delete.gif', '50', '14', '0', IMAGE_DELETE);?></a>&nbsp;</font></td>
+          </tr>
+<?
+      $ids[] = $customers_values['customers_id'];
+      rsort($ids);
+      $next_id = ($ids[0] + 1);
+    }
+?>
+          <tr>
+            <td colspan="5"><?=tep_black_line();?></td>
+          </tr>
+<?
+    if (floor($rows/2) == ($rows/2)) {
+      echo '          <tr bgcolor="#f4f7fd">' . "\n";
+    } else {
+      echo '          <tr bgcolor="#ffffff">' . "\n";
+    }
+    echo '<form name="customers" action="' . tep_href_link(FILENAME_CUSTOMERS, 'action=add_customers', 'NONSSL') . '" method="post" onSubmit="return checkForm();">' . "\n";
+?>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<?=$next_id;?>&nbsp;</font></td>
+            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="customers_firstname" size="20">&nbsp;</font></td>
+            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="customers_lastname" size="20">&nbsp;</font></td>
+            <td nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>">&nbsp;<input type="text" name="customers_country" size="20">&nbsp;</font></td>
+            <td align="center" nowrap><font face="<?=SMALL_TEXT_FONT_FACE;?>" size="<?=SMALL_TEXT_FONT_SIZE;?>" color="<?=SMALL_TEXT_FONT_COLOR;?>"><b>&nbsp;<?=tep_image_submit(DIR_IMAGES . 'button_insert.gif', '50', '14', '0', IMAGE_INSERT);?>&nbsp;</font></td>
+</form>
+          </tr>
+          <tr>
+            <td colspan="5"><?=tep_black_line();?></td>
+          </tr>
+        </table></td>
+      </tr>
+<?
+  }
+?>
+    </table></td>
+<!-- body_text_eof //-->
+  </tr>
+</table>
+<!-- body_eof //-->
+
+<!-- footer //-->
+<? $include_file = DIR_INCLUDES . 'footer.php';  include(DIR_INCLUDES . 'include_once.php'); ?>
+<!-- footer_eof //-->
+<br>
+</body>
+</html>
+<? include('includes/application_bottom.php'); ?>

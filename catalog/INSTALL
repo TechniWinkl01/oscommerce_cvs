@@ -1,0 +1,146 @@
+The Exchange Project Preview Release 1.1 (14/05/2000)
+
+QUICK INSTALLATION STEPS
+------------------------
+ 
+Once having downloaded the archive from the downloads page,
+follow these steps to get the online shop running:
+
+1. Extract the files from within the package
+
+   tar -xzf tep_catalog-pr1.1.tar.gz
+ 
+2. This creates a directory called 'tep_catalog-pr1.1'. Enter
+   this directory and copy the 'catalog' directory to your
+   webroot directory of your webserver:
+
+   cd tep_catalog-pr1.1
+   cp -R catalog /usr/local/apache/htdocs/
+
+   For this example, '/usr/local/apache/htdocs/' is used as
+   the webroot root directory of apache.
+ 
+3. Create the 'catalog' database and import the sample data:
+
+   mysqladmin create catalog
+   mysql catalog <./mysql_catalog.sql
+
+   To check if the tables have been successfully imported, you
+   can list them by using mysqlshow:
+
+   mysqlshow catalog
+ 
+4. View the file catalog/includes/application_top.php and make
+   necessary changes.
+
+Now you can use your browser to view the pages which should be
+located at 'http://localhost/catalog/'. You can also use your
+browser, or a graphics viewer/editor, to view the database
+model which is located in the directory where you extracted
+the files 'tep_catalog-pr1.1/dbmodel_catalog.gif'. 
+
+Although localization functions have been implemented in this
+release, it is not yet complete. To test the functions out,
+you will need to add a GET parameter to the url:
+
+http://server/catalog/default.php?language=english
+
+available languages include
+
+english
+german
+
+
+APACHE/SSL/PHP INSTALLATION
+---------------------------
+
+This is a quick and dirty guide of installing PHP as an
+dynamic apache module with SSL. For a more in-depth
+installation guide, it is recommended to read through the
+documentation of each package. Remember, if you want to
+learn, theres only one way to do it.. RTFM(s) ;)
+ 
+The following was done under a RedHat 6.0/6.1 system
+
+1. Extract the files from the necessary packages
+
+   tar -xzf openssl-0.9.5a.tar.gz
+   tar -xzf mod_ssl-2.6.4-1.3.12.tar.gz
+   tar -xzf apache_1.3.12.tar.gz
+   tar -xzf php-4.0RC2.tar.gz
+   tar -xzf ZendOptimizer-Beta3-Linux-glibc2.1.tar.gz
+ 
+2. To install SSL support in Apache, we need to first install
+   the OpenSSL package.
+ 
+   cd openssl-0.9.5a
+   ./configure
+   make
+   make test
+   make install
+   cd ..
+ 
+   If you're a US-Citizen, you have to build OpenSSL in
+   conjunction with the RSAref library.
+ 
+3. When OpenSSL is installed, it is now safe to install Apache
+   with MOD-SSL.
+ 
+   cd mod_ssl-2.6.4-1.3.12
+   ./configure --with-apache=../apache_1.3.12 \
+     --with-ssl=../openssl-0.9.5a
+   cd ../apache_1.3.12
+   SSL_BASE=/usr/local/ssl ./configure --enable-module=ssl \
+     --enable-module=so
+   make
+   make certificate
+   make install
+   cd ..
+ 
+4. Now to build PHP as a dynamic apache module (DS0)
+ 
+   cd php-4.0RC2
+   CFLAGS='-O2 -I/usr/local/ssl/include' ./configure \
+     --enable-track-vars \
+     --enable-trans-sid \
+     --with-mysql \
+     --disable-debug \
+     --with-apxs=/usr/local/apache/bin/apxs
+   make
+   make install
+   cp php.ini-dist /usr/local/lib/php.ini
+   cd ..
+ 
+5. Edit the configuration files for Apache (httpd.conf)
+   and PHP (php.ini). Make sure the following is in the
+   httpd.conf file
+ 
+   LoadModule php4_module libexec/libphp4.so
+   AddType application/x-httpd-php .php
+ 
+   If you have ClearModuleList somewhere in the httpd.conf
+   file, then you must add this line
+ 
+   AddModule mod_php4.c
+ 
+6. To install the ZendOptimizer beta3, you must be using
+   PHP4.0RC2 with debugging disabled
+ 
+   cd ZendOptimizer-Beta3-Linux-glibc2.1
+   mkdir /usr/local/Zend
+   mkdir /usr/local/Zend/lib
+   cp ZendOptimizer.so /usr/local/Zend/lib
+ 
+   Add the following to the php.ini
+ 
+   zend_optimizer.optimization_level=7
+   zend_extension="/usr/local/Zend/lib/ZendOptimizer.so"
+ 
+7. Start Apache
+ 
+   /usr/local/apache/bin/apachectl startssl
+   (or start for nonssl mode)
+
+After the installation, you can create a file in the webroot
+directory which contains <?php phpinfo(); ?> to see the
+php configuration variables. 

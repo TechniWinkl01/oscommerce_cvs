@@ -1,0 +1,72 @@
+The Exchange Project Administration Tool Preview Release 1.1 (12.06.2000)
+
+Quick Installation
+------------------
+
+Follow these steps to get the administration running:
+
+Extract the files from within the package
+
+    tar -xzf tep_administration-pr1.1.tar.gz
+ 
+This would have created a directory called 'tep_administration-pr1.1'. Enter
+this directory and copy the 'admin' directory to where your WWW root directory
+is located
+
+    cd tep_administration-pr1.1
+    cp -R admin /usr/local/apache/htdocs/
+
+For this example, '/usr/local/apache/htdocs/' is used as the WWW root
+directory of Apache
+ 
+View the files admin/includes/application_*.php and make necessary changes.
+Changes will also need to be made to admin/includes/functions/database.php for
+your database connections.
+ 
+It is up to you on how you wish to protect the administration side against
+unauthorized use.
+
+For the administration tool to be able to insert and delete images, the
+right permissions need to be setup on the images directory. Find out which user
+and group the apache process runs under, and execute the following:
+
+cd catalog
+chown -R nobody.nobody images
+
+in the above example, the apache process is run by user 'nobody', which belongs
+to the group of 'nobody'. For more information on the 'chmod' command, read its
+manual:
+
+man chown
+
+*** NOTE ***
+
+The following changes to the database model needs to be done in order for this
+administration tool to work. This little modification adds support for order status.
+
+    mysql catalog
+    alter table orders add orders_status varchar(10) not null default 'Pending';
+    alter table orders add orders_date_finished varchar(14) null;
+
+An update to the catalog/checkout_process.php page also needs to be made on line 18
+to add data to the 'orders' table for the extra columns (orders_status and
+orders_date_finished). The following change needs to be made:
+
+[LINE 18]  tep_db_query("insert into orders values ('', '" . $customer_id . "', '" . $customer_name . "', '" . $customer_values['customers_street_address'] . "', '" . $customer_values['customers_suburb'] . "', '" . $customer_values['customers_city'] . "', '" . $customer_values['customers_postcode'] . "', '" . $customer_values['customers_state'] . "', '" . $customer_values['customers_country'] . "', '" . $customer_values['customers_telephone'] . "', '" . $customer_values['customers_email_address'] . "', '" . $delivery_name . "', '" . $delivery_values['street_address'] . "', '" . $delivery_values['suburb'] . "', '" . $delivery_values['city'] . "', '" . $delivery_values['postcode'] . "', '" . $delivery_values['state'] . "', '" . $delivery_values['country'] . "', '" . $HTTP_POST_VARS['payment'] . "', '" . $HTTP_POST_VARS['cc_type'] . "', '" . $HTTP_POST_VARS['cc_owner'] . "', '" . $HTTP_POST_VARS['cc_number'] . "', '" . $HTTP_POST_VARS['cc_expires'] . "', '" . $date_now . "', '" . TAX_VALUE . "', 'Pending', '')");
+
+after TAX_VALUE at the end of the sql query, the following was added for the
+new columns..
+
+'Pending', ''
+
+This will be fixed in the CVS.
+
+Any questions can be directed to the following addresses:
+
+Harald Ponce de Leon [hpdl@theexchangeproject.org]
+General Mailing List [tep-general@theexchangeproject.org]
+
+In order to receive E-Mails from the mailing-list, an account is needed
+which can be created on the support site at:
+
+http://theexchangeproject.org
