@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.107 2001/06/13 22:58:24 dwatkins Exp $
+# $Id: mysql_catalog.sql,v 1.108 2001/06/15 16:30:35 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.1
 #
@@ -825,6 +825,10 @@ INSERT INTO currencies VALUES (1,'US Dollar','USD','$','USD','.',',','2');
 INSERT INTO currencies VALUES (2,'Deutsche Mark','DEM','','DM',',','.','2');
 INSERT INTO currencies VALUES (3,'Spanish Peseta','ESP','','Pts','.',',','0');
 INSERT INTO currencies VALUES (4,'Euro','EUR','&euro;','','.',',','2');
+
+INSERT INTO customers VALUES("1","m","John","doe","20010101","root@localhost","1 Way Street","","12345","NeverNever","","12345","","d95e8fa7f20a009372eb3477473fcd34:1c","223","12","0");
+
+INSERT INTO customers_info VALUES("1","","0","20010615","");
 
 INSERT INTO languages VALUES (1,'English','en','flag_en.gif','english',1);
 INSERT INTO languages VALUES (2,'Deutsch','de','flag_de.gif','german',2);
