@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.97 2002/01/08 02:41:08 hpdl Exp $
+  $Id: general.php,v 1.98 2002/01/09 06:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -957,6 +957,60 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       }
     } else {
       new errorBox(array(array('text' => tep_image(DIR_WS_ICONS . 'error.gif', ICON_ERROR) . ' ' . $error)));
+    }
+  }
+
+  function tep_array_slice($array, $offset, $length = '0') {
+    if (function_exists('array_slice')) {
+      return array_slice($array, $offset, $length);
+    } else {
+      $length = abs($length);
+      if ($length == 0) {
+        $high = count($array);
+      } else {
+        $high = $offset+$length;
+      }
+
+      for ($i=$offset; $i<$high; $i++) {
+        $new_array[$i-$offset] = $array[$i];
+      }
+
+      return $new_array;
+    }
+  }
+
+  function tep_remove($source) {
+    global $errorStack, $tep_remove_error;
+
+    if (isset($tep_remove_error)) $tep_remove_error = false;
+
+    if (is_dir($source)) {
+      $dir = dir($source);
+      while ($file = $dir->read()) {
+        if ( ($file != '.') && ($file != '..') ) {
+          if (is_writeable($source . '/' . $file)) {
+            tep_remove($source . '/' . $file);
+          } else {
+            $errorStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
+            $tep_remove_error = true;
+          }
+        }
+      }
+      $dir->close();
+
+      if (is_writeable($source)) {
+        rmdir($source);
+      } else {
+        $errorStack->add(sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
+        $tep_remove_error = true;
+      }
+    } else {
+      if (is_writeable($source)) {
+        unlink($source);
+      } else {
+        $errorStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
+        $tep_remove_error = true;
+      }
     }
   }
 ?>

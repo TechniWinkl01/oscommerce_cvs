@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.9 2002/01/08 12:59:46 dgw_ Exp $
+  $Id: file_manager.php,v 1.10 2002/01/09 06:04:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -21,12 +21,16 @@ define('TABLE_HEADING_LAST_MODIFIED', 'Last Modified');
 define('TABLE_HEADING_ACTION', 'Accion');
 
 define('TEXT_FILE_NAME', 'Nombre:');
-define('TEXT_FILE_SIZE', 'Tamaño');
+define('TEXT_FILE_SIZE', 'Tamaño:');
 define('TEXT_FILE_CONTENTS', 'Contenido:');
 define('TEXT_LAST_MODIFIED', 'Ultima Modificacion:');
 define('TEXT_NEW_FOLDER', 'Nueva Carpeta');
 define('TEXT_NEW_FOLDER_INTRO', 'Introduzca el nombre de la carpeta nueva:');
 define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este fichero?');
+define('TEXT_UPLOAD', 'Upload');
 
-define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this directory. Please set the right user permissions.');
+define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this directory. Please set the right user permissions on: %s');
+define('ERROR_FILE_NOT_WRITEABLE', 'Error: I can not write to this file. Please set the right user permissions on: %s');
+define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Error: I can not remove this directory. Please set the right user permissions on: %s');
+define('ERROR_FILE_NOT_REMOVEABLE', 'Error: I can not remove this file. Please set the right user permissions on: %s');
 ?>
