@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.42 2003/06/29 22:50:52 hpdl Exp $
+  $Id: file_manager.php,v 1.43 2003/09/10 17:39:24 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,8 +43,12 @@
         if (!$tep_remove_error) tep_redirect(tep_href_link(FILENAME_FILE_MANAGER));
         break;
       case 'insert':
-        if (mkdir($current_path . '/' . $HTTP_POST_VARS['folder_name'], 0777)) {
-          tep_redirect(tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($HTTP_POST_VARS['folder_name'])));
+        if (!file_exists($current_path . '/' . $HTTP_POST_VARS['folder_name'])) {
+          if (mkdir($current_path . '/' . $HTTP_POST_VARS['folder_name'], 0777)) {
+            tep_redirect(tep_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($HTTP_POST_VARS['folder_name'])));
+          }
+        } else {
+          $messageStack->add(sprintf(ERROR_DIRECTORY_EXISTS, $current_path . '/' . $HTTP_POST_VARS['folder_name']), 'error');
         }
         break;
       case 'save':

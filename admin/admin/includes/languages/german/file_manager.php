@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.18 2003/07/21 13:28:28 project3000 Exp $
+  $Id: file_manager.php,v 1.19 2003/09/10 17:39:25 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,4 +34,5 @@ define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis ist schreibgesc
 define('ERROR_FILE_NOT_WRITEABLE', 'Fehler: Die Datei ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
 define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Fehler: Das Verzeichnis kann nicht gel&ouml;scht werden. Bitte korrigieren Sie die Zugriffsrechte f&uuml;r: %s !');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
+define('ERROR_DIRECTORY_EXISTS', 'Error: Directory already exists: %s');
 ?>

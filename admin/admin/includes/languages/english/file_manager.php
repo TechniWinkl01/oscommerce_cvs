@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: file_manager.php,v 1.14 2003/07/21 13:28:27 project3000 Exp $
+  $Id: file_manager.php,v 1.15 2003/09/10 17:39:25 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,4 +34,5 @@ define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Error: I can not write to this director
 define('ERROR_FILE_NOT_WRITEABLE', 'Error: I can not write to this file. Please set the right user permissions on: %s');
 define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Error: I can not remove this directory. Please set the right user permissions on: %s');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Error: Directory does not exist: %s');
+define('ERROR_DIRECTORY_EXISTS', 'Error: Directory already exists: %s');
 ?>
