@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.23 2002/11/13 12:41:17 hpdl Exp $
+  $Id: orders.php,v 1.24 2002/11/23 13:58:04 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,6 +63,7 @@ define('ENTRY_DATE_PURCHASED', 'Bestelldatum:');
 define('ENTRY_STATUS', 'Status:');
 define('ENTRY_DATE_LAST_UPDATED', 'letzte Aktualisierung am:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
+define('ENTRY_NOTIFY_COMMENTS', 'Append Comments:');
 define('ENTRY_PRINTABLE', 'Rechnung drucken');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Bestellung l&ouml;schen');
@@ -81,6 +82,7 @@ define('EMAIL_TEXT_ORDER_NUMBER', 'Bestell-Nr.:');
 define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung können Sie unter folgender Adresse einsehen:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
 define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geändert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grüssen' . "\n");
+define('EMAIL_TEXT_COMMENTS_UPDATE', 'The comments for your order are' . "\n\n%s\n\n");
 
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Fehler: Die Bestellung existiert nicht!.');
 define('SUCCESS_ORDER_UPDATED', 'Hinweis: Die Bestellung wurde erfolgreich aktualisiert.');

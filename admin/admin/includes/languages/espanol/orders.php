@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.21 2002/11/13 12:41:17 hpdl Exp $
+  $Id: orders.php,v 1.22 2002/11/23 13:58:03 thomasamoulton Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -63,6 +63,7 @@ define('ENTRY_DATE_PURCHASED', 'Fecha de Compra:');
 define('ENTRY_STATUS', 'Estado:');
 define('ENTRY_DATE_LAST_UPDATED', 'Ultima Modificacion:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Notificar Cliente:');
+define('ENTRY_NOTIFY_COMMENTS', 'Append Comments:');
 define('ENTRY_PRINTABLE', 'Print Invoice');
 
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Eliminar Pedido');
@@ -81,6 +82,7 @@ define('EMAIL_TEXT_ORDER_NUMBER', 'Numero de Pedido:');
 define('EMAIL_TEXT_INVOICE_URL', 'Pedido Detallado:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Fecha del Pedido:');
 define('EMAIL_TEXT_STATUS_UPDATE', 'Su pedido ha sido actualizado al siguiente estado.' . "\n\n" . 'Nuevo estado: %s' . "\n\n" . 'Por favor responda a este email si tiene alguna pregunta que hacer.' . "\n");
+define('EMAIL_TEXT_COMMENTS_UPDATE', 'The comments for your order are' . "\n\n%s\n\n");
 
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Error: No existe pedido.');
 define('SUCCESS_ORDER_UPDATED', 'Exito: Pedido actualizado correctamente.');
