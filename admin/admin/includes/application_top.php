@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.138 2002/03/15 02:40:38 hpdl Exp $
+  $Id: application_top.php,v 1.139 2002/03/15 02:52:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -149,11 +149,6 @@
     define('PHP_SESSION_SAVE_PATH', '/tmp');
 
     include(DIR_WS_CLASSES . 'sessions.php');
-  }
-
-// include mysql session storage handler
-  if (STORE_SESSIONS == 'mysql') {
-    include(DIR_WS_FUNCTIONS . 'sessions_mysql.php');
   }
 
 // define how the session functions will be used
