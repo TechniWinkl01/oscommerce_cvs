@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: flat.php,v 1.34 2002/08/13 16:00:42 dgw_ Exp $
+  $Id: flat.php,v 1.35 2002/11/01 04:47:03 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -23,78 +23,16 @@
     }
 
 // class methods
-    function selection() {
-      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_FLAT_TEXT_TITLE . '</td>' . "\n" .
-                          '    <td align="right" class="main">' . tep_draw_checkbox_field('shipping_quote_flat', '1', true) . '</td>' . "\n" .
-                          '  </tr>' . "\n" .
-                          '</table>' . "\n";
+    function quote($method = '') {
+      $this->quotes = array('id' => $this->code,
+                            'module' => MODULE_SHIPPING_FLAT_TEXT_TITLE,
+                            'methods' => array(array('id' => $this->code,
+                                                     'title' => MODULE_SHIPPING_FLAT_TEXT_WAY,
+                                                     'cost' => SHIPPING_HANDLING + MODULE_SHIPPING_FLAT_COST)));
 
-      return $selection_string;
-    }
+      if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);
 
-    function quote() {
-      global $shipping_quoted, $shipping_flat_cost, $shipping_flat_method;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_flat'] == '1') ) {
-        $shipping_quoted = 'flat';
-        $shipping_flat_cost = SHIPPING_HANDLING + MODULE_SHIPPING_FLAT_COST;
-        $shipping_flat_method = MODULE_SHIPPING_FLAT_TEXT_WAY;
-      }
-    }
-
-    function cheapest() {
-      global $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_flat_cost;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_flat'] == '1') ) {
-        if ($shipping_count == 0) {
-          $shipping_cheapest = 'flat';
-          $shipping_cheapest_cost = $shipping_flat_cost;
-        } else {
-          if ($shipping_flat_cost < $shipping_cheapest_cost) {
-            $shipping_cheapest = 'flat';
-            $shipping_cheapest_cost = $shipping_flat_cost;
-          }
-        }
-        $shipping_count++;
-      }
-    }
-
-    function display() {
-      global $HTTP_GET_VARS, $currencies, $shipping_cheapest, $shipping_flat_method, $shipping_flat_cost, $shipping_selected;
-
-// set a global for the radio field (auto select cheapest shipping method)
-      if (!$shipping_selected) $shipping_selected = $shipping_cheapest;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_flat'] == '1') ) {
-        $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_FLAT_TEXT_TITLE . ' <small><i>(' . $shipping_flat_method . ')</i></small></td>' . "\n" .
-                          '    <td align="right" class="main">' . $currencies->format($shipping_flat_cost);
-        if (tep_count_shipping_modules() > 1) {
-          $display_string .= tep_draw_radio_field('shipping_selected', 'flat') .
-                             tep_draw_hidden_field('shipping_flat_cost', $shipping_flat_cost) .
-                             tep_draw_hidden_field('shipping_flat_method', $shipping_flat_method) . '</td>' . "\n";
-        } else {
-          $display_string .= tep_draw_hidden_field('shipping_selected', 'flat') .
-                             tep_draw_hidden_field('shipping_flat_cost', $shipping_flat_cost) .
-                             tep_draw_hidden_field('shipping_flat_method', $shipping_flat_method) . '</td>' . "\n";
-        }
-        $display_string .= '  </tr>' . "\n" .
-                           '</table>' . "\n";
-      }
-
-      return $display_string;
-    }
-
-    function confirm() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $shipping_selected;
-
-      if ($shipping_selected == 'flat') {
-        $shipping_cost = $HTTP_POST_VARS['shipping_flat_cost'];
-        $shipping_method = $HTTP_POST_VARS['shipping_flat_method'];
-      }
+      return $this->quotes;
     }
 
     function check() {
@@ -111,14 +49,18 @@
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_FLAT_STATUS'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_FLAT_COST'");
+      $keys = '';
+      $keys_array = $this->keys();
+      for ($i=0; $i<sizeof($keys_array); $i++) {
+        $keys .= "'" . $keys_array[$i] . "',";
+      }
+      $keys = substr($keys, 0, -1);
+
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_FLAT_STATUS', 'MODULE_SHIPPING_FLAT_COST');
-
-      return $keys;
+      return array('MODULE_SHIPPING_FLAT_STATUS', 'MODULE_SHIPPING_FLAT_COST');
     }
   }
 ?>

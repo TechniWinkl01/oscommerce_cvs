@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: table.php,v 1.21 2002/10/15 14:18:33 thomasamoulton Exp $
+  $Id: table.php,v 1.22 2002/11/01 04:47:03 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -23,95 +23,36 @@
     }
 
 // class methods
-    function selection() {
-      $selection_string = '<table border="0" cellspacing="0" cellpadding="0" width="100%">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_TABLE_TEXT_TITLE . '</td>' . "\n" .
-                          '    <td align="right" class="main">' . tep_draw_checkbox_field('shipping_quote_table', '1', true) . '</td>' . "\n" .
-                          '  </tr>' . "\n" .
-                          '</table>' . "\n";
+    function quote($method = '') {
+      global $cart, $shipping_weight, $shipping_num_boxes;
 
-      return $selection_string;
-    }
-
-    function quote() {
-      global $cart, $shipping_quoted, $shipping_table_cost, $shipping_table_method, $shipping_weight, $shipping_num_boxes;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
-        $shipping_quoted = 'table';
-
-        if (MODULE_SHIPPING_TABLE_MODE == 'price') {
-          $order_total = $cart->show_total();
-        } else {
-          $order_total = $shipping_weight;
-        }
-
-        $table_cost = split("[:,]" , MODULE_SHIPPING_TABLE_COST);
-        for ($i = 0; $i < count($table_cost); $i+=2) {
-          if ($order_total <= $table_cost[$i]) {
-            $shipping = $table_cost[$i+1];
-            $shipping_table_method = MODULE_SHIPPING_TABLE_TEXT_WAY;
-            break;
-          }
-        }
-        if (MODULE_SHIPPING_TABLE_MODE == 'weight') {
-          $shipping = $shipping * $shipping_num_boxes;
-        }
-        $shipping_table_cost = ($shipping + MODULE_SHIPPING_TABLE_HANDLING);
-      }
-    }
-
-    function cheapest() {
-      global $shipping_count, $shipping_cheapest, $shipping_cheapest_cost, $shipping_table_cost;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
-        if ($shipping_count == 0) {
-          $shipping_cheapest = 'table';
-          $shipping_cheapest_cost = $shipping_table_cost;
-        } else {
-          if ($shipping_table_cost < $shipping_cheapest_cost) {
-            $shipping_cheapest = 'table';
-            $shipping_cheapest_cost = $shipping_table_cost;
-          }
-        }
-        $shipping_count++;
-      }
-    }
-
-    function display() {
-      global $HTTP_GET_VARS, $currencies, $shipping_cheapest, $shipping_table_method, $shipping_table_cost, $shipping_selected;
-
-// set a global for the radio field (auto select cheapest shipping method)
-      if (!$shipping_selected) $shipping_selected = $shipping_cheapest;
-
-      if ( ($GLOBALS['shipping_quote_all'] == '1') || ($GLOBALS['shipping_quote_table'] == '1') ) {
-        $display_string = '<table border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n" .
-                          '  <tr>' . "\n" .
-                          '    <td class="main">' . (($this->icon) ? tep_image($this->icon, $this->title) : '') . ' ' . MODULE_SHIPPING_TABLE_TEXT_TITLE . ' <small><i>(' . $shipping_table_method . ')</i></small></td>' . "\n" .
-                          '    <td align="right" class="main">' . $currencies->format($shipping_table_cost);
-        if (tep_count_shipping_modules() > 1) {
-          $display_string .= tep_draw_radio_field('shipping_selected', 'table') .
-                             tep_draw_hidden_field('shipping_table_cost', $shipping_table_cost) .
-                             tep_draw_hidden_field('shipping_table_method', $shipping_table_method) . '</td>' . "\n";
-        } else {
-          $display_string .= tep_draw_hidden_field('shipping_selected', 'table') .
-                             tep_draw_hidden_field('shipping_table_cost', $shipping_table_cost) .
-                             tep_draw_hidden_field('shipping_table_method', $shipping_table_method) . '</td>' . "\n";
-        }
-        $display_string .= '  </tr>' . "\n" .
-                           '</table>' . "\n";
+      if (MODULE_SHIPPING_TABLE_MODE == 'price') {
+        $order_total = $cart->show_total();
+      } else {
+        $order_total = $shipping_weight;
       }
 
-      return $display_string;
-    }
-
-    function confirm() {
-      global $HTTP_POST_VARS, $shipping_cost, $shipping_method, $shipping_selected;
-
-      if ($shipping_selected == 'table') {
-        $shipping_cost = $HTTP_POST_VARS['shipping_table_cost'];
-        $shipping_method = $HTTP_POST_VARS['shipping_table_method'];
+      $table_cost = split("[:,]" , MODULE_SHIPPING_TABLE_COST);
+      for ($i=0, $n=sizeof($table_cost); $i<$n; $i+=2) {
+        if ($order_total <= $table_cost[$i]) {
+          $shipping = $table_cost[$i+1];
+          break;
+        }
       }
+
+      if (MODULE_SHIPPING_TABLE_MODE == 'weight') {
+        $shipping = $shipping * $shipping_num_boxes;
+      }
+
+      $this->quotes = array('id' => $this->code,
+                            'module' => MODULE_SHIPPING_TABLE_TEXT_TITLE,
+                            'methods' => array(array('id' => $this->code,
+                                                     'title' => MODULE_SHIPPING_TABLE_TEXT_WAY,
+                                                     'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING)));
+
+      if (tep_not_null($this->icon)) $this->quotes['icon'] = tep_image($this->icon, $this->title);
+
+      return $this->quotes;
     }
 
     function check() {
@@ -130,15 +71,18 @@
     }
 
     function remove() {
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_TABLE_STATUS'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_TABLE_COST'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_TABLE_HANDLING'");
-      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'MODULE_SHIPPING_TABLE_MODE'");
+      $keys = '';
+      $keys_array = $this->keys();
+      for ($i=0; $i<sizeof($keys_array); $i++) {
+        $keys .= "'" . $keys_array[$i] . "',";
+      }
+      $keys = substr($keys, 0, -1);
+
+      tep_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key in (" . $keys . ")");
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_MODE');
-      return $keys;
+      return array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_MODE');
     }
   }
 ?>
