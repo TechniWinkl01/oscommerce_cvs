@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: espanol.php,v 1.75 2002/01/04 10:03:31 hpdl Exp $
+  $Id: espanol.php,v 1.76 2002/01/04 10:08:57 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2001 osCommerce
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -42,7 +42,7 @@ define('HTML_PARAMS','dir="LTR" lang="es"');
 define('CHARSET', 'iso-8859-1');
 
 // page title
-define('TITLE', 'Open Source Commerce');
+define('TITLE', 'osCommerce');
 
 // header text in includes/header.php
 define('HEADER_TITLE_CREATE_ACCOUNT', 'Crear Cuenta');
