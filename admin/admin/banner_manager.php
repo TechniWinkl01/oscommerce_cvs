@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_manager.php,v 1.44 2002/01/05 09:17:03 hpdl Exp $
+  $Id: banner_manager.php,v 1.45 2002/01/05 09:22:03 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -207,14 +207,14 @@ function popupImageWindow(url) {
           </tr>
           <tr>
             <td class="main" valign="top"><?php echo TEXT_BANNERS_IMAGE; ?></td>
-            <td class="main"><?php echo tep_draw_file_field('banners_image') . ' ' . TEXT_BANNERS_IMAGE_LOCAL . '<br>' . DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . tep_draw_input_field('banners_image_local', $bInfo->banners_image); ?></td>
+            <td class="main"><?php echo tep_draw_file_field('banners_image') . ' ' . TEXT_BANNERS_IMAGE_LOCAL . '<br>' . DIR_FS_CATALOG_IMAGES . tep_draw_input_field('banners_image_local', $bInfo->banners_image); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_BANNERS_IMAGE_TARGET; ?></td>
-            <td class="main"><?php echo DIR_FS_DOCUMENT_ROOT . DIR_WS_CATALOG_IMAGES . tep_draw_input_field('banners_image_target'); ?></td>
+            <td class="main"><?php echo DIR_FS_CATALOG_IMAGES . tep_draw_input_field('banners_image_target'); ?></td>
           </tr>
           <tr>
             <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '1', '10'); ?></td>
