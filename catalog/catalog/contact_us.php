@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: contact_us.php,v 1.43 2003/11/17 21:00:43 hpdl Exp $
+  $Id: contact_us.php,v 1.44 2003/12/03 17:32:53 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -103,6 +103,23 @@
 <?php
   } else {
 ?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main"><?php echo nl2br(STORE_NAME_ADDRESS); ?></td>
+              </tr>
+              <tr>
+                <td class="main"><?php echo nl2br(STORE_OWNER_EMAIL_ADDRESS); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
       <tr>
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.115 2003/11/17 20:40:54 hpdl Exp $
+  $Id: english.php,v 1.116 2003/12/03 17:32:53 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -122,7 +122,7 @@ define('BOX_HEADING_CURRENCIES', 'Currencies');
 // information box text in includes/boxes/information.php
 define('BOX_HEADING_INFORMATION', 'Information');
 define('BOX_INFORMATION_PRIVACY', 'Privacy Notice');
-define('BOX_INFORMATION_CONDITIONS', 'Conditions of Use');
+define('BOX_INFORMATION_CONDITIONS', 'Terms & Conditions');
 define('BOX_INFORMATION_SHIPPING', 'Shipping & Returns');
 define('BOX_INFORMATION_CONTACT', 'Contact Us');
 
@@ -151,6 +151,7 @@ define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Please select a payment method 
 define('JS_ERROR_SUBMITTED', 'This form has already been submitted. Please press Ok and wait for this process to be completed.');
 
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Please select a payment method for your order.');
+define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Please confirm the terms and conditions bound to this order by ticking the box below.');
 
 define('CATEGORY_COMPANY', 'Company Details');
 define('CATEGORY_PERSONAL', 'Your Personal Details');

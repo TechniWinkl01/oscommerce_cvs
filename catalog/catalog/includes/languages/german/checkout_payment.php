@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.20 2003/02/16 00:42:03 harley_vb Exp $
+  $Id: checkout_payment.php,v 1.21 2003/12/03 17:32:53 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -18,6 +18,10 @@ define('HEADING_TITLE', 'Zahlungsweise');
 define('TABLE_HEADING_BILLING_ADDRESS', 'Rechnungsadresse');
 define('TEXT_SELECTED_BILLING_DESTINATION', 'Bitte w&auml;hlen Sie aus Ihrem Adressbuch die gew&uuml;nschte Rechnungsadresse f&uuml;r Ihre Bestellung aus.');
 define('TITLE_BILLING_ADDRESS', 'Rechnungsadresse:');
+
+define('TABLE_HEADING_CONDITIONS', 'Terms and Conditions');
+define('TEXT_CONDITIONS_DESCRIPTION', 'Please acknowledge the terms and conditions bound to this order by ticking the following box. The terms and conditions can be read <a href="' . tep_href_link(FILENAME_CONDITIONS, '', 'SSL') . '"><u>here</u></a>.');
+define('TEXT_CONDITIONS_CONFIRM', 'I have read and agreed to the terms and conditions bound to this order.');
 
 define('TABLE_HEADING_PAYMENT_METHOD', 'Zahlungsweise');
 define('TEXT_SELECT_PAYMENT_METHOD', 'Bitte w&auml;hlen Sie die gew&uuml;nschte Zahlungsweise f&uuml;r Ihre Bestellung aus.');

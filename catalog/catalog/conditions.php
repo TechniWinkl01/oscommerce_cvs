@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: conditions.php,v 1.23 2003/11/17 21:00:43 hpdl Exp $
+  $Id: conditions.php,v 1.24 2003/12/03 17:32:53 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -56,6 +56,27 @@
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
+<?php
+  if (isset($navigation->path[sizeof($navigation->path)-2]) && ($navigation->path[sizeof($navigation->path)-2]['page'] == FILENAME_CHECKOUT_PAYMENT)) {
+?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td class="main"><?php echo '<b>' . TITLE_CONTINUE_CHECKOUT_PROCEDURE . '</b><br>' . TEXT_CONTINUE_CHECKOUT_PROCEDURE; ?></td>
+                <td align="right"><?php echo '<a href="' . tep_href_link(FILENAME_CHECKOUT_PAYMENT) . '">' . tep_image_button('button_continue.gif', IMAGE_BUTTON_CONTINUE) . '</a>'; ?></td>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+<?php
+    } else {
+?>
       <tr>
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
           <tr class="infoBoxContents">
@@ -70,6 +91,9 @@
         </table></td>
       </tr>
     </table></td>
+<?php
+  }
+?>
 <!-- body_text_eof //-->
     <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="2">
 <!-- right_navigation //-->

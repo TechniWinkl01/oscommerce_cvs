@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.140 2003/11/17 20:58:34 hpdl Exp $
+  $Id: checkout_confirmation.php,v 1.141 2003/12/03 17:32:52 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -43,6 +43,14 @@
 
   if (tep_not_null($_POST['comments'])) {
     $osC_Session->set('comments', tep_db_prepare_input($_POST['comments']));
+  }
+
+  if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
+    if (!isset($_POST['conditions']) || ($_POST['conditions'] != '1')) {
+      $messageStack->add_session('checkout_conditions', ERROR_CONDITIONS_NOT_ACCEPTED, 'error');
+
+      tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
+    }
   }
 
 // load the selected payment module

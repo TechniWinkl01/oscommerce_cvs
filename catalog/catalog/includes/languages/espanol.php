@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.108 2003/11/17 20:40:54 hpdl Exp $
+  $Id: espanol.php,v 1.109 2003/12/03 17:32:53 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -122,7 +122,7 @@ define('BOX_HEADING_CURRENCIES', 'Monedas');
 // information box text in includes/boxes/information.php
 define('BOX_HEADING_INFORMATION', 'Informaci&oacute;n');
 define('BOX_INFORMATION_PRIVACY', 'Confidencialidad');
-define('BOX_INFORMATION_CONDITIONS', 'Condiciones de uso');
+define('BOX_INFORMATION_CONDITIONS', 'Terms & Conditions');
 define('BOX_INFORMATION_SHIPPING', 'Envios/Devoluciones');
 define('BOX_INFORMATION_CONTACT', 'Contactenos');
 
@@ -151,6 +151,7 @@ define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Por favor seleccione un m&eacut
 define('JS_ERROR_SUBMITTED', 'Ya ha enviado el formulario. Pulse Aceptar y espere a que termine el proceso.');
 
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor seleccione un m&eacute;todo de pago para su pedido.');
+define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Please confirm the terms and conditions bound to this order by ticking the box below.');
 
 define('CATEGORY_COMPANY', 'Empresa');
 define('CATEGORY_PERSONAL', 'Personal');

@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.16 2003/07/08 16:45:36 dgw_ Exp $
+  $Id: checkout_payment.php,v 1.17 2003/12/03 17:32:53 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,6 +18,10 @@ define('HEADING_TITLE', 'Forma de Pago');
 define('TABLE_HEADING_BILLING_ADDRESS', 'Direcci&oacute;n de Facturaci&oacute;n');
 define('TEXT_SELECTED_BILLING_DESTINATION', 'Elija la direcci&oacute;n de su libreta donde quiera recibir la factura.');
 define('TITLE_BILLING_ADDRESS', 'Direcci&oacute;n de Facturaci&oacute;n:');
+
+define('TABLE_HEADING_CONDITIONS', 'Terms and Conditions');
+define('TEXT_CONDITIONS_DESCRIPTION', 'Please acknowledge the terms and conditions bound to this order by ticking the following box. The terms and conditions can be read <a href="' . tep_href_link(FILENAME_CONDITIONS, '', 'SSL') . '"><u>here</u></a>.');
+define('TEXT_CONDITIONS_CONFIRM', 'I have read and agreed to the terms and conditions bound to this order.');
 
 define('TABLE_HEADING_PAYMENT_METHOD', 'Forma de Pago');
 define('TEXT_SELECT_PAYMENT_METHOD', 'Escoja la forma de pago preferida para este pedido.');

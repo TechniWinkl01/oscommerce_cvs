@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.114 2003/11/17 20:58:34 hpdl Exp $
+  $Id: checkout_payment.php,v 1.115 2003/12/03 17:32:53 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -115,6 +115,11 @@ function rowOverEffect(object) {
 function rowOutEffect(object) {
   if (object.className == 'moduleRowOver') object.className = 'moduleRow';
 }
+
+function changeSelection(selection) {
+  box = eval(selection);
+  box.checked = !box.checked;
+}
 //--></script>
 <?php echo $payment_modules->javascript_validation(); ?>
 </head>
@@ -162,6 +167,44 @@ function rowOutEffect(object) {
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
                 <td class="main" width="100%" valign="top"><?php echo tep_output_string_protected($error['error']); ?></td>
                 <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+<?php
+  }
+
+  if (DISPLAY_CONDITIONS_ON_CHECKOUT == 'true') {
+    if ($messageStack->size('checkout_conditions') > 0) {
+?>
+      <tr>
+        <td><?php echo $messageStack->output('checkout_conditions'); ?></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+<?php
+    }
+?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b><?php echo TABLE_HEADING_CONDITIONS; ?></b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td class="main"><?php echo TEXT_CONDITIONS_DESCRIPTION . '<br><br>' . tep_draw_checkbox_field('conditions', '1') . '&nbsp;<span onClick="changeSelection(document.checkout_payment.conditions)">' . TEXT_CONDITIONS_CONFIRM . '</span>'; ?></td>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
             </table></td>
           </tr>
