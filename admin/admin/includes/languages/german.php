@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.48 2001/12/05 09:13:10 jan0815 Exp $
+  $Id: german.php,v 1.49 2001/12/06 13:45:21 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -32,6 +32,9 @@ function tep_date_raw($date, $reverse = false) {
     return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
   }
 }
+
+// charset for web pages and emails
+define('CHARSET', 'iso-8859-1');
 
 // page title
 define('TITLE', 'The Exchange Project');
