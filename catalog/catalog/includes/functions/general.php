@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.170 2002/04/24 16:48:13 hpdl Exp $
+  $Id: general.php,v 1.171 2002/04/26 20:18:17 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -252,15 +252,26 @@
 ////
 // Returns the tax rate for a zone / class
 // TABLES: tax_rates, zones_to_geo_zones
-  function tep_get_tax_rate($country_id, $zone_id, $class_id) {
+  function tep_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
+    global $customer_zone_id, $customer_country_id;
+
+    if ( ($country_id == -1) && ($zone_id == -1) ) {
+      if (!tep_session_is_registered('customer_id')) {
+        $country_id = STORE_COUNTRY;
+        $zone_id = STORE_ZONE;
+      } else {
+        $country_id = $customer_country_id;
+        $zone_id = $customer_zone_id;
+      }
+    }
+
     $tax_query = tep_db_query("select SUM(tax_rate) as tax_rate from " . TABLE_TAX_RATES . " tr left join " . TABLE_ZONES_TO_GEO_ZONES . " za ON tr.tax_zone_id = za.geo_zone_id left join " . TABLE_GEO_ZONES . " tz ON tz.geo_zone_id = tr.tax_zone_id WHERE (za.zone_country_id IS NULL OR za.zone_country_id = '0' OR za.zone_country_id = '" . $country_id . "') AND (za.zone_id IS NULL OR za.zone_id = '0' OR za.zone_id = '" . $zone_id . "') AND tr.tax_class_id = '" . $class_id . "' GROUP BY tr.tax_priority");
     if (tep_db_num_rows($tax_query)) {
-      $tax_multiplier=1.000;
-      while($tax = tep_db_fetch_array($tax_query))
-      {
-        $tax_multiplier *= 1.000+($tax['tax_rate']/100);
+      $tax_multiplier = 1.0;
+      while ($tax = tep_db_fetch_array($tax_query)) {
+        $tax_multiplier *= 1.0 + ($tax['tax_rate'] / 100);
       }
-      return ($tax_multiplier-1.000)*100;
+      return ($tax_multiplier - 1.0) * 100;
     } else {
       return 0;
     }
@@ -278,6 +289,23 @@
       return TEXT_UNKNOWN_TAX_RATE;
     }
   }
+
+////
+// Add tax to a products price
+    function tep_add_tax($price, $tax) {
+      if (DISPLAY_PRICE_WITH_TAX) {
+        return $price + tep_calculate_tax($price, $tax);
+      } else {
+        return $price;
+      }
+    }
+
+// Calculates Tax rounding the result
+    function tep_calculate_tax($price, $tax) {
+      global $currencies;
+
+      return round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+    }
 
 ////
 // Return the number of products in a category
