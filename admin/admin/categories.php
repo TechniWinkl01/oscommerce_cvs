@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: categories.php,v 1.127 2002/03/18 14:48:11 harley_vb Exp $
+  $Id: categories.php,v 1.128 2002/03/26 10:27:02 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -262,7 +262,7 @@
 
             $description_query = tep_db_query("select language_id, products_name, products_description, products_url from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . tep_db_input($products_id) . "'");
             while ($description = tep_db_fetch_array($description_query)) {
-              tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url, products_viewed) values ('" . $dup_products_id . "', '" . $description['language_id'] . "', '" . $description['products_name'] . "', '" . $description['products_description'] . "', '" . $description['products_url'] . "', '0')");
+              tep_db_query("insert into " . TABLE_PRODUCTS_DESCRIPTION . " (products_id, language_id, products_name, products_description, products_url, products_viewed) values ('" . $dup_products_id . "', '" . $description['language_id'] . "', '" . addslashes($description['products_name']) . "', '" . addslashes($description['products_description']) . "', '" . $description['products_url'] . "', '0')");
             }
 
             tep_db_query("insert into " . TABLE_PRODUCTS_TO_CATEGORIES . " (products_id, categories_id) values ('" . $dup_products_id . "', '" . tep_db_input($categories_id) . "')");
