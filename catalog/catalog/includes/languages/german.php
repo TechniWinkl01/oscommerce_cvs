@@ -165,7 +165,9 @@ define('ENTRY_PASSWORD_TEXT', '&nbsp;<small><font color="#AABBDD">ben&ouml;tigt<
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
 // constants for use in tep_prev_next_display function
-// 
+define('TEXT_RESULT_PAGE', 'Ergebniss Seiten:');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Ergebnisse <b>%d</b> bis <b>%d</b> (von <b>%d</b> Produkte)');
+
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Erste Seite');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Vorherige Seite');
 define('PREVNEXT_TITLE_NEXT_PAGE', 'Folgende Seite');
@@ -174,7 +176,8 @@ define('PREVNEXT_TITLE_PAGE_NO', 'Seite %d');
 define('PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE', 'Vorhergehendes Set von %d Seiten');
 define('PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE', 'Folgendes Set von %d Seiten');
 define('PREVNEXT_BUTTON_FIRST', '&lt;&lt;ZUERST');
-define('PREVNEXT_BUTTON_PREV', '&lt;VORHERGEHEND');
-define('PREVNEXT_BUTTON_NEXT', 'ZUNÄCHST&gt;');
+define('PREVNEXT_BUTTON_PREV', '[&lt;&lt; Vorhergehend]');
+define('PREVNEXT_BUTTON_NEXT', '[Zun&auml;chst &gt;&gt;]');
 define('PREVNEXT_BUTTON_LAST', 'LETZTES&gt;&gt;');
+
 ?>
