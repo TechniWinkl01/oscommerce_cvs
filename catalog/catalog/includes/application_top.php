@@ -133,6 +133,9 @@
   define('TABLE_HEADING_FONT_SIZE', '2');
   define('TABLE_HEADING_FONT_COLOR', '#000000');
 
+  define('TABLE_ROW_BACKGROUND_COLOR', '#ffffff');
+  define('TABLE_ALT_BACKGROUND_COLOR', '#f4f7fd');
+
   define('SMALL_TEXT_FONT_FACE', 'Verdana, Arial');
   define('SMALL_TEXT_FONT_SIZE', '1');
   define('SMALL_TEXT_FONT_COLOR', '#000000');

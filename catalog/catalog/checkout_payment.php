@@ -102,12 +102,12 @@ function check_form() {
     include(DIR_PAYMENT_MODULES . $value);
     if ($payment_enabled) {
 ?>
-              <tr bgcolor="#f4f7fd">
+              <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
                 <td nowrap colspan=3><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo $payment_description; ?>&nbsp;</font></td>
                 <td align="right" nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="radio" name="payment" value="<? echo $payment_code; ?>"
                 <? if ((!$payment && $rows == 1) || ($payment == $payment_code)) echo " checked"; ?>>&nbsp;</font></td>
               </tr>
-              <tr bgcolor="#ffffff">
+              <tr bgcolor="<? echo TABLE_ROW_BACKGROUND_COLOR; ?>">
                 <td colspan="2">
 <? 
       // Display extra fields for each payment

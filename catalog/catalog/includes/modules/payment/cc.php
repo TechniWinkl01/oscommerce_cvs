@@ -39,7 +39,7 @@
   elseif ($payment_action == 'PM_SELECTION' && $payment_enabled) 
   {
 ?>
-                <table border="0" cellspacing="0" cellpadding="0" align="center">
+                <table border="0" cellspacing="0" cellpadding="0" width="100%">
                   <tr>
                     <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<? echo TEXT_CREDIT_CARD_OWNER; ?>&nbsp;</font></td>
                     <td nowrap><font face="<? echo TEXT_FONT_FACE; ?>" size="<? echo TEXT_FONT_SIZE; ?>" color="<? echo TEXT_FONT_COLOR; ?>">&nbsp;<input type="text" name="cc_owner" value="<? echo $HTTP_POST_VARS['cc_owner']; ?>">&nbsp;</font></td>

@@ -45,9 +45,9 @@
     while ($listing_values = tep_db_fetch_array($listing)) {
       $number_of_products++;
       if (($number_of_products / 2) == floor($number_of_products / 2)) {
-        echo '  <tr bgcolor="#ffffff">' . "\n";
+        echo '  <tr bgcolor="' . TABLE_ROW_BACKGROUND_COLOR . '">' . "\n";
       } else {
-        echo '  <tr bgcolor="#f4f7fd">' . "\n";
+        echo '  <tr bgcolor="' . TABLE_ALT_BACKGROUND_COLOR . '">' . "\n";
       }
       if (PRODUCT_LIST_MODEL) echo '    <td nowrap><font face="' . SMALL_TEXT_FONT_FACE . '" size="' . SMALL_TEXT_FONT_SIZE . '" color="' . SMALL_TEXT_FONT_COLOR . '">&nbsp;' . $listing_values['products_model'] . '&nbsp;</font></td>';
       if ($HTTP_GET_VARS['manufacturers_id']) {
@@ -71,7 +71,7 @@
     }
   } else {
 ?>
-  <tr bgcolor="#f4f7fd">
+  <tr bgcolor="<? echo TABLE_ALT_BACKGROUND_COLOR; ?>">
     <td colspan="<? echo $colspan; ?>" nowrap><font face="<? echo SMALL_TEXT_FONT_FACE; ?>" size="<? echo SMALL_TEXT_FONT_SIZE; ?>" color="<? echo SMALL_TEXT_FONT_COLOR; ?>">&nbsp;<? echo ($HTTP_GET_VARS['manufacturers_id'] ? TEXT_NO_PRODUCTS2 : TEXT_NO_PRODUCTS); ?>&nbsp;</font></td>
   </tr>
 <?
