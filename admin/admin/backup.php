@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: backup.php,v 1.28 2001/12/14 13:19:16 jan0815 Exp $
+  $Id: backup.php,v 1.29 2001/12/21 02:03:42 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2001 osCommerce
 
   Released under the GNU General Public License
 */
@@ -17,8 +17,8 @@
     tep_redirect(tep_href_link(FILENAME_BACKUP));
   } elseif ($HTTP_GET_VARS['action'] == 'backupnow') {
     tep_set_time_limit(0);
-    $schema = '# The Exchange Project - Community Made Shopping!' . "\n" .
-              '# http://www.theexchangeproject.org' . "\n" .
+    $schema = '# osCommerce, Open Source E-Commerce Solutions' . "\n" .
+              '# http://www.oscommerce.com' . "\n" .
               '#' . "\n" .
               '# Database Backup For ' . STORE_NAME . "\n" . 
               '# Copyright (c) ' . date('Y') . ' ' . STORE_OWNER . "\n" .
