@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: address_book.php,v 1.49 2002/05/06 22:35:29 thomasamoulton Exp $
+  $Id: address_book.php,v 1.50 2002/05/21 12:28:09 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -48,7 +48,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_address_book.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -58,9 +58,9 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_NUMBER; ?></td>
+            <td class="tableHeading" align="center"><?php echo TABLE_HEADING_NUMBER; ?></td>
             <td class="tableHeading"><?php echo TABLE_HEADING_NAME; ?></td>
-            <td align="center" class="tableHeading"><?php echo TABLE_HEADING_CITY_COUNTRY; ?></td>
+            <td class="tableHeading" align="center"><?php echo TABLE_HEADING_CITY_COUNTRY; ?></td>
           </tr>
           <tr>
             <td colspan="3"><?php echo tep_draw_separator(); ?></td>
@@ -68,13 +68,12 @@
 <?php
 // get all address_book entries of this customer with an address_book_id > 1
   $address_book = tep_db_query("select address_book_id, entry_firstname, entry_lastname, entry_city, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and  address_book_id > 1 order by address_book_id");
-  if (!@tep_db_num_rows($address_book)) {
+  if (!tep_db_num_rows($address_book)) {
 ?>
           <tr class="addressBook-odd">
             <td colspan="3" class="smallText"><?php echo TEXT_NO_ENTRIES_IN_ADDRESS_BOOK; ?></td>
           </tr>
 <?php
-// We have more addresses! Let's build a list
   } else {
     $row = 0;
     while ($address_book_values = tep_db_fetch_array($address_book)) {
@@ -85,9 +84,9 @@
       } else {
         echo '          <tr class="addressBook-odd">' . "\n";
       }
-      echo '            <td align="center" class="smallText">0' . $row . '.</td>' . "\n";
+      echo '            <td class="smallText" align="center">0' . $row . '.</td>' . "\n";
       echo '            <td class="smallText"><a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS, 'action=modify&entry_id=' . $address_book_values['address_book_id'], 'SSL') . '">' . $address_book_values['entry_firstname'] . ' ' . $address_book_values['entry_lastname'] . '</a></td>' . "\n";
-      echo '            <td align="center" class="smallText">' . tep_address_summary($customer_id, $address_book_values['address_book_id']) . '</td>' . "\n";
+      echo '            <td class="smallText" align="center">' . tep_address_summary($customer_id, $address_book_values['address_book_id']) . '</td>' . "\n";
       echo '          </tr>' . "\n";
     }
   }
@@ -95,15 +94,18 @@
           <tr>
             <td colspan="3"><?php echo tep_draw_separator(); ?></td>
           </tr>
+          <tr>
+            <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+          </tr>
 <?php
 // Is the maximum number of addresses already used?
   if ($row < MAX_ADDRESS_BOOK_ENTRIES) {
 ?>
           <tr>
-            <td colspan="3" class="smallText"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td colspan="3" class="smallText"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?><br><br><?php echo sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
-                <td align="right" valign="top" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS,  'entry_id=' . ($row + 2), 'SSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>'; ?></td>
+                <td class="smallText" valign="top"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?><br><br><?php echo sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
+                <td class="smallText" align="right" valign="top"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK_PROCESS,  'entry_id=' . ($row + 2), 'SSL') . '">' . tep_image_button('button_add_address.gif', IMAGE_BUTTON_ADD_ADDRESS) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -111,10 +113,10 @@
   } else {
 ?>
           <tr>
-            <td colspan="3" class="smallText"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td colspan="3" class="smallText"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="smallText"><?php echo sprintf(TEXT_MAXIMUM_ENTRIES_REACHED, MAX_ADDRESS_BOOK_ENTRIES); ?></td>
-                <td align="right" class="smallText"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+                <td class="smallText" align="right"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>

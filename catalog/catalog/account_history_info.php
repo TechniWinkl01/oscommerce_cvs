@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.79 2002/04/26 22:29:13 hpdl Exp $
+  $Id: account_history_info.php,v 1.80 2002/05/21 12:27:00 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,15 +12,15 @@
 
   require('includes/application_top.php');
 
-  if (tep_session_is_registered('customer_id')) {
-    $customer_number = tep_db_query("select customers_id from " . TABLE_ORDERS . " where orders_id = '". $HTTP_GET_VARS['order_id'] . "'");
-    $customer_number_values = tep_db_fetch_array($customer_number);
-    if ($customer_number_values['customers_id'] != $customer_id) {
-      tep_redirect(tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
-    }
-  } else {
+  if (!tep_session_is_registered('customer_id')) {
     $navigation->set_snapshot();
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
+  }
+
+  $customer_number_query = tep_db_query("select customers_id from " . TABLE_ORDERS . " where orders_id = '". $HTTP_GET_VARS['order_id'] . "'");
+  $customer_number = tep_db_fetch_array($customer_number_query);
+  if ($customer_number['customers_id'] != $customer_id) {
+    tep_redirect(tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
   }
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_HISTORY_INFO);
@@ -57,7 +57,7 @@
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_history.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_history.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>

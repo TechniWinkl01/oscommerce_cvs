@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: account.php,v 1.54 2002/03/10 01:32:09 hpdl Exp $
+  $Id: account.php,v 1.55 2002/05/21 12:22:57 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
@@ -45,10 +45,10 @@
 <!-- body_text //-->
     <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_account.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -68,12 +68,15 @@
         </td>
       </tr>
       <tr>
-        <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+      <tr>
+        <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'); ?>"><?php echo tep_image_button('button_address_book.gif', IMAGE_BUTTON_ADDRESS_BOOK); ?></a></td>
-            <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'); ?>"><?php echo tep_image_button('button_history.gif', IMAGE_BUTTON_HISTORY); ?></a></td>
-            <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, '', 'SSL'); ?>"><?php echo tep_image_button('button_notifications.gif', IMAGE_BUTTON_NOTIFICATIONS); ?></a></td>
-            <td align="center" class="main"><a href="<?php echo tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'); ?>"><?php echo tep_image_button('button_edit_account.gif', IMAGE_BUTTON_EDIT_ACCOUNT); ?></a></td>
+            <td align="center" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '">' . tep_image_button('button_address_book.gif', IMAGE_BUTTON_ADDRESS_BOOK) . '</a>'; ?></td>
+            <td align="center" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">' . tep_image_button('button_history.gif', IMAGE_BUTTON_HISTORY) . '</a>'; ?></td>
+            <td align="center" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_NOTIFICATIONS, '', 'SSL') . '">' . tep_image_button('button_notifications.gif', IMAGE_BUTTON_NOTIFICATIONS) . '</a>'; ?></td>
+            <td align="center" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL') . '">' . tep_image_button('button_edit_account.gif', IMAGE_BUTTON_EDIT_ACCOUNT) . '</a>'; ?></td>
           </tr>
         </table></td>
       </tr>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: database.php,v 1.13 2002/04/06 15:58:28 hpdl Exp $
+  $Id: database.php,v 1.14 2002/05/21 12:30:19 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -75,7 +75,25 @@
     return mysql_fetch_field($db_query);
   }
 
+  function tep_db_output($string) {
+    return stripslashes($string);
+  }
+
   function tep_db_input($string) {
     return addslashes($string);
+  }
+
+  function tep_db_prepare_input($string) {
+    if (is_string($string)) {
+      return trim(stripslashes($string));
+    } elseif (is_array($string)) {
+      reset($string);
+      while (list($key, $value) = each($string)) {
+        $string[$key] = tep_db_prepare_input($value);
+      }
+      return $string;
+    } else {
+      return $string;
+    }
   }
 ?>
