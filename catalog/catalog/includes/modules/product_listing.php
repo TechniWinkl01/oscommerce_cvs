@@ -57,6 +57,9 @@
   <tr>
     <td colspan="<?=$colspan;?>"><?=tep_black_line();?></td>
   </tr>
+<?
+  if ($listing_numrows > 0) {
+?>
   <tr>
     <td colspan="<?=$colspan;?>"><table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
@@ -65,4 +68,7 @@
       </tr>
     </table></td>
   </tr>
+<?
+  }
+?>
 </table>
