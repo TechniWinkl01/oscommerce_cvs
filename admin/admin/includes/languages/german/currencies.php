@@ -1,19 +1,17 @@
 <?php
 /*
-  $Id: currencies.php,v 1.8 2001/10/15 07:22:08 mabosch Exp $
+  $Id: currencies.php,v 1.9 2002/01/04 07:55:01 hpdl Exp $
 
-  The Exchange Project - Community Made Shopping!
-  http://www.theexchangeproject.org
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
 
-  Copyright (c) 2000,2001 The Exchange Project
+  Copyright (c) 2002 osCommerce
 
   Released under the GNU General Public License
 */
 
-define('TOP_BAR_TITLE', 'W&auml;hrungen');
 define('HEADING_TITLE', 'W&auml;hrungen');
 
-define('TABLE_HEADING_CURRENCY_ID', 'ID');
 define('TABLE_HEADING_CURRENCY_NAME', 'W&auml;hrung');
 define('TABLE_HEADING_CURRENCY_CODES', 'Kodierung');
 define('TABLE_HEADING_CURRENCY_VALUE', 'Wert');
