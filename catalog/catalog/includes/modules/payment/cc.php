@@ -1,11 +1,20 @@
 <?
-  define('TEXT_CREDIT_CARD', 'Credit Card');
-  define('TEXT_CREDIT_CARD_OWNER', 'Credit Card Owner:');
-  define('TEXT_CREDIT_CARD_NUMBER', 'Credit Card Number:');
-  define('TEXT_CREDIT_CARD_EXPIRES', 'Credit Card Expiry Date:');
-  define('JS_CC_OWNER', '* The owner\'s name of the credit card must be atleast ' . CC_OWNER_MIN_LENGTH . ' characters.\n');
-  define('JS_CC_NUMBER', '* The credit card number must be atleast ' . CC_NUMBER_MIN_LENGTH . ' characters.\n');
-
+  if ($language == 'english') {
+    define('TEXT_CREDIT_CARD', 'Credit Card');
+    define('TEXT_CREDIT_CARD_OWNER', 'Credit Card Owner:');
+    define('TEXT_CREDIT_CARD_NUMBER', 'Credit Card Number:');
+    define('TEXT_CREDIT_CARD_EXPIRES', 'Credit Card Expiry Date:');
+    define('JS_CC_OWNER', '* The owner\'s name of the credit card must be atleast ' . CC_OWNER_MIN_LENGTH . ' characters.\n');
+    define('JS_CC_NUMBER', '* The credit card number must be atleast ' . CC_NUMBER_MIN_LENGTH . ' characters.\n');
+  } elseif ($language == 'espanol') {
+    define('TEXT_CREDIT_CARD', 'Tarjeta de Credito');
+    define('TEXT_CREDIT_CARD_OWNER', 'Titular de la Tarjeta:');
+    define('TEXT_CREDIT_CARD_NUMBER', 'Numero de la Tarjeta:');
+    define('TEXT_CREDIT_CARD_EXPIRES', 'Fecha de Caducidad:');
+    define('JS_CC_OWNER', '* El titular de la tarjeta de credito debe de tener al menos ' . CC_OWNER_MIN_LENGTH . ' letras.\n');
+    define('JS_CC_NUMBER', '* El numero de la tarjeta de credito debe de tener al menos ' . CC_NUMBER_MIN_LENGTH . ' numeros.\n');
+  }
+  
   $payment_code = 'cc';
   $payment_description = TEXT_CREDIT_CARD;
   $payment_enabled = PAYMENT_SUPPORT_CC;

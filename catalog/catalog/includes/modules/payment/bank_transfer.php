@@ -1,6 +1,11 @@
 <?
-  define('TEXT_BANK_TRANSFER', 'Bank Transfer');
-  define('TEXT_BANK_TRANSFER_ADDITIONAL', 'Transfer the money to: 293840293840924');
+  if ($language == 'english') {
+    define('TEXT_BANK_TRANSFER', 'Bank Transfer');
+    define('TEXT_BANK_TRANSFER_ADDITIONAL', '*** TODO ***');
+  } elseif ($language == 'espanol') {
+    define('TEXT_BANK_TRANSFER', 'Transferencia Bancaria');
+    define('TEXT_BANK_TRANSFER_ADDITIONAL', '*** TODO ***');
+  }
 
   $payment_code = 'bank';
   $payment_description = TEXT_BANK_TRANSFER;

@@ -52,6 +52,12 @@
         $shipping_cost = $HTTP_POST_VARS['shipping_ups_cost'];
         $shipping_method = $HTTP_POST_VARS['shipping_ups_method'];
       }
+  } elseif ($action == 'check') {
+    $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_UPS_ENABLED'");
+    $check = tep_db_num_rows($check) + 1;
+  } elseif ($action == 'install') {
+    tep_db_query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enable UPS Shipping', 'SHIPPING_UPS_ENABLED', '1', 'Do you want to offer UPS shipping?', '7', '9', now())");
+  } elseif ($action == 'remove') {
+    tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_UPS_ENABLED'");
   }
 ?>
-

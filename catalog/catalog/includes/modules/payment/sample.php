@@ -1,6 +1,10 @@
 <?
-// Language defines, should be moved from here
-  define('TEXT_SAMPLE', 'Sample Payment Module');
+// Language defines, should be removed from here
+  if ($language == 'english') {
+    define('TEXT_SAMPLE', 'Sample Payment Module');
+  } elseif ($language == 'espanol') {
+    define('TEXT_SAMPLE', 'Modulo de Pago de Ejemplo');
+  }
 
   $payment_code = 'sample';
   $payment_description = TEXT_SAMPLE; 

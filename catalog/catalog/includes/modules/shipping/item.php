@@ -32,6 +32,14 @@
         $shipping_cost = $HTTP_POST_VARS['shipping_item_cost'];
         $shipping_method = $HTTP_POST_VARS['shipping_item_method'];
       }
+  } elseif ($action == 'check') {
+    $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_ITEM_ENABLED'");
+    $check = tep_db_num_rows($check) + 1;
+  } elseif ($action == 'install') {
+    tep_db_query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enable Item Shipping', 'SHIPPING_ITEM_ENABLED', '1', 'Do you want to offer per item rate shipping?', '7', '7', now())");
+    tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Per Item shipping cost', 'SHIPPING_ITEM_COST', '2.50', 'How much will be charged for each item ordered?', '7', '8', now())");
+  } elseif ($action == 'remove') {
+    tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_ITEM_ENABLED'");
+    tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_ITEM_COST'");
   }
 ?>
-

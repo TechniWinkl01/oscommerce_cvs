@@ -32,6 +32,14 @@
         $shipping_cost = $HTTP_POST_VARS['shipping_flat_cost'];
         $shipping_method = $HTTP_POST_VARS['shipping_flat_method'];
       }
+  } elseif ($action == 'check') {
+    $check = tep_db_query("select configuration_value from configuration where configuration_key = 'SHIPPING_FLAT_ENABLED'");
+    $check = tep_db_num_rows($check) + 1;
+  } elseif ($action == 'install') {
+    tep_db_query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Enable Flat Shipping', 'SHIPPING_FLAT_ENABLED', '1', 'Do you want to offer flat rate shipping?', '7', '5', now())");
+    tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Flate Cost', 'SHIPPING_FLAT_COST', '5.00', 'What is the Shipping cost? The Handling fee will also be added.', '7', '6', now())");
+  } elseif ($action == 'remove') {
+    tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_FLAT_ENABLED'");
+    tep_db_query("DELETE FROM configuration WHERE configuration_key = 'SHIPPING_FLAT_COST'");
   }
 ?>
-
