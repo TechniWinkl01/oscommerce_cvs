@@ -20,7 +20,15 @@
   function tep_db_query($db_query) {
     global $db_link;
 
+    if (STORE_DB_TRANSACTIONS) {
+       error_log("QUERY " . $db_query . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+    }
+
     $result = mysql_query($db_query, $db_link);
+
+    if (STORE_DB_TRANSACTIONS) {
+       error_log("RESULT " . $result . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+    }
 
     return $result;
   }
