@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.71 2001/11/19 13:44:47 hpdl Exp $
+  $Id: general.php,v 1.72 2001/11/19 18:45:27 project3000 Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -718,7 +718,7 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
 
     list($system, $host, $kernel) = preg_split('/[\s,]+/', exec('uname -a'), 5);
 
-    return array('date' => date('M d H:i:s T Y'),
+    return array('date' => date('M d H:i:s Y'),
                  'system' => $system,
                  'kernel' => $kernel,
                  'host' => $host,
