@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.124 2002/01/27 03:15:47 hpdl Exp $
+  $Id: application_top.php,v 1.125 2002/01/28 02:07:01 harley_vb Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -207,13 +207,9 @@
 // entry/item info classes
   require(DIR_WS_CLASSES . 'module_info.php');
   require(DIR_WS_CLASSES . 'object_info.php');
-  require(DIR_WS_CLASSES . 'ordersstatus_info.php');
   require(DIR_WS_CLASSES . 'product_expected_info.php');
   require(DIR_WS_CLASSES . 'review_info.php');
   require(DIR_WS_CLASSES . 'special_price_info.php');
-  require(DIR_WS_CLASSES . 'tax_class_info.php');
-  require(DIR_WS_CLASSES . 'tax_rate_info.php');
-  require(DIR_WS_CLASSES . 'zones_info.php');
 
 // calculate category path
   $cPath = $HTTP_GET_VARS['cPath'];
