@@ -18,4 +18,5 @@ define('TEXT_INFO_DATE_EXPECTED', 'Date Expected:');
 define('TEXT_INFO_DATE_NOTE', '<small><b>NOTE:</b></small> Use the following date format: YYYYMMDD (eg, ' . date('Ymd') . ')');
 define('TEXT_INFO_INSERT_INTRO', 'Please enter the new product name and price thats expected');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this expected product?');
+define('TEXT_INFO_HEADING_NEW_PRODUCT', 'New Product');
 ?>

@@ -29,4 +29,5 @@ define('TEXT_INFO_NEW_PRICE', 'New Price:');
 define('TEXT_INFO_PERCENTAGE', 'Percentage:');
 define('TEXT_INFO_SPECIAL_PRICE_TIP', '<small><b>NOTE:</b></small> You can enter a percentage to deduct, for example: 20%');
 define('TEXT_INFO_NEW_PRICE_NOTE', '<small><b>NOTE:</b></small> If you enter a new price, the decimal separator must be a \'.\' (decimal-point).<br>&nbsp;<br><small><b>NOTE:</b></small> If you enter a percentage value, don\'t forget to add the percentage character (\'%\') to the end of the value.');
+define('TEXT_INFO_HEADING_NEW_PRODUCT', 'New Product');
 ?>
