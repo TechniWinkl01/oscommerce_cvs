@@ -1,5 +1,5 @@
 <?
-  /* $Id: flat.php,v 1.14 2001/02/12 11:48:39 tmoulton Exp $ */
+  /* $Id: flat.php,v 1.15 2001/03/02 13:19:03 tmoulton Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_LANGUAGES . $language . '/modules/shipping/flat.php';include(DIR_INCLUDES . 'include_once.php');
   }
@@ -11,19 +11,20 @@
                 <td>&nbsp;</td>
                 <td align="right">&nbsp;<input type="checkbox" name="shipping_quote_flat" value="1"
 <?
-  if ($shipping_count == 0) echo ' CHECKED';
+  // if ($shipping_count == 0)
+  echo ' CHECKED';
   echo "></td>\n";
 ?>
              </tr>
 <?
   } elseif ($action == 'quote') {
-    if ($shipping_quote_flat == "1") {
+    if ($shipping_quote_flat == "1" || $shipping_quote_all == "1") {
       $shipping_quoted = 'flat';
       $shipping_flat_cost = SHIPPING_HANDLING + SHIPPING_FLAT_COST;
       $shipping_flat_method = SHIPPING_FLAT_WAY;
     }
   } elseif ($action == 'cheapest') {
-    if ($shipping_quote_flat == "1") {
+    if ($shipping_quote_flat == "1" || $shipping_quote_all == "1") {
       if ($shipping_count == 0) {
         $shipping_cheapest = 'flat';
         $shipping_cheapest_cost = $shipping_flat_cost;
@@ -35,7 +36,7 @@
       }
     }
   } elseif ($action == 'display') {
-      if ($shipping_quote_flat == "1") {
+      if ($shipping_quote_flat == "1" || $shipping_quote_all == "1") {
         echo "              <tr>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . SHIPPING_FLAT_NAME . "</font></td>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_flat_method . "</font></td>\n";

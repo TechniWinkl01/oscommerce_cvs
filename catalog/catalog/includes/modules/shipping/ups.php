@@ -1,5 +1,5 @@
 <?
-  /* $Id: ups.php,v 1.18 2001/02/19 12:33:41 tmoulton Exp $ */
+  /* $Id: ups.php,v 1.19 2001/03/02 13:19:03 tmoulton Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_LANGUAGES . $language . '/modules/shipping/ups.php';include(DIR_INCLUDES . 'include_once.php');
   }
@@ -21,18 +21,20 @@
                   <OPTION VALUE="XPD"><? echo SHIPPING_UPS_OPT_XPD; ?></OPTION>
                   </SELECT><br>
                 </td>
-                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_ups" value="1"
+                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_ups" value="1" CHECKED
 <?
-  if ($shipping_count == 0) echo ' CHECKED';
+  // if ($shipping_count == 0) echo ' CHECKED';
   echo "></td>\n";
 ?>
              </tr>
 <?
   } elseif ($action == 'quote') {
-      if ($shipping_quote_ups == "1") {
+      $prod = $HTTP_POST_VARS['shipping_ups_prod'];
+      if ($shipping_quote_all == "1") $prod = "GND";
+      if ($shipping_quote_ups == "1" || $shipping_quote_all == "1") {
         include(DIR_CLASSES . 'ups.php');
         $rate = new Ups;
-        $rate->upsProduct($HTTP_POST_VARS['shipping_ups_prod']);    // See upsProduct() function for codes
+        $rate->upsProduct($prod);    // See upsProduct() function for codes
         $rate->origin(STORE_ORIGIN_ZIP, STORE_ORIGIN_COUNTRY); // Use ISO country codes!
         $country_name = tep_get_countries($address_values['country_id'], '1');
         $country_post = str_replace(" ", "", $address_values['postcode']);
@@ -44,7 +46,7 @@
         $rate->rescom(SHIPPING_UPS_RES);    // See the rescom() function for codes
         $shipping_ups_quote = $rate->getQuote();
         $shipping_ups_cost = SHIPPING_HANDLING + $shipping_ups_quote;
-        $shipping_ups_method = "UPS " . $HTTP_POST_VARS['shipping_ups_prod'] . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
+        $shipping_ups_method = "UPS " . $prod . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
         if ($shipping_ups_cost == SHIPPING_HANDLING) $shipping_ups_method = "UPS " . $shipping_ups_quote;
         else {
           $shipping_quoted = 'ups';
@@ -52,7 +54,7 @@
         }
       }
   } elseif ($action == 'cheapest') {
-    if ($shipping_quote_ups == "1") {
+    if ($shipping_quote_ups == "1" || $shipping_quote_all == "1") {
       if ($shipping_count == 0) {
         $shipping_cheapest = 'ups';
         $shipping_cheapest_cost = $shipping_ups_cost;
@@ -64,7 +66,7 @@
       }
     }
   } elseif ($action == 'display') {
-      if ($shipping_quote_ups == "1") {
+      if ($shipping_quote_ups == "1" || $shipping_quote_all == "1") {
         echo "              <tr>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . SHIPPING_UPS_NAME . "</font></td>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_ups_method . "</font></td>\n";

@@ -1,5 +1,5 @@
 <?php
-	/* $Id: fedex.php,v 1.8 2001/02/18 12:57:19 tmoulton Exp $ */
+	/* $Id: fedex.php,v 1.9 2001/03/02 13:19:02 tmoulton Exp $ */
         if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
 	  $include_file = DIR_LANGUAGES . $language . '/modules/shipping/fedex.php';include(DIR_INCLUDES . 'include_once.php');
         }
@@ -13,13 +13,13 @@
 			print htmlentities(SHIPPING_FEDEX_NAME) . "</FONT></TD>";
 			print "<TD>&nbsp;</TD>";
 			print "<TD ALIGN=\"right\">&nbsp;<INPUT TYPE=\"checkbox\" NAME=\"shipping_quote_fedex\" VALUE=\"1\"";
-			if(!$shipping_count) {
+			// if(!$shipping_count) {
 				print ' CHECKED';
-			}
+			// }
 			print "></TD></TR>\n";
 			break;
 		case 'quote' :
-			if ($shipping_quote_fedex == "1") {
+			if ($shipping_quote_fedex == "1" || $shipping_quote_all == '1') {
 				$shipping_quoted = 'fedex';
 				// only calculate if FedEx ships there.
 				if(in_array($address_values['country_id'], $fedex_countries_nbr)) {
@@ -41,7 +41,7 @@
 			}
 			break;
 		case 'cheapest' :
-			if($shipping_quote_fedex == "1") {
+			if($shipping_quote_fedex == "1" || $shipping_quote_all == '1') {
 				// only calculate if FedEx ships there.
 				if(in_array($address_values['country_id'], $fedex_countries_nbr) AND !$quote['ErrorNbr']) {
 					if($shipping_count == 0) {
@@ -58,7 +58,7 @@
 			}
 			break;
 		case 'display' :
-			if($shipping_quote_fedex == "1") {
+			if($shipping_quote_fedex == "1" || $shipping_quote_all == '1') {
 				// check for errors
 				if($quote['ErrorNbr']) {
 					print "<TR>\n";

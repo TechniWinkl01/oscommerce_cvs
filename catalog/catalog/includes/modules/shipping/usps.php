@@ -1,5 +1,5 @@
 <?
-  /* $Id: usps.php,v 1.7 2001/02/14 20:44:38 hpdl Exp $ */
+  /* $Id: usps.php,v 1.8 2001/03/02 13:19:03 tmoulton Exp $ */
   if ($action != 'install' && $action != 'remove' && $action != 'check') { // Only use language for catalog
     $include_file = DIR_LANGUAGES . $language . '/modules/shipping/usps.php';include(DIR_INCLUDES . 'include_once.php');
   }
@@ -14,9 +14,9 @@
                   <OPTION VALUE="Express"><? echo SHIPPING_USPS_OPT_EX; ?></OPTION>
                   </SELECT><br>
                 </td>
-                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_usps" value="1"
+                <td align="right">&nbsp;<input type="checkbox"  name="shipping_quote_usps" value="1" CHECKED
 <?
-  if ($shipping_count == 0) echo ' CHECKED';
+  // if ($shipping_count == 0) echo ' CHECKED';
   echo "></td>\n";
 ?>
              </tr>
@@ -31,22 +31,24 @@
 // $usps->setOrigZip($vendor_zip);
 // $usps->setWeight($pounds, $ounces);
 // $price = $usps->getPrice();
-      if ($shipping_quote_usps == "1") {
+      $prod = $HTTP_POST_VARS['shipping_usps_prod'];
+      if ($shipping_quote_all == "1") $prod = "Priority";
+      if ($shipping_quote_usps == "1" || $shipping_quote_all == "1") {
         include(DIR_CLASSES . 'usps.php');
         $rate = new USPS;
         $rate->SetServer(SHIPPING_USPS_SERVER);
         $rate->setUserName(SHIPPING_USPS_USERID);
         $rate->setPass(SHIPPING_USPS_PASSWORD);
-        $rate->SetService($HTTP_POST_VARS['shipping_usps_prod']);
+        $rate->SetService($prod);
         $rate->setMachinable("False");
         $rate->SetOrigZip(STORE_ORIGIN_ZIP);
         $rate->SetDestZip($address_values['postcode']);
         $rate->setWeight($shipping_weight);
         $shipping_usps_quote = $rate->getPrice();
         $shipping_usps_cost = SHIPPING_HANDLING + $shipping_usps_quote;
-        if ($HTTP_POST_VARS['shipping_usps_prod'] != 'Parcel') {
-          $shipping_usps_method = 'USPS ' . $HTTP_POST_VARS['shipping_usps_prod'] . ' Mail';
-        } else $shipping_usps_method = 'USPS ' . $HTTP_POST_VARS['shipping_usps_prod'] . ' Post';
+        if ($prod != 'Parcel') {
+          $shipping_usps_method = 'USPS ' . $prod . ' Mail';
+        } else $shipping_usps_method = 'USPS ' . $prod . ' Post';
         $shipping_usps_method = $shipping_usps_method . ' ' . $shipping_num_boxes . ' X ' . $shipping_weight;
         if ($shipping_usps_cost == SHIPPING_HANDLING) $shipping_usps_method = "USPS " . $shipping_usps_quote;
         else {
@@ -55,7 +57,7 @@
         }
       }
   } elseif ($action == 'cheapest') {
-    if ($shipping_quote_usps == "1") {
+    if ($shipping_quote_usps == "1" || $shipping_quote_all == "1") {
       if ($shipping_count == 0) {
         $shipping_cheapest = 'usps';
         $shipping_cheapest_cost = $shipping_usps_cost;
@@ -67,7 +69,7 @@
       }
     }
   } elseif ($action == 'display') {
-      if ($shipping_quote_usps == "1") {
+      if ($shipping_quote_usps == "1" || $shipping_quote_all == "1") {
         echo "              <tr>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . SHIPPING_USPS_NAME . "</font></td>\n";
         echo '                <td><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">' . $shipping_usps_method . "</font></td>\n";

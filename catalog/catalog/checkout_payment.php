@@ -1,15 +1,22 @@
 <? include('includes/application_top.php'); ?>
 <?
-  if (!tep_session_is_registered('customer_id')) {
-    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT, 'NONSSL'));
+  if ($cart->count_contents() == 0) {
+    header('Location: ' . tep_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL'));
     tep_exit();
   }
-?>
-<?
-  if ($HTTP_POST_VARS['sendto'] == '0') {
+  if (!tep_session_is_registered('customer_id')) {
+    header('Location: ' . tep_href_link(FILENAME_LOGIN, 'origin=' . FILENAME_CHECKOUT_PAYMENT, 'NONSSL'));
+    tep_exit();
+  }
+  $sendto = $HTTP_POST_VARS['sendto'];
+  if ($sendto == '') {
+    $sendto = '0';
+    $shipping_quote_all = '1';
+  }
+  if ($sendto == '0') {
     $address = tep_db_query("select customers_postcode as postcode, customers_country_id as country_id from customers where customers_id = '" . $customer_id . "'");
   } else {
-    $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from address_book where address_book_id = '" . $HTTP_POST_VARS['sendto'] . "'");
+    $address = tep_db_query("select entry_postcode as postcode, entry_country_id as country_id from address_book where address_book_id = '" . $sendto . "'");
   }
   $address_values = tep_db_fetch_array($address);
   $total_weight = $cart->show_weight();
@@ -168,7 +175,7 @@ function check_form() {
           </tr>
         </table></td>
       </tr>
-    </table><input type="hidden" name="sendto" value="<? echo $HTTP_POST_VARS['sendto']; ?>">
+    </table><input type="hidden" name="sendto" value="<? echo $sendto; ?>">
     </form></td>
 <!-- body_text_eof //-->
     <td width="<? echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<? echo BOX_WIDTH; ?>" cellspacing="0" cellpadding="0">
