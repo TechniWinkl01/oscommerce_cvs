@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: html_graphs.php,v 1.1 2001/07/07 16:10:50 hpdl Exp $
+  $Id: html_graphs.php,v 1.2 2001/07/27 23:40:17 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -375,7 +375,7 @@
       $values[] = $banner_stats['value'];
       $dvalues[] = $banner_stats['dvalue'];
     }
-    $largest = max($values);
+    $largest = @max($values);
 
     $bars = array();
     $dbars = array();
@@ -384,7 +384,7 @@
       $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
     }
 
-    $graph_vals = array('vlabel'=>'D<br>a<br>t<br>a',
+    $graph_vals = @array('vlabel'=>'D<br>a<br>t<br>a',
                         'hlabel'=>'Last 3 Days',
                         'type'=>'3',
                         'cellpadding'=>'',

@@ -30,4 +30,6 @@ define('TEXT_BANNERS_EXPIRCY_NOTE', '<b>Expircy Notes:</b><ul><li>Only one of th
 define('TEXT_BANNERS_EXPIRES_AT_DATE', 'Expires At: <b>%s</b>');
 define('TEXT_BANNERS_EXPIRES_AT_IMPRESSIONS', 'Expires At: <b>%s</b> impressions');
 define('TEXT_BANNERS_STATUS_CHANGE', 'Status Change: %s');
+
+define('TEXT_INFO_DELETE_INTRO', 'Seguro que quiere eliminar esta banner?');
 ?>
