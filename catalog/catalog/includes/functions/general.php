@@ -94,26 +94,33 @@
       }
     }
     if ($src != '') {
-      $size = @GetImageSize( (substr($src,0,1)=='/') ? DIR_IMAGES_PHYSICAL . $src : $src );
-      // width is not set, height is set
-      if ($width == 0 || $width=="" && !$height) { 
-        $ratio = $height / $size[1];
-        $width = $size[0] * $ratio;
+      $image = '<img src="' . $src . '" border="' . $border . '"';
+
+      if ($width || $height) {
+        if (!$width || !$height) { 
+          $size = @GetImageSize( (substr($src,0,1)=='/') ? DIR_IMAGES_PHYSICAL . $src : $src );
+    
+          if (!$width) { 
+            // width is not set, height is set
+            if ($size[1] != 0) {
+              $ratio = $height / $size[1];
+              $width = $size[0] * $ratio;
+            }
+          } else {
+            // width is set, height is not set
+            if ($size[0] != 0) {
+              $ratio = $width / $size[0];
+              $height= $size[1] * $ratio;
+            }
+          }
+        }
+
+        if ($width)
+          $image .= ' width="' . $width . '"';
+        if ($height)
+          $image .= ' height="' . $height . '"';
       }
-      // width is set, height is not set
-      if ($height == 0 || $height=="" && !$width){ 
-        $ratio = $width / $size[0];
-        $height= $size[1] * $ratio;
-      }
-      // width and height should be set now, if not,
-      // both of them were not passed, so let's set them if it's so
-      if ($width == 0 || $width=="" ) {
-        $width = $size[0];
-      }
-      if ($height == 0 || $height=="" ) {
-        $height= $size[1];
-      }
-      $image = '<img src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '"';
+
       if ($alt != '') {
         $image .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
       }
@@ -125,7 +132,12 @@
   function tep_image_submit($src, $width, $height, $border, $alt) {
     global $image_submit;
     
-    $image_submit = '<input type="image" src="' . $src . '" width="' . $width . '" height="' . $height . '" border="' . $border . '"';
+    $image_submit = '<input type="image" src="' . $src . '" border="' . $border . '"';
+
+    if ($width)
+      $image_submit .= ' width="' . $width . '"';
+    if ($height)
+      $image_submit .= ' height="' . $height . '"';
     if ($alt != '') {
       $image_submit .= ' alt=" ' . htmlspecialchars(StripSlashes($alt)) . ' "';
     }
