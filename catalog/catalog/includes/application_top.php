@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.272 2003/03/31 17:25:36 hpdl Exp $
+  $Id: application_top.php,v 1.273 2003/05/19 19:48:15 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -471,6 +471,10 @@
     $model = tep_db_fetch_array($model_query);
     $breadcrumb->add($model['products_model'], tep_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $HTTP_GET_VARS['products_id']));
   }
+
+// initialize the message stack for output messages
+  require(DIR_WS_CLASSES . 'message_stack.php');
+  $messageStack = new messageStack;
 
 // set which precautions should be checked
   define('WARN_INSTALL_EXISTENCE', 'true');
