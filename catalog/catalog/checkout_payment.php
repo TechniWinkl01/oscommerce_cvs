@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.116 2003/12/04 14:12:16 hpdl Exp $
+  $Id: checkout_payment.php,v 1.117 2003/12/17 16:16:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -119,11 +119,6 @@ function rowOverEffect(object) {
 function rowOutEffect(object) {
   if (object.className == 'moduleRowOver') object.className = 'moduleRow';
 }
-
-function changeSelection(selection) {
-  box = eval(selection);
-  box.checked = !box.checked;
-}
 //--></script>
 <?php echo $payment_modules->javascript_validation(); ?>
 </head>
@@ -180,7 +175,7 @@ function changeSelection(selection) {
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                <td class="main"><?php echo TEXT_CONDITIONS_DESCRIPTION . '<br><br>' . tep_draw_checkbox_field('conditions', '1') . '&nbsp;<span onClick="changeSelection(document.checkout_payment.conditions)">' . TEXT_CONDITIONS_CONFIRM . '</span>'; ?></td>
+                <td class="main"><?php echo TEXT_CONDITIONS_DESCRIPTION . '<br><br>' . tep_draw_checkbox_field('conditions', '1', false, 'id="conditions"') . '<label for="conditions">&nbsp;' . TEXT_CONDITIONS_CONFIRM . '</label>'; ?></td>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
             </table></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: privacy.php,v 1.5 2003/07/08 16:45:36 dgw_ Exp $
+  $Id: privacy.php,v 1.6 2003/12/17 16:16:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -14,4 +14,7 @@ define('NAVBAR_TITLE', 'Confidencialidad');
 define('HEADING_TITLE', 'Confidencialidad');
 
 define('TEXT_INFORMATION', 'Ponga aqui informaci&oacute;n sobre el tratamiento de los datos.');
+
+define('TITLE_CONTINUE_CREATE_ACCOUNT', 'Continue Create Account Proceedure');
+define('TEXT_CONTINUE_CREATE_ACCOUNT', 'to create an account.');
 ?>

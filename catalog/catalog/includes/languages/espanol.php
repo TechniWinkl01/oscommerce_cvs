@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: espanol.php,v 1.109 2003/12/03 17:32:53 project3000 Exp $
+  $Id: espanol.php,v 1.110 2003/12/17 16:16:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -152,6 +152,7 @@ define('JS_ERROR_SUBMITTED', 'Ya ha enviado el formulario. Pulse Aceptar y esper
 
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor seleccione un m&eacute;todo de pago para su pedido.');
 define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Please confirm the terms and conditions bound to this order by ticking the box below.');
+define('ERROR_PRIVACY_STATEMENT_NOT_ACCEPTED', 'Please confirm the privacy statement by ticking the box below.');
 
 define('CATEGORY_COMPANY', 'Empresa');
 define('CATEGORY_PERSONAL', 'Personal');

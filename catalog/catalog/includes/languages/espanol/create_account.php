@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.13 2003/11/17 20:40:54 hpdl Exp $
+  $Id: create_account.php,v 1.14 2003/12/17 16:16:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -15,6 +15,10 @@ define('NAVBAR_TITLE', 'Crear una Cuenta');
 define('HEADING_TITLE', 'Datos de Mi Cuenta');
 
 define('TEXT_ORIGIN_LOGIN', '<font color="#FF0000"><small><b>NOTA:</b></font></small> Si ya ha pasado por este proceso y tiene una cuenta, por favor <a href="%s"><u>entre</u></a> en ella.');
+
+define('TABLE_HEADING_PRIVACY_CONDITIONS', 'Privacy Statement');
+define('TEXT_PRIVACY_CONDITIONS_DESCRIPTION', 'Please acknowledge you agree with our privacy statement by ticking the following box. The privacy statement can be read <a href="' . tep_href_link(FILENAME_PRIVACY, '', 'SSL') . '"><u>here</u></a>.');
+define('TEXT_PRIVACY_CONDITIONS_CONFIRM', 'I have read and agreed to your privacy statement.');
 
 define('EMAIL_SUBJECT', 'Bienvenido a ' . STORE_NAME);
 define('EMAIL_GREET_MR', 'Estimado %s,' . "\n\n");

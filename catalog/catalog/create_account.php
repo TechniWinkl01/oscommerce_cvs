@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: create_account.php,v 1.66 2003/11/17 21:01:50 hpdl Exp $
+  $Id: create_account.php,v 1.67 2003/12/17 16:16:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -55,6 +55,13 @@
     $confirmation = tep_db_prepare_input($_POST['confirmation']);
 
     $error = false;
+
+    if (DISPLAY_PRIVACY_CONDITIONS == 'true') {
+      if (!isset($_POST['privacy_conditions']) || ($_POST['privacy_conditions'] != '1')) {
+        $error = true;
+        $messageStack->add('create_account', ERROR_PRIVACY_STATEMENT_NOT_ACCEPTED, 'error');
+      }
+    }
 
     if (ACCOUNT_GENDER == 'true') {
       if ( ($gender != 'm') && ($gender != 'f') ) {
@@ -293,6 +300,33 @@
       </tr>
 <?php
   }
+  if (DISPLAY_PRIVACY_CONDITIONS == 'true') {
+?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td class="main"><b><?php echo TABLE_HEADING_PRIVACY_CONDITIONS; ?></b></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td class="main"><?php echo TEXT_PRIVACY_CONDITIONS_DESCRIPTION . '<br><br>' . tep_draw_checkbox_field('privacy_conditions', '1', false, 'id="privacy"') . '<label for="privacy">&nbsp;' . TEXT_PRIVACY_CONDITIONS_CONFIRM . '</label>'; ?></td>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+<?php
+  }
 ?>
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -506,7 +540,7 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
-                <td><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+                <td align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
                 <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
               </tr>
             </table></td>

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: german.php,v 1.126 2003/12/03 17:32:53 project3000 Exp $
+  $Id: german.php,v 1.127 2003/12/17 16:16:16 project3000 Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -152,6 +152,7 @@ define('JS_ERROR_SUBMITTED', 'Diese Seite wurde bereits bestätigt. Betätigen Sie
 
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Bitte wählen Sie eine Zahlungsweise für Ihre Bestellung.');
 define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Please confirm the terms and conditions bound to this order by ticking the box below.');
+define('ERROR_PRIVACY_STATEMENT_NOT_ACCEPTED', 'Please confirm the privacy statement by ticking the box below.');
 
 define('CATEGORY_COMPANY', 'Firmendaten');
 define('CATEGORY_PERSONAL', 'Ihre pers&ouml;nlichen Daten');
