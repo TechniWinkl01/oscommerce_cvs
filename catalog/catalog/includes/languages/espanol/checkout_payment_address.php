@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.2 2002/11/12 00:45:21 dgw_ Exp $
+  $Id: checkout_payment_address.php,v 1.3 2003/05/19 20:17:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -25,9 +25,6 @@ define('TITLE_PLEASE_SELECT', 'Seleccione');
 
 define('TABLE_HEADING_NEW_PAYMENT_ADDRESS', 'Nueva Direccion de Facturacion');
 define('TEXT_CREATE_NEW_PAYMENT_ADDRESS', 'Use el formulario siguiente para crear una nueva direccion en su libreta y usarla como direccion de facturacion en este pedido.');
-
-define('TABLE_HEADING_NEW_PAYMENT_ADDRESS_PROBLEM', 'Error en Nueva Direccion');
-define('TEXT_NEW_PAYMENT_ADDRESS_PROBLEM', 'Por favor revise los datos de la nueva direccion ya que hubo problemas verificando la informacion.');
 
 define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continuar con el Proceso de Compra');
 define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'para seleccionar el metodo de pago.');

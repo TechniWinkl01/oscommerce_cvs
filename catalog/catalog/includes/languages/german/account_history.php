@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history.php,v 1.14 2003/02/16 00:42:02 harley_vb Exp $
+  $Id: account_history.php,v 1.15 2003/05/19 20:17:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -19,6 +19,7 @@ define('TEXT_ORDER_NUMBER', 'Bestellnummer:');
 define('TEXT_ORDER_STATUS', 'Bestellstatus:');
 define('TEXT_ORDER_DATE', 'Bestelldatum:');
 define('TEXT_ORDER_SHIPPED_TO', 'Versenden an:');
+define('TEXT_ORDER_BILLED_TO', 'Billed To:');
 define('TEXT_ORDER_PRODUCTS', 'Artikel:');
 define('TEXT_ORDER_COST', 'Summe:');
 define('TEXT_VIEW_ORDER', 'Bestellung ansehen');

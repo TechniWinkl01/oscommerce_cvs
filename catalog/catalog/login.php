@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.78 2003/04/30 09:38:51 dgw_ Exp $
+  $Id: login.php,v 1.79 2003/05/19 20:17:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -35,7 +35,7 @@
           tep_session_recreate();
         }
         
-        $check_country_query = tep_db_query("select entry_country_id, entry_zone_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $check_customer['customers_id'] . "' and address_book_id = '1'");
+        $check_country_query = tep_db_query("select entry_country_id, entry_zone_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $check_customer['customers_id'] . "' and address_book_id = '" . $check_customer['customers_default_address_id'] . "'");
         $check_country = tep_db_fetch_array($check_country_query);
 
         $customer_id = $check_customer['customers_id'];
@@ -50,7 +50,7 @@
         tep_session_register('customer_zone_id');
 
         $date_now = date('Ymd');
-        tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_of_last_logon = now(), customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . $customer_id . "'");
+        tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_of_last_logon = now(), customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . (int)$customer_id . "'");
 
 // restore cart contents
         $cart->restore_contents();

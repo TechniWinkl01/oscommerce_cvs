@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account.php,v 1.11 2003/02/16 00:42:02 harley_vb Exp $
+  $Id: account.php,v 1.12 2003/05/19 20:17:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -11,5 +11,21 @@
 */
 
 define('NAVBAR_TITLE', 'Ihr Konto');
-define('HEADING_TITLE', 'Ihre pers&ouml;nliche Daten:');
+define('HEADING_TITLE', 'Ihre pers&ouml;nliche Daten');
+
+define('OVERVIEW_TITLE', 'Overview');
+define('OVERVIEW_SHOW_ALL_ORDERS', '(show all orders)');
+define('OVERVIEW_PREVIOUS_ORDERS', 'Previous Orders');
+
+define('MY_ACCOUNT_TITLE', 'My Account');
+define('MY_ACCOUNT_INFORMATION', 'View or change my account information.');
+define('MY_ACCOUNT_ADDRESS_BOOK', 'View or change entries in my address book.');
+define('MY_ACCOUNT_PASSWORD', 'Change my account password.');
+
+define('MY_ORDERS_TITLE', 'My Orders');
+define('MY_ORDERS_VIEW', 'View the orders I have made.');
+
+define('EMAIL_NOTIFICATIONS_TITLE', 'E-Mail Notifications');
+define('EMAIL_NOTIFICATIONS_NEWSLETTERS', 'Subscribe or unsubscribe from newsletters.');
+define('EMAIL_NOTIFICATIONS_PRODUCTS', 'View or change my product notification list.');
 ?>

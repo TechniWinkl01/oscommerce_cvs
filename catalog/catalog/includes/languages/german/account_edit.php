@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.10 2003/02/16 00:42:02 harley_vb Exp $
+  $Id: account_edit.php,v 1.11 2003/05/19 20:17:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,5 +12,10 @@
 
 define('NAVBAR_TITLE_1', 'Ihr Konto');
 define('NAVBAR_TITLE_2', 'Ihre pers&ouml;nliche Daten &auml;ndern');
-define('HEADING_TITLE', 'Ihre pers&ouml;nliche Daten &auml;ndern:');
+
+define('HEADING_TITLE', 'Ihre pers&ouml;nliche Daten &auml;ndern');
+
+define('MY_ACCOUNT_TITLE', 'Ihr Konto');
+
+define('SUCCESS_ACCOUNT_UPDATED', 'Your account has been successfully updated.');
 ?>

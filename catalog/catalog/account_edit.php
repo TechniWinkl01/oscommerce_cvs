@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_edit.php,v 1.62 2003/02/13 01:58:23 hpdl Exp $
+  $Id: account_edit.php,v 1.63 2003/05/19 20:17:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,7 +17,99 @@
     tep_redirect(tep_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
+// needs to be included earlier to set the success message in the messageStack
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_ACCOUNT_EDIT);
+
+  if (isset($HTTP_POST_VARS['action']) && ($HTTP_POST_VARS['action'] == 'process')) {
+    if (ACCOUNT_GENDER == 'true') $gender = tep_db_prepare_input($HTTP_POST_VARS['gender']);
+    $firstname = tep_db_prepare_input($HTTP_POST_VARS['firstname']);
+    $lastname = tep_db_prepare_input($HTTP_POST_VARS['lastname']);
+    if (ACCOUNT_DOB == 'true') $dob = tep_db_prepare_input($HTTP_POST_VARS['dob']);
+    $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
+    $telephone = tep_db_prepare_input($HTTP_POST_VARS['telephone']);
+    $fax = tep_db_prepare_input($HTTP_POST_VARS['fax']);
+
+    $error = false;
+
+    if (ACCOUNT_GENDER == 'true') {
+      if ( ($gender != 'm') && ($gender != 'f') ) {
+        $error = true;
+
+        $messageStack->add('account_edit', ENTRY_GENDER_ERROR);
+      }
+    }
+
+    if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
+      $error = true;
+
+      $messageStack->add('account_edit', ENTRY_FIRST_NAME_ERROR);
+    }
+
+    if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
+      $error = true;
+
+      $messageStack->add('account_edit', ENTRY_LAST_NAME_ERROR);
+    }
+
+    if (ACCOUNT_DOB == 'true') {
+      if (checkdate(substr(tep_date_raw($dob), 4, 2), substr(tep_date_raw($dob), 6, 2), substr(tep_date_raw($dob), 0, 4)) == false) {
+        $error = true;
+
+        $messageStack->add('account_edit', ENTRY_DATE_OF_BIRTH_ERROR);
+      }
+    }
+
+    if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
+      $error = true;
+
+      $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR);
+    }
+
+    if (tep_validate_email($email_address) == false) {
+      $error = true;
+
+      $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+    }
+
+    $check_email_query = tep_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "' and customers_id != '" . (int)$customer_id . "'");
+    $check_email = tep_db_fetch_array($check_email_query);
+    if ($check_email['total'] > 0) {
+      $error = true;
+
+      $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
+    }
+
+    if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
+      $error = true;
+
+      $messageStack->add('account_edit', ENTRY_TELEPHONE_NUMBER_ERROR);
+    }
+
+    if ($error == false) {
+      $sql_data_array = array('customers_firstname' => $firstname,
+                              'customers_lastname' => $lastname,
+                              'customers_email_address' => $email_address,
+                              'customers_telephone' => $telephone,
+                              'customers_fax' => $fax);
+
+      if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
+      if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = tep_date_raw($dob);
+
+      tep_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$customer_id . "'");
+
+      tep_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$customer_id . "'");
+
+// reset the session variables
+      $customer_first_name = $firstname;
+
+      $messageStack->add_session('account', SUCCESS_ACCOUNT_UPDATED, 'success');
+
+      tep_redirect(tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
+    }
+  } else {
+    $account_query = tep_db_query("select customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
+    $account = tep_db_fetch_array($account_query);
+  }
 
   $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
@@ -45,7 +137,7 @@
 <!-- left_navigation_eof //-->
     </table></td>
 <!-- body_text //-->
-    <td width="100%" valign="top"><?php echo tep_draw_form('account_edit', tep_href_link(FILENAME_ACCOUNT_EDIT_PROCESS, '', 'SSL'), 'post', 'onSubmit="return check_form();"') . tep_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <td width="100%" valign="top"><?php echo tep_draw_form('account_edit', tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'), 'post', 'onSubmit="return check_form(account_edit);"') . tep_draw_hidden_field('action', 'process'); ?><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -57,25 +149,94 @@
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
-      <tr>
-        <td>
 <?php
-  $account_query = tep_db_query("select c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, c.customers_email_address, a.entry_company, a.entry_street_address, a.entry_suburb, a.entry_postcode, a.entry_city, a.entry_zone_id, a.entry_state, a.entry_country_id, c.customers_telephone, c.customers_fax, c.customers_newsletter from " . TABLE_CUSTOMERS . " c, " . TABLE_ADDRESS_BOOK . " a where c.customers_id = '" . $customer_id . "' and a.customers_id = c.customers_id and a.address_book_id = '" . $customer_default_address_id . "'");
-  $account = tep_db_fetch_array($account_query);
-  $email_address = $account['customers_email_address'];
-
-  require(DIR_WS_MODULES . 'account_details.php');
+  if ($messageStack->size('account_edit') > 0) {
 ?>
-        </td>
+      <tr>
+        <td><?php echo $messageStack->output('account_edit'); ?></td>
+      </tr>
+      <tr>
+        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+      </tr>
+<?php
+  }
+?>
+      <tr>
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main"><b><?php echo MY_ACCOUNT_TITLE; ?></b></td>
+                <td class="inputRequirement" align="right"><?php echo FORM_REQUIRED_INFORMATION; ?></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+              <tr class="infoBoxContents">
+                <td><table border="0" cellspacing="2" cellpadding="2">
+<?php
+  if (ACCOUNT_GENDER == 'true') {
+    $male = ($account['customers_gender'] == 'm') ? true : false;
+    $female = !$male;
+?>
+                  <tr>
+                    <td class="main"><?php echo ENTRY_GENDER; ?></td>
+                    <td class="main"><?php echo tep_draw_radio_field('gender', 'm', $male) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . tep_draw_radio_field('gender', 'f', $female) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . (tep_not_null(ENTRY_GENDER_TEXT) ? '<span class="inputRequirement">' . ENTRY_GENDER_TEXT . '</span>': ''); ?></td>
+                  </tr>
+<?php
+  }
+?>
+                  <tr>
+                    <td class="main"><?php echo ENTRY_FIRST_NAME; ?></td>
+                    <td class="main"><?php echo tep_draw_input_field('firstname', $account['customers_firstname']) . '&nbsp;' . (tep_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="inputRequirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''); ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main"><?php echo ENTRY_LAST_NAME; ?></td>
+                    <td class="main"><?php echo tep_draw_input_field('lastname', $account['customers_lastname']) . '&nbsp;' . (tep_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="inputRequirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''); ?></td>
+                  </tr>
+<?php
+  if (ACCOUNT_DOB == 'true') {
+?>
+                  <tr>
+                    <td class="main"><?php echo ENTRY_DATE_OF_BIRTH; ?></td>
+                    <td class="main"><?php echo tep_draw_input_field('dob', tep_date_short($account['customers_dob'])) . '&nbsp;' . (tep_not_null(ENTRY_DATE_OF_BIRTH_TEXT) ? '<span class="inputRequirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>': ''); ?></td>
+                  </tr>
+<?php
+  }
+?>
+                  <tr>
+                    <td class="main"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
+                    <td class="main"><?php echo tep_draw_input_field('email_address', $account['customers_email_address']) . '&nbsp;' . (tep_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="inputRequirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''); ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
+                    <td class="main"><?php echo tep_draw_input_field('telephone', $account['customers_telephone']) . '&nbsp;' . (tep_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="inputRequirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''); ?></td>
+                  </tr>
+                  <tr>
+                    <td class="main"><?php echo ENTRY_FAX_NUMBER; ?></td>
+                    <td class="main"><?php echo tep_draw_input_field('fax', $account['customers_fax']) . '&nbsp;' . (tep_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="inputRequirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>': ''); ?></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
       </tr>
       <tr>
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
-            <td class="main" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+          <tr class="infoBoxContents">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+              <tr>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td><?php echo '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . tep_image_button('button_back.gif', IMAGE_BUTTON_BACK) . '</a>'; ?></td>
+                <td align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE); ?></td>
+                <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+              </tr>
+            </table></td>
           </tr>
         </table></td>
       </tr>

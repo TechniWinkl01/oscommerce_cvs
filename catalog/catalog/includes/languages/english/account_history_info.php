@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: account_history_info.php,v 1.15 2003/04/15 17:47:41 dgw_ Exp $
+  $Id: account_history_info.php,v 1.16 2003/05/19 20:17:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -12,7 +12,7 @@
 
 define('NAVBAR_TITLE_1', 'My Account');
 define('NAVBAR_TITLE_2', 'History');
-define('NAVBAR_TITLE_3', 'Order Information');
+define('NAVBAR_TITLE_3', 'Order #%s');
 
 define('HEADING_TITLE', 'Order Information');
 

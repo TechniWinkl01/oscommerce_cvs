@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: checkout_payment_address.php,v 1.1 2002/11/01 03:55:32 hpdl Exp $
+  $Id: checkout_payment_address.php,v 1.2 2003/05/19 20:17:50 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -25,9 +25,6 @@ define('TITLE_PLEASE_SELECT', 'Please Select');
 
 define('TABLE_HEADING_NEW_PAYMENT_ADDRESS', 'New Billing Address');
 define('TEXT_CREATE_NEW_PAYMENT_ADDRESS', 'Please use the following form to create a new billing address to use for this order.');
-
-define('TABLE_HEADING_NEW_PAYMENT_ADDRESS_PROBLEM', 'New Billing Address Problem');
-define('TEXT_NEW_PAYMENT_ADDRESS_PROBLEM', 'Please check the new billing address information below, as there were problems verifying the information.');
 
 define('TITLE_CONTINUE_CHECKOUT_PROCEDURE', 'Continue Checkout Procedure');
 define('TEXT_CONTINUE_CHECKOUT_PROCEDURE', 'to select the preferred payment method.');
