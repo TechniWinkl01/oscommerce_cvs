@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.156 2001/12/04 14:32:25 dgw_ Exp $
+# $Id: mysql_catalog.sql,v 1.157 2001/12/04 14:42:35 dgw_ Exp $
 #
 # The Exchange Project - Community Made Shopping!
 # http://www.theexchangeproject.org
@@ -469,7 +469,7 @@ DROP TABLE IF EXISTS zones;
 CREATE TABLE zones (
   zone_id int(5) NOT NULL auto_increment,
   zone_country_id int(5) NOT NULL,
-  zone_code varchar(5) NOT NULL,
+  zone_code varchar(32) NOT NULL,
   zone_name varchar(32) NOT NULL,
   PRIMARY KEY (zone_id)
 );
@@ -887,7 +887,7 @@ INSERT INTO countries VALUES (189,'Slovakia (Slovak Republic)','SK','SVK','1');
 INSERT INTO countries VALUES (190,'Slovenia','SI','SVN','1');
 INSERT INTO countries VALUES (191,'Solomon Islands','SB','SLB','1');
 INSERT INTO countries VALUES (192,'Somalia','SO','SOM','1');
-INSERT INTO countries VALUES (193,'south Africa','ZA','ZAF','1');
+INSERT INTO countries VALUES (193,'South Africa','ZA','ZAF','1');
 INSERT INTO countries VALUES (194,'South Georgia and the South Sandwich Islands','GS','SGS','1');
 INSERT INTO countries VALUES (195,'Spain','ES','ESP','3');
 INSERT INTO countries VALUES (196,'Sri Lanka','LK','LKA','1');
@@ -1342,3 +1342,57 @@ INSERT INTO zones VALUES (126,204,'VD','Waadt');
 INSERT INTO zones VALUES (127,204,'VS','Wallis');
 INSERT INTO zones VALUES (128,204,'ZG','Zug');
 INSERT INTO zones VALUES (129,204,'ZH','Zürich');
+
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Alava','Alava');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Malaga','Malaga');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Segovia','Segovia');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Granada','Granada');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Jaen','Jaen');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Sevilla','Sevilla');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Barcelona','Barcelona');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Valencia','Valencia');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Alicante','Alicante');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Almeria','Almeria');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Asturias','Asturias');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Avila','Avila');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Badajoz','Badajoz');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Burgos','Burgos');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Caceres','Caceres');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cadiz','Cadiz');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cantabria','Cantabria');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Castellon','Castellon');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Ceuta','Ceuta');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Ciudad Real','Ciudad Real');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cordoba','Cordoba');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cuenca','Cuenca');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Gerona','Gerona');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Las Palmas','Las Palmas');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Guadalajara','Guadalajara');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Guipuzcoa','Guipuzcoa');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Huelva','Huelva');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Huesca','Huesca');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'La Coruña','La Coruña');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'La Rioja','La Rioja');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Leon','Leon');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Lugo','Lugo');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Lleida','Lleida');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Madrid','Madrid');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Baleares','Baleares');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Cantabria','Cantabria');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Murcia','Murcia');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Navarra','Navarra');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Orense','Orense');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Palencia','Palencia');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Pontevedra','Pontevedra');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Salamanca','Salamanca');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Soria','Soria');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Tarragona','Tarragona');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Tenerife','Tenerife');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Teruel','Teruel');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Toledo','Toledo');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Valladolid','Valladolid');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Vizcaya','Vizcaya');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Zamora','Zamora');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Zaragoza','Zaragoza');
+INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Melilla','Melilla');
+
