@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.102 2002/06/11 16:42:06 dgw_ Exp $
+  $Id: orders.php,v 1.103 2002/11/01 05:55:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -121,7 +121,7 @@
       <tr>
         <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="2"><?php echo tep_draw_separator(); ?></td>
+            <td colspan="3"><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -143,10 +143,14 @@
             </table></td>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" valign="top"><b><?php echo ENTRY_SHIP_TO; ?></b></td>
-              </tr>
-              <tr>
+                <td class="main" valign="top"><b><?php echo ENTRY_SHIPPING_ADDRESS; ?></b></td>
                 <td class="main"><?php echo tep_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>'); ?></td>
+              </tr>
+            </table></td>
+            <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
+              <tr>
+                <td class="main" valign="top"><b><?php echo ENTRY_BILLING_ADDRESS; ?></b></td>
+                <td class="main"><?php echo tep_address_format($order->billing['format_id'], $order->billing, 1, '&nbsp;', '<br>'); ?></td>
               </tr>
             </table></td>
           </tr>

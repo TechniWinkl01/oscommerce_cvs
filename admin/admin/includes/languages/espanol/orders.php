@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.19 2002/04/30 15:34:48 dgw_ Exp $
+  $Id: orders.php,v 1.20 2002/11/01 05:55:36 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -48,6 +48,8 @@ define('ENTRY_TELEPHONE', 'Telefono:');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail:');
 define('ENTRY_DELIVERY_TO', 'Enviar A:');
 define('ENTRY_SHIP_TO', 'Enviar A:');
+define('ENTRY_SHIPPING_ADDRESS', 'Shipping Address:');
+define('ENTRY_BILLING_ADDRESS', 'Billing Address:');
 define('ENTRY_PAYMENT_METHOD', 'Metodo de Pago:');
 define('ENTRY_CREDIT_CARD_TYPE', 'Tipo Tarjeta Credito:');
 define('ENTRY_CREDIT_CARD_OWNER', 'Titular Tarjeta Credito:');
