@@ -106,7 +106,8 @@
               </tr>
 <?
   $info_box_contents = array();
-  if ($session_data = tep_db_query("select value from sessions WHERE sesskey = '$info'")) {
+  $session_data = tep_db_query("select value from sessions WHERE sesskey = '$info'");
+  if (tep_db_num_rows($session_data)) {
     $session_data = tep_db_fetch_array($session_data);
     $session_data = trim($session_data['value']);
     session_decode($session_data);
