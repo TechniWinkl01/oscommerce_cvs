@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_address.php,v 1.65 2002/01/12 19:19:38 dgw_ Exp $
+  $Id: checkout_address.php,v 1.66 2002/01/15 19:55:35 dgw_ Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -141,9 +141,6 @@
 <?php
   }
 ?>
-          <tr>
-            <td><?php echo tep_draw_separator(); ?></td>
-          </tr>
           <tr>
             <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>

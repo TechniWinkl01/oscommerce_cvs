@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_confirmation.php,v 1.105 2002/01/13 22:10:22 project3000 Exp $
+  $Id: checkout_confirmation.php,v 1.106 2002/01/15 19:55:35 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -102,7 +102,7 @@
             <td align="right" class="tableHeading"><?php echo TABLE_HEADING_TOTAL; ?></td>
           </tr>
           <tr>
-            <td colspan="4"><?php echo tep_black_line(); ?></td>
+            <td colspan="4"><?php echo tep_draw_separator(); ?></td>
           </tr>
 <?php
   $address = tep_db_query("select entry_firstname as firstname, entry_lastname as lastname, entry_street_address as street_address, entry_suburb as suburb, entry_postcode as postcode, entry_city as city, entry_zone_id as zone_id, entry_country_id as country_id, entry_state as state from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . $customer_id . "' and address_book_id = '" . $sendto . "'");
@@ -170,7 +170,7 @@
   $shipping_cost = 0;
 ?>
           <tr>
-            <td colspan="4"><?php echo tep_black_line(); ?></td>
+            <td colspan="4"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
           </tr>
           <tr>
             <td align="right" class="tableHeading" colspan="3"><?php echo SUB_TITLE_SUB_TOTAL; ?></td>
@@ -216,7 +216,7 @@
             <td class="tableHeading"><?php echo TABLE_HEADING_DELIVERY_ADDRESS; ?></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo tep_address_label($customer_id, $sendto, 1, ' ', '<br>'); ?></td>
@@ -229,10 +229,10 @@
    if (MODULE_PAYMENT_INSTALLED) {
 ?>
           <tr>
-            <td class="tableHeading"><?php echo TABLE_HEADING_PAYMENT_METHOD; ?></td>
+            <td class="tableHeading"><br><?php echo TABLE_HEADING_PAYMENT_METHOD; ?></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td><?php echo $payment_modules->confirmation(); ?></td>
@@ -252,7 +252,7 @@
             <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo nl2br($comments); ?></td>
@@ -266,7 +266,7 @@
             <td class="tableHeading"><br><?php echo TEXT_STOCK_WARNING; ?></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr class="payment-odd">
             <td class="main"><?php echo TEXT_MULTIPLE_SHIPMENT; ?> <input type="radio" name="shiptype" value="Multiple Ship" checked><?php echo TEXT_UNIQUE_SHIPMENT; ?><input type="radio" name="shiptype" value="Single Ship"></td>
@@ -296,9 +296,6 @@
 <?php
   }
 ?>
-          <tr>
-            <td><?php echo tep_black_line(); ?></td>
-          </tr>
           <tr>
             <td align="right" class="main"><br>
 <?php

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: checkout_payment.php,v 1.89 2002/01/13 22:10:22 project3000 Exp $
+  $Id: checkout_payment.php,v 1.90 2002/01/15 19:55:35 dgw_ Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -167,7 +167,7 @@ function check_form() {
             </table></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td><?php echo $payment_modules->selection(); ?></td>
@@ -181,7 +181,7 @@ function check_form() {
                 <td class="tableHeading"><?php echo TABLE_HEADING_DELIVERY_ADDRESS; ?></td>
               </tr>
               <tr>
-                <td><?php echo tep_black_line(); ?></td>
+                <td><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr>
                 <td class="main"><?php echo tep_address_label($customer_id, $sendto, 1, ' ', '<br>'); ?></td>
@@ -193,15 +193,15 @@ function check_form() {
     $shipping_modules->cheapest();
 ?>
           <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
-                <td colspan="2" class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_INFO; ?></td>
-                <td colspan="2" align="right" class="tableHeading"><?php if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
+                <td class="tableHeading"><?php echo TABLE_HEADING_SHIPPING_INFO; ?></td>
+                <td align="right" class="tableHeading"><?php if (tep_count_shipping_modules() > 1) echo TABLE_HEADING_SHIPPING_QUOTE; ?></td>
               </tr>
             </table></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td><?php echo $shipping_modules->display(); ?></td>
@@ -213,16 +213,13 @@ function check_form() {
             <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
+            <td><?php echo tep_draw_separator(); ?></td>
           </tr>
           <tr>
             <td><?php echo tep_draw_textarea_field('comments', 'virtual', '60', '5'); ?></td>
           </tr>
           <tr>
-            <td><?php echo tep_black_line(); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+            <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="main"><a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_shipping_options.gif', IMAGE_BUTTON_SHIPPING_OPTIONS); ?></a></td>
                 <td class="main" align="center"><a href="<?php echo tep_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'); ?>"><?php echo tep_image_button('button_change_address.gif', IMAGE_BUTTON_CHANGE_ADDRESS); ?></a></td>
