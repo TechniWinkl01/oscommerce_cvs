@@ -1,8 +1,4 @@
 <?
-  @include('configure.php');
-  if (CONFIGURE_STATUS != 'COMPLETED') { // File not read properly
-     die('File configure.php was not found or was improperly formatted, contact webmaster of this domain.');
-  }
 // expert mode?
   define('EXPERT_MODE', '0'); // enable if you know what your doing with the database structure
 
