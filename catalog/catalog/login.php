@@ -36,23 +36,8 @@
       $date_now = date('Ymd');
       tep_db_query("update customers_info set customers_info_date_of_last_logon = '" . $date_now . "', customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . $customer_id . "'");
 
-      if (tep_session_is_registered('nonsess_cart')) { //transfer session cart to account cart
-        $nonsess_cart_contents = explode('|', $nonsess_cart);
-        for ($i=0;$i<sizeof($nonsess_cart_contents);$i++) {
-          $product_info = explode(':', $nonsess_cart_contents[$i]);
-          if (($product_info[0] != '0') && ($product_info[1] != '0')) {
-            $product_in_cart = '1';
-            $check_cart = tep_db_query("select customers_basket_quantity from customers_basket where customers_id = '" . $customer_id . "' and products_id = '" . $product_info[0] . "'");
-            if (tep_db_num_rows($check_cart)) {
-              $check_cart_values = tep_db_fetch_array($check_cart);
-              tep_db_query("update customers_basket set customers_basket_quantity = customers_basket_quantity+" . $product_info[1] . " where customers_id = '" . $customer_id . "' and products_id = '" . $product_info[0] . "'");
-            } else {
-              tep_db_query("insert into customers_basket values ('', '" . $customer_id . "', '" . $product_info[0] . "', '" . $product_info[1] . "', '" . $date_now . "')");
-            }
-          }
-        }
-        tep_session_unregister('nonsess_cart');
-      }
+// restore cart contents
+      $cart->restore_contents();
 
       if (@$HTTP_POST_VARS['origin']) {
         if (@$HTTP_POST_VARS['products_id']) {
