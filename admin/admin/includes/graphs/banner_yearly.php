@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner_yearly.php,v 1.4 2004/08/15 18:18:35 hpdl Exp $
+  $Id: banner_yearly.php,v 1.5 2004/10/30 22:49:52 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -17,13 +17,18 @@
   $vLabels = array();
 
   $stats = array();
-  $banner_stats_query = tep_db_query("select year(banners_history_date) as year, sum(banners_shown) as value, sum(banners_clicked) as dvalue from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $_GET['bID'] . "' group by year");
-  while ($banner_stats = tep_db_fetch_array($banner_stats_query)) {
-    $stats[] = array($banner_stats['year'], (($banner_stats['value']) ? $banner_stats['value'] : '0'), (($banner_stats['dvalue']) ? $banner_stats['dvalue'] : '0'));
 
-    $views[] = $banner_stats['value'];
-    $clicks[] = $banner_stats['dvalue'];
-    $vLabels[] = $banner_stats['year'];
+  $Qstats = $osC_Database->query('select year(banners_history_date) as year, sum(banners_shown) as value, sum(banners_clicked) as dvalue from :table_banners_history where banners_id = :banners_id group by year');
+  $Qstats->bindTable(':table_banners_history', TABLE_BANNERS_HISTORY);
+  $Qstats->bindInt(':banners_id', $_GET['bID']);
+  $Qstats->execute();
+
+  while ($Qstats->next()) {
+    $stats[] = array($Qstats->valueInt('year'), (($Qstats->valueInt('value') > 0) ? $Qstats->valueInt('value') : '0'), (($Qstats->valueInt('dvalue') > 0) ? $Qstats->valueInt('dvalue') : '0'));
+
+    $views[] = $Qstats->valueInt('value');
+    $clicks[] = $Qstats->valueInt('dvalue');
+    $vLabels[] = $Qstats->valueInt('year');
   }
 
   $ochart = new chart(600,350, 5, '#eeeeee');
