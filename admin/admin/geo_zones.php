@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: geo_zones.php,v 1.13 2002/01/16 15:37:09 hpdl Exp $
+  $Id: geo_zones.php,v 1.14 2002/01/16 18:32:45 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -124,7 +124,7 @@ function update_zone(theForm) {
                 <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
     $rows = 0;
@@ -150,7 +150,7 @@ function update_zone(theForm) {
     }
 ?>
               <tr>
-                <td colspan="3"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -173,7 +173,7 @@ function update_zone(theForm) {
                 <td class="tableHeading" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
 <?php
     $zones_query_raw = "select geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added from " . TABLE_GEO_ZONES . " order by geo_zone_name";
@@ -196,7 +196,7 @@ function update_zone(theForm) {
     }
 ?>
               <tr>
-                <td colspan="2"><?php echo tep_black_line(); ?></td>
+                <td colspan="2"><?php echo tep_draw_separator(); ?></td>
               </tr>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
