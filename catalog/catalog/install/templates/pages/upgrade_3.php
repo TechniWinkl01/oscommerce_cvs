@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: upgrade_3.php,v 1.20 2002/04/12 21:58:08 hpdl Exp $
+  $Id: upgrade_3.php,v 1.21 2002/04/18 13:18:34 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -522,6 +522,9 @@ changeText('statusText', 'Updating Orders');
 
     $i++;
   }
+
+  osc_db_query("alter table orders drop shipping_method");
+  osc_db_query("alter table orders drop shipping_cost");
 ?>
 
 <script language="javascript"><!--
