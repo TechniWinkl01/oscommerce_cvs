@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.84 2001/10/21 16:07:30 dgw_ Exp $
+  $Id: application_top.php,v 1.85 2001/11/12 21:32:31 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -39,13 +39,6 @@
   define('DIR_FS_PAYMENT_MODULES', DIR_FS_CATALOG . 'includes/modules/payment/');
   define('DIR_FS_SHIPPING_MODULES', DIR_FS_CATALOG . 'includes/modules/shipping/');
   define('DIR_FS_CACHE', '/tmp/'); // cache from the catalog
-
-// default localization values
-  define('DEFAULT_LANGUAGE', 'en'); // codes are in the "languages" database table
-  define('DEFAULT_CURRENCY', 'USD');  // The currency used in the database and in the admin tool
-
-  define('STORE_NAME', 'The Exchange Project');
-  define('STORE_COUNTRY', 81); // Germany is 81, USA is 223
 
   define('EXIT_AFTER_REDIRECT', 1); // if enabled, the parse time will not store its time after the header(location) redirect - used with tep_tep_exit();
   define('STORE_PAGE_PARSE_TIME', 0); // store the time it takes to parse the page
@@ -140,30 +133,10 @@
   define('STORE_SESSIONS', '');
 
 // customization for the design layout
-  define('MAX_DISPLAY_SEARCH_RESULTS', 20); // how many products to list
-  define('MAX_DISPLAY_PAGE_LINKS', 5); // how many page numbers to link for page-sets
-  define('IMAGE_REQUIRED', 1); // require product images? 1 = yes
   define('TAX_VALUE', 0); // propducts tax
   define('TAX_DECIMAL_PLACES', 0); // Display format for tax rate
   define('TAX_INCLUDE', false); // Show prices with tax (true) or without tax (false)
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
-  define('SMALL_IMAGE_WIDTH', 100); // the width in pixels of small images (default: 100);
-  define('SMALL_IMAGE_HEIGHT', 80); // the height in pixels of small images (default: 80);
-  define('HEADING_IMAGE_WIDTH', 85);
-  define('HEADING_IMAGE_HEIGHT', 60);
-  define('EMAIL_FROM', 'The Exchange Project <root@localhost>');
-
-// minimum length of text field values accepted
-  define('ENTRY_FIRST_NAME_MIN_LENGTH', 2);
-  define('ENTRY_LAST_NAME_MIN_LENGTH', 2);
-  define('ENTRY_DOB_MIN_LENGTH', 10);
-  define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH', 6);
-  define('ENTRY_STREET_ADDRESS_MIN_LENGTH', 5);
-  define('ENTRY_COMPANY_LENGTH', 2);
-  define('ENTRY_POSTCODE_MIN_LENGTH', 4);
-  define('ENTRY_CITY_MIN_LENGTH', 3);
-  define('ENTRY_TELEPHONE_MIN_LENGTH', 3);
-  define('ENTRY_PASSWORD_MIN_LENGTH', 5);
 
 // Control what fields of the customer table are used
   define('ACCOUNT_GENDER', 1);
@@ -177,6 +150,12 @@
 
 // make a connection to the database... now
   tep_db_connect() or die('Unable to connect to database server!');
+
+// set application wide parameters
+  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION . '');
+  while ($configuration = tep_db_fetch_array($configuration_query)) {
+    define($configuration['cfgKey'], $configuration['cfgValue']);
+  }
 
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');

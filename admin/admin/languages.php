@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: languages.php,v 1.14 2001/09/19 08:37:41 mbs Exp $
+  $Id: languages.php,v 1.15 2001/11/12 21:32:31 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -46,9 +46,15 @@
       while ($orders_status_values = tep_db_fetch_array($orders_status)) {
         tep_db_query("insert into " . TABLE_ORDERS_STATUS . " (orders_status_id, language_id, orders_status_name) values ('" . $orders_status_values['orders_status_id'] . "', '" . $insert_id . "', '" . addslashes($orders_status_values['orders_status_name']) . "')");
       }
+      if ($HTTP_POST_VARS['default'] == 'on') {
+        tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $HTTP_POST_VARS['code'] . "' where configuration_key = 'DEFAULT_LANGUAGE'");
+      }
       header('Location: ' . tep_href_link(FILENAME_LANGUAGES, '', 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'save') {
       tep_db_query("update " . TABLE_LANGUAGES . " set name = '" . $HTTP_POST_VARS['name'] . "', code = '" . $HTTP_POST_VARS['code'] . "', image = '" . $HTTP_POST_VARS['image'] . "', directory = '" . $HTTP_POST_VARS['directory'] . "', sort_order = '" . $HTTP_POST_VARS['sort_order'] . "' where languages_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
+      if ($HTTP_POST_VARS['default'] == 'on') {
+        tep_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $HTTP_POST_VARS['code'] . "' where configuration_key = 'DEFAULT_LANGUAGE'");
+      }
       header('Location: ' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')), 'NONSSL')); tep_exit();
     } elseif ($HTTP_GET_VARS['action'] == 'deleteconfirm') {
       tep_db_query("delete from " . TABLE_CATEGORIES_DESCRIPTION . " where language_id = '" . $HTTP_POST_VARS['languages_id'] . "'");
@@ -110,13 +116,12 @@
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_LANGUAGE_ID; ?>&nbsp;</td>
                 <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_LANGUAGE_NAME; ?>&nbsp;</td>
                 <td class="tableHeading">&nbsp;<?php echo TABLE_HEADING_LANGUAGE_CODE; ?>&nbsp;</td>
                 <td class="tableHeading" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
 <?php
   $languages_query_raw = "select languages_id, name, code, image, directory, sort_order from " . TABLE_LANGUAGES . " order by sort_order";
@@ -136,9 +141,13 @@
     } else {
       echo '                  <tr class="tableRow" onmouseover="this.className=\'tableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'tableRow\'" onclick="document.location.href=\'' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('info', 'action')) . 'info=' . $languages['languages_id'], 'NONSSL') . '\'">' . "\n";
     }
+
+    if (DEFAULT_LANGUAGE == $languages['code']) {
+      echo '                <td class="smallText">&nbsp;<b>' . $languages['name'] . ' (default)</b>&nbsp;</td>' . "\n";
+    } else {
+      echo '                <td class="smallText">&nbsp;' . $languages['name'] . '&nbsp;</td>' . "\n";
+    }
 ?>
-                <td class="smallText">&nbsp;<?php echo $languages['languages_id']; ?>&nbsp;</td>
-                <td class="smallText">&nbsp;<?php echo $languages['name']; ?>&nbsp;</td>
                 <td class="smallText">&nbsp;<?php echo $languages['code']; ?>&nbsp;</td>
 <?php
     if ($languages['languages_id'] == @$lInfo->id) {
@@ -156,10 +165,10 @@
   }
 ?>
               <tr>
-                <td colspan="4"><?php echo tep_black_line(); ?></td>
+                <td colspan="3"><?php echo tep_black_line(); ?></td>
               </tr>
               <tr>
-                <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td valign="top" class="smallText">&nbsp;<?php echo $languages_split->display_count($languages_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $HTTP_GET_VARS['page'], TEXT_DISPLAY_NUMBER_OF_LANGUAGES); ?>&nbsp;</td>
                     <td align="right" class="smallText">&nbsp;<?php echo TEXT_RESULT_PAGE; ?> <?php echo $languages_split->display_links($languages_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $HTTP_GET_VARS['page']); ?>&nbsp;<?php if (!$HTTP_GET_VARS['action']) echo '<br><br>&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action', 'info')) . 'action=new', 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_new_language.gif', IMAGE_NEW_LANGUAGE) . '</a>&nbsp;'; ?></td>
@@ -191,6 +200,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_IMAGE . '<br><input type="text" name="image"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_DIRECTORY . '<br><input type="text" name="directory"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_SORT_ORDER . '<br><input type="text" name="sort_order"><br>&nbsp;');
+    $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> Set as default<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_insert.gif', IMAGE_INSERT) . '&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'edit') {
     $form = '<form name="languages" action="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')) . 'action=save', 'NONSSL') . '" method="post"><input type="hidden" name="languages_id" value="' . $lInfo->id . '">'  ."\n";
@@ -202,6 +212,7 @@
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_IMAGE . '<br><input type="text" name="image" value="' . $lInfo->image . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_DIRECTORY . '<br><input type="text" name="directory" value="' . $lInfo->directory . '"><br>&nbsp;');
     $info_box_contents[] = array('align' => 'left', 'text' => TEXT_INFO_LANGUAGE_SORT_ORDER . '<br><input type="text" name="sort_order" value="' . $lInfo->sort_order . '"><br>&nbsp;');
+    if (DEFAULT_LANGUAGE != $lInfo->code) $info_box_contents[] = array('align' => 'left', 'text' => '<input type="checkbox" name="default"> Set as default<br>&nbsp;');
     $info_box_contents[] = array('align' => 'center', 'text' => tep_image_submit(DIR_WS_IMAGES . 'button_update.gif', IMAGE_UPDATE) . '&nbsp;<a href="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')), 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . 'button_cancel.gif', IMAGE_CANCEL) . '</a>');
   } elseif ($HTTP_GET_VARS['action'] == 'delete') {
     $form = '<form name="languages" action="' . tep_href_link(FILENAME_LANGUAGES, tep_get_all_get_params(array('action')) . 'action=deleteconfirm', 'NONSSL') . '" method="post"><input type="hidden" name="languages_id" value="' . $lInfo->id . '">'  ."\n";
