@@ -1,5 +1,5 @@
 /*
-  $Id: stylesheet.css,v 1.30 2001/12/19 15:02:38 hpdl Exp $
+  $Id: stylesheet.css,v 1.31 2001/12/19 15:22:10 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -31,13 +31,13 @@ TR.header {
 }
 
 TR.headerNavigation {
-  background-color: #b6b7cb;
+  background-color: #bbc3d3;
 }
 
 TD.headerNavigation {
   font-family: Verdana, Arial, sans-serif;
   font-size: 10px;
-  background-color: #b6b7cb;
+  background-color: #bbc3d3;
   color: #ffffff;
   font-weight : bold;
 }
@@ -73,13 +73,13 @@ TD.headerInfo {
 }
 
 TR.footer {
-  background-color : #b6b7cb;
+  background-color : #bbc3d3;
 }
 
 TD.footer {
   font-family : Verdana, Arial, sans-serif;
   font-size : 10px;
-  background-color : #b6b7cb;
+  background-color : #bbc3d3;
   color : #ffffff;
   font-weight : bold;
 }
