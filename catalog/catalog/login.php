@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.65 2002/06/03 13:04:43 hpdl Exp $
+  $Id: login.php,v 1.66 2002/06/03 13:19:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -106,8 +106,6 @@ function session_win() {
 <?php
   if ($HTTP_GET_VARS['login'] == 'fail') {
     $info_message = TEXT_LOGIN_ERROR;
-  } elseif ($HTTP_GET_VARS['login'] == 'fail_email') {
-    $info_message = TEXT_LOGIN_ERROR_EMAIL;
   } elseif ($cart->count_contents()) {
     $info_message = TEXT_VISITORS_CART;
   }

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.11 2002/06/03 13:04:44 hpdl Exp $
+  $Id: login.php,v 1.12 2002/06/03 13:19:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,6 +32,5 @@ define('ENTRY_PASSWORD', 'Password:');
 define('TEXT_PASSWORD_FORGOTTEN', '¿Ha olvidado su contraseña? Siga este enlace y se la enviamos.');
 
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> El \'E-Mail\' y/o \'Contraseña\' no figuran en nuestros datos.');
-define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> El \'E-Mail\' ya figura en nuestros datos, use su \'contraseña\' para entrar.');
 define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTA:</b></font> El contenido de su &quot;Cesta de Visitante&quot; será añadido a su &quot;Cesta de Asociado&quot; una vez que haya entrado. <a href="javascript:session_win();">[Mas Informacion]</a>');
 ?>

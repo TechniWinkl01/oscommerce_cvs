@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: login.php,v 1.10 2002/06/03 13:04:44 hpdl Exp $
+  $Id: login.php,v 1.11 2002/06/03 13:19:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -32,6 +32,5 @@ define('ENTRY_PASSWORD', 'Password:');
 define('TEXT_PASSWORD_FORGOTTEN', 'Password forgotten? Click here.');
 
 define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> No match for \'E-Mail Address\' and/or \'Password\'.');
-define('TEXT_LOGIN_ERROR_EMAIL', '<font color="#ff0000"><b>ERROR:</b></font> You\'r \'E-Mail Address\' was found on our database, please use your \'Password\' for login.');
 define('TEXT_VISITORS_CART', '<font color="#ff0000"><b>NOTE:</b></font> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. <a href="javascript:session_win();">[More Info]</a>');
 ?>
