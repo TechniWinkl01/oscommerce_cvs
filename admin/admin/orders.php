@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: orders.php,v 1.79 2002/01/28 04:21:22 hpdl Exp $
+  $Id: orders.php,v 1.80 2002/01/28 06:30:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -64,17 +64,7 @@
     case 'deleteconfirm':
       $oID = tep_db_prepare_input($HTTP_GET_VARS['oID']);
 
-      if ($HTTP_POST_VARS['restock'] == 'on') {
-        $order_query = tep_db_query("select products_id, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($oID) . "'");
-        while ($order = tep_db_fetch_array($order_query)) {
-          tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = products_quantity + " . $order['products_quantity'] . " where products_id = '" . $order['products_id'] . "'");
-        }
-      }
-
-      tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($oID) . "'");
-      tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($oID) . "'");
-      tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($oID) . "'");
-      tep_db_query("delete from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($oID) . "'");
+      tep_remove_order($oID, $HTTP_POST_VARS['restock']);
 
       tep_redirect(tep_href_link(FILENAME_ORDERS, tep_get_all_get_params(array('oID', 'action'))));
       break;

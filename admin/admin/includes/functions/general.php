@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: general.php,v 1.113 2002/01/28 04:56:09 hpdl Exp $
+  $Id: general.php,v 1.114 2002/01/28 06:30:42 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -902,6 +902,20 @@ function tep_address_format($format_id, $delivery_values, $html, $boln, $eoln) {
       tep_reset_cache_block('categories');
       tep_reset_cache_block('also_purchased');
     }
+  }
+
+  function tep_remove_order($order_id, $restock = false) {
+    if ($restock == 'on') {
+      $order_query = tep_db_query("select products_id, products_quantity from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($order_id) . "'");
+      while ($order = tep_db_fetch_array($order_query)) {
+        tep_db_query("update " . TABLE_PRODUCTS . " set products_quantity = products_quantity + " . $order['products_quantity'] . " where products_id = '" . $order['products_id'] . "'");
+      }
+    }
+
+    tep_db_query("delete from " . TABLE_ORDERS . " where orders_id = '" . tep_db_input($order_id) . "'");
+    tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . tep_db_input($order_id) . "'");
+    tep_db_query("delete from " . TABLE_ORDERS_PRODUCTS_ATTRIBUTES . " where orders_id = '" . tep_db_input($order_id) . "'");
+    tep_db_query("delete from " . TABLE_ORDERS_STATUS_HISTORY . " where orders_id = '" . tep_db_input($order_id) . "'");
   }
 
   function tep_reset_cache_block($cache_block) {
