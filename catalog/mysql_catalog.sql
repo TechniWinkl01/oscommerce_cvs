@@ -1,4 +1,4 @@
-# $Id: mysql_catalog.sql,v 1.130 2001/09/09 18:50:08 hpdl Exp $
+# $Id: mysql_catalog.sql,v 1.131 2001/09/09 22:12:11 hpdl Exp $
 #
 # The Exchange Project Database Model for Preview Release 2.2
 #
@@ -40,8 +40,10 @@ CREATE TABLE banners (
   banners_url varchar(64) NOT NULL,
   banners_image varchar(64) NOT NULL,
   banners_group varchar(10) NOT NULL,
+  banners_html_text text,
   expires_impressions int(7),
   expires_date datetime,
+  date_scheduled datetime,
   date_added datetime NOT NULL,
   date_status_change datetime,
   status int(1) DEFAULT '1',

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: application_top.php,v 1.170 2001/09/09 20:29:34 hpdl Exp $
+  $Id: application_top.php,v 1.171 2001/09/09 22:12:13 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -294,8 +294,9 @@
 // infobox
   require(DIR_WS_CLASSES . 'boxes.php');
 
-// auto expire banners
+// auto activate and expire banners
   require(DIR_WS_FUNCTIONS . 'banner.php');
+  tep_activate_banners();
   tep_expire_banners();
 
 // auto expire special products

@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: banner.php,v 1.6 2001/09/09 20:29:58 hpdl Exp $
+  $Id: banner.php,v 1.7 2001/09/09 22:12:14 hpdl Exp $
 
   The Exchange Project - Community Made Shopping!
   http://www.theexchangeproject.org
@@ -13,7 +13,26 @@
 ////
 // Sets the status of a banner
   function tep_set_banner_status($banners_id, $status) {
-    return tep_db_query("update " . TABLE_BANNERS . " set status = '" . $status . "', date_status_change = now() where banners_id = '" . $banners_id . "'");
+    if ($status == '1') {
+      return tep_db_query("update " . TABLE_BANNERS . " set status = '1', date_status_change = now(), date_scheduled = NULL where banners_id = '" . $banners_id . "'");
+    } elseif ($status == '0') {
+      return tep_db_query("update " . TABLE_BANNERS . " set status = '0', date_status_change = now() where banners_id = '" . $banners_id . "'");
+    } else {
+      return -1;
+    }
+  }
+
+////
+// Auto activate banners
+  function tep_activate_banners() {
+    $banners_query = tep_db_query("select banners_id, date_scheduled from " . TABLE_BANNERS . " where date_scheduled != ''");
+    if (tep_db_num_rows($banners_query)) {
+      while ($banners = tep_db_fetch_array($banners_query)) {
+        if (date('Y-m-d H:i:s') >= $banners['date_scheduled']) {
+          tep_set_banner_status($banners['banners_id'], '1');
+        }
+      }
+    }
   }
 
 ////
