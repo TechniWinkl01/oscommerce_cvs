@@ -391,7 +391,10 @@
     tep_db_query("insert into " . TABLE_CUSTOMERS_INFO . " values ('" . $insert_id . "', '', '0', '" . $date_now . "', '')");
 
     $customer_id = $insert_id;
+    $customer_first_name = $HTTP_POST_VARS['firstname'];
     tep_session_register('customer_id');
+    tep_session_register('customer_first_name');
+
 
 // restore cart contents
     $cart->restore_contents();
