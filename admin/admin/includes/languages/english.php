@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: english.php,v 1.118 2004/08/18 11:56:29 hpdl Exp $
+  $Id: english.php,v 1.119 2004/08/24 11:05:51 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -53,6 +53,10 @@ define('HEADER_TITLE_TOP', 'Administration');
 define('HEADER_TITLE_SUPPORT_SITE', 'Support Site');
 define('HEADER_TITLE_ONLINE_CATALOG', 'Online Catalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
+
+define('BOX_CONNECTION_PROTECTED', 'You are protected by a %s secure SSL connection.');
+define('BOX_CONNECTION_UNPROTECTED', 'You are <font color="#ff0000">not</font> protected by a secure SSL connection.');
+define('BOX_CONNECTION_UNKNOWN', 'unknown');
 
 // text for gender
 define('MALE', 'Male');
