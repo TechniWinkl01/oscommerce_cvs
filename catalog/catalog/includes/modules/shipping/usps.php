@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: usps.php,v 1.35 2002/11/01 04:52:45 hpdl Exp $
+  $Id: usps.php,v 1.36 2002/11/11 19:57:49 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -34,9 +34,7 @@
       global $shipping_weight, $shipping_num_boxes;
 
       if ( (tep_not_null($method)) && (isset($this->types[$method])) ) {
-        $prod = $method;
-      } else {
-        $prod = 'Priority';
+        $this->_setService($method);
       }
 
       $this->_setMachinable('False');
@@ -110,6 +108,10 @@
       return array('MODULE_SHIPPING_USPS_STATUS', 'MODULE_SHIPPING_USPS_USERID', 'MODULE_SHIPPING_USPS_PASSWORD', 'MODULE_SHIPPING_USPS_SERVER');
     }
 
+    function _setService($service) {
+      $this->service = $service;
+    }
+
     function _setWeight($pounds, $ounces=0) {
       $this->pounds = $pounds;
       $this->ounces = $ounces;
@@ -133,6 +135,11 @@
       if ($order->delivery['country']['id'] == STORE_COUNTRY) {
         $request  = '<RateRequest USERID="' . MODULE_SHIPPING_USPS_USERID . '" PASSWORD="' . MODULE_SHIPPING_USPS_PASSWORD . '">';
         $services_count = 0;
+
+        if (isset($this->service)) {
+          $this->types = array($this->service => $this->types[$this->service]);
+        }
+
         reset($this->types);
         while (list($key, $value) = each($this->types)) {
           $request .= '<Package ID="' . $services_count . '">' .
