@@ -93,7 +93,7 @@
     }
 //------display customer choosen option eof-----
 	echo '</font></td>' . "\n";
-    echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . round($orders_products_values['products_tax']) . '%&nbsp;</font></td>' . "\n";
+    echo '            <td align="center" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;' . number_format($orders_products_values['products_tax'], TAX_DECIMAL_PLACES) . '%&nbsp;</font></td>' . "\n";
     echo '            <td align="right" valign="top" nowrap><font face="' . TEXT_FONT_FACE . '" size="' . TEXT_FONT_SIZE . '" color="' . TEXT_FONT_COLOR . '">&nbsp;<b>' . tep_currency_format($orders_products_values['products_quantity'] * $orders_products_values['products_price']) . '</b>&nbsp;';
 //------display customer choosen option --------
     if ($attributes_exist == '1') {

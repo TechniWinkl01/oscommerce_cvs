@@ -86,6 +86,7 @@
 // customization for the design layout
   define('IMAGE_REQUIRED', 1); // should product images be necessary
   define('TAX_VALUE', 16); // propducts tax
+  define('TAX_DECIMAL_PLACES', 0); // 16% - If this were 2 it would be 16.00%
   define('BOX_WIDTH', 125); // how wide the boxes should be in pixels (default: 125)
 
   define('HEADER_BACKGROUND_COLOR', '#AABBDD');
