@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: payment.php,v 1.1 2005/03/30 00:08:17 hpdl Exp $
+  $Id: payment.php,v 1.2 2005/04/25 16:29:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -58,7 +58,7 @@
 
 // redirect to the billing address page when no default address exists
       if ($osC_Customer->hasDefaultAddress() === false) {
-        $this->page_contents = 'payment_address.php';
+        $this->page_contents = 'checkout_payment_address.php';
       }
 
 // if no billing destination address was selected, use the customers own address as default

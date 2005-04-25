@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: shipping.php,v 1.1 2005/03/30 00:00:07 hpdl Exp $
+  $Id: shipping.php,v 1.2 2005/04/25 16:29:24 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
@@ -36,7 +36,7 @@
       }
 
       if ($osC_Customer->hasDefaultAddress() === false) {
-        $this->page_contents = 'shipping_address.php';
+        $this->page_contents = 'checkout_shipping_address.php';
       }
 
 // if no shipping destination address was selected, use the customers own address as default
