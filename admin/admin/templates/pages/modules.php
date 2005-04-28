@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: modules.php,v 1.3 2004/11/07 21:00:46 hpdl Exp $
+  $Id: modules.php,v 1.4 2005/04/28 07:40:28 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -32,7 +32,7 @@
 <?php
   $installed_modules = array();
   foreach ($files as $file) {
-    include('../includes/languages/' . $osC_Session->value('language') . '/modules/' . $module_type . '/' . $file['name']);
+    include('../includes/languages/' . $osC_Language->getDirectory() . '/modules/' . $module_type . '/' . $file['name']);
     include('../includes/modules/' . $module_type . '/' . $file['name']);
 
     $class = substr($file['name'], 0, strrpos($file['name'], '.'));

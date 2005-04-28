@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: orders.php,v 1.1 2004/07/22 23:14:43 hpdl Exp $
+  $Id: orders.php,v 1.2 2005/04/28 07:40:25 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -19,9 +19,9 @@
 // Class constructor
 
     function osC_Statistics_Orders() {
-      global $osC_Session, $osC_Currencies;
+      global $osC_Language, $osC_Currencies;
 
-      include('includes/languages/' . $osC_Session->value('language') . '/modules/statistics/orders.php');
+      $osC_Language->load('modules/statistics/orders.php');
 
       if (!isset($osC_Currencies)) {
         if (!class_exists('osC_Currencies')) {

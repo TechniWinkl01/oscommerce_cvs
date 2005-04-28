@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: language.php,v 1.3 2004/11/29 14:36:13 hpdl Exp $
+  $Id: language.php,v 1.4 2005/04/28 07:40:21 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,6 +18,16 @@
 
     function osC_Language_Admin() {
       $this->osC_Language();
+    }
+
+/* Public methods */
+
+    function load($definition = false) {
+      if (is_string($definition) && file_exists('includes/languages/' . $this->getDirectory() . '/' . $definition)) {
+        include('includes/languages/' . $this->getDirectory() . '/' . $definition);
+      } else {
+        include('includes/languages/' . $this->getDirectory() . '.php');
+      }
     }
 
     function insert($language, $default = false) {

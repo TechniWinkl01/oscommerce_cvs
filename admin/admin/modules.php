@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: modules.php,v 1.50 2005/04/06 00:12:13 hpdl Exp $
+  $Id: modules.php,v 1.51 2005/04/28 07:40:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -76,7 +76,7 @@
       case 'install':
       case 'remove':
         if (file_exists('../includes/modules/' . $module_type . '/' . $_GET['module'] . $file_extension)) {
-          include('../includes/languages/' . $osC_Session->value('language') . '/modules/' . $module_type . '/' . $_GET['module'] . $file_extension);
+          include('../includes/languages/' . $osC_Language->getDirectory() . '/modules/' . $module_type . '/' . $_GET['module'] . $file_extension);
           include('../includes/modules/' . $module_type . '/' . $_GET['module'] . $file_extension);
           $module = new $_GET['module'];
           if ($action == 'install') {

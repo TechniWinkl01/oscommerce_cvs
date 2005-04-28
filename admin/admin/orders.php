@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: orders.php,v 1.118 2004/11/07 21:00:30 hpdl Exp $
+  $Id: orders.php,v 1.119 2005/04/28 07:40:17 hpdl Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2004 osCommerce
+  Copyright (c) 2005 osCommerce
 
   Released under the GNU General Public License
 */
@@ -25,7 +25,7 @@
   $orders_status_array = array();
   $Qstatuses = $osC_Database->query('select orders_status_id, orders_status_name from :table_orders_status where language_id = :language_id');
   $Qstatuses->bindTable(':table_orders_status', TABLE_ORDERS_STATUS);
-  $Qstatuses->bindInt(':language_id', $osC_Session->value('languages_id'));
+  $Qstatuses->bindInt(':language_id', $osC_Language->getID());
   $Qstatuses->execute();
 
   while ($Qstatuses->next()) {
